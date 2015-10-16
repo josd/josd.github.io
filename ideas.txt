@@ -1,0 +1,226 @@
+=================================
+1/ Reasoning based form generator
+=================================
+
+The problem
+-----------
+
+Most software, currently designed, is making compromises as it comes to
+the choice between being generic and being specific. It is impossible
+to define - up-front - software screens that are adapted for 100 % to
+the specific needs of the user and the involved tasks he has to perform.
+The more generically the screens are designed the more maintainable the
+software becomes, but the less optimized the application becomes.
+Moreover, the technology used for defining screens and forms, be it
+generic or specific, is still pretty much 'hard wired' into the code.
+This makes any change in context (user, goal, environment) difficult to
+implement.
+
+The goal
+--------
+
+Based on a formal description of the task to execute, the available or
+needed information, the user preferences, the visual style guides and
+behavioral policies and the system environment (web, operating system,
+display, ...), an (existing) reasoning engine will be used to generate
+an ad hoc formal description of a form that then can be rendered and
+used by a user. Advantage of such a system is a much more generic
+paradigm of application design, enabling flexibility, controlled by
+externally declared knowledge. Advantage for the user is that he will
+deal with exactly that what he needs to do the job, optimally adapted
+to his preferences and working environment. The built system will focus
+on a small subset of a healthcare application where –for demonstration
+purposes – different changes of context (style guides, user
+preferences, ...) will be implemented.
+Challenges are 1) the formalization of style guides, behavior, user
+preferences 2) the performance 3) the reasoning and rules driving
+the system.
+
+
+=====================
+2/ Ontology mediation
+=====================
+
+The problem
+-----------
+
+More and more there is a need in healthcare to share clinical
+information and workflow across multiple health care providers. Until
+now, these interoperability problems have always been solved by hard
+coded connectivity platforms, based on the HL7 standard. So far, mostly
+administrative data were exchanged and when it came to clinical
+information, only free text documents were shared. The next generation
+of clinical software requires structured information with and
+unambiguous semantics. To make the picture even more complicated,
+different incompatible standards are emerging (HL7 v3, CDA, OpenEHR,
+13606, ...).
+
+The goal
+--------
+
+Using Semantic Web technology a connectivity platform will be designed
+in such a way that semantic interoperability between 2 hospital systems
+will be achieved. To be realistic and feasible, only a subset of
+clinical data will be used. Based on a formal description of a common
+data set ('internal ontology') holding the best ideas and common
+structures from the most prominent standards (HL7, OpenEHR), but
+focused on a realistic subset, an adapter will be made between 2
+clinical system and the internal ontology. A proof of concept will be
+built where a patient summary will be visualized showing distributed
+clinical data, coming from both systems. This means that a hospital 1
+has to be able to launch a query, defined on a semantic level, that
+this query will be sent to the internal adapter and to the adapter of
+hospital 2 and that the results will be merged and visualized.
+
+
+====================================================
+3/ Using Bayesian inference for clinical data mining
+====================================================
+
+The problem
+-----------
+
+Medical knowledge evolves by doing fundamental medical research
+confirmed in clinical trials. The problem of clinical trials is that,
+due to the strict inclusion and exclusion criteria, very often the
+results are not usable or comparable within clinical practice.
+This is because clinical trials make a 'nice picture of a dirty world'.
+The contradiction is that the better the clinical trial is, the better
+you can prove a physiological relationship, but the farther away you
+are from reality. On the other hand, in health care information systems
+there is a huge amount of relevant clinical data, just waiting to be
+explored. This clinical data is a result of real day to day clinical
+care and gives us the 'real picture'. Both approaches are useful and
+needed, but we need the best of both.
+
+The goal
+--------
+
+Based on Bayesian inference on real clinical data, relationships and
+rules will be inducted. The dependency from context, and the
+physiological relationship is expressed in sensitivity and specificity
+(ROC curve). The fact that in Bayesian relationship the context is
+defined explicitly, can be exploited to have the best of both
+approaches, described above.. It will lead to a system where still
+the physiological relationship can be defined, but where also the
+context can be calculated in a very explicit way, such that – given
+other contexts – the results of the mining can be transferred to
+another environment, making them much more usable. Finding a
+relationship between both approaches can make future medical research,
+cheaper and more usable. In the data mining framework to be built,
+the mining algorithms and parameters will be inferred by using
+previous results and generic knowledge to make even the data mining
+activity itself the result of reasoning.
+
+
+====================================
+4/ Clinical Decision Support Systems
+====================================
+
+The problem
+-----------
+
+Few commercial healthcare information systems provide a full complement
+of proactive decision support. The richness of applying a broad range
+of medical knowledge to influence physicians' orders through the
+responsible, appropriate use of (both discrete and probabilistic)
+knowledge representation is still an unachieved goal.
+
+The goal
+--------
+
+Only when both patient data and clinical knowledge reside in the system
+in machine-understandable format can the system provide additional
+support to the clinician making decisions. For example, encoded medical
+knowledge about the meaning and significance of changing laboratory-test
+results would allow a system to provide alerts, an active function, in
+addition to the passive data retrieval function. Similarly, if the
+system could match the patient context with relevant clinical
+guidelines, it could present ordering options consistent with the
+appropriate guidelines. The clinician is responsible for the definitive
+decision, but the system can actively provide options and explanations
+that improve the clinician's efficiency and compliance with accepted
+guidelines of practice.
+
+
+============================
+5/ Semantic Interoperability
+============================
+
+The problem
+-----------
+
+Research & Development in the field of Semantic Interoperability
+(http://en.wikipedia.org/wiki/Semantic_interoperability) in order to
+provide a knowledge framework for future usage and identifying the needs
+for knowledge management (onthologies). Since a couple of years Agfa is
+investing in the research of Semantic Web technologies together with
+the W3C, those technologies became mature enough for a real world
+implementation of which we would like to benefit within the labour
+intensive interoperability world in Healthcare. This in order to improve
+inter hospital and system exchange capabilities as well as lowering the
+cost of implementation.
+
+The goal
+--------
+
+The first step towards such a framework is combining the 'triplets'
+technology from our research department with the BPE framework of the
+interoperability development department, providing a toolset that could
+support multiple HL7v3 versions, formats, localizations using a single
+knowledge repository.
+
+
+=======================================
+6/ A Proof Checker for the Semantic Web
+=======================================
+
+The problem
+-----------
+
+Agfa HealtCare develops semantic web applications based on reasoning
+results using medical knowledge and clinical data. This reasoning
+results are automatically generated with the help of theorem provers.
+Automatic theorem provers are complex pieces of software and there
+is no guarantee that the proofs are correct. Proofs are fragile
+entities in that one misstep typically makes the whole proof incorrect.
+
+The goal
+--------
+
+An extra 'sanity check' consists of checking all proofs with an
+independent proof checker. The proof checker doesn't build a proof
+but checks wether a given proof is a correct proof for the given
+theorem. The goal is to develop such a open source proof checker.
+An example of such a proof checker is the W3C Cwm proof checker
+http://www.w3.org/2000/10/swap/check.py using the proof ontology
+http://www.w3.org/2000/10/swap/reason.n3 as illustrated in test case
+http://lists.w3.org/Archives/Public/www-archive/2009Jan/0019.html
+The work comprises studying the semantic web logic N3Logic,
+studying the N3 rulesets and proofs used in our advanced clinical
+applications, building the proof checker and evaluating the proof
+checker within those advanced clinical applications.
+
+
+===================================
+7/ FCM for medical decision support
+===================================
+
+The problem
+-----------
+
+Few commercial healthcare information systems provide a full complement
+of proactive decision support. The richness of applying a broad range
+of medical knowledge to influence physicians' orders through the
+responsible, appropriate use of (both discrete and probabilistic)
+knowledge representation is still an unachieved goal.
+
+The goal
+--------
+
+Recently Elpiniki Papageorgiou suggested new methodologies for FCMs for
+medical decision support, such as evolutionary FCMs for time-series
+prediction, Fuzzy Grey Cognitive Maps and Intuitionistic FCMs, which
+are really very promising appoaches for medical decision making. Maybe
+it would be interesting to implement them in semantic web and to create
+ontological new FCMs for decision support.
