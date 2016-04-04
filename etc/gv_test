@@ -1,5 +1,0 @@
-#!/bin/bash
-# Probabilistic reasoning using rules formatted in N3Logic
-# method inspired by Markov Logic Network (MLN)
-# See https://espace.library.uq.edu.au/view/UQ:344936/s4086748_phd_submission.pdf
-eye "$@" --nope http://josd.github.io/etc/gv-example.n3 http://josd.github.io/etc/gv-mln.n3 http://josd.github.io/etc/mmln-component.n3 --query http://josd.github.io/etc/gv-query.n3 > gv-answer.n3
