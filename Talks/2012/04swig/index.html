@@ -1,0 +1,404 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="application/xhtml+xml" />
+    <title>EYE looking through N3 glasses</title>
+    <link rel="stylesheet" href="white.css" type="text/css" media="screen, projection" />
+    <link rel="stylesheet" href="http://www.w3.org/2005/03/slideshow.css" type="text/css" media="screen, projection" />
+    <script type="text/javascript" src="http://www.w3.org/2005/03/slideshow.js"></script>
+</head>
+
+<body xml:lang="en" lang="en">
+<div class="slide">
+<h1>EYE looking through N3 glasses</h1>
+<p>by <a href="https://josd.github.io/">Jos De Roo</a> of <a href="https://josd.github.io/">AGFA</a><br/></p>
+</div>
+
+<div class="slide">
+<h1>Context is Semantic Web (slides from TimBL)</h1>
+<ul>
+  <li>Really simple</li>
+  <li>Based on RDF standards</li>
+  <li><a href="http://www.w3.org/TeamSubmission/n3/">N3</a> (Notation 3) syntax makes it much easier</li>
+</ul>
+</div>
+
+<div class="slide">
+<h1>Subject, verb and object</h1>
+<p>All knowledge is just a set of statements</p>
+<pre>&lt;#pat&gt; &lt;#knows&gt; &lt;#jo&gt; .
+
+### in classical logic: <span style="background: #ffff00">knows(pat,jo)</span>
+</pre>
+<ul>
+  <li>Everything is identified by URI
+    <p>Here a local URI but could point to ANY document</p>
+    <p><em>Verb</em> known as <em>predicate</em> in the statement</p>
+
+  </li>
+  <li>The thing you use a predicate is a <em>Property</em>.</li>
+  <li>Don't forget the period.</li>
+</ul>
+</div>
+
+<div class="slide">
+<h1>Object can be literal</h1>
+<p></p>
+<pre>&lt;#pat&gt; &lt;#knows&gt; &lt;#jo&gt; .
+&lt;#pat&gt; &lt;#age&gt; 24 .</pre>
+<p></p>
+<p>Note: noun form "age"  preferred to the verb style "knows" for
+predicates.</p>
+</div>
+
+<div class="slide">
+<h1>Saving space: the comma and semicolon</h1>
+<p></p>
+<pre>&lt;#pat&gt; &lt;#child&gt;  &lt;#al&gt;, &lt;#chaz&gt;, &lt;#mo&gt; ;
+       &lt;#age&gt;    24 ;
+       &lt;#eyecolor&gt; "blue" .</pre>
+<p></p>
+<ul>
+  <li>Comma: Here comes another object for same subject &amp; predicate</li>
+  <li>Semicolon: here comes another predicate for same subject.</li>
+  <li>Aim?  Easy scribbling of data.</li>
+</ul>
+</div>
+
+<div class="slide">
+<h1>Data .. e.g. a table</h1>
+<p></p>
+<table border="1">
+  <tbody>
+    <tr>
+      <td></td>
+      <td>age</td>
+      <td>eyecolor</td>
+    </tr>
+    <tr>
+      <td>pat</td>
+      <td>24</td>
+      <td>blue</td>
+    </tr>
+    <tr>
+      <td>al</td>
+      <td>3</td>
+      <td>green</td>
+    </tr>
+    <tr>
+      <td>jo</td>
+      <td>5</td>
+      <td>green</td>
+    </tr>
+  </tbody>
+</table>
+<pre>
+
+  &lt;#pat&gt;   &lt;#age&gt; 24;  &lt;#eyecolor&gt; "blue" .
+  &lt;#al&gt;    &lt;#age&gt;  3;  &lt;#eyecolor&gt; "green" .
+  &lt;#jo&gt;    &lt;#age&gt;  5;  &lt;#eyecolor&gt; "green" .
+</pre>
+<p></p>
+</div>
+
+<div class="slide">
+<h1>Unnamed things: Square brackets</h1>
+<p></p>
+<pre>
+&lt;#pat&gt; &lt;#child&gt; [ &lt;#age&gt; 4 ] , [ &lt;#age&gt; 3 ].
+
+### in classical logic: <span style="background: #ffff00">&exist;x &exist;y child(pat,x) &and; child(pat,y) &and; age(x,4) &and; age(y,3)</span>
+</pre>
+<p></p>
+<p>Note:</p>
+<ul>
+  <li>Words used as IDs have no actual meaning.</li>
+  <li>Unnamed nodes can't be used elsewhere.</li>
+  <li>If things are names, make the name explicit</li>
+</ul>
+<pre>
+  [ &lt;#name&gt; "Pat"; &lt;#age&gt; 24;  &lt;#eyecolor&gt; "blue"  ].
+  [ &lt;#name&gt; "Al" ; &lt;#age&gt;  3;  &lt;#eyecolor&gt; "green" ].
+  [ &lt;#name&gt; "Jo" ; &lt;#age&gt;  5;  &lt;#eyecolor&gt; "green" ].
+</pre>
+<p></p>
+</div>
+
+<div class="slide">
+<h1>Local concept</h1>
+<p></p>
+<pre>&lt;&gt; &lt;#title&gt;  "A simple example of N3".</pre>
+<p></p>
+<p>Who or what knows what &lt;#title&gt; is?</p>
+<p></p>
+</div>
+
+<div class="slide">
+<h1>Shared concept</h1>
+<pre>&lt;&gt; &lt;http://purl.org/dc/elements/1.1/title&gt;
+ "Primer - Getting into the Semantic Web and RDF using N3".</pre>
+<p></p>
+<p>To save space:</p>
+<pre>@prefix dc:  &lt;http://purl.org/dc/elements/1.1/&gt; .
+&lt;&gt; dc:title
+  "Primer - Getting into the Semantic Web and RDF using N3".</pre>
+<p></p>
+<p>Note</p>
+<ul>
+  <li>No &lt;&gt; used when prefixed identifier</li>
+  <li>Typically prefix stands for eveything up to including a "#"</li>
+  <li>Dublin core example alas does not give RDF schema directly: no "#"</li>
+</ul>
+<p></p>
+</div>
+
+<div class="slide">
+<h1>Making vocabularies</h1>
+<ul>
+  <li>A set of shared concepts</li>
+  <li><strong>Properties</strong> are things to use as predicates (verbs)
+    <p><strong>Classes</strong> can be the type of an object</p>
+    <p><strong>rdf:type</strong> is just a property, abbrevaiated to
+    <code>"a"</code> in N3</p>
+  </li>
+  <li>You can invent them and describe Properties and Classes.</li>
+</ul>
+<p></p>
+<p>Equivalent:</p>
+<pre>:Person rdf:type  rdfs:Class
+:Person a rdfs:Class.</pre>
+<p></p>
+<p>which we could use with data;</p>
+<pre>:Pat a :Person.</pre>
+<p></p>
+</div>
+
+<div class="slide">
+<h1>Examples: class and property</h1>
+<pre>:Woman a rdfs:Class; rdfs:subClassOf :Person .
+</pre>
+<p>and a property:</p>
+<pre>:sister a rdf:Property.</pre>
+<p>Something about the Property <code>:sister</code>::</p>
+<pre>:sister rdfs:domain :Person;
+        rdfs:range :Woman.</pre>
+<p></p>
+<p>Use:</p>
+<pre>:Pat  :sister  :Jo.</pre>
+<p></p>
+<p>Convention:</p>
+<ul>
+  <li>Class ids start with capital, Property ids with lowercase</li>
+</ul>
+<p></p>
+<p></p>
+</div>
+
+<div class="slide">
+<h1>Rules Are Just Statements</h1>
+<pre>
+
+#   subject        verb        object
+#=============  ==========    ==============
+{ ?x :son ?y }      =&gt;        { ?y a :Male }.
+{ ?x :son ?y }  log:implies   { ?y a :Male }.
+
+### in classical logic: <span style="background: #ffff00">&forall;x &forall;y son(x,y) &rArr; male(y)</span></pre>
+<p>The terms in braces { } are <em>formulas</em>.</p>
+<p>The rule statement relates two formulas.</p>
+</div>
+
+<div class="slide">
+<h1>More Complex Antecedent</h1>
+<pre>{ ?x :son ?y.
+  ?y!:age math:lessThan 15 }
+ =&gt;
+{ ?y a :Boy }
+</pre>
+</div>
+
+<div class="slide">
+<h1>More Complex Consequent</h1>
+<pre>{ ?x :son ?y }
+  =&gt;
+{ ?y a :Male.
+  ?y :parent ?x.
+  ?x a :Parent }.
+</pre>
+</div>
+
+<div class="slide">
+<h1>Layer Cake</h1>
+<img src="http://www.w3.org/DesignIssues/diagrams/sweb-stack/2006a.png" alt="sweb-stack"/>
+</div>
+
+<div class="slide">
+<h1>EYE, an open source reasoning engine</h1>
+<ul>
+    <li>EYE stands for "Euler Yet another proof Engine" and it is a further incremental development of Euler which is an inference engine supporting logic based proofs.</li>
+    <li>EYE is a backward-forward-backward chaining reasoner design enhanced with Euler path detection.</li>
+    <li>The Euler path detection is roughly "don't step in your own steps" to avoid vicious circles so to speak and in that respect there is a similarity with what
+        Leonhard Euler discovered in 1736 for the <a href="http://mathworld.wolfram.com/KoenigsbergBridgeProblem.html">Koenigsberg Bridge Problem</a>.</li>
+    <li>The reasoning that EYE is performing is grounded in FOL (First Order Logic).</li>
+    <li>Keeping a language less powerful than FOL is quite reasonable within an application, but not for the Web, see
+        <a href="http://www.w3.org/DesignIssues/Logic.html">http://www.w3.org/DesignIssues/Logic.html</a>.</li>
+    <li>Open source project hosted at <a href="https://github.com/josd/eye">https://github.com/josd/eye</a>.</li>
+</ul>
+</div>
+
+<div class="slide">
+<h1>Detailed design of EYE</h1>
+<ul>
+    <li><a href="http://www.w3.org/TeamSubmission/n3/">N3</a> (Notation 3) parser specified as Prolog DCG (Definite Clause Grammar)</li>
+    <li><a href="http://www.w3.org/DesignIssues/N3Logic">N3Logic</a> to N3P (Notation 3 P-code) compiler</li>
+    <li>EAM (Euler Abstract Machine) with Euler path detection to avoid loops and with postponed brake mechanism to run at much increased speed</li>
+    <li>proof construction using the <a href="http://www.w3.org/2000/10/swap/reason.n3">http://www.w3.org/2000/10/swap/reason</a> vocabulary for proofs</li>
+    <li>builtins and support predicates for the above functionalities</li>
+</ul>
+</div>
+
+<div class="slide">
+<h1>EYE under the hood</h1>
+In the current design of EYE things are integrated as follows:
+<pre>
+<img src="https://josd.github.io/images/eye-reasoning-engine.png" alt="EYE" height="600" width="750"/>
+</pre>
+</div>
+
+<div class="slide">
+<h1>Basic MONADIC Benchmark</h1>
+<pre>
+       triples   cycles |         <a href="http://www.w3.org/2000/10/swap/doc/cwm">cwm</a>         <a href="https://github.com/josd/eye">eye</a>        <a href="http://jena.apache.org">jena</a>
+                        |       [sec]       [sec]       [sec]
+------------------------|------------------------------------
+        10,000    1,518 |      15.400       0.420       3.200
+       100,000      645 |      99.860       2.190       9.310
+     1,000,000      380 |   1,094.860      21.170      75.380
+    10,000,000      480 |  (OutOfMem)     231.610     853.060
+   100,000,000      480 |               2,640.580   9,217.800
+ 1,000,000,000      431 |              32,474.540  (OutOfMem)
+
+Test environment:
+
+Linux 4.0.5 x86_64
+processor	: 0
+model name	: Intel(R) Xeon(R) CPU E5-2665 0 @ 2.40GHz
+processor	: 1
+model name	: Intel(R) Xeon(R) CPU E5-2665 0 @ 2.40GHz
+processor	: 2
+model name	: Intel(R) Xeon(R) CPU E5-2665 0 @ 2.40GHz
+processor	: 3
+model name	: Intel(R) Xeon(R) CPU E5-2665 0 @ 2.40GHz
+MemTotal:       264163268 kB
+
+
+Reference:
+
+<a href="https://github.com/josd/bmb">https://github.com/josd/bmb</a>
+</pre>
+</div>
+
+<div class="slide">
+<h1>Deep taxonomy benchmark</h1>
+<pre>
+         depth |         <a href="http://www.w3.org/2000/10/swap/doc/cwm">cwm</a>         <a href="https://github.com/josd/eye">eye</a>      <a href="http://hermit-reasoner.com/">hermit</a>       <a href="http://www.jdrew.org/jDREWebsite/jDREW.html">jdrew</a>        <a href="http://jena.apache.org">jena</a>
+               |       [sec]       [sec]       [sec]       [sec]       [sec]
+---------------|------------------------------------------------------------
+            10 |       0.160       0.018       0.055       0.130       0.047
+           100 |       1.050       0.022       1.040       0.200       0.422
+         1,000 |      65.930       0.063       3.580       0.870       9.302
+        10,000 |   7,298.000       0.482     310.510      18.680   2,597.242
+       100,000 | 732,974.070       4.808  (OutOfMem)   1,875.000  (OutOfMem)
+     1,000,000 |  (848 days)      48.434              (OutOfMem)
+
+
+Test environment:
+
+Linux 4.0.5 x86_64
+processor	: 0
+model name	: Intel(R) Xeon(R) CPU E5-2665 0 @ 2.40GHz
+processor	: 1
+model name	: Intel(R) Xeon(R) CPU E5-2665 0 @ 2.40GHz
+processor	: 2
+model name	: Intel(R) Xeon(R) CPU E5-2665 0 @ 2.40GHz
+processor	: 3
+model name	: Intel(R) Xeon(R) CPU E5-2665 0 @ 2.40GHz
+MemTotal:       264163268 kB
+
+
+Reference:
+
+<a href="http://ruleml.org/WellnessRules/files/WellnessRulesN3-2009-11-10.pdf">http://ruleml.org/WellnessRules/files/WellnessRulesN3-2009-11-10.pdf</a>
+</pre>
+</div>
+
+<div class="slide">
+<h1>RESTdesc Composition Benchmark</h1>
+<pre>
+        length |         <a href="http://www.w3.org/2000/10/swap/doc/cwm">cwm</a>         <a href="https://github.com/josd/eye">eye</a>
+               |       [sec]       [sec]
+---------------|------------------------
+             2 |       0.188       0.029
+             4 |       0.371       0.032
+             8 |       1.004       0.038
+            16 |       3.504       0.053
+            32 |      13.968       0.085
+            64 |      58.689       0.157
+           128 |     251.361       0.344
+           256 |   1,081.179       0.936
+           512 | (MaxRecurs)       2.894
+         1,024 |                   9.764
+
+
+Test environment:
+
+Linux 4.0.5 x86_64
+processor	: 0
+model name	: Intel(R) Xeon(R) CPU E5-2665 0 @ 2.40GHz
+processor	: 1
+model name	: Intel(R) Xeon(R) CPU E5-2665 0 @ 2.40GHz
+processor	: 2
+model name	: Intel(R) Xeon(R) CPU E5-2665 0 @ 2.40GHz
+processor	: 3
+model name	: Intel(R) Xeon(R) CPU E5-2665 0 @ 2.40GHz
+MemTotal:       264163268 kB
+
+
+Reference:
+
+<a href="https://github.com/RubenVerborgh/RESTdesc-Composition-Benchmark">https://github.com/RubenVerborgh/RESTdesc-Composition-Benchmark</a>
+</pre>
+</div>
+
+<div class="slide">
+<h1>EYE Server by Ruben Verborgh</h1>
+<ul>
+    <li>Online reasoning service at <a href="http://eye.restdesc.org">http://eye.restdesc.org</a></li>
+    <li>Open source code at <a href="https://github.com/RubenVerborgh/EyeServer">https://github.com/RubenVerborgh/EyeServer</a></li>
+    <li>For instance the following command<pre>
+curl "http://eye.restdesc.org?data=http://eulersharp.sourceforge.net/2003/03swap/socrates.n3
+                &amp;query=http://eulersharp.sourceforge.net/2003/03swap/socratesF.n3"
+</pre>returns<pre>
+@prefix log: &lt;http://www.w3.org/2000/10/swap/log#&gt;.
+...
+
+:Socrates a _:Man_1.
+:Socrates a :Mortal.
+</pre></li>
+</ul>
+</div>
+
+<div class="slide">
+<h1>Online course by Ruben Verborgh</h1>
+<p><a href="http://n3.restdesc.org/">Semantic Web Reasoning With EYE</a></p>
+</div>
+
+<div class="slide">
+<h1>Thank You</h1>
+<p/>
+<p>Thank you for your attention</p>
+<p><a href="http://www.agfa.com/w3c/Talks/2012/04swig/">http://www.agfa.com/w3c/Talks/2012/04swig/</a></p>
+</div>
+
+</body>
+</html>

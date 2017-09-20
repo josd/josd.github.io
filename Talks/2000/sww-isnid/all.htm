@@ -1,0 +1,79 @@
+<html>
+<head>
+  <title>Semantic Web Workshop - ISNID</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+</head>
+
+<H1>Semantic Web Workshop - ISNID</H1>
+<P>Inferential Semantics for Networked Image Data:
+<P>Supporting the Derivation and Management of Semantic Attributes for Web-Based Multimedia Content
+<P>Harold Boley (DFKI) and Jos De Roo (AGFA)
+
+<H1>Background (AGFA and DFKI)</H1>
+<UL>
+  <LI>At Agfa, the declarative Eve and
+      <A HREF="http://www.agfa.com/w3c/euler/">Euler</A> systems have
+      been developed for capturing and transforming networked image data.</LI>
+  <LI>The Euler work has incorporated image annotations on the basis
+      of the W3C's <A HREF="http://www.w3.org/RDF/">RDF</A> standard.</LI>
+  <LI>At DFKI, the inference rule system
+      <A HREF="http://www.relfun.org/rfml/">RFML</A> has been developed,
+      which can be applied to annotations for deriving new semantic
+      attributes.</LI>
+  <LI>The joint <A HREF="http://www.dfki.uni-kl.de/ruleml/">RuleML</A>
+      Initiative has started to unify the various markups for XML and
+      RDF inference rules.</LI>
+</UL>
+
+<H1>Building the future (taken from Tim Berners-Lee)</H1>
+<P><img src="SW-stack2.gif" alt="stack"></P>
+
+<H1>Problem</H1>
+<UL>
+  <LI>In practice, there is a lot of simple rules that can operate
+      on a combination of extracted image features (obtained via image
+      analysis) and additional image-related data.</LI>
+  <LI>The implicit meaning in image data can thus be made explicit.</LI>
+  <LI>We study the issue of how to infer (only) meaningful facts from
+      networked image data.
+  <LI>In the non-distributed case, the semantics of some centralized
+      image data can be regarded model-theoretically, as the set of
+      facts whose deduction is sanctioned by the given rules.</LI>
+  <LI>For example, rules can infer the transitive closure of a centralized
+      'connected' attribute. In the distributed case, we usually have an
+      open network of image data, for which no model-theoretic semantics
+      exists.</LI>
+  <LI>In the example, the transitive closure of a distributed
+      multi-sensor-derived 'connected' attribute may never form a single
+      stable set.</LI>
+</UL>
+
+<H1>Proposal</H1>
+<UL>
+  <LI>We thus propose tailored, "least power" mechanisms for inferencing
+      with attributes specific for images such as topology, gemometry,
+      texture and color.</LI>
+  <LI>These mechanisms will be layered such that the appropriate
+      mechanism is easily identified for each given task (e.g., a functional
+      mechanism will be used for computing with measurements, thus avoiding
+      relational search whenever possible).</LI>
+  <LI>The work will be done on the basis of real-world (Agfa) image examples
+      and their annotations. The examples will be classified along relevant
+      dimensions, e.g. according to descriptive complexity, for testing
+      the layered inference mechanisms.</LI>
+</UL>
+
+<H1>Architecture</H1>
+<UL>
+  <LI>Furthermore, to exploit the networked character of the given (Agfa)
+      image data, we will study a "Webized" architecture for distributing
+      inference mechanisms over appropriate subsets of input data, and
+      for channelling output data to possible further processing steps.</LI>
+  <LI>For this, metadata content and capability descriptions of,
+      respectively, data and mechanisms will be explored.</LI>
+  <LI>We envisage an efficient, platform-independent Java
+      implementation of the developing inferential semantics for
+      networked image data.</LI>
+</UL>
+</body>
+</html>

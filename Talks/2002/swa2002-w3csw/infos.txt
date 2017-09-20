@@ -1,0 +1,22 @@
+#----------------------------------------------------------
+# Slidemaker tools parameters
+#----------------------------------------------------------
+# Check http://www.w3.org/Talks/YYMMsub/ for documentation
+
+#baselang = en-US
+#charset = ISO-8859-1
+author = Jos De Roo
+authorUrl = http://www.agfa.com/w3c/jdroo/
+#author2 = 
+#author2Url = 
+#cssUserFiles = 
+logoLink = http://www.agfa.com/
+logoFile = ../Icons/agfa_home.gif
+logoAlt = AGFA
+#logoLink2 = 
+#logoFile2 = 
+#logoAlt2 =
+#cssStandardFiles = ../Tools/w3ctalk-640.css,../Tools/w3ctalk-800.css,../Tools/w3ctalk-1024.css
+#cssStandardFiles = ../Tools/w3ctalk-640w.css,../Tools/w3ctalk-800w.css,../Tools/w3ctalk-1024w.css,../Tools/w3ctalk-640.css,../Tools/w3ctalk-800.css,../Tools/w3ctalk-1024.css,../Tools/slide-640.css,../Tools/slide-800.css,../Tools/slide-1024.css
+cssStandardFiles = ../Tools/slide-640.css,../Tools/slide-800.css,../Tools/slide-1024.css
+talkTitle = W3C and the Semantic Web

@@ -1,0 +1,3 @@
+http://cgi.w3.org/team-bin/Prg50b.pl
+
+http://www24.w3.org:8080/tjg/WWW/Team/old-headlines.html

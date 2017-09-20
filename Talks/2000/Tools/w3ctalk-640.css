@@ -1,0 +1,184 @@
+BODY {
+  margin-left: 2%;
+  margin-right: 2%;
+  color: white;
+  background: #000060;
+  font-size: 24px;
+  font-family: arial, helvetica, sans-serif;
+}
+DIV.slidebody {
+  color: white;
+  margin: 0;
+  height: 275px;
+  overflow: auto;
+}
+SMALL {
+  font-size: 90%;
+}
+BIG {
+  font-size: 120%;
+}
+IMG {
+  border: 0;
+}
+
+CODE {
+  color: #FF9; /* pale yellow */
+  font-weight: bold;
+  font-family: "Courier New", courier, monospace;
+}
+
+A:link    { color: #ffffe8 /* yellowish white */; text-decoration: underline } 
+A:visited { color: #eeffee /* light mint green */; text-decoration: underline }
+A:active  { color: red }
+A.offsite { color: yellow }
+
+P.author  { 
+  font-size: 80%;
+  font-style: italic;
+  color: white;
+}
+
+P.index {
+  font-size: 80%;
+  color: white;
+}
+
+P.top { 
+  margin-top: 0.5em;
+  margin-bottom: 0em;
+}
+
+BLOCKQUOTE {
+  font-style: italic;
+  margin-left: 5%;
+  margin-right: 5%;
+  color: #eeffee /* light mint green */;
+}
+
+BLOCKQUOTE SPAN.attribution {
+  font-style: normal;
+  font-weight: bold;
+}
+
+EM { 
+  color: #ff9; /* pale yellow */
+}
+
+UL, OL { 
+  color: white;
+  margin-left: 30px;
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+  font-size: 24px;
+}
+
+UL UL, UL OL, OL UL, OL OL {
+  font-size: 90%;
+}
+
+DL P, UL P, OL P,
+DL OL, DL UL, DL DL,
+OL OL, OL DL, OL UL,
+UL DL, UL OL, UL UL {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+PRE, TT, CODE { 
+  color: #FF9; /* pale yellow */
+  font-weight: bold;
+  font-family: "Courier New", courier, monospace;
+}
+PRE { 
+  font-size: 1em;		/* Redundant, but fixes bug in Opera 3.5 */
+  margin-left: 3%;
+  margin-right: 20px;
+}
+
+/* Inside PRE, use SPAN.keyword, SPAN.comment and SPAN.string to
+highlight features of code */
+
+PRE SPAN.keyword, CODE SPAN.keyword {
+  color: #FAA; /* pink */
+}
+
+PRE SPAN.comment, CODE SPAN.comment {
+  color: #AFA; /* pale green */
+  font-weight: normal;
+  font-style: italic;
+}
+
+PRE SPAN.string, CODE SPAN.string {
+  color: #AAF; /* pale blue */
+}
+
+HR { 
+  margin-top: 0.2em;
+  color: #ffffe8; /* yellowish white */
+}
+
+HR.top {
+  margin-bottom: 0.4em;
+}
+HR.bottom {
+  margin-top: 0.4em;
+  clear: both;
+}
+
+H1 {
+  color: yellow ;
+  font-size: 120%;
+  font-weight: bold;
+  font-family: arial, helvetica, sans-serif; 
+}
+
+H1.slide { 
+  font-size: 30px;	/* Workaround, the 120% above should've been enough */
+  margin-top: 0.5em;
+  font-weight: bold;
+}
+
+H1.slidelist { 
+  text-align: center;
+  font-size: 80%;
+}
+
+H2 {
+  color: white;
+  font-size: 100%;
+  font-family: arial, helvetica, sans-serif;
+}
+
+H3 {
+  color: white;
+  font-size: 80%;
+  font-family: arial, helvetica, sans-serif;
+}  
+
+H4 {
+  color: white;
+  font-size: 70%;
+  font-family: arial, helvetica, sans-serif;
+}
+
+/* DIV.comment is used in the all.htm file for comments that will not
+be shown on the slides themselves. This rule is for when the style
+sheet is applied to the all.htm file */
+
+DIV.comment {
+  font-size: medium;
+  padding: 1em;
+  border: thin dotted;
+  margin: 3em 3%;
+  text-align: justify;
+}
+DIV.comment EM, DIV.comment CODE, DIV.comment PRE, DIV.comment TT {
+  /*color: white;*/
+}
+DIV.comment UL, DIV.comment OL {
+  font-size: 100%;
+}
+TABLE.navbar {
+  line-height: 1px;		/* Avoid space above small icons */
+}

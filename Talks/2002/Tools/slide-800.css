@@ -1,0 +1,146 @@
+HTML BODY {
+  margin-left: 4%;
+  margin-right: 2%;
+  color: #000 !important;
+  background: #fff;
+  font-size: 30px;
+  font-family: verdana, trebuchet, verdana, arial, helvetica, sans-serif;
+}
+DIV.slidebody {
+  margin: 0;
+  height: 345px;
+}
+SMALL {
+  font-size: smaller;
+}
+.figure { text-align: center }
+
+H1, H2, H3, H4 {
+	font-family: tahoma, verdana, arial, helvetica, sans-serif;
+}
+IMG {
+  border: 0;
+}
+CODE {
+  color: #4a5;
+  font-weight: bold;
+  font-family: "Courier New", courier, monospace;
+}
+A { font-style: italic }
+A:link    { color: #912 }
+A:visited { color: #912 }
+A:active  { color: red }
+A.offsite { color: #291 }
+
+P.author  {
+  font-size: 20px;
+  font-style: italic;
+}
+
+P.fig {
+  text-align: center
+}
+
+P.top {
+  margin-top: 16px;
+}
+
+BLOCKQUOTE {
+  font-style: italic;
+  margin-left: 5%;
+  margin-right: 5%;
+  color: #224;
+}
+
+BLOCKQUOTE SPAN.attribution {
+  font-style: normal;
+  font-weight: bold;
+}
+
+EM {
+  color: #000;
+}
+
+
+UL, OL {
+  color: #000;
+  margin-left: 24px;
+}
+
+UL UL { margin-left: 24px }
+
+PRE, TT {
+  color: #4a5;
+  font-weight: bold;
+  font-family: "Courier New", courier, monospace;
+}
+
+
+
+
+PRE.extensive, PRE.compact { 
+  font-size: 80%;
+}
+
+
+HR {
+  margin-top: 4px;
+  color: #000;
+/*  color: #666; */
+}
+
+HR.top {
+  margin-bottom: 8px;
+}
+
+HR.bottom {
+  margin-top: 8px;
+}
+
+H1 {
+  text-align: center;
+  color: #005A98;
+  font-size: 38px;
+}
+
+H1.slide {
+  margin-top: 8px;
+  font-weight: bold;
+}
+
+H1.slidelist {
+  text-align: center;
+  font-size: 26px;
+}
+
+H2 {
+  color: #005A98;
+  font-size: 30px;
+}
+
+H3 {
+  color: #005A98;
+  font-size: 26px;
+}
+
+H4 {
+  color: #000;
+  font-size: 22px;
+}
+
+H2.cover {
+  text-align: center;
+  margin-top: 80px;
+  margin-left: 40px; margin-right: 40px
+}
+
+
+H3.cover {
+  text-align: center;
+  margin-top: 56px;
+  margin-bottom: 56px;
+}
+
+.selector { color: #933 }
+.property { color: #339 }
+.value { color: #399 }

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=iso-8859-1" />
+  <title>Jos De Roo - SWIG</title>
+  <link rel="stylesheet" href="white.css" type="text/css" media="screen, projection" />
+  <link rel="stylesheet" href="http://www.w3.org/2005/03/slideshow.css" type="text/css" media="screen, projection" />
+  <script type="text/javascript" src="http://www.w3.org/2005/03/slideshow.js"></script>
+</head>
+
+<body xml:lang="en" lang="en">
+<div class="slide">
+<h1>SWIG implementation experience in Euler</h1>
+<p>2006-03</p>
+<p><a href="http://www.agfa.com/w3c/Talks/2006/03swig/">http://www.agfa.com/w3c/Talks/2006/03swig/</a>
+<p>by <a href="http://www.agfa.com/w3c/jdroo/">Jos De Roo</a> of <a href="http://www.agfa.com/">AGFA</a><br>
+</div>
+
+<div class="slide">
+<h1>Running Code</h1>
+<ul>
+  <li><a href="http://sourceforge.net/projects/eulersharp">EulerSharp</a> is an inference
+      engine supporting logic based proofs of test cases (*).</li>
+  <li>It is a backward-chaining reasoner enhanced with Euler path detection and will tell
+      you whether a given set of facts and rules supports a given conclusion.</li>
+  <li>using as much as possible from DanC's and TimBL's SWAP</li>
+  <li>implemented in Java, C# and Python</li>
+  <li>making use of Jena-2.1 in RDF/XML to N3 triples generation (but have to dig into DIG)</li>
+  <li>small footprint (engine is 30 Kbyte jar file) and have achieved > .5 Msteps/sec</li>
+</ul>
+<table cellspacing="0" cellpadding="8" border="1"><tbody><tr><td>
+(*) Test cases have a THIS part and a THAT part such that assuming the THIS part implies the THAT part.<br/>
+    Test cases have explicit assumptions because assumptions should be checked.<br/>
+    Test cases make issues observable (both issues w.r.t. requirements and designissues).<br/>
+    Test cases lead to test results which are one of passing, failing, undecided or no-data.<br/>
+    Test cases can be in the following state: proposed, approved, extra-credit or obsoleted.
+</td></tr></tbody></table>
+</div>
+
+<div class="slide">
+<h1>Theories</h1>
+<ul>
+  <li><a href="http://eulersharp.sourceforge.net/2003/03swap/rdfs-rules.n3">rdfs-rules</a></li>
+  <li><a href="http://eulersharp.sourceforge.net/2003/03swap/xsd-rules.n3">xsd-rules</a></li>
+  <li><a href="http://eulersharp.sourceforge.net/2003/03swap/owl-rules.n3">owl-rules</a></li>
+  <li><a href="http://eulersharp.sourceforge.net/2003/03swap/log-rules.n3">log-rules</a></li>
+</ul>
+</div>
+
+<div class="slide">
+<h1>Testcases</h1>
+<ul>
+  <li><a href="http://eulersharp.sourceforge.net/2003/03swap/etc1.n3">RDFCore test cases</a> and
+      <a href="http://eulersharp.sourceforge.net/2004/01swap/docs/java/testResults/etc1-results-java.n3">results</a></li>
+  <li><a href="http://eulersharp.sourceforge.net/2003/03swap/etc2.n3">OWL test cases</a> and
+      <a href="http://eulersharp.sourceforge.net/2004/01swap/docs/java/testResults/etc2-results-java.n3">results</a></li>
+  <li><a href="http://eulersharp.sourceforge.net/2003/03swap/etc3.n3">etc3 test cases</a> and
+      <a href="http://eulersharp.sourceforge.net/2004/01swap/docs/java/testResults/etc3-results-java.n3">results</a></li>
+</ul>
+</div>
+
+<div class="slide">
+<h1>Conclusions</h1>
+<ul>
+  <li>first support simple and then more complex systems</li> 
+  <li>RDF and OWL enable optimal reuse of data in networked environment</li>
+  <li>a bit like going from cpu/memory/network/IOhardware to engines/triples/webservices/IOsoftware</li>
+  <li>or from avoid-hardware-wiring to avoid-software-wiring...</li>
+  <li>and promising for automatic software component generation</li>
+</ul>
+<center><font size="+3">Thanks!</font></center>
+</div>
+
+</body>
+</html>

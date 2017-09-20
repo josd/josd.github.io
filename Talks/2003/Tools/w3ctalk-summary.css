@@ -1,0 +1,125 @@
+/* Style sheet fro a w3c talk "all.htm" file which is the slide
+master but which, with this sheet, can be printed as a summary shet.
+
+ 8 Sep 97  Created Tim BL
+
+*/
+BODY {
+/*  margin-left: 20%;
+  margin-right: 20%;
+*/
+  color: black;
+  background: #ffffff;
+  font-size: 10pt;
+  font-family: arial, helvetica, sans-serif;
+}
+SMALL {
+  font-size: smaller;
+}
+IMG {
+  border: 0;
+}
+
+CODE {
+
+  margin-left: 5%;
+  margin-right: 36pt;
+  font-weight: bold;
+  font-family: "Courier New", courier, monospace;
+}
+
+A:link    { color: black } 
+A:visited { }
+A:active  {  }
+A.offsite { color: #ffff00 }
+
+P.author  { 
+  font-size: 10pt;
+  font-style: italic;
+}
+
+P.top { 
+  margin-top: 20px;
+}
+
+BLOCKQUOTE {
+  font-style: italic;
+  margin-left: 5%;
+  margin-right: 5%;
+  color: black;
+}
+
+BLOCKQUOTE SPAN.attribution {
+  font-style: normal;
+  font-weight: bold;
+}
+
+EM { 
+
+}
+
+UL, OL { 
+/*  color: #ffffff;
+  margin-left: 36px; */
+}
+
+PRE, TT { 
+
+  font-weight: bold;
+  font-family: "Courier New", courier, monospace;
+}
+
+HR { 
+/*  margin-top: 5px;
+  color: #ffffe8; */
+  /* color: #666; */
+}
+
+HR.top {
+/*  margin-bottom: 10px; */
+}
+HR.bottom {
+/*  margin-top: 10px; */
+}
+
+H1 {
+  text-align: left;
+/*  color: yellow ; */
+  font-size: 12pt;
+  font-weight: bold;
+  font-family: arial, helvetica, sans-serif; 
+}
+
+H1.slide { 
+  margin-top: 10px;
+  font-weight: bold;
+}
+
+H1.slidelist { 
+/*  text-align: center;
+*/
+  font-size: 22px;
+}
+
+H2 {
+/*  color: white;
+  font-size: 12pt;
+*/
+  font-family: arial, helvetica, sans-serif;
+}
+
+H3 {
+/*  color: white;
+  font-size: 12pt;
+*/
+  font-family: arial, helvetica, sans-serif;
+}  
+
+H4 {
+/*
+  color: white;
+  font-size: 12pt;
+*/
+  font-family: arial, helvetica, sans-serif;
+}
+

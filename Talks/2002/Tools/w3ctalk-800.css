@@ -1,0 +1,226 @@
+body {
+  margin-left: 2%;
+  margin-right: 2%;  
+  color: black; !important;
+  background: white;
+  font-size:   18pt;
+	/*
+  font-weight: bold;
+  font-family: arial, helvetica, sans-serif;
+	*/
+	font-family: verdana, trebuchet, "Helvetica narrow", arial, helvetica, sans-serif;
+}
+div.slidebody {
+  margin: 0;
+  height: 512px;
+}
+
+img {
+  border: 0;
+}
+
+code, pre {
+  color: #003;
+  font-weight: bold;
+  font-family: "Courier New", courier, monospace;
+}
+
+p.exmpl {
+  font-size: 80%;
+  color: #006699;
+}
+
+code.exmpl, pre.exmpl {
+  color: maroon;
+  font-size:16pt;
+  font-weight: bold;
+  font-family: "Courier New", courier, monospace;
+}
+
+code.exmplSmall, pre.exmplSmall {
+  color: maroon;
+  font-size:14pt;
+  font-weight: bold;
+  font-family: "Courier New", courier, monospace;
+}
+code.def, pre.def {
+  color: #044;
+  font-size:16pt;
+  font-weight: bold;
+  font-family: arial, helvetica, sans-serif;
+}
+
+p.author  { 
+  font-size: 60%;
+  font-style: italic;
+}
+
+p.top { 
+  margin-top: 0.5em;
+  margin-bottom: 0em;
+}
+
+blockquote {
+  font-style: italic;
+  margin-left: 5%;
+  margin-right: 5%;
+  color: #eeffee;
+}
+
+blockquote span.attribution {
+  font-style: normal;
+  font-weight: bold;
+}
+
+em { 
+  color: maroon;
+  font-style:italic;
+}
+
+ul, ol { 
+  color: black;
+  margin-left: 18pt;
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+}
+
+ul ul, ul ol, ol ul, ol ol {
+  font-size: 16pt;
+}
+
+dl p, ul p, ol p,
+dl ol, dl ul, dl dl,
+ol ol, ol dl, ol ul,
+ul dl, ul ol, ul ul {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+dt {color:#006699}
+
+tt { 
+  color: #FF9;
+  font-weight: bold;
+  font-family: "Courier New", courier, monospace;
+}
+
+/* Inside PRE, use SPAN.keyword, SPAN.comment and SPAN.string to
+highlight features of code */
+
+pre span.keyword {
+  color: #FAA;
+}
+
+pre span.comment {
+  color: #AFA;
+  font-weight: normal;
+  font-style: italic;
+}
+
+pre span.string {
+  color: #AAF;
+}
+
+hr { 
+  /*margin-top: 0.01em;*/
+  color: #666;
+  /* color: #666; */
+}
+
+hr.top {
+  margin-bottom: 0.4em;
+}
+
+hr.bottom {
+  margin-top: 0.4em;
+}
+
+h1, .posterH1 {
+  color: navy ;
+  font-size: 28pt;
+	/*
+  font-weight: bold;
+  font-family: arial, helvetica, sans-serif;
+	*/
+	font-family: tahoma, verdana, "Helvetica narrow", arial, helvetica, sans-serif;
+}
+
+h1.slide { 
+  font-size: 24pt;	
+  margin-top: 0.5em;
+  font-weight: bold;
+}
+
+h1.slidelist { 
+  text-align: center;
+  /* font-size: 80%; */
+}
+
+h2 {
+  color: black;
+  font-size: 24pt;
+  font-family: arial, helvetica, sans-serif;
+}
+
+h3 {
+  color: black;
+  font-size: 18pt;
+  font-family: arial, helvetica, sans-serif;
+}  
+
+h4 {
+  color: black;
+  font-size: 16pt;
+  font-family: arial, helvetica, sans-serif;
+}
+
+table {
+  color: black ;
+  font-size: 18pt;
+	/*
+  font-weight: bold;
+  font-family: arial, helvetica, sans-serif;
+	*/ 
+	font-family: verdana, trebuchet, "Helvetica narrow", arial, helvetica, sans-serif;
+
+}
+
+thead {
+  color:blue;
+}
+
+
+a:link { 
+  color: #002040; 
+  text-decoration:underline;   
+  /*font-weight:bold;*/}
+a:visited { 
+  color: black; 
+  text-decoration:underline; 
+  /*font-weight:bold;*/}
+a:offsite { color: blue;
+  text-decoration:underline;
+  /*font-weight:bold;/*}
+a:active { 
+  color: red;
+  text-decoration:underline;
+  /*font-weight:bold;*/}
+
+span.link { 
+  color: #002040;
+  text-decoration:underline;
+  font-size:14pt; 
+  /*font-weight:bold;*/}
+
+p.index { font-size: 10pt; }
+
+div.object { 
+  text-align: center;
+  /* font-size: 80%; */
+}
+
+
+.emph1 { color:blue; /*font-weight: bold */}
+.emph2 { color:green; /*font-weight: bold */}
+.emph3 { color:navy; /*font-weight: bold */}
+.emph4 { color:orange; /*font-weight: bold*/}
+.emph5 { color:red; /*font-weight: bold */}

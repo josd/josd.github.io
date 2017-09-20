@@ -1,0 +1,63 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN"
+    "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html lang="en-US">
+<head>
+<meta http-equiv="Content-type" content="text/html; charset=ISO-8859-1">
+<title>SWIG implementation experience in Euler - slide "Running Code"</title>
+<link rel="next" href="slide3-1.html" title="Next">
+<link rel="previous" href="slide1-1.html" title="Previous">
+<link rel="contents" href="Overview-1.html" title="Contents">
+<link href="../Tools/slide-800.css" rel="stylesheet" type="text/css" title="W3C Talk">
+</head>
+<body>
+<table class="navbar" cellspacing="0" cellpadding="0" border="0" width="97%" summary="navigation buttons">
+<tr valign="top">
+<td align="left"><a href="http://www.agfa.com/"><img src="../Icons/agfa_home.gif" border="0" alt="AGFA "></a></td>
+<td valign="top" nowrap>
+<div align="right">
+<a rel="previous" href="slide1-1.html" accesskey="P"><img src="../Icons/left.gif" border="0" width="32" height="32" alt=" previous" title="Back to &#34;SWIG implementation experience in Euler&#34;"></a><a rel="contents" href="Overview-1.html" accesskey="C"><img src="../Icons/toc.png" border="0" width="32" height="32" alt=" contents" title="Table of Contents"></a><a href="slide2-2.html" accesskey="S"><img src="../Icons/change.png" border="0" width="32" height="32" alt=" change-style" title="change style"></a><a rel="next" href="slide3-1.html" accesskey="N"><img src="../Icons/right.gif" border="0" width="32" height="32" alt=" next" title="On to &#34;Theories&#34;"></a></div>
+</td>
+</tr>
+</table>
+
+<h1 class="slide">Running Code</h1>
+
+<hr class="top">
+
+<div class="slidebody">
+
+<ul>
+  <li><a href="http://sourceforge.net/projects/eulersharp">EulerSharp</a> is an inference
+      engine supporting logic based proofs of test cases (*).</li>
+  <li>It is a backward-chaining reasoner enhanced with Euler path detection and will tell
+      you whether a given set of facts and rules supports a given conclusion.</li>
+  <li>using as much as possible from DanC's and TimBL's SWAP</li>
+  <li>implemented in Java, C# and Python</li>
+  <li>making use of Jena-2.1 in RDF/XML to N3 triples generation (but have to dig into DIG)</li>
+  <li>small footprint (engine is 30 Kbyte jar file) and have achieved > .5 Msteps/sec</li>
+</ul>
+<table cellspacing="0" cellpadding="8" border="1"><tbody><tr><td>
+(*) Test cases have a THIS part and a THAT part such that assuming the THIS part implies the THAT part.<br/>
+    Test cases have explicit assumptions because assumptions should be checked.<br/>
+    Test cases make issues observable (both issues w.r.t. requirements and designissues).<br/>
+    Test cases lead to test results which are one of passing, failing, undecided or no-data.<br/>
+    Test cases can be in the following state: proposed, approved, extra-credit or obsoleted.
+</td></tr></tbody></table>
+
+
+</div>
+
+<hr class="bottom">
+
+<table class="footer" cellspacing="0" cellpadding="0" border="0" width="97%" summary="footer">
+<tr valign="bottom">
+<td><p class="author"><a href="http://www.agfa.com/w3c/jdroo/">Jos De Roo</a></p></td>
+<td align="right"><p class="index">2 of 5</p></td>
+<td valign="top" nowrap>
+<div align="right">
+<a rel="previous" href="slide1-1.html" accesskey="P"><img src="../Icons/left.gif" border="0" width="32" height="32" alt=" previous" title="Back to &#34;SWIG implementation experience in Euler&#34;"></a><a rel="next" href="slide3-1.html" accesskey="N"><img src="../Icons/right.gif" border="0" width="32" height="32" alt=" next" title="On to &#34;Theories&#34;"></a></div>
+</td>
+</tr>
+</table>
+</body>
+</html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+    "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+  <title>W3C and the Semantic Web</title>
+  <link href="../Tools/w3ctalk-summary.css" rel=stylesheet type="text/css" title="Agfa Talk">
+</head>
+
+<!-- PxButton | copy  | pxcopy -v /www.agfa.com/w3c/Talks/2003/01webont/** ftp://www01.net.agfa.com/Talks/2003/01webont | -->
+
+<body>
+
+<h1>OWL implementation experience in Euler</h1>
+<p>2003-01-09</p>
+<p><a href="http://www.agfa.com/w3c/Talks/2003/01webont/Overview.html">http://www.agfa.com/w3c/Talks/2003/01webont/Overview.html</a>
+<p>by <a href="http://www.agfa.com/w3c/jdroo/">Jos De Roo</a> of <a href="http://www.agfa.com/">AGFA</a><br>
+
+<h1>Running Code</h1>
+<ul>
+  <li><a href="http://www.agfa.com/w3c/euler/">Euler Proof Mechanism</a> is a
+      research component to support logic based proofs
+  <li>using Prolog unification (substitutions, unifiers) & resolution algorithm & backtracking
+  <li>plus Euler path detection to avoid endless deductions
+  <li>using as much as possible from DanC's and TimBL's SWAP
+  <li>implemented in Java and also in C#
+  <li>making use of Jena2 in RDF/XML to N3 triples generation
+  <li>small footprint (engine is 28 Kbyte jar file) and have achieved > .5 Msteps/sec
+</ul>
+
+<h1>N3 descriptions</h1>
+<ul>
+  <li>for RDFS <a href="http://www.agfa.com/w3c/euler/rdfs-rules">http://www.agfa.com/w3c/euler/rdfs-rules</a>
+  <li>for XSD <a href="http://www.agfa.com/w3c/euler/xsd-rules">http://www.agfa.com/w3c/euler/xsd-rules</a>
+  <li>for OWL <a href="http://www.agfa.com/w3c/euler/owl-rules">http://www.agfa.com/w3c/euler/owl-rules</a>
+  <li>...
+</ul>
+
+<h1>Testcases</h1>
+<ul>
+  <li>bundled in <a href="http://www.agfa.com/w3c/euler/etc5">etc5</a>
+  <li>108 testcases (including the 71 OWL tests)
+  <li>814 documents are loaded from 4 sites (W3C, ILRT, RPI, AGFA)
+  <li>218 engines involved and taking 1.1 Msteps
+  <li>7 testcases with "no proof found"
+  <li>results in <a href="http://www.agfa.com/w3c/euler/etc5-proof.n3">etc5-proof</a>
+</ul>
+
+<h1>Conclusions</h1>
+<ul>
+  <li>first support simple and then more complex systems 
+  <li>OWL enables optimal reuse of data in networked environment
+  <li>will try that next for <a href="http://www.agfa.com/w3c/2002/10/medicad/op/">LLDM testcase</a> 
+</ul>
+<center><font size="+3"><big>Thanks!</font></center>
+
+</body>
+</html>

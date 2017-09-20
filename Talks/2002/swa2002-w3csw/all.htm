@@ -1,0 +1,296 @@
+<HTML>
+<HEAD>
+  <TITLE>W3C and the Semantic Web</TITLE>
+  <LINK href="../Tools/w3ctalk-summary.css" rel=stylesheet type="text/css" title="Agfa Talk">
+</HEAD>
+<BODY>
+
+<h1>W3C and the Semantic Web</h1>
+<p>2002-03-06</p>
+<p>by <a href="http://www.agfa.com/w3c/jdroo/">Jos De Roo</a>
+   of <a href="http://www.agfa.com/">AGFA</a><br>
+
+<h1>W3C Semantic Web Activity</h1>
+<ul>
+  <li>A key activity of the World Wide Web Consortium W3C (inventor T.Berners-Lee)
+  <li>W3C
+    <ul>
+      <li>develops interoperable technologies (specifications, guidelines, software and tools)</li>
+      <li>to lead the web to its full potential</li>
+      <li>as a forum for information, commerce, communication and collective understanding</li>
+    </ul>
+  </li>
+  <li>The semantic web
+    <ul>
+      <li>is an extension of the current one</li>
+      <li>focuses on the meaningful content of web pages</li>
+      <li>creates an environment where software agents roaming from page to page carry out sophisticated
+          tasks for users</li>
+      <li>becomes a place where data can be shared and processed by automated tools as well as by people</li>
+    </ul>
+  </li>
+</ul>
+
+<H1>W3C SW Activity - Goals</H1>
+<UL>
+  <LI>Design of technologies that support machine facilitated global knowledge 
+  exchange. 
+  <LI>Making it cost-effective for people to record their knowledge. 
+  <LI>Focus on machine consumption </LI></UL>
+<TABLE border=0>
+  <CAPTION></CAPTION>
+  <TBODY>
+  <TR>
+    <TD width="70%"><CITE>"The bane of my existence is doing things that I 
+      know the computer could do for me."</CITE> 
+      <P>-- Dan Connolly, The XML Revolution</P></TD>
+    <TD align=right>
+      <P><IMG alt="computer refuses to do tasks" 
+  src="images/bane.png"></P></TD></TR></TBODY></TABLE>
+
+<H1>W3C SW Activity - Structure</H1>
+<UL>
+  <LI>Part of the W3C <A href="http://www.w3.org/TANDS">Technology and Society 
+  Domain</A> 
+  <LI>Working Groups for Enabling Standards and Technologies 
+  <UL>
+    <LI>The <A href="http://www.w3.org/2001/sw/rdfcore/">RDF Core Working 
+    Group</A> 
+    <LI>The <A href="http://www.w3.org/2001/sw/webont/">Web Ontology Working 
+    Group</A> </LI></UL>
+  <LI><A href="http://www.w3.org/2000/01/sw/">Advanced Development</A> 
+  <UL>
+    <LI>Explores pre-competitive, prototype development </LI></UL>
+  <LI><A href="http://www.w3.org/2001/sw/eo/">Education and Outreach</A> 
+  <UL>
+    <LI>Clarifies design, goals, implementation guidelines 
+    <LI>Position papers, Articles, Presentations, Tutorials, Tools 
+</LI></UL></LI></UL>
+
+<H1>W3C SW Activity - Approach to Deployment</H1>
+<P><EM>A lot of hard work - and a bit of luck</EM></P>
+<UL>
+  <LI>Foster an environment for effective cooperation and collaboration 
+  <LI>Establish guiding architectural principles 
+  <LI>Facilitate the design of enabling standards and technologies 
+  <LI>Understand policy implications 
+  <LI>Focus on short term deployment 
+  <LI>Eye toward longer term research issues </LI></UL>
+
+<h1>SW Architecture</h1>
+<ul>
+  <li>Web
+    <ul>
+      <li>URI-&gt;Resource static mapping</li>
+      <li>Creates navigable "space"</li>
+      <li>Shared space = new genre of communication</li>
+      <li>Self-describing documents</li>
+      <li>URIs as identifiers not recipes</li>
+    </ul>
+  </li>
+  <li>Semantic
+    <ul>
+      <li>Machine processable
+        <ul>
+          <li>not natural language, human inference</li>
+        </ul>
+      </li>
+      <li>For data: what you can do with it</li>
+      <li>For the future: conversion</li>
+      <li>Declarative</li>
+    </ul>
+  </li>
+</ul>
+
+<H1>SW Principles 1: Everything identifiable is on SW</H1>
+<UL>
+  <LI>All resources have identity 
+  <LI>People, places, and things in the physical world have online 
+  representations identified by URI's. 
+  <LI>URI's support participation, effective integration and are contextualized 
+  in SW. </LI></UL>
+<P><IMG alt="Helsinki with http://www.helsin" src="images/identity.png"></P>
+
+<H1>SW Principles 2: Partial information is tolerated</H1>
+<UL>
+  <LI>The current Web is unbounded. 
+  <UL>
+    <LI>Sacrifices link integrity for scalability. </LI></UL>
+  <LI>The Semantic Web it unbounded. 
+  <UL>
+    <LI>Anyone can say anything about anything. </LI></UL>
+  <LI>There will always be more to discover. </LI></UL>
+<P><IMG alt="404 error" src="images/404.png"></P>
+
+<H1>SW Principles 3: There is no need for absolute truth</H1>
+<UL>
+  <LI>All statements on the Web occur in some context. 
+  <LI>Applications need this context in order to evaluate the trustworthiness of 
+  the statements. 
+  <LI>The machinery of the SW does not assert that all statements found on the 
+  Web are "true". 
+  <LI>Truth - or more pragmatically, trustworthiness - is evaluated by each 
+  application that processes the information on the Web. </LI></UL>
+<P><IMG alt="example of trust processing" src="images/elisaaccess.png"></P>
+
+<H1>SW Principles 4: Evolution is supported</H1>
+<UL>
+  <LI>Allow effective combination of the independent work of diverse 
+  communities. 
+  <LI>Support the ability to add new information without insisting that the old 
+  be modified. 
+  <LI>Provide communities the ability to resolve ambiguities and clarify 
+  inconsistencies. 
+  <LI>Use descriptive conventions that can expand as human understanding 
+  expands. </LI></UL>
+
+<H1>SW Principles 5: Minimalist design</H1>
+<UL>
+  <LI>Make the simple things simple, and the complex things possible. 
+  <LI>Enable simple applications now that plan for future complexity (eg. Dublin 
+  Core, RSS, MusicBrainz) 
+  <LI>Standardize no more than is necessary. 
+  <LI>Result more than the sum of the parts </LI></UL>
+
+<H1>Enabling Standards &amp; Technologies - Layer Cake</H1>
+<P class=figure><IMG alt="architectural layers" 
+src="images/swlevels.gif"></P>
+
+<H1>RDF Core Working Group (RDFCore)</H1>
+<UL>
+  <LI>RDF provides a common framework for representing metadata across many 
+  applications. 
+  <LI>Clarifies and improves RDF's abstract model and XML syntax according to 
+  implementor feedback. 
+  <LI>Completes the RDF vocabulary description in the RDF Schema Candidate 
+  Recommendation. 
+  <LI>Explains the relationships between the basic components of RDF (Model, 
+  Syntax, Schema) and the larger XML family of recommendations. 
+  <li>Minimalist model - (thing), Class, Property</li>
+  <li>Subproperty, Subclass</li>
+  <li>Domain &amp; Range</li>
+  <li>Comments &amp; labels</li>
+</UL>
+<p>Very wide interoperability</p>
+
+<H1>Web Ontology Working Group (WebOnt)</H1>
+<UL>
+  <LI>Standardize means for defining ontologies that can be used on the Web. 
+  <LI>Builds on RDF Schema (classes and subclasses, properties and 
+  subproperties) 
+  <LI>Extends these constructs to allow more complex relationships between 
+  entities (e.g.): 
+  <UL>
+    <LI>limit the properties of classes with respect to number and type 
+    <LI>means to infer that items with various properties are members of a 
+    particular class 
+    <LI>a well-defined model for property inheritance </LI></UL>
+  <LI>Input from the <A 
+  href="http://www.daml.org/2001/03/daml+oil-index">DAML+OIL</A> work supported 
+  by <A href="http://www.daml.org/">DARPA's DAML</A> Initiative 
+  <li>More metainformation, such as
+    <ul>
+      <li>Transitive property</li>
+      <li>Unique, Unambiguous, Cardinality, etc</li>
+    </ul>
+  </li>
+  <li>Ontology community exists- DL, OIL, SHOE, etc. etc.</li>
+  <li>Huge extra usage for extra functionality</li>
+  <li>Not Turing complete</li>
+</UL>
+<p>Wide interoperability &amp; interconversion</p>
+
+<h1>Logic layer</h1>
+<ul>
+  <li>Universal language for monotonic logic</li>
+  <li>Any rule system can export, generally cannot import</li>
+  <li>No one standard engine - inference capabilities differ</li>
+  <li>Many engines exist (SQL to KIF, Cycl,  etc)</li>
+  <li>Any system can <em>validate</em> proofs</li>
+</ul>
+
+<H1>SW Public Forums</H1>
+<UL>
+  <LI><A href="http://www.w3.org/RDF/Interest">Semantic Web / RDF Interest 
+  Group</A> 
+  <UL>
+    <LI>Dan Brickley <A href="mailto:danbri@w3.org">mailto:danbri@w3.org</A> 
+    (W3C/ILRT) chair 
+    <LI>a forum for W3C Members and non-Members to discuss innovative 
+    applications of RDF and the Semantic Web. </LI></UL>
+  <LI><A href="http://lists.w3.org/Archives/Public/www-rdf-logic/">RDF Logic</A> 
+
+  <UL>
+    <LI>detailed technical discussion of all approaches to the use of classical 
+    logic on the Web for the representation of data such as inference rules, 
+    ontologies, and complex schemata. </LI></UL>
+  <LI><A href="http://www.w3.org/RDF/Interest">RDF Calendar</A> 
+  <UL>
+    <LI>public forum for discussion of RDF-based calendar and group scheduling 
+    systems </LI></UL>
+  <LI><A href="http://lists.w3.org/Archives/Public/www-annotation/">Annotation 
+  and Collaboration</A> 
+  <UL>
+    <LI>public forum for discussion of RDF-based annotation and collaboration 
+    systems </LI></UL></LI></UL>
+
+<H1>SW Advanced Development - Goals</H1>
+<UL>
+  <LI>Explore pre-competitive, prototype ideas 
+  <LI>Venue for liaison with research community; 
+  <LI>Inform, be informed, nudge, be nudged 
+  <LI>Testbed for early implementations of Working Drafts 
+  <LI>Collaborative development environment for the Team and Members to explore 
+  ideas together 
+  <LI>Stimulate the development of more Semantic Web infrastructure components 
+  </LI></UL>
+
+<H1>SW Advanced Development - Areas</H1>
+<UL>
+  <LI>Developer's Tools 
+  <LI>Resource Description 
+  <LI>Annotation, Collaboration, and Web of Trust 
+  <LI>Access Control Rules, Logic and Proof 
+  <LI>Calendaring and Scheduling 
+  <LI>Work-flow and Dependency Tracking 
+  <LI>Transformation and Extraction Utilities 
+  <LI>Integration with XML infrastructure </LI></UL>
+
+<h1>SW Bus</h1>
+
+<p style="text-align: center"><img src="images/swbus.gif"
+alt="Data interworking feeds logic b"></p>
+
+<h1>Examples of Running Code</h1>
+<p><a href="http://www.w3.org/2000/10/swap/">Closed World Machine</a>
+<ul>
+  <li>CWM is a popular <a href="http://www.w3.org/2001/sw/">Semantic Web</a> 
+      &amp; <a href="http://www.w3.org/RDF/">RDF</a> program, written in <a 
+      href="http://www.python.org/">Python</a> by <a 
+      href="http://www.w3.org/People/Berners-Lee/">Tim Berners-Lee</a> and <a 
+      href="http://www.w3.org/People/Connolly/">Dan Connolly</a>.
+  <li>CWM can handle  the <a href="http://www.w3.org/DesignIssues/Notation3">Notation3</a> format, 
+      as well as XML RDF and NTriples, and can perform a number of functions, 
+      including applying rules as a forward chaining inference engine.
+</ul>
+<p><a href="http://www.agfa.com/w3c/euler/">Euler Proof Mechanism</a>
+<ul>
+  <li>research component to support logic based proofs.     
+  <li>Prolog unification (substitutions, unifiers) & resolution algorithm & backtracking
+  <li>Euler path detection
+  <li>"existential introduction rule" generation (w.r.t. RDF bNodes)
+  <li>unification of variable predicates
+  <li>use as much as possible from DanC's and TimBL's SWAP
+</ul>
+
+<H1>Conclusions</H1>
+<UL>
+  <LI>W3C Semantic Web efforts build common infrastructure 
+  <LI>First supports simple and then more complex systems 
+  <LI>Offers optimal reuse of data in networked environment 
+  <LI>More formal understanding of these relationships however are still 
+  required </LI></UL>
+<center><font size="+3"><big>Thanks!</font></center>
+
+</BODY>
+</HTML>

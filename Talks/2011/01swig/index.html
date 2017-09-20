@@ -1,0 +1,568 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="application/xhtml+xml" />
+    <title>Euler YAP Engine, a birds EYE view</title>
+    <link rel="stylesheet" href="white.css" type="text/css" media="screen, projection" />
+    <link rel="stylesheet" href="http://www.w3.org/2005/03/slideshow.css" type="text/css" media="screen, projection" />
+    <script type="text/javascript" src="http://www.w3.org/2005/03/slideshow.js"></script>
+</head>
+
+<body xml:lang="en" lang="en">
+<div class="slide">
+<h1>Euler YAP Engine, a birds EYE view</h1>
+<p>2011-01</p>
+<p><a href="http://www.agfa.com/w3c/Talks/2011/01swig/">http://www.agfa.com/w3c/Talks/2011/01swig/</a></p>
+<p>by <a href="http://www.agfa.com/w3c/jdroo/">Jos De Roo</a> of <a href="http://www.agfa.com/">AGFA</a><br/></p>
+</div>
+
+<div class="slide">
+<h1>Context is Semantic Web (slides from TimBL)</h1>
+<ul>
+  <li>Really simple</li>
+  <li>Based on RDF standards</li>
+  <li><a href="http://www.w3.org/TeamSubmission/n3/">N3</a> (Notation 3) syntax makes it much easier</li>
+</ul>
+</div>
+
+<div class="slide">
+<h1>Subject, verb and object</h1>
+<p>All knowledge is just a set of statements</p>
+<pre>&lt;#pat&gt; &lt;#knows&gt; &lt;#jo&gt; .
+
+### in classical logic: <span style="background: #ffff00">knows(pat,jo)</span>
+</pre>
+<ul>
+  <li>Everything is identified by URI
+    <p>Here a local URI but could point to ANY document</p>
+    <p><em>Verb</em> known as <em>predicate</em> in the statement</p>
+
+  </li>
+  <li>The thing you use a predicate is a <em>Property</em>.</li>
+  <li>Don't forget the period.</li>
+</ul>
+</div>
+
+<div class="slide">
+<h1>Object can be literal</h1>
+<p></p>
+<pre>&lt;#pat&gt; &lt;#knows&gt; &lt;#jo&gt; .
+&lt;#pat&gt; &lt;#age&gt; 24 .</pre>
+<p></p>
+<p>Note: noun form "age"  preferred to the verb style "knows" for
+predicates.</p>
+</div>
+
+<div class="slide">
+<h1>Saving space: the comma and semicolon</h1>
+<p></p>
+<pre>&lt;#pat&gt; &lt;#child&gt;  &lt;#al&gt;, &lt;#chaz&gt;, &lt;#mo&gt; ;
+       &lt;#age&gt;    24 ;
+       &lt;#eyecolor&gt; "blue" .</pre>
+<p></p>
+<ul>
+  <li>Comma: Here comes another object for same subject &amp; predicate</li>
+  <li>Semicolon: here comes another predicate for same subject.</li>
+  <li>Aim?  Easy scribbling of data.</li>
+</ul>
+</div>
+
+<div class="slide">
+<h1>Data .. e.g. a table</h1>
+<p></p>
+<table border="1">
+  <tbody>
+    <tr>
+      <td></td>
+      <td>age</td>
+      <td>eyecolor</td>
+    </tr>
+    <tr>
+      <td>pat</td>
+      <td>24</td>
+      <td>blue</td>
+    </tr>
+    <tr>
+      <td>al</td>
+      <td>3</td>
+      <td>green</td>
+    </tr>
+    <tr>
+      <td>jo</td>
+      <td>5</td>
+      <td>green</td>
+    </tr>
+  </tbody>
+</table>
+<pre>
+
+  &lt;#pat&gt;   &lt;#age&gt; 24;  &lt;#eyecolor&gt; "blue" .
+  &lt;#al&gt;    &lt;#age&gt;  3;  &lt;#eyecolor&gt; "green" .
+  &lt;#jo&gt;    &lt;#age&gt;  5;  &lt;#eyecolor&gt; "green" .
+</pre>
+<p></p>
+</div>
+
+<div class="slide">
+<h1>Unnamed things: Square brackets</h1>
+<p></p>
+<pre>
+&lt;#pat&gt; &lt;#child&gt; [ &lt;#age&gt; 4 ] , [ &lt;#age&gt; 3 ].
+
+### in classical logic: <span style="background: #ffff00">&exist;x &exist;y child(pat,x) &and; child(pat,y) &and; age(x,4) &and; age(y,3)</span>
+</pre>
+<p></p>
+<p>Note:</p>
+<ul>
+  <li>Words used as IDs have no actual meaning.</li>
+  <li>Unnamed nodes can't be used elsewhere.</li>
+  <li>If things are names, make the name explicit</li>
+</ul>
+<pre>
+  [ &lt;#name&gt; "Pat"; &lt;#age&gt; 24;  &lt;#eyecolor&gt; "blue"  ].
+  [ &lt;#name&gt; "Al" ; &lt;#age&gt;  3;  &lt;#eyecolor&gt; "green" ].
+  [ &lt;#name&gt; "Jo" ; &lt;#age&gt;  5;  &lt;#eyecolor&gt; "green" ].
+</pre>
+<p></p>
+</div>
+
+<div class="slide">
+<h1>Local concept</h1>
+<p></p>
+<pre>&lt;&gt; &lt;#title&gt;  "A simple example of N3".</pre>
+<p></p>
+<p>Who or what knows what &lt;#title&gt; is?</p>
+<p></p>
+</div>
+
+<div class="slide">
+<h1>Shared concept</h1>
+<pre>&lt;&gt; &lt;http://purl.org/dc/elements/1.1/title&gt;
+ "Primer - Getting into the Semantic Web and RDF using N3".</pre>
+<p></p>
+<p>To save space:</p>
+<pre>@prefix dc:  &lt;http://purl.org/dc/elements/1.1/&gt; .
+&lt;&gt; dc:title
+  "Primer - Getting into the Semantic Web and RDF using N3".</pre>
+<p></p>
+<p>Note</p>
+<ul>
+  <li>No &lt;&gt; used when prefixed identifier</li>
+  <li>Typically prefix stands for eveything up to including a "#"</li>
+  <li>Dublin core example alas does not give RDF schema directly: no "#"</li>
+</ul>
+<p></p>
+</div>
+
+<div class="slide">
+<h1>Making vocabularies</h1>
+<ul>
+  <li>A set of shared concepts</li>
+  <li><strong>Properties</strong> are things to use as predicates (verbs)
+    <p><strong>Classes</strong> can be the type of an object</p>
+    <p><strong>rdf:type</strong> is just a property, abbrevaiated to
+    <code>"a"</code> in N3</p>
+  </li>
+  <li>You can invent them and describe Properties and Classes.</li>
+</ul>
+<p></p>
+<p>Equivalent:</p>
+<pre>:Person rdf:type  rdfs:Class
+:Person a rdfs:Class.</pre>
+<p></p>
+<p>which we could use with data;</p>
+<pre>:Pat a :Person.</pre>
+<p></p>
+</div>
+
+<div class="slide">
+<h1>Examples: class and property</h1>
+<pre>:Woman a rdfs:Class; rdfs:subClassOf :Person .
+</pre>
+<p>and a property:</p>
+<pre>:sister a rdf:Property.</pre>
+<p>Something about the Property <code>:sister</code>::</p>
+<pre>:sister rdfs:domain :Person; 
+        rdfs:range :Woman.</pre>
+<p></p>
+<p>Use:</p>
+<pre>:Pat  :sister  :Jo.</pre>
+<p></p>
+<p>Convention:</p>
+<ul>
+  <li>Class ids start with capital, Property ids with lowercase</li>
+</ul>
+<p></p>
+<p></p>
+</div>
+
+<div class="slide">
+<h1>Rules Are Just Statements</h1>
+<pre>
+
+#   subject        verb        object
+#=============  ==========    ==============
+{ ?x :son ?y }      =&gt;        { ?y a :Male }.
+{ ?x :son ?y }  log:implies   { ?y a :Male }.
+
+### in classical logic: <span style="background: #ffff00">&forall;x &forall;y son(x,y) &rArr; male(y)</span></pre>
+<p>The terms in braces { } are <em>formulas</em>.</p>
+<p>The rule statement relates two formulas.</p>
+</div>
+
+<div class="slide">
+<h1>More Complex Antecedent</h1>
+<pre>{ ?x :son ?y.
+  ?y!:age math:lessThan 15 }
+ =&gt;
+{ ?y a :Boy }
+</pre>
+</div>
+
+<div class="slide">
+<h1>More Complex Consequent</h1>
+<pre>{ ?x :son ?y } 
+  =&gt; 
+{ ?y a :Male.  
+  ?y :parent ?x. 
+  ?x a :Parent }.
+</pre>
+</div>
+
+<div class="slide">
+<h1>EYE, an open source reasoning engine</h1>
+<ul>
+    <li>EYE stands for "Euler YAP Engine" and it is a further incremental development of Euler which is an inference engine supporting logic based proofs.</li>
+    <li>EYE is a backward-forward-backward chaining reasoner design enhanced with Euler path detection.</li>
+    <li>The Euler path detection is roughly "don't step in your own steps" to avoid vicious circles so to speak and in that respect there is a similarity with what
+        Leonhard Euler discovered in 1736 for the <a href="http://mathworld.wolfram.com/KoenigsbergBridgeProblem.html">Koenigsberg Bridge Problem</a>.</li>
+    <li>The reasoning that EYE is performing is grounded in FOL (First Order Logic).</li>
+    <li>Keeping a language less powerful than FOL is quite reasonable within an application, but not for the Web, see
+        <a href="http://www.w3.org/DesignIssues/Logic.html">http://www.w3.org/DesignIssues/Logic.html</a>.</li>
+    <li>Open source project hosted at <a href="http://eulersharp.sourceforge.net/">http://eulersharp.sourceforge.net/</a>.</li>
+</ul>
+</div>
+
+<div class="slide">
+<h1>Detailed design of EYE</h1>
+<ul>
+    <li><a href="http://www.w3.org/TeamSubmission/n3/">N3</a> (Notation 3) parser specified as Prolog DCG (Definite Clause Grammar)</li>
+    <li><a href="http://www.w3.org/DesignIssues/N3Logic">N3Logic</a> to PCL (Prolog Coherent Logic) compiler allowing existentials,
+        disjunctions and false in the conclusion of rules</li>
+    <li>yasam/1 engine with Euler path detection to avoid loops and with postponed brake mechanism to run at much increased speed</li>
+    <li>yasam/3 engine  with euler path detection to avoid loops and creating possible models, false models and counter models</li>
+    <li>proof construction using the <a href="http://www.w3.org/2000/10/swap/reason.n3">http://www.w3.org/2000/10/swap/reason</a> vocabulary for proofs</li>
+    <li>builtins which can be extended via a web based plugin mechanism so that new functionalities can be easily added without a total redesign of the reasoner</li>
+    <li>support predicates for the above functionalities</li>
+</ul>
+</div>
+
+<div class="slide">
+<h1>EYE under the hood</h1>
+In the current design things are layered and cascaded as follows:
+<pre>
+                     .------------------.
+        .------------|- - -   N3S       |
+        |      PCL   |-----'------------|
+        |------------|- - -'  YASAM     |
+        |      YABC  |-----'------------|
+        |------------|- - -'  YAAM      |
+        |      ASM   |-----'------------|
+        '------------|- - -'  CPU       |
+                     '------------------'
+
+	Legend
+	------
+		N3S	= Notation 3 Socket
+		PCL	= Prolog Coherent Logic
+		YASAM	= Yet Another Skolem Abstract Machine
+		YABC	= Yet Another Byte Code
+		YAAM	= Yet Another Abstract Machine
+		ASM	= Assembly Code
+		CPU	= Central Processing Unit
+</pre>
+</div>
+
+<div class="slide">
+<h1>EYE intermediate code: Prolog Coherent Logic (PCL)</h1>
+A PCL rule has the general form
+<pre>
+	A1 , A2 , . . . , Am =&gt; C1 | C2 | . . . | Cn		(1)
+</pre>
+where the Ai are atomic expressions and each Cj is a conjunction of atomic expressions, m, n >= 1.
+The left-hand side of a rule is called the antecedent of the rule (a conjunction) and the right-hand side is
+called the consequent (a disjunction). All atomic expressions can contain variables.
+If n = 1 then there is a single consequent for the rule (1), and the rule is said to be definite. Otherwise
+the rule is a splitting rule that requires a case distinction (case of C1 or case of C2 or . . . case of Cn).
+The separate cases (disjuncts) Cj must have a conjunctive form
+<pre>
+	B1 , B2 , . . . , Bh					(2)
+</pre>
+where the Bi are atomic expressions, and h >= 1 varies with j. Any free variables occurring in (2) other
+than those which occurred free in the antecedent of the rule are taken to be existential variables and their
+scope is this disjunct (2).
+<pre>
+
+</pre>
+<a href="http://www.ii.uib.no/acl/description.pdf">http://www.ii.uib.no/acl/description.pdf</a>
+</div>
+
+<div class="slide">
+<h1>EYE source code: Yet Another Prolog (YAP)</h1>
+<ul>
+    <li><a href="http://eulersharp.sourceforge.net/2006/02swap/euler.yap">http://eulersharp.sourceforge.net/2006/02swap/euler.yap</a></li>
+</ul>
+<h5>Plugins</h5>
+<ul>
+    <li><a href="http://eulersharp.sourceforge.net/2006/02swap/crypto-plugin.yap">crypto-plugin</a></li>
+    <li><a href="http://eulersharp.sourceforge.net/2006/02swap/fcm-plugin.yap">fcm-plugin</a></li>
+    <li><a href="http://eulersharp.sourceforge.net/2006/02swap/nbbn-plugin.yap">nbbn-plugin</a></li>
+    <li><a href="http://eulersharp.sourceforge.net/2006/02swap/rif-plugin.yap">rif-plugin</a></li>
+</ul>
+</div>
+
+<div class="slide">
+<h1>EYE command line interface</h1>
+<pre>
+Usage: eye &lt;options&gt;* &lt;data&gt;* &lt;query&gt;*
+eye
+	java -jar Euler.jar [--swipl] [--no-install]
+	yap -q -f euler.yap -g main --
+	swipl -q -f euler.yap -g main --
+&lt;options&gt;
+	--nope			no proof explanation
+	--no-branch		no branch engine
+	--no-qvars		no quantified variables in output
+	--no-qnames		no qnames in output
+	--no-span		no span control
+	--quiet			incomplete e:falseModel explanation
+	--quick-false		do not prove all e:falseModel
+	--quick-possible	do not prove all e:possibleModel
+	--quick-answer		do not prove all answers
+	--think			generate e:consistentGives
+	--ances			generate e:ancestorModel
+	--plugin &lt;yap_resource&gt;	plugin yap_resource
+	--wcache &lt;uri&gt; &lt;file&gt;	to tell that uri is cached as file
+	--ignore-syntax-error	do not halt in case of syntax error
+	--pcl			output PCL code
+	--strings		output log:outputString objects
+	--warn			output warning info
+	--debug			output debug info
+	--profile		output profile info
+	--version		show version info
+	--help			show help info
+&lt;data&gt;
+	&lt;n3_resource&gt;		n3 facts and rules
+&lt;query&gt;
+	--query &lt;n3_resource&gt;	output filtered with filter rules
+	--pass			output deductive closure
+	--pass-all		output deductive closure plus rules
+</pre>
+</div>
+
+<div class="slide">
+<h1>EYE supports MONADIC reasoning</h1>
+<ul>
+    <li>MONADIC stands for "MONotonic Abduction-Deduction-Induction reasoning Cycle"</li>
+    <li>Monotonicity is a crucial characteristic of FOL (First Order Logic) and abduction, deduction and induction are taken from what was orginally intended
+        by Peirce according to <a href="http://www.cs.bris.ac.uk/~flach/AbdIndBook/secure/PostScript/flach-kakas.ps.gz">Flach and Kakas</a>:</li>
+</ul>
+<table cellpadding="2" width="100%">
+<tbody>
+<tr><td>
+<pre>
+Instead, he identified the three reasoning forms
+- abduction, deduction and induction - with the
+three stages of scientific inquiry:
+hypothesis generation, prediction and evaluation.
+
+When confronted with a number of observations she
+seeks to explain, the scientist comes up with an
+initial hypothesis; then she investigates what
+other consequences this theory, were it true,
+would have; and finally she evaluates the extent
+to which these predicted consequences agree with
+reality.
+</pre>
+</td>
+<td><img src="http://www.agfa.com/w3c/Talks/2011/01swig/FlachKakas.png" height="369" width="568" alt="Flach and Kakas"/></td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="slide">
+<h1>A concrete example: wet grass</h1>
+<b>The background theory</b>
+<pre>
+true =&gt; (
+	{:loc001 :ascribed :Cloudy, :NonSprinkler, :Rain, :WetGrass, []}
+	{:loc001 :ascribed :NonCloudy, :Sprinkler, :NonRain, :WetGrass, []}
+	{:loc001 :ascribed :Cloudy, :NonSprinkler, :Rain, :WetGrass, []}
+
+	...
+
+	{:loc001 :ascribed :Cloudy, :NonSprinkler, :NonRain, :NonWetGrass, []}
+
+	...
+
+	)!e:disjunction
+
+{?S :ascribed :Cloudy, :NonCloudy} =&gt; false.
+{?S :ascribed :Sprinkler, :NonSprinkler} =&gt; false.
+{?S :ascribed :Rain, :NonRain} =&gt; false.
+{?S :ascribed :WetGrass, :NonWetGrass} =&gt; false.
+</pre>
+</div>
+
+<div class="slide">
+<h1>A concrete example: wet grass</h1>
+<b>The observation</b>
+<pre>
+:loc001 :ascribed :WetGrass.
+</pre>
+</div>
+
+<div class="slide">
+<h1>A concrete example: wet grass</h1>
+<b>The queries, expressed as "filter" rules</b>
+<pre>
+{?S :ascribed :Sprinkler} =&gt; {?S :ascribed :Sprinkler}.
+
+{?S :ascribed :Rain} =&gt; {?S :ascribed :Rain}.
+</pre>
+</div>
+
+<div class="slide">
+<h1>A concrete example: wet grass</h1>
+<b>Was the sprinkler causing wet grass?</b>
+<pre>
+[ e:counterModel {:loc001 :ascribed :Cloudy. :loc001 :ascribed :NonSprinkler.
+                  :loc001 :ascribed :Rain. :loc001 :ascribed :WetGrass. :loc001 :ascribed _:sk0}
+].
+
+[ e:possibleModel {:loc001 :ascribed :NonCloudy. :loc001 :ascribed :Sprinkler.
+                   :loc001 :ascribed :NonRain. :loc001 :ascribed :WetGrass. :loc001 :ascribed _:sk0}
+; r:gives {
+   :loc001 :ascribed :Sprinkler.
+  }
+].
+
+[ e:falseModel {:loc001 :ascribed :Cloudy. :loc001 :ascribed :NonSprinkler.
+                :loc001 :ascribed :NonRain. :loc001 :ascribed :NonWetGrass. :loc001 :ascribed _:sk0}
+; e:because [ e:integrityConstraint {{:loc001 :ascribed :WetGrass. :loc001 :ascribed :NonWetGrass} =&gt; false}
+  ]
+].
+
+...
+
+[ e:inductivity 0.567901234567901].
+</pre>
+</div>
+
+<div class="slide">
+<h1>A concrete example: wet grass</h1>
+<b>Was the rain causing wet grass?</b>
+<pre>
+[ e:possibleModel {:loc001 :ascribed :Cloudy. :loc001 :ascribed :NonSprinkler.
+                   :loc001 :ascribed :Rain. :loc001 :ascribed :WetGrass. :loc001 :ascribed _:sk0}
+; r:gives {
+   :loc001 :ascribed :Rain.
+  }
+].
+
+[ e:counterModel {:loc001 :ascribed :NonCloudy. :loc001 :ascribed :Sprinkler.
+                  :loc001 :ascribed :NonRain. :loc001 :ascribed :WetGrass. :loc001 :ascribed _:sk0}
+].
+
+...
+
+[ e:inductivity 0.666666666666667].
+</pre>
+</div>
+
+<div class="slide">
+<h1>A concrete example: wet grass</h1>
+<ul>
+<li>The wet grass example is just a classical machine learning example where multiple observations are used to predict reality.</li>
+<li>If you always see that the grass is wet when it rains, you can 'predict' that the grass will be wet when it starts raining and deduct that it rains when you see wet grass, unless you turned on the sprinkler, which shows that nothing is black and white.</li>
+<li>There is just a high probability that it rains when the grass is wet, and when the sprinkler works it doesn't say that it is not raining.</li>
+</ul>
+</div>
+
+<div class="slide">
+<h1>The color prediction experiment from Pieter Pauwels</h1>
+<ul>
+<li>The input of the experiment is a color stream of 30 randomly chosen color patterns.</li>
+<li>Starting with virtually no background knowledge.</li>
+<li>The reasoner tries to figure out the most probable color name (Red, Green, Black, Blue, Orange) from the color code (RGB) and the pattern that is most likely active (e.g. a Red, Green, Orange traffic light sequence).</li>
+<li>Running two reasoning levels continuously in cycles of abduction, deduction and induction.</li>
+<li>The example shows a nice behaviour where different agents do work on different levels and together they can do the job: one is just recognizing colors, the other is detecting patterns, etc ....</li>
+<li>This is also the idea of the semantic web where everything should be connected and can seamlessly contribute to the "higher goal".</li>
+</ul>
+</div>
+
+<div class="slide">
+<h1>A single EYE reasoning run is MONADIC</h1>
+<ul>
+<li>The possible hypotheses (abduction) are generated as <span style="background: #ffff00">e:possibleModel graphs</span>.</li>
+<li>The predictions (deduction) are either generated as a <span style="background: #ffff00">r:gives graph</span> or the possible model becomes an
+    <span style="background: #ffff00">e:counterModel graph</span> or an <span style="background: #ffff00">e:falseModel graph</span> that is immediately disregarded.</li>
+<li>The reality check (induction) is generated as an <span style="background: #ffff00">e:inductivity triple</span> expressing
+    the ratio possible/(possible+counter) which is playing nice with belief calculus.</li>
+</ul>
+<pre>
+
+
+=================================================================
+Re: Monotonic abduction and Bayes theorem in N3 coherent logic
+<a href="http://lists.w3.org/Archives/Public/www-archive/2010Nov/0004.html">http://lists.w3.org/Archives/Public/www-archive/2010Nov/0004.html</a>
+=================================================================
+</pre>
+</div>
+
+<div class="slide">
+<h1>More Test Cases</h1>
+<ul>
+    <li><a href="http://eulersharp.sourceforge.net/2006/02swap/etc00">EYE test cases 02swap</a> and
+        <a href="http://eulersharp.sourceforge.net/2006/02swap/etc00.ref">results</a></li>
+    <li><a href="http://eulersharp.sourceforge.net/2007/07test/etc00">EYE test cases 07test</a> and
+        <a href="http://eulersharp.sourceforge.net/2007/07test/etc00.ref">results</a></li>
+    <li><a href="http://eulersharp.sourceforge.net/2010/05smml/etc00">EYE test cases 05smml</a> and
+        <a href="http://eulersharp.sourceforge.net/2010/05smml/etc00.ref">results</a></li>
+</ul>
+<pre>
+
+
+=================================================================
+swap/check.py --report for brain anatomy test case
+<a href="http://lists.w3.org/Archives/Public/www-archive/2009Jan/0019.html">http://lists.w3.org/Archives/Public/www-archive/2009Jan/0019.html</a>
+=================================================================
+</pre>
+</div>
+
+<div class="slide">
+<h1>Deep taxonomy benchmark</h1>
+<pre>
+
+        |      <a href="http://johnrfisher.net/colog/index.html">colog</a>        <a href="http://www.w3.org/2000/10/swap/doc/cwm">cwm</a>      <a href="http://eulersharp.sourceforge.net/README">eye</a>   <a href="http://eulersharp.sourceforge.net/2003/03swap/README#eulerj">eulerj</a>       <a href="http://www.jdrew.org/jDREWebsite/jDREW.html">jdrew</a>        <a href="http://jena.sourceforge.net/">jena</a>      <a href="http://clarkparsia.com/pellet/">pellet</a>
+--------|----------------------------------------------------------------------------
+     10 |      0.007      0.071    0.000    0.006       0.004       0.121       0.075
+    100 |      0.511      1.449    0.004    0.179       0.172       0.783       0.442
+   1000 |    500.600    115.820    0.040    3.907      98.467      29.330      38.836
+  10000 | 498137.000  16016.625    0.436  155.710   91614.000  (outOfMem)  (outOfMem)
+ 100000 |     16 year              <span style="background: #ffff00">4 sec</span>                4 year
+
+
+</pre>
+<a href="http://ruleml.org/WellnessRules/files/WellnessRulesN3-2009-11-10.pdf">http://ruleml.org/WellnessRules/files/WellnessRulesN3-2009-11-10.pdf</a>
+</div>
+
+<div class="slide">
+<h1>Thank You</h1>
+<p/>
+<p>Thank you for your attention</p>
+<p><a href="http://www.agfa.com/w3c/Talks/2011/01swig/">http://www.agfa.com/w3c/Talks/2011/01swig/</a></p>
+</div>
+
+</body>
+</html>

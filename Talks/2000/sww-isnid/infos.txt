@@ -1,0 +1,22 @@
+#----------------------------------------------------------
+# Slidemaker tools parameters
+#----------------------------------------------------------
+# Check http://www.w3.org/Talks/YYMMsub/ for documentation
+
+#baselang = en-US
+#charset = ISO-8859-1
+author = Harold Boley
+authorUrl = http://www.dfki.uni-kl.de/~boley/
+author2 = Jos De Roo
+author2Url = http://www.agfa.com/w3c/jdroo/
+#cssUserFiles = 
+logoLink = http://www.dfki.uni-kl.de/
+logoFile = ../Icons/DFKI.jpg
+logoAlt = DFKI
+logoLink2 = http://www.agfa.com/
+logoFile2 = ../Icons/agfa_home.gif
+logoAlt2 = AGFA
+#cssStandardFiles = ../Tools/w3ctalk-640.css,../Tools/w3ctalk-800.css,../Tools/w3ctalk-1024.css
+#cssStandardFiles = ../Tools/w3ctalk-640w.css,../Tools/w3ctalk-800w.css,../Tools/w3ctalk-1024w.css,../Tools/w3ctalk-640.css,../Tools/w3ctalk-800.css,../Tools/w3ctalk-1024.css,../Tools/slide-640.css,../Tools/slide-800.css,../Tools/slide-1024.css
+cssStandardFiles = ../Tools/slide-640.css,../Tools/slide-800.css,../Tools/slide-1024.css
+talkTitle = Semantic Web Workshop - ISNID
