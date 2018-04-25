@@ -27,7 +27,7 @@ t2t-trainer \
   --output_dir=$TRAIN_DIR \
   --problem=$PROBLEM \
   --t2t_usr_dir=$USER_DIR \
-  --train_steps=5000 \
+  --train_steps=20000 \
   --worker_gpu_memory_fraction=0.75
 
 # Decode
