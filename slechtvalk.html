@@ -8,7 +8,7 @@
     <meta name="author" content="datarhei">
     <title>Slechtvalk</title>
     <script src="http://stream.agfa.be:8080/libs/clappr/dist/clappr.min.js"></script>
-    <link rel="shortcut icon" href="images/favicon.ico" type="image/vnd.microsoft.icon" />
+    <link rel="icon" href="http://josd.github.io/images/favicon.ico" type="image/x-icon" />
     <style>
         .player-poster[data-poster] .poster-background[data-poster] {
             height: initial !important;
@@ -24,7 +24,8 @@
         'baseUrl': '/libs/clappr/dist/',
         'poster': 'images/live.jpg?t=' + String(new Date().getTime()),
         'mediacontrol': {'seekbar': '#3daa48', 'buttons': '#3daa48'},
-        'autoPlay': 'true',
+        'disableCanAutoPlay': 'true',
+        'autoPlay': 'autoplay',
         'height': '100%',
         'width': '100%'
     });
