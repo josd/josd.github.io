@@ -7,7 +7,7 @@
     <meta name="description" content="Restreamer">
     <meta name="author" content="datarhei">
     <title>Slechtvalk</title>
-    <script src="http://stream.agfa.be:8080/libs/clappr/dist/clappr.min.js"></script>
+    <script src="https://stream.agfa.be/libs/clappr/dist/clappr.min.js"></script>
     <link rel="icon" href="http://josd.github.io/images/favicon.ico" type="image/x-icon" />
     <style>
         .player-poster[data-poster] .poster-background[data-poster] {
@@ -18,16 +18,37 @@
 <body>
 <div id="player" style="position:absolute;top:0;right:0;bottom:0;left:0"></div>
 <script>
+    function getQueryParam(value, defValue) {
+        var query = window.location.search.substring(1);
+        var vars = query.split("&");
+        for(var i = 0; i < vars.length; i++) {
+            var pair = vars[i].split("=");
+            if(pair[0] == value) {
+                return pair[1];
+            }
+        }
+        return defValue;
+    }
+
+    var autoplay = getQueryParam("autoplay", false);
+    if(autoplay === "1" || autoplay === "true" || autoplay === "yes" || autoplay === "on") {
+        autoplay = true;
+    }
+    else {
+        autoplay = false;
+    }
+
     var player = new window.Clappr.Player({
-        'source': 'http://stream.agfa.be:8080/hls/live.stream.m3u8',
-        'parentId': '#player',
-        'baseUrl': '/libs/clappr/dist/',
-        'poster': 'images/live.jpg?t=' + String(new Date().getTime()),
-        'mediacontrol': {'seekbar': '#3daa48', 'buttons': '#3daa48'},
-        'height': '100%',
-        'width': '100%',
-        'autoPlay': 'autoplay',
-        'mute': 'mute'
+        source: 'https://stream.agfa.be/hls/live.stream.m3u8',
+        parentId: '#player',
+        baseUrl: '/libs/clappr/dist/',
+        poster: 'images/live.jpg?t=' + String(new Date().getTime()),
+        mediacontrol: {'seekbar': '#3daa48', 'buttons': '#3daa48'},
+        height: '100%',
+        width: '100%',
+        autoPlay: 'autoplay',
+        mute: 'mute'
+
     });
     var posterPlugin = player.core.mediaControl.container.getPlugin('poster');
     player.on(window.Clappr.Events.PLAYER_STOP, function updatePoster () {
