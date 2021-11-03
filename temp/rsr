@@ -1,0 +1,15 @@
+#!/bin/bash
+pushd ~/github.com/infradig/trealla; git pull; popd
+echo ""
+pushd ~/github.com/josd/eye; git pull; popd
+echo ""
+pushd ~/github.com/josd/josd.github.io; git pull; popd
+echo ""
+pushd ~/github.com/mthom/scryer-prolog; git pull; popd
+echo ""
+pushd ~/github.com/SWI-Prolog/swipl-devel; git pull; popd
+echo ""
+pushd ~/github.com/w3c/N3; git pull; popd
+echo ""
+pushd ~/github.com/w3c/rdf-star; git pull; popd
+echo ""
