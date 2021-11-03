@@ -1,0 +1,4 @@
+#!/bin/bash
+pushd ~/github.com/josd/eye
+sudo ./install.sh
+popd
