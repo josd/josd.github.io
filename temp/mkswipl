@@ -35,7 +35,7 @@ mkdir -p build
 cd build
 cmake -G Ninja ..
 ninja
-ctest -j 8
+#ctest -j 8
 sudo ninja install
 i
 popd
