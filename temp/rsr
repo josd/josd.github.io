@@ -1,4 +1,4 @@
-!/bin/bash
+#!/bin/bash
 pushd ~/eyesvn; svn update; popd
 echo ""
 pushd ~/github.com/infradig/trealla; git pull; popd
