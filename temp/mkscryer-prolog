@@ -4,6 +4,6 @@ git pull
 cargo build --release
 cargo test --release
 popd
-pushd ~/github.com/josd/eye/retina/prolog
+pushd ~/github.com/josd/eye/reasoning/prolog
 ./run scryer-prolog
 popd
