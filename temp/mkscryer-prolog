@@ -5,5 +5,5 @@ cargo build --release
 cargo test --release
 popd
 pushd ~/github.com/josd/eye/reasoning/prolog
-./run scryer-prolog
+./prepare scryer-prolog
 popd
