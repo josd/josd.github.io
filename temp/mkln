@@ -5,6 +5,15 @@ sudo ln -sf ~/eyesvn/2006/02swap/sf /usr/local/bin
 sudo ln -sf ~/eyesvn/2006/02swap/sfh /usr/local/bin
 sudo ln -sf ~/github.com/infradig/trealla/tpl /usr/local/bin
 sudo ln -sf ~/github.com/josd/eye/mkeye /usr/local/bin
+sudo ln -sf ~/github.com/josd/josd.github.io/temp/ei /usr/local/bin
+sudo ln -sf ~/github.com/josd/josd.github.io/temp/gr /usr/local/bin
+sudo ln -sf ~/github.com/josd/josd.github.io/temp/i /usr/local/bin
+sudo ln -sf ~/github.com/josd/josd.github.io/temp/mkln /usr/local/bin
+sudo ln -sf ~/github.com/josd/josd.github.io/temp/rsr /usr/local/bin
+sudo ln -sf ~/github.com/josd/josd.github.io/temp/mkscryer-prolog /usr/local/bin
+sudo ln -sf ~/github.com/josd/josd.github.io/temp/mkswipl /usr/local/bin
+sudo ln -sf ~/github.com/josd/josd.github.io/temp/mktpl /usr/local/bin
+sudo ln -sf ~/github.com/josd/josd.github.io/temp/si /usr/local/bin
 sudo ln -sf ~/github.com/mthom/scryer-prolog/target/release/scryer-prolog /usr/local/bin
 sudo ln -sf ~/julia-1.6.3/bin/julia /usr/local/bin
 sudo ln -sf ~/temp/Picat/emu/picat /usr/local/bin
@@ -30,7 +39,6 @@ sudo ln -sf ~/temp/cwmparse /usr/local/bin
 sudo ln -sf ~/temp/cwmprobe /usr/local/bin
 sudo ln -sf ~/temp/dsc /usr/local/bin
 sudo ln -sf ~/temp/e /usr/local/bin
-sudo ln -sf ~/temp/ei /usr/local/bin
 sudo ln -sf ~/temp/er /usr/local/bin
 sudo ln -sf ~/temp/es /usr/local/bin
 sudo ln -sf ~/temp/euler /usr/local/bin
@@ -45,10 +53,8 @@ sudo ln -sf ~/temp/ge /usr/local/bin
 sudo ln -sf ~/temp/gg /usr/local/bin
 sudo ln -sf ~/temp/gh /usr/local/bin
 sudo ln -sf ~/temp/gps4ic /usr/local/bin
-sudo ln -sf ~/temp/gr /usr/local/bin
 sudo ln -sf ~/temp/gu /usr/local/bin
 sudo ln -sf ~/temp/hermit /usr/local/bin
-sudo ln -sf ~/temp/i /usr/local/bin
 sudo ln -sf ~/temp/i4 /usr/local/bin
 sudo ln -sf ~/temp/jdrew /usr/local/bin
 sudo ln -sf ~/temp/jena /usr/local/bin
@@ -62,14 +68,10 @@ sudo ln -sf ~/temp/mkc /usr/local/bin
 sudo ln -sf ~/temp/mkcsv /usr/local/bin
 sudo ln -sf ~/temp/mkepub /usr/local/bin
 sudo ln -sf ~/temp/mkjulia /usr/local/bin
-sudo ln -sf ~/temp/mkln /usr/local/bin
 sudo ln -sf ~/temp/mkln1 /usr/local/bin
 sudo ln -sf ~/temp/mkln2 /usr/local/bin
 sudo ln -sf ~/temp/mkpython /usr/local/bin
 sudo ln -sf ~/temp/mkrdf.py /usr/local/bin/mkrdf
-sudo ln -sf ~/temp/mkscryer-prolog /usr/local/bin
-sudo ln -sf ~/temp/mkswipl /usr/local/bin
-sudo ln -sf ~/temp/mktpl /usr/local/bin
 sudo ln -sf ~/temp/mnt /usr/local/bin
 sudo ln -sf ~/temp/n /usr/local/bin
 sudo ln -sf ~/temp/n3js /usr/local/bin
@@ -106,7 +108,6 @@ sudo ln -sf ~/temp/rsm /usr/local/bin
 sudo ln -sf ~/temp/rso /usr/local/bin
 sudo ln -sf ~/temp/rsp /usr/local/bin
 sudo ln -sf ~/temp/rsq /usr/local/bin
-sudo ln -sf ~/temp/rsr /usr/local/bin
 sudo ln -sf ~/temp/rsr2 /usr/local/bin
 sudo ln -sf ~/temp/rss /usr/local/bin
 sudo ln -sf ~/temp/rss2 /usr/local/bin
@@ -115,7 +116,6 @@ sudo ln -sf ~/temp/rst /usr/local/bin
 sudo ln -sf ~/temp/rsx /usr/local/bin
 sudo ln -sf ~/temp/rsu /usr/local/bin
 sudo ln -sf ~/temp/seed /usr/local/bin
-sudo ln -sf ~/temp/si /usr/local/bin
 sudo ln -sf ~/temp/smb /usr/local/bin
 sudo ln -sf ~/temp/spark /usr/local/bin
 sudo ln -sf ~/temp/sr /usr/local/bin

@@ -1,0 +1,9 @@
+#!/bin/bash
+pushd ~/github.com/mthom/scryer-prolog
+git pull
+cargo build --release
+cargo test --release
+popd
+pushd ~/github.com/josd/eye/retina/prolog
+./run scryer-prolog
+popd

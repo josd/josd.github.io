@@ -1,0 +1,11 @@
+#!/bin/bash
+pushd ~/github.com/infradig/trealla
+git checkout ${1:-devel}
+git pull
+make
+make test
+echo ""
+popd
+pushd ~/github.com/josd/eye/retina/prolog
+./run tpl
+popd

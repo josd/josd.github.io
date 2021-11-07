@@ -1,0 +1,25 @@
+#!/bin/bash
+echo ======== OS ========
+echo
+uname -srm
+echo
+
+echo ======== CPU ========
+echo
+grep 'processor\|name' /proc/cpuinfo
+echo
+
+echo ======== RAM ========
+echo
+grep 'MemTotal' /proc/meminfo
+echo
+
+echo ======== DISK ========
+echo
+df -h
+echo
+
+echo ======== NETWORK ========
+echo
+netstat -s
+echo
