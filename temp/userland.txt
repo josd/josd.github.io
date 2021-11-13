@@ -1,0 +1,10 @@
+sudo apt install git
+mkdir github.com
+cd github.com
+mkdir josd
+cd josd
+git clone https://github.com/josd/eye
+cd ..
+mkdir SWI-Prolog
+cd SWI-Prolog/
+git clone https://github.com/SWI-Prolog/swipl-devel
