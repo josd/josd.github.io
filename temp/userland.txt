@@ -1,10 +1,45 @@
 sudo apt install git
 mkdir github.com
 cd github.com
-mkdir josd
-cd josd
-git clone https://github.com/josd/eye
-cd ..
 mkdir SWI-Prolog
 cd SWI-Prolog/
 git clone https://github.com/SWI-Prolog/swipl-devel
+cd swipl-devel
+git submodule update --init
+sudo apt install \
+        build-essential cmake ninja-build pkg-config \
+        ncurses-dev libedit-dev \
+        libunwind-dev \
+        libgmp-dev \
+        libssl-dev \
+        unixodbc-dev \
+        zlib1g-dev libarchive-dev \
+        libossp-uuid-dev \
+        libxext-dev libice-dev libjpeg-dev libxinerama-dev libxft-dev \
+        libxpm-dev libxt-dev \
+        libdb-dev \
+        libpcre3-dev \
+        libyaml-dev \
+        openjdk-8-jdk junit \
+        texlive-latex-extra \
+        texlive-font-utils \
+        texlive-fonts-extra \
+        texlive-fonts-extra-doc \
+        texlive-fonts-recommended \
+        texlive-fonts-recommended-doc
+export CTEST_OUTPUT_ON_FAILURE=y
+mkdir -p build
+cd build
+cmake -G Ninja ..
+ninja
+sudo ninja install
+cd ~/github.com
+mkdir josd
+cd josd
+git clone https://github.com/josd/eye
+cd eye
+sudo ./install.sh
+cd reasoning
+./test
+popd
+git diff
