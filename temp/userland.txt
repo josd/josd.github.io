@@ -41,5 +41,4 @@ cd eye
 sudo ./install.sh
 cd reasoning
 ./test
-popd
 git diff
