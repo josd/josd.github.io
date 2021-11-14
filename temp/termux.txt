@@ -19,6 +19,9 @@ swipl -q -f eye.pl -g main -- --image eye.pvm
 echo '#!/bin/bash' > /data/data/com.termux/files/usr/bin/eye
 echo 'swipl -x ~/eye/eye.pvm -- "$@"' >> /data/data/com.termux/files/usr/bin/eye
 chmod +x /data/data/com.termux/files/usr/bin/eye
+cd reasoning
+./test
+git diff
 
 # tpl
 pkg install xxd
