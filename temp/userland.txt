@@ -1,4 +1,12 @@
+# .bashrc
+shopt -s globstar
+alias dir="ls -altr"
+alias d="du -h --max-depth=1"
+
+# git
 sudo apt install git
+
+# swipl
 mkdir github.com
 cd github.com
 mkdir SWI-Prolog
@@ -33,6 +41,8 @@ cd build
 cmake -G Ninja ..
 ninja
 sudo ninja install
+
+# eye
 cd ~/github.com
 mkdir josd
 cd josd
