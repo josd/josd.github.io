@@ -16,9 +16,9 @@ cd ~
 git clone https://github.com/josd/eye
 cd eye
 swipl -q -f eye.pl -g main -- --image eye.pvm
-echo '#!/bin/bash' > /data/data/com/termux/files/usr/bin/eye
-echo 'swipl -x ~/eye/eye.pvm -- "$@"' >> /data/data/com/termux/files/usr/bin/eye
-chmod +x /data/data/com/termux/files/usr/bin/eye
+echo '#!/bin/bash' > /data/data/com.termux/files/usr/bin/eye
+echo 'swipl -x ~/eye/eye.pvm -- "$@"' >> /data/data/com.termux/files/usr/bin/eye
+chmod +x /data/data/com.termux/files/usr/bin/eye
 
 # tpl
 pkg install xxd
