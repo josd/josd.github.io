@@ -1,0 +1,41 @@
+# .bashrc
+shopt -s globstar
+alias dir="ls -altr"
+alias d="du -h --max-depth=1"
+
+# git
+pkg install git
+pkg install gh
+gh auth login
+
+# swipl
+pkg install swi-prolog
+
+# eye
+cd ~
+git clone https://github.com/josd/eye
+cd eye
+swipl -q -f eye.pl -g main -- --image eye.pvm
+echo '#!/bin/bash' > /data/data/com/termux/files/usr/bin/eye
+echo 'swipl -x ~/eye/eye.pvm -- "$@"' >> /data/data/com/termux/files/usr/bin/eye
+chmod +x /data/data/com/termux/files/usr/bin/eye
+
+# tpl
+pkg install xxd
+pkg install vim
+cd ~/trealla
+make
+ln -s tpl ~/../usr/bin
+
+# scryer-prolog
+pkg install rust
+pkg install binutils
+pkg install m4
+pkg install perl
+cd ~/scryer-prolog
+cargo install --release
+ln -s target/release/scryer-prolog ~/../usr/bin
+
+# python
+pkg install python
+pip install sympy
