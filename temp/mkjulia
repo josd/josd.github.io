@@ -1,0 +1,5 @@
+#!/bin/bash
+pushd ~/github.com/josd/eye/reasoning/julia
+julia -e 'using Pkg; Pkg.add("LinearAlgebra"); Pkg.add("Polynomials"); Pkg.add("Primes"); Pkg.add("Symbolics"); Pkg.add("Julog")'
+./prepare
+popd
