@@ -1,0 +1,2 @@
+#!/bin/bash
+java -jar ~/github.com/josd/josd.github.io/temp/jar/n3-html-0.0.1-SNAPSHOT.jar "$@"

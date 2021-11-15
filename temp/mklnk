@@ -1,0 +1,18 @@
+#!/bin/bash
+sudo ln -sf ~/eyesvn/2006/02swap/mksf /usr/local/bin
+sudo ln -sf ~/github.com/infradig/trealla/tpl /usr/local/bin
+sudo ln -sf ~/github.com/josd/eye/mkeye /usr/local/bin
+sudo ln -sf ~/github.com/josd/josd.github.io/temp/ei /usr/local/bin
+sudo ln -sf ~/github.com/josd/josd.github.io/temp/gr /usr/local/bin
+sudo ln -sf ~/github.com/josd/josd.github.io/temp/i /usr/local/bin
+sudo ln -sf ~/github.com/josd/josd.github.io/temp/mklnk /usr/local/bin
+sudo ln -sf ~/github.com/josd/josd.github.io/temp/nh /usr/local/bin
+sudo ln -sf ~/github.com/josd/josd.github.io/temp/rsr /usr/local/bin
+sudo ln -sf ~/github.com/josd/josd.github.io/temp/mkscryer-prolog /usr/local/bin
+sudo ln -sf ~/github.com/josd/josd.github.io/temp/mkswipl /usr/local/bin
+sudo ln -sf ~/github.com/josd/josd.github.io/temp/mktpl /usr/local/bin
+sudo ln -sf ~/github.com/josd/josd.github.io/temp/si /usr/local/bin
+sudo ln -sf ~/github.com/josd/josd.github.io/temp/u /usr/local/bin
+sudo ln -sf ~/github.com/mthom/scryer-prolog/target/release/scryer-prolog /usr/local/bin
+sudo ln -sf ~/julia-1.6.3/bin/julia /usr/local/bin
+sudo ln -sf /opt/eye/bin/eye.sh /usr/local/bin/eye

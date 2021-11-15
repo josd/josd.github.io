@@ -1,0 +1,3 @@
+#!/bin/bash
+((!$#)) && cat ~/github.com/josd/josd.github.io/temp/ubuntu.txt && exit 1
+cat ~/github.com/josd/josd.github.io/temp/ubuntu.txt | grep ${1}
