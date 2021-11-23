@@ -52,3 +52,14 @@ sudo ./install.sh
 cd reasoning
 ./test
 git diff
+
+# tpl
+cd ~/github.com
+mkdir infradig
+cd infradig
+git clone https://github.com/infradig/trealla
+cd trealla
+sudo apt install libreadline-dev
+sudo apt install xxd
+make
+make test

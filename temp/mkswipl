@@ -37,7 +37,7 @@ cmake -G Ninja ..
 ninja
 #ctest -j 8
 sudo ninja install
-i
+ei
 popd
 pushd ~/github.com/josd/eye/reasoning
 ./test
