@@ -9,6 +9,7 @@ sudo ln -sf ~/github.com/josd/josd.github.io/temp/mkjulia /usr/local/bin
 sudo ln -sf ~/github.com/josd/josd.github.io/temp/mklnk /usr/local/bin
 sudo ln -sf ~/github.com/josd/josd.github.io/temp/mkpython /usr/local/bin
 sudo ln -sf ~/github.com/josd/josd.github.io/temp/nh /usr/local/bin
+sudo ln -sf ~/github.com/josd/josd.github.io/temp/pn /usr/local/bin
 sudo ln -sf ~/github.com/josd/josd.github.io/temp/rsr /usr/local/bin
 sudo ln -sf ~/github.com/josd/josd.github.io/temp/mkscryer-prolog /usr/local/bin
 sudo ln -sf ~/github.com/josd/josd.github.io/temp/mkswipl /usr/local/bin
