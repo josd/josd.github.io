@@ -63,3 +63,9 @@ sudo apt install libreadline-dev
 sudo apt install xxd
 make
 make test
+
+# julia
+wget https://julialang-s3.julialang.org/bin/linux/aarch64/1.7/julia-1.7.0-linux-aarch64.tar.gz
+tar -xvzf julia-1.7.0-linux-aarch64.tar.gz
+julia -e 'using Pkg; Pkg.add("Polynomials"); Pkg.add("Primes"); Pkg.add("Symbolics"); Pkg.add("Julog")'
+julia -e 'using Pkg; Pkg.add("Pluto"); Pkg.add("Plots"); Pkg.add("SpecialFunctions"); Pkg.add("DataFrames")'
