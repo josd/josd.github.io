@@ -41,4 +41,5 @@ i
 popd
 pushd ~/github.com/josd/eye/reasoning
 ./test
+git diff
 popd
