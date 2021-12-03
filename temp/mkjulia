@@ -1,4 +1,5 @@
 #!/bin/bash
-pushd ~/github.com/josd/eye/reasoning/julia
+pushd ~/eyesvn/2006/02swap/reasoning/julia
 ./prepare
+svn diff
 popd

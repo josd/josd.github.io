@@ -42,6 +42,3 @@ popd
 pushd ~/github.com/josd/eye/reasoning
 ./test
 popd
-pushd ~/github.com/josd/eye/reasoning/prolog
-./prepare swipl
-popd
