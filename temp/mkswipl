@@ -40,10 +40,6 @@ sudo ninja install
 i
 popd
 
-pushd ~/eyesvn/2006/02swap/reasoning/prolog
-./prepare swipl
-svn diff
-popd
 pushd ~/github.com/josd/eye/reasoning
 ./test
 git diff
