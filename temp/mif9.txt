@@ -1,0 +1,119 @@
+$ valgrind scryer-prolog -g run,halt mif9.pl
+==13300== Memcheck, a memory error detector
+==13300== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==13300== Using Valgrind-3.15.0 and LibVEX; rerun with -h for copyright info
+==13300== Command: scryer-prolog -g run,halt mif9.pl
+==13300==
+==13300== Syscall param statx(file_name) points to unaddressable byte(s)
+==13300==    at 0x4B119FE: statx (statx.c:29)
+==13300==    by 0x689CF0: statx (weak.rs:136)
+==13300==    by 0x689CF0: std::sys::unix::fs::try_statx (fs.rs:139)
+==13300==    by 0x686602: std::sys::unix::fs::stat (fs.rs:1180)
+==13300==    by 0x1D0BDE: scryer_prolog::main (in /home/jdroo/github.com/mthom/scryer-prolog/target/release/scryer-prolog)
+==13300==    by 0x1C1C52: std::sys_common::backtrace::__rust_begin_short_backtrace (in /home/jdroo/github.com/mthom/scryer-prolog/target/release/scryer-prolog)
+==13300==    by 0x1C0048: _ZN3std2rt10lang_start28_$u7b$$u7b$closure$u7d$$u7d$17h89750e7a0365f2aaE.llvm.10627062449510294523 (in /home/jdroo/github.com/mthom/scryer-prolog/target/release/scryer-prolog)
+==13300==    by 0x681BDA: call_once<(), (dyn core::ops::function::Fn<(), Output=i32> + core::marker::Sync + core::panic::unwind_safe::RefUnwindSafe)> (function.rs:259)
+==13300==    by 0x681BDA: do_call<&(dyn core::ops::function::Fn<(), Output=i32> + core::marker::Sync + core::panic::unwind_safe::RefUnwindSafe), i32> (panicking.rs:403)
+==13300==    by 0x681BDA: try<i32, &(dyn core::ops::function::Fn<(), Output=i32> + core::marker::Sync + core::panic::unwind_safe::RefUnwindSafe)> (panicking.rs:367)
+==13300==    by 0x681BDA: catch_unwind<&(dyn core::ops::function::Fn<(), Output=i32> + core::marker::Sync + core::panic::unwind_safe::RefUnwindSafe), i32> (panic.rs:133)
+==13300==    by 0x681BDA: {closure#2} (rt.rs:128)
+==13300==    by 0x681BDA: do_call<std::rt::lang_start_internal::{closure#2}, isize> (panicking.rs:403)
+==13300==    by 0x681BDA: try<isize, std::rt::lang_start_internal::{closure#2}> (panicking.rs:367)
+==13300==    by 0x681BDA: catch_unwind<std::rt::lang_start_internal::{closure#2}, isize> (panic.rs:133)
+==13300==    by 0x681BDA: std::rt::lang_start_internal (rt.rs:128)
+==13300==    by 0x1D1041: main (in /home/jdroo/github.com/mthom/scryer-prolog/target/release/scryer-prolog)
+==13300==  Address 0x0 is not stack'd, malloc'd or (recently) free'd
+==13300==
+==13300== Syscall param statx(buf) points to unaddressable byte(s)
+==13300==    at 0x4B119FE: statx (statx.c:29)
+==13300==    by 0x689CF0: statx (weak.rs:136)
+==13300==    by 0x689CF0: std::sys::unix::fs::try_statx (fs.rs:139)
+==13300==    by 0x686602: std::sys::unix::fs::stat (fs.rs:1180)
+==13300==    by 0x1D0BDE: scryer_prolog::main (in /home/jdroo/github.com/mthom/scryer-prolog/target/release/scryer-prolog)
+==13300==    by 0x1C1C52: std::sys_common::backtrace::__rust_begin_short_backtrace (in /home/jdroo/github.com/mthom/scryer-prolog/target/release/scryer-prolog)
+==13300==    by 0x1C0048: _ZN3std2rt10lang_start28_$u7b$$u7b$closure$u7d$$u7d$17h89750e7a0365f2aaE.llvm.10627062449510294523 (in /home/jdroo/github.com/mthom/scryer-prolog/target/release/scryer-prolog)
+==13300==    by 0x681BDA: call_once<(), (dyn core::ops::function::Fn<(), Output=i32> + core::marker::Sync + core::panic::unwind_safe::RefUnwindSafe)> (function.rs:259)
+==13300==    by 0x681BDA: do_call<&(dyn core::ops::function::Fn<(), Output=i32> + core::marker::Sync + core::panic::unwind_safe::RefUnwindSafe), i32> (panicking.rs:403)
+==13300==    by 0x681BDA: try<i32, &(dyn core::ops::function::Fn<(), Output=i32> + core::marker::Sync + core::panic::unwind_safe::RefUnwindSafe)> (panicking.rs:367)
+==13300==    by 0x681BDA: catch_unwind<&(dyn core::ops::function::Fn<(), Output=i32> + core::marker::Sync + core::panic::unwind_safe::RefUnwindSafe), i32> (panic.rs:133)
+==13300==    by 0x681BDA: {closure#2} (rt.rs:128)
+==13300==    by 0x681BDA: do_call<std::rt::lang_start_internal::{closure#2}, isize> (panicking.rs:403)
+==13300==    by 0x681BDA: try<isize, std::rt::lang_start_internal::{closure#2}> (panicking.rs:367)
+==13300==    by 0x681BDA: catch_unwind<std::rt::lang_start_internal::{closure#2}, isize> (panic.rs:133)
+==13300==    by 0x681BDA: std::rt::lang_start_internal (rt.rs:128)
+==13300==    by 0x1D1041: main (in /home/jdroo/github.com/mthom/scryer-prolog/target/release/scryer-prolog)
+==13300==  Address 0x0 is not stack'd, malloc'd or (recently) free'd
+==13300==
+==13300== Warning: set address range perms: large range [0x3e1b0040, 0x501b0040) (undefined)
+==13300== Warning: set address range perms: large range [0x1a1af028, 0x2c1af058) (noaccess)
+==13300== Warning: set address range perms: large range [0x7dc9d040, 0xa1c9d040) (undefined)
+==13300== Warning: set address range perms: large range [0x2c1b0028, 0x501b0058) (noaccess)
+==13300== Warning: set address range perms: large range [0xe9c9e040, 0x131c9e040) (undefined)
+==13300== Warning: set address range perms: large range [0x59c9d028, 0xa1c9d058) (noaccess)
+==13300== Warning: set address range perms: large range [0x1c1c9f040, 0x251c9f040) (undefined)
+==13300== Warning: set address range perms: large range [0xa1c9e028, 0x131c9e058) (noaccess)
+==13300== Warning: set address range perms: large range [0x371ca0040, 0x491ca0040) (undefined)
+==13300== Warning: set address range perms: large range [0x131c9f028, 0x251c9f058) (noaccess)
+==13300== Invalid write of size 1
+==13300==    at 0x347245: scryer_prolog::machine::<impl scryer_prolog::machine::machine_state::MachineState>::dispatch_instr (in /home/jdroo/github.com/mthom/scryer-prolog/target/release/scryer-prolog)
+==13300==    by 0x34A2C0: scryer_prolog::machine::<impl scryer_prolog::machine::machine_state::MachineState>::query_stepper (in /home/jdroo/github.com/mthom/scryer-prolog/target/release/scryer-prolog)
+==13300==    by 0x1E8498: scryer_prolog::machine::Machine::run_module_predicate (in /home/jdroo/github.com/mthom/scryer-prolog/target/release/scryer-prolog)
+==13300==    by 0x1E944D: scryer_prolog::machine::Machine::run_top_level (in /home/jdroo/github.com/mthom/scryer-prolog/target/release/scryer-prolog)
+==13300==    by 0x1D0EDE: scryer_prolog::main (in /home/jdroo/github.com/mthom/scryer-prolog/target/release/scryer-prolog)
+==13300==    by 0x1C1C52: std::sys_common::backtrace::__rust_begin_short_backtrace (in /home/jdroo/github.com/mthom/scryer-prolog/target/release/scryer-prolog)
+==13300==    by 0x1C0048: _ZN3std2rt10lang_start28_$u7b$$u7b$closure$u7d$$u7d$17h89750e7a0365f2aaE.llvm.10627062449510294523 (in /home/jdroo/github.com/mthom/scryer-prolog/target/release/scryer-prolog)
+==13300==    by 0x681BDA: call_once<(), (dyn core::ops::function::Fn<(), Output=i32> + core::marker::Sync + core::panic::unwind_safe::RefUnwindSafe)> (function.rs:259)
+==13300==    by 0x681BDA: do_call<&(dyn core::ops::function::Fn<(), Output=i32> + core::marker::Sync + core::panic::unwind_safe::RefUnwindSafe), i32> (panicking.rs:403)
+==13300==    by 0x681BDA: try<i32, &(dyn core::ops::function::Fn<(), Output=i32> + core::marker::Sync + core::panic::unwind_safe::RefUnwindSafe)> (panicking.rs:367)
+==13300==    by 0x681BDA: catch_unwind<&(dyn core::ops::function::Fn<(), Output=i32> + core::marker::Sync + core::panic::unwind_safe::RefUnwindSafe), i32> (panic.rs:133)
+==13300==    by 0x681BDA: {closure#2} (rt.rs:128)
+==13300==    by 0x681BDA: do_call<std::rt::lang_start_internal::{closure#2}, isize> (panicking.rs:403)
+==13300==    by 0x681BDA: try<isize, std::rt::lang_start_internal::{closure#2}> (panicking.rs:367)
+==13300==    by 0x681BDA: catch_unwind<std::rt::lang_start_internal::{closure#2}, isize> (panic.rs:133)
+==13300==    by 0x681BDA: std::rt::lang_start_internal (rt.rs:128)
+==13300==    by 0x1D1041: main (in /home/jdroo/github.com/mthom/scryer-prolog/target/release/scryer-prolog)
+==13300==  Address 0x240000000 is not stack'd, malloc'd or (recently) free'd
+==13300==
+==13300==
+==13300== Process terminating with default action of signal 11 (SIGSEGV)
+==13300==  Access not within mapped region at address 0x240000000
+==13300==    at 0x347245: scryer_prolog::machine::<impl scryer_prolog::machine::machine_state::MachineState>::dispatch_instr (in /home/jdroo/github.com/mthom/scryer-prolog/target/release/scryer-prolog)
+==13300==    by 0x34A2C0: scryer_prolog::machine::<impl scryer_prolog::machine::machine_state::MachineState>::query_stepper (in /home/jdroo/github.com/mthom/scryer-prolog/target/release/scryer-prolog)
+==13300==    by 0x1E8498: scryer_prolog::machine::Machine::run_module_predicate (in /home/jdroo/github.com/mthom/scryer-prolog/target/release/scryer-prolog)
+==13300==    by 0x1E944D: scryer_prolog::machine::Machine::run_top_level (in /home/jdroo/github.com/mthom/scryer-prolog/target/release/scryer-prolog)
+==13300==    by 0x1D0EDE: scryer_prolog::main (in /home/jdroo/github.com/mthom/scryer-prolog/target/release/scryer-prolog)
+==13300==    by 0x1C1C52: std::sys_common::backtrace::__rust_begin_short_backtrace (in /home/jdroo/github.com/mthom/scryer-prolog/target/release/scryer-prolog)
+==13300==    by 0x1C0048: _ZN3std2rt10lang_start28_$u7b$$u7b$closure$u7d$$u7d$17h89750e7a0365f2aaE.llvm.10627062449510294523 (in /home/jdroo/github.com/mthom/scryer-prolog/target/release/scryer-prolog)
+==13300==    by 0x681BDA: call_once<(), (dyn core::ops::function::Fn<(), Output=i32> + core::marker::Sync + core::panic::unwind_safe::RefUnwindSafe)> (function.rs:259)
+==13300==    by 0x681BDA: do_call<&(dyn core::ops::function::Fn<(), Output=i32> + core::marker::Sync + core::panic::unwind_safe::RefUnwindSafe), i32> (panicking.rs:403)
+==13300==    by 0x681BDA: try<i32, &(dyn core::ops::function::Fn<(), Output=i32> + core::marker::Sync + core::panic::unwind_safe::RefUnwindSafe)> (panicking.rs:367)
+==13300==    by 0x681BDA: catch_unwind<&(dyn core::ops::function::Fn<(), Output=i32> + core::marker::Sync + core::panic::unwind_safe::RefUnwindSafe), i32> (panic.rs:133)
+==13300==    by 0x681BDA: {closure#2} (rt.rs:128)
+==13300==    by 0x681BDA: do_call<std::rt::lang_start_internal::{closure#2}, isize> (panicking.rs:403)
+==13300==    by 0x681BDA: try<isize, std::rt::lang_start_internal::{closure#2}> (panicking.rs:367)
+==13300==    by 0x681BDA: catch_unwind<std::rt::lang_start_internal::{closure#2}, isize> (panic.rs:133)
+==13300==    by 0x681BDA: std::rt::lang_start_internal (rt.rs:128)
+==13300==    by 0x1D1041: main (in /home/jdroo/github.com/mthom/scryer-prolog/target/release/scryer-prolog)
+==13300==  If you believe this happened as a result of a stack
+==13300==  overflow in your program's main thread (unlikely but
+==13300==  possible), you can try to increase the size of the
+==13300==  main thread stack using the --main-stacksize= flag.
+==13300==  The main thread stack size used in this run was 8388608.
+==13300==
+==13300== HEAP SUMMARY:
+==13300==     in use at exit: 9,946,753,063 bytes in 7,431 blocks
+==13300==   total heap usage: 58,479,535 allocs, 58,472,104 frees, 46,792,635,449 bytes allocated
+==13300==
+==13300== LEAK SUMMARY:
+==13300==    definitely lost: 0 bytes in 0 blocks
+==13300==    indirectly lost: 0 bytes in 0 blocks
+==13300==      possibly lost: 9,663,706,217 bytes in 236 blocks
+==13300==    still reachable: 283,046,846 bytes in 7,195 blocks
+==13300==                       of which reachable via heuristic:
+==13300==                         newarray           : 64 bytes in 3 blocks
+==13300==         suppressed: 0 bytes in 0 blocks
+==13300== Rerun with --leak-check=full to see details of leaked memory
+==13300==
+==13300== For lists of detected and suppressed errors, rerun with: -s
+==13300== ERROR SUMMARY: 4 errors from 3 contexts (suppressed: 0 from 0)
+Segmentation fault
