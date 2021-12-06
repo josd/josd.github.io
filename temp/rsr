@@ -3,9 +3,9 @@ pushd ~/eyesvn; svn update; popd
 echo ""
 pushd ~/github.com/josd/eye; git pull; popd
 echo ""
-pushd ~/github.com/josd/josd.github.io; git pull; popd
+pushd ~/github.com/josd/heisenberg; git pull; popd
 echo ""
-pushd ~/github.com/phochste/NO3; git pull; popd
+pushd ~/github.com/josd/josd.github.io; git pull; popd
 echo ""
 pushd ~/github.com/SWI-Prolog/swipl-devel; git pull; popd
 echo ""
