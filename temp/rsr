@@ -1,6 +1,8 @@
 #!/bin/bash
 pushd ~/eyesvn; svn update; popd
 echo ""
+pushd ~/github.com/infradig/trealla; git pull; popd
+echo ""
 pushd ~/github.com/josd/eye; git pull; popd
 echo ""
 pushd ~/github.com/josd/heisenberg; git pull; popd

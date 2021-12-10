@@ -5,6 +5,6 @@ cargo build --release
 cargo test --release
 popd
 pushd ~/github.com/josd/heisenberg
-./test
+./test scryer-prolog
 git diff
 popd
