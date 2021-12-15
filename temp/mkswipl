@@ -40,7 +40,7 @@ sudo ninja install
 i
 popd
 
-pushd ~/github.com/josd/eye/reasoning/prolog
+pushd ~/github.com/josd/eye/reasoning/retina
 ./prepare swipl
 git diff
 popd
