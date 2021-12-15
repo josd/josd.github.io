@@ -6,7 +6,7 @@ make
 make test
 echo ""
 popd
-pushd ~/eyesvn/2006/02swap/reasoning/prolog
+pushd ~/github.com/josd/eye/reasoning/prolog
 ./prepare tpl
-svn diff
+git diff
 popd

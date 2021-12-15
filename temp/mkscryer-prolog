@@ -4,7 +4,7 @@ git pull
 cargo build --release
 cargo test --release
 popd
-pushd ~/eyesvn/2006/02swap/reasoning/prolog
+pushd ~/github.com/josd/eye/reasoning/prolog
 ./prepare scryer-prolog
-svn diff
+git diff
 popd
