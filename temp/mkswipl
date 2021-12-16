@@ -39,12 +39,6 @@ ninja
 sudo ninja install
 i
 popd
-
-pushd ~/github.com/josd/eye/reasoning/heisenberg
-./prepare swipl
-git diff
-popd
-
 pushd ~/github.com/josd/eye/reasoning
 ./test
 git diff
