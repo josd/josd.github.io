@@ -4,7 +4,7 @@ git pull
 cargo build --release
 cargo test --release
 popd
-pushd ~/github.com/josd/eye/reasoning/retina
+pushd ~/github.com/josd/eye/reasoning/heisenberg
 ./prepare scryer-prolog
 git diff
 popd
