@@ -6,7 +6,7 @@ make
 make test
 echo ""
 popd
-pushd ~/eyesvn/2006/02swap/reasoning/retina
-./prepare tpl
-svn diff
+pushd ~/github.com/josd/heisenberg
+./test tpl
+git diff
 popd

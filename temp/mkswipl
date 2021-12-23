@@ -43,3 +43,7 @@ pushd ~/github.com/josd/eye/reasoning
 ./test
 git diff
 popd
+pushd ~/github.com/josd/heisenberg
+./test swipl
+git diff
+popd
