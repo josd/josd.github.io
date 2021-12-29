@@ -5,6 +5,6 @@ cargo build --release
 cargo test --release
 popd
 pushd ~/eyesvn/2006/02swap/reasoning/prolog
-./test scryer-prolog
+./prepare scryer-prolog
 svn diff
 popd
