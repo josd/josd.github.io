@@ -5,7 +5,7 @@ pushd ~/github.com/josd/eye; git pull; popd
 echo ""
 pushd ~/github.com/josd/josd.github.io; git pull; popd
 echo ""
-pushd ~/github.com/josd/quark; git pull; popd
+pushd ~/github.com/josd/treadle; git pull; popd
 echo ""
 pushd ~/github.com/infradig/trealla; git pull; popd
 echo ""
