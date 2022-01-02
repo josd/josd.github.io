@@ -6,7 +6,7 @@ make
 make test
 echo ""
 popd
-pushd ~/github.com/josd/quark
+pushd ~/github.com/josd/treadle
 ./test
 git diff
 popd
