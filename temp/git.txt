@@ -1,0 +1,112 @@
+git config --global user.name josd
+git config --global user.email "josderoo@gmail.com"
+git config --global color.ui true
+git config --global credential.helper store
+git config --global url."https://".insteadOf git://
+git config --global push.default simple
+
+git add *.js
+git commit -m "method renamed from add to addTriple"
+git push
+
+git log prolog_pack.pl
+git diff -r 27a4f5e100cdec2cc0331c4f119b7f0c9e9f68bb prolog_pack.pl
+git rm file1.txt
+git commit -m "remove file1.txt"
+git push
+git reset --hard HEAD
+git reset --hard HEAD^
+
+[Fork] https://github.com/SWI-Prolog/swipl-devel
+git clone https://github.com/josd/swipl-devel
+cd swipl-devel
+git submodule init
+git submodule update
+git remote add upstream https://github.com/SWI-Prolog/swipl-devel
+git remote -v
+git fetch upstream
+git merge upstream/master
+git commit -m "fixing EYE JITI loss"
+git push origin master
+
+git init
+git add README.md
+git commit -m "first commit"
+git remote add origin https://github.com/josd/eyejiti.git
+git push -u origin master
+
+git diff
+git commit -a -m "adding test with cwm"
+git diff origin/master
+git push
+
+git branch -a
+git remote show origin
+git checkout literals-3
+git pull
+
+git checkout master
+git merge literals-3
+git push
+
+git checkout --orphan gh-pages
+git merge master -m republish
+git push --set-upstream origin gh-pages
+git checkout master
+
+git checkout gh-pages
+git merge master -m republish
+git push
+git checkout master
+
+git config remote.origin.url https://github.com/josd/bmb.git
+
+git checkout dba69e176b58d5ef08b4d9aa3d225c22be5f29bd
+git checkout master
+
+git submodule add https://github.com/triska/the-power-of-prolog pop
+git submodule update --init
+git commit -a -m "adding pop"
+git push
+
+git pull --recurse-submodules
+
+git rm pop
+rm -rf .git/modules/pop
+
+git tag -a v18.1111.2230 -m "introducing eye duo"
+git push origin v18.1111.2230
+git tag -d v18.1111.2230
+git push origin :refs/tags/v18.1111.2230
+
+git reset --hard 60415ffa91ef7240649b54a5fab01737a4ae2f39
+git push -f
+
+rm -rf .git
+git init
+git add .
+git commit -m refresh
+git remote set-url origin https://github.com/josd/eye
+git push -u --force origin master
+
+git commit --allow-empty -m refresh
+git commit -a -m "misc [skip ci]"
+
+git clean -xnd
+git clean -xfd
+git submodule foreach git clean -xfd
+
+git clone https://github.com/josd/trealla
+git remote add upstream https://github.com/infradig/trealla
+git checkout upstream/devel
+git checkout -b devel
+git branch --set-upstream-to=upstream/devel devel
+
+
+curl -H "Accept: application/vnd.github.v3+json" https://api.github.com/repos/josd/treadle/stargazers
+
+
+-- http://ndpsoftware.com/git-cheatsheet.html
+-- ~/.git-credentials
+-- https://docs.travis-ci.com/user/tutorial/
+-- https://timonweb.com/misc/how-to-update-a-forked-repo-from-an-upstream-with-git-rebase-or-merge/
