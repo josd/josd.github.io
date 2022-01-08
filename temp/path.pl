@@ -1,18 +1,18 @@
-:- dynamic(path/2).
+:- dynamic(path/3).
 
-oneway(paris,orleans).
-oneway(paris,chartres).
-oneway(paris,amiens).
-oneway(orleans,blois).
-oneway(orleans,bourges).
-oneway(blois,tours).
-oneway(chartres,lemans).
-oneway(lemans,angers).
-oneway(lemans,tours).
-oneway(angers,nantes).
+oneway(france,paris,orleans).
+oneway(france,paris,chartres).
+oneway(france,paris,amiens).
+oneway(france,orleans,blois).
+oneway(france,orleans,bourges).
+oneway(france,blois,tours).
+oneway(france,chartres,lemans).
+oneway(france,lemans,angers).
+oneway(france,lemans,tours).
+oneway(france,angers,nantes).
 
-implies(oneway(A,B),path(A,B)).
-implies((path(A,B),path(B,C)),path(A,C)).
+implies(oneway(A,B,C),path(A,B,C)).
+implies((path(A,B,C),path(A,C,D)),path(A,B,D)).
 
 run :-
     implies(Prem,Conc),
@@ -21,5 +21,5 @@ run :-
     assertz(Conc),
     write(implies(Prem,Conc)),
     nl,
-    fail.
+    run.
 run.
