@@ -5,7 +5,7 @@ git pull
 cargo build --release
 cargo test --release
 popd
-pushd ~/eyesvn/2006/02swap/reasoning/retina
+pushd ~/github.com/josd/eye/reasoning/heisenberg
 ./prepare scryer-prolog
-svn diff
+git diff
 popd

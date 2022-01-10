@@ -6,7 +6,7 @@ make
 make test
 echo ""
 popd
-pushd ~/github.com/josd/heisenberg
-./test
+pushd ~/github.com/josd/eye/reasoning/heisenberg
+./prepare tpl
 git diff
 popd
