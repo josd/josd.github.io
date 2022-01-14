@@ -1,7 +1,7 @@
 #!/bin/bash
 pushd ~/github.com/infradig/trealla
 git checkout ${1:-devel}
-git pull
+git pull --all
 make
 make test
 echo ""

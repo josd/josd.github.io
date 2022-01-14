@@ -1,19 +1,19 @@
 #!/bin/bash
 pushd ~/eyesvn; svn update; popd
 echo ""
-pushd ~/github.com/josd/eye; git pull; popd
+pushd ~/github.com/josd/eye; git pull --all; popd
 echo ""
-pushd ~/github.com/josd/heiseneye; git pull; popd
+pushd ~/github.com/josd/heiseneye; git pull --all; popd
 echo ""
-pushd ~/github.com/josd/josd.github.io; git pull; popd
+pushd ~/github.com/josd/josd.github.io; git pull --all; popd
 echo ""
-pushd ~/github.com/infradig/trealla; git pull; popd
+pushd ~/github.com/infradig/trealla; git pull --all; popd
 echo ""
-pushd ~/github.com/mthom/scryer-prolog; git pull; popd
+pushd ~/github.com/mthom/scryer-prolog; git pull --all; popd
 echo ""
-pushd ~/github.com/SWI-Prolog/swipl-devel; git pull; popd
+pushd ~/github.com/SWI-Prolog/swipl-devel; git pull --all; popd
 echo ""
-pushd ~/github.com/w3c/N3; git pull; popd
+pushd ~/github.com/w3c/N3; git pull --all; popd
 echo ""
-pushd ~/github.com/w3c/rdf-star; git pull; popd
+pushd ~/github.com/w3c/rdf-star; git pull --all; popd
 echo ""
