@@ -1,7 +1,7 @@
 #!/bin/bash
 pushd ~/github.com/mthom/scryer-prolog
-git checkout ${1:-rebis-dev}
 git pull --all
+cargo check --release
 cargo build --release
 cargo test --release
 popd
