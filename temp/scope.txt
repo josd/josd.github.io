@@ -5,5 +5,5 @@ don't know, but he knows" so the client interface can ask him. It is
 also called Socratic completeness and I believe it is scalable because 
 the dialogue is typically limited in space and time.
 
-Will investigate this further and call it
-"Socratic COmplete Proof Engine - SCOPE" using the EYE reasoner.
+One small stepping stone might be the use of reasoning to derive the
+right questions.
