@@ -5,7 +5,7 @@ make
 make test
 echo ""
 popd
-pushd ~/eyesvn/2006/02swap/reasoning/retina
-./prepare tpl
+pushd ~/eyesvn/heiseneye
+./test tpl
 svn diff
 popd
