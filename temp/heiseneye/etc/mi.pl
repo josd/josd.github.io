@@ -3,13 +3,13 @@
 
 :- op(1150,xfx,=>).
 
-'https://josd.github.io/heiseneye/etc#mi'([]).
-'https://josd.github.io/heiseneye/etc#mi'([G|Gs]) :-
+'https://josd.github.io/heiseneye/etc#mi'([],true).
+'https://josd.github.io/heiseneye/etc#mi'([G|Gs],true) :-
     head_body_(G,Goals,Gs),
-    'https://josd.github.io/heiseneye/etc#mi'(Goals).
+    'https://josd.github.io/heiseneye/etc#mi'(Goals,true).
 
-head_body_('https://josd.github.io/heiseneye/etc#mi'([]),Rs,Rs).
-head_body_('https://josd.github.io/heiseneye/etc#mi'([G|Gs]),[head_body_(G,Goals,Gs),'https://josd.github.io/heiseneye/etc#mi'(Goals)|Rs],Rs).
+head_body_('https://josd.github.io/heiseneye/etc#mi'([],true),Rs,Rs).
+head_body_('https://josd.github.io/heiseneye/etc#mi'([G|Gs],true),[head_body_(G,Goals,Gs),'https://josd.github.io/heiseneye/etc#mi'(Goals,true)|Rs],Rs).
 
 head_body_(head_body_(Head,Goals0,Goals),Rs,Rs) :-
     head_body_(Head,Goals0,Goals).
@@ -27,8 +27,8 @@ head_body_(sum(0,M,M),Rs,Rs).
 head_body_(sum(s(N),M,s(K)),[sum(N,M,K)|Rs],Rs).
 
 % query
-'https://josd.github.io/heiseneye/etc#mi'(['https://josd.github.io/heiseneye/etc#mi'(['https://josd.github.io/heiseneye/etc#mi'(['https://josd.github.io/heiseneye/etc#mi'(['https://josd.github.io/heiseneye/etc#mi'([factorial(s(s(s(s(s(s(0)))))),_X)])])])])]) => yes.
-'https://josd.github.io/heiseneye/etc#mi'(['https://josd.github.io/heiseneye/etc#mi'(['https://josd.github.io/heiseneye/etc#mi'(['https://josd.github.io/heiseneye/etc#mi'(['https://josd.github.io/heiseneye/etc#mi'([natnum(_X)])])])])]) => yes.
+'https://josd.github.io/heiseneye/etc#mi'(['https://josd.github.io/heiseneye/etc#mi'(['https://josd.github.io/heiseneye/etc#mi'(['https://josd.github.io/heiseneye/etc#mi'(['https://josd.github.io/heiseneye/etc#mi'([factorial(s(s(s(s(s(s(0)))))),_X)],true)],true)],true)],true)],true) => yes.
+'https://josd.github.io/heiseneye/etc#mi'(['https://josd.github.io/heiseneye/etc#mi'(['https://josd.github.io/heiseneye/etc#mi'(['https://josd.github.io/heiseneye/etc#mi'(['https://josd.github.io/heiseneye/etc#mi'([natnum(_X)],true)],true)],true)],true)],true) => yes.
 
 % 10 answers are fine
 limited_answer(10).
