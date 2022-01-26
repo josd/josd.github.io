@@ -5,7 +5,7 @@ cargo check --release
 cargo build --release
 cargo test --release
 popd
-pushd ~/eyesvn/heiseneye
+pushd ~/github.com/josd/josd.github.io/temp/heiseneye
 ./test scryer-prolog
-svn diff
+git diff
 popd

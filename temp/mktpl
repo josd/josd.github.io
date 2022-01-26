@@ -5,7 +5,7 @@ make
 make test
 echo ""
 popd
-pushd ~/eyesvn/heiseneye
+pushd ~/github.com/josd/josd.github.io/temp/heiseneye
 ./test tpl
-svn diff
+git diff
 popd
