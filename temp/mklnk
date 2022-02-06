@@ -15,6 +15,7 @@ sudo ln -sf ~/github.com/josd/josd.github.io/temp/rsr /usr/local/bin
 sudo ln -sf ~/github.com/josd/josd.github.io/temp/mkscryer-prolog /usr/local/bin
 sudo ln -sf ~/github.com/josd/josd.github.io/temp/mkswipl /usr/local/bin
 sudo ln -sf ~/github.com/josd/josd.github.io/temp/mktpl /usr/local/bin
+sudo ln -sf ~/github.com/josd/josd.github.io/temp/mkwebeye /usr/local/bin
 sudo ln -sf ~/github.com/josd/josd.github.io/temp/si /usr/local/bin
 sudo ln -sf ~/github.com/josd/josd.github.io/temp/u /usr/local/bin
 sudo ln -sf ~/github.com/mthom/scryer-prolog/target/release/scryer-prolog /usr/local/bin

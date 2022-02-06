@@ -1,0 +1,8 @@
+#!/bin/bash
+pushd ~/github.com/IDLabResearch/Webeye
+npm update
+pushd examples
+./test
+popd
+git diff
+popd
