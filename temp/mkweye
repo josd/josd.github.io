@@ -1,5 +1,5 @@
 #!/bin/bash
-pushd ~/github.com/IDLabResearch/Webeye
+pushd ~/github.com/IDLabResearch/Weye
 npm update
 pushd examples
 ./test
