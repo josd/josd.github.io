@@ -1,5 +1,5 @@
 #!/bin/bash
-pushd ~/github.com/IDLabResearch/Weye
+pushd ~/github.com/IDLabResearch/Webeye
 npm install tau-prolog
 pushd examples
 ./test
