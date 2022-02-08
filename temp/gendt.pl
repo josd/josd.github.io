@@ -12,7 +12,7 @@ run :-
     write(Out,'\n'),
     write(Out,'\'http://www.w3.org/1999/02/22-rdf-syntax-ns#type\'(\'http://example.org/etc#z\',\'http://example.org/etc#N0\').\n'),
     write(Out,'\n'),
-    (   between(0,99999,I),
+    (   between(0,9999,I),
         J is I+1,
         format(Out,"'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/etc#N~d') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/etc#N~d').~n",[J,I]),
         format(Out,"'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/etc#I~d') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/etc#N~d').~n",[J,I]),
@@ -26,5 +26,4 @@ run :-
     write(Out,'\'http://www.w3.org/1999/02/22-rdf-syntax-ns#type\'(_ELEMENT,\'http://example.org/etc#N100\') => yes.\n'),
     write(Out,'\'http://www.w3.org/1999/02/22-rdf-syntax-ns#type\'(_ELEMENT,\'http://example.org/etc#N1000\') => yes.\n'),
     write(Out,'\'http://www.w3.org/1999/02/22-rdf-syntax-ns#type\'(_ELEMENT,\'http://example.org/etc#N10000\') => yes.\n'),
-    write(Out,'\'http://www.w3.org/1999/02/22-rdf-syntax-ns#type\'(_ELEMENT,\'http://example.org/etc#N100000\') => yes.\n'),
     close(Out).

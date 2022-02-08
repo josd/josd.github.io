@@ -71,7 +71,6 @@
 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'('http://example.org/etc#z','http://example.org/etc#N100') => yes.
 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'('http://example.org/etc#z','http://example.org/etc#N1000') => yes.
 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'('http://example.org/etc#z','http://example.org/etc#N10000') => yes.
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'('http://example.org/etc#z','http://example.org/etc#N100000') => yes.
 
 % running etc/easter.pl
 'https://josd.github.io/heiseneye/etc#easter'(2021,[4,4]) => yes.

@@ -1,6 +1,5 @@
 #!/bin/bash
 sudo ln -sf ~/eyesvn/2006/02swap/mksf /usr/local/bin
-sudo ln -sf ~/github.com/infradig/trealla/tpl /usr/local/bin
 sudo ln -sf ~/github.com/josd/eye/mkeye /usr/local/bin
 sudo ln -sf ~/github.com/josd/josd.github.io/temp/ei /usr/local/bin
 sudo ln -sf ~/github.com/josd/josd.github.io/temp/etc /usr/local/bin
@@ -19,5 +18,6 @@ sudo ln -sf ~/github.com/josd/josd.github.io/temp/mkwebeye /usr/local/bin
 sudo ln -sf ~/github.com/josd/josd.github.io/temp/si /usr/local/bin
 sudo ln -sf ~/github.com/josd/josd.github.io/temp/u /usr/local/bin
 sudo ln -sf ~/github.com/mthom/scryer-prolog/target/release/scryer-prolog /usr/local/bin
+sudo ln -sf ~/github.com/trealla-prolog/trealla/tpl /usr/local/bin
 sudo ln -sf ~/julia-1.7.0/bin/julia /usr/local/bin
 sudo ln -sf /opt/eye/bin/eye.sh /usr/local/bin/eye

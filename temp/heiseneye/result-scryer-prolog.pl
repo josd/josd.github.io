@@ -49,7 +49,7 @@
 'https://josd.github.io/heiseneye/etc#colors'(map1,[[p1,c1],[p2,c2],[p3,c3],[p4,c4],[p5,c4]]) => yes.
 
 % running etc/complex.pl
-'https://josd.github.io/heiseneye/etc#exp'([[-1,0],[0.5,0]],[0.00000000000000006123233995736766,1.0]) => yes.
+'https://josd.github.io/heiseneye/etc#exp'([[-1,0],[0.5,0]],[6.123233995736766e-17,1.0]) => yes.
 'https://josd.github.io/heiseneye/etc#exp'([[e,0],[0,pi]],[-1.0,0.00000000000000012246467991473532]) => yes.
 'https://josd.github.io/heiseneye/etc#log'([[e,0],[-1,0]],[0.0,3.141592653589793]) => yes.
 'https://josd.github.io/heiseneye/etc#log'([[0,1],[0,1]],[1.0,0.0]) => yes.
@@ -71,7 +71,6 @@
 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'('http://example.org/etc#z','http://example.org/etc#N100') => yes.
 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'('http://example.org/etc#z','http://example.org/etc#N1000') => yes.
 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'('http://example.org/etc#z','http://example.org/etc#N10000') => yes.
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'('http://example.org/etc#z','http://example.org/etc#N100000') => yes.
 
 % running etc/easter.pl
 'https://josd.github.io/heiseneye/etc#easter'(2021,[4,4]) => yes.
