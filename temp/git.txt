@@ -4,6 +4,7 @@ git config --global color.ui true
 git config --global credential.helper store
 git config --global url."https://".insteadOf git://
 git config --global push.default simple
+git config --global pack.threads "1"
 
 git add *.js
 git commit -m "method renamed from add to addTriple"
