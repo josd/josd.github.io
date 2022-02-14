@@ -1,8 +1,7 @@
 #!/bin/bash
 pushd ~/github.com/IDLabResearch/Webeye
 npm install tau-prolog
-pushd examples
-./test
-popd
+./test_on_node
+./test_on_rust
 git diff
 popd
