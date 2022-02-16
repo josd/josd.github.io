@@ -1,0 +1,6 @@
+sudo npm install -g eyeserver
+eyeserver 8000
+
+curl "http://localhost:8000/?data=https://josd.github.io/eye/reasoning/socrates/socrates.n3&query=https://josd.github.io/eye/reasoning/socrates/socrates-query.n3"
+curl "http://localhost:8000/?data=https://josd.github.io/eye/reasoning/gps/gps-plugin.n3&data=https://josd.github.io/eye/reasoning/gps/gps-example1.n3&query=https://josd.github.io/eye/reasoning/gps/gps-query1.n3"
+curl "http://localhost:8000/?data=https://josd.github.io/eye/reasoning/turing/turing.n3&query=https://josd.github.io/eye/reasoning/turing/turingQ.n3"
