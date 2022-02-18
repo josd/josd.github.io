@@ -20,10 +20,9 @@ mkdir build.wasm
 cd build.wasm
 source ~/emsdk/emsdk_env.sh
 export EMSCRIPTEN=~/emsdk/upstream/emscripten/
-add the following line to ~/github.com/SWI-Prolog/swipl-devel/cmake/port/Emscripten.cmake
-    set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -s ASSERTIONS=1 -s ALLOW_MEMORY_GROWTH=1")
 cmake -DCMAKE_TOOLCHAIN_FILE=$EMSCRIPTEN/cmake/Modules/Platform/Emscripten.cmake \
   -DCMAKE_BUILD_TYPE=Release \
+  -DCMAKE_EXE_LINKER_FLAGS="${CMAKE_EXE_LINKER_FLAGS} -s ASSERTIONS=1 -s ALLOW_MEMORY_GROWTH=1" \
   -DZLIB_LIBRARY=$HOME/zlib-1.2.11/libz.a \
   -DZLIB_INCLUDE_DIR=$HOME/zlib-1.2.11 \
   -DMULTI_THREADED=OFF \
