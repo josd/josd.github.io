@@ -20,6 +20,8 @@ mkdir build.wasm
 cd build.wasm
 source ~/emsdk/emsdk_env.sh
 export EMSCRIPTEN=~/emsdk/upstream/emscripten/
+add the following line to ~/github.com/SWI-Prolog/swipl-devel/cmake/port/Emscripten.cmake
+    set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -s ASSERTIONS=1 -s ALLOW_MEMORY_GROWTH=1")
 cmake -DCMAKE_TOOLCHAIN_FILE=$EMSCRIPTEN/cmake/Modules/Platform/Emscripten.cmake \
   -DCMAKE_BUILD_TYPE=Release \
   -DZLIB_LIBRARY=$HOME/zlib-1.2.11/libz.a \
@@ -34,7 +36,7 @@ cmake -DCMAKE_TOOLCHAIN_FILE=$EMSCRIPTEN/cmake/Modules/Platform/Emscripten.cmake
   -G Ninja ..
 ninja
 
-cd ~/temp/eye-wasm
+cd ~/github.com/josd/josd.github.io/temp/eye-wasm
 node ~/github.com/SWI-Prolog/swipl-devel/build.wasm/src/swipl.js -f eye.pl -g main -- --nope socrates.n3 --query socrates-query.n3
 node ~/github.com/SWI-Prolog/swipl-devel/build.wasm/src/swipl.js -f eye.pl -g main -- --nope gps-plugin.n3 gps-example1.n3 --query gps-query1.n3
 node ~/github.com/SWI-Prolog/swipl-devel/build.wasm/src/swipl.js -f eye.pl -g main -- --nope test-dt.n3 test-facts.n3 --query test-query.n3
