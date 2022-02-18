@@ -1,0 +1,40 @@
+sudo apt install cmake
+sudo apt install ninja-build
+
+cd ~
+git clone https://github.com/emscripten-core/emsdk.git
+cd emsdk
+./emsdk install latest
+./emsdk activate latest
+source ./emsdk_env.sh
+
+cd ~
+wget https://zlib.net/zlib-1.2.11.tar.gz -O "$HOME/zlib-1.2.11.tar.gz"
+tar -xf "$HOME/zlib-1.2.11.tar.gz" -C "$HOME"
+cd "$HOME/zlib-1.2.11"
+emconfigure ./configure
+emmake make
+
+cd ~/github.com/SWI-Prolog/swipl-devel
+mkdir build.wasm
+cd build.wasm
+source ~/emsdk/emsdk_env.sh
+export EMSCRIPTEN=~/emsdk/upstream/emscripten/
+cmake -DCMAKE_TOOLCHAIN_FILE=$EMSCRIPTEN/cmake/Modules/Platform/Emscripten.cmake \
+  -DCMAKE_BUILD_TYPE=Release \
+  -DZLIB_LIBRARY=$HOME/zlib-1.2.11/libz.a \
+  -DZLIB_INCLUDE_DIR=$HOME/zlib-1.2.11 \
+  -DMULTI_THREADED=OFF \
+  -DUSE_SIGNALS=OFF \
+  -DUSE_GMP=OFF \
+  -DBUILD_SWIPL_LD=OFF \
+  -DSWIPL_PACKAGES=OFF \
+  -DINSTALL_DOCUMENTATION=OFF \
+  -DSWIPL_NATIVE_FRIEND=build \
+  -G Ninja ..
+ninja
+
+cd ~/temp/eye-wasm
+node ~/github.com/SWI-Prolog/swipl-devel/build.wasm/src/swipl.js -f eye.pl -g main -- --nope socrates.n3 --query socrates-query.n3
+node ~/github.com/SWI-Prolog/swipl-devel/build.wasm/src/swipl.js -f eye.pl -g main -- --nope gps-plugin.n3 gps-example1.n3 --query gps-query1.n3
+node ~/github.com/SWI-Prolog/swipl-devel/build.wasm/src/swipl.js -f eye.pl -g main -- --nope test-dt.n3 test-facts.n3 --query test-query.n3
