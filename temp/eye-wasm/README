@@ -39,3 +39,7 @@ cd ~/github.com/josd/josd.github.io/temp/eye-wasm
 node ~/github.com/SWI-Prolog/swipl-devel/build.wasm/src/swipl.js -f eye.pl -g main -- --nope socrates.n3 --query socrates-query.n3
 node ~/github.com/SWI-Prolog/swipl-devel/build.wasm/src/swipl.js -f eye.pl -g main -- --nope gps-plugin.n3 gps-example1.n3 --query gps-query1.n3
 node ~/github.com/SWI-Prolog/swipl-devel/build.wasm/src/swipl.js -f eye.pl -g main -- --nope test-dt.n3 test-facts.n3 --query test-query.n3
+
+node ~/github.com/SWI-Prolog/swipl-devel/build.wasm/src/swipl.js -f eye.pl -g main -- --nope test-dt1.n3 test-dt2.n3 test-facts.n3 --query test-query.n3
+node ~/github.com/SWI-Prolog/swipl-devel/build.wasm/src/swipl.js -g run,halt webeye.pl dt.pl
+node ~/github.com/SWI-Prolog/swipl-devel/build.wasm/src/swipl.js -g run,halt webeye.pl sdcoding.pl
