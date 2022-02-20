@@ -3,6 +3,7 @@ pushd ~/github.com/SWI-Prolog/swipl-devel/build.wasm
 ninja
 popd
 pushd ~/github.com/josd/eyenext
+rsync -azv ~/github.com/josd/eye/eye.pl .
 mkdir -p swipl-wasm
 mkdir -p swipl-wasm/home
 rsync -azv ~/github.com/SWI-Prolog/swipl-devel/build.wasm/swipl.home ./swipl-wasm
