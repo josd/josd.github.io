@@ -17,4 +17,6 @@ rsync -azv ~/github.com/SWI-Prolog/swipl-devel/build.wasm/home/library/unicode/I
 rsync -azv ~/github.com/SWI-Prolog/swipl-devel/build.wasm/home/library/INDEX.pl ./swipl-wasm/home/library
 rsync -azv ~/github.com/SWI-Prolog/swipl-devel/build.wasm/src/swipl.wasm ./swipl-wasm/home
 js-beautify ~/github.com/SWI-Prolog/swipl-devel/build.wasm/src/swipl.js > ./swipl-wasm/home/swipl.js
+./test
+git diff
 popd
