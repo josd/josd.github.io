@@ -6,7 +6,7 @@
 %
 
 :- use_module(library(lists)).
-:- use_module(library(terms)).
+%:- use_module(library(terms)).
 
 :- op(1150,xfx,=>).
 
