@@ -6,6 +6,6 @@ cargo build --release
 cargo test --release
 popd
 pushd ~/github.com/IDLabResearch/Webeye
-./test
+./test_on_rust
 git diff
 popd
