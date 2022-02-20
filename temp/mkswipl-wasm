@@ -2,7 +2,7 @@
 pushd ~/github.com/SWI-Prolog/swipl-devel/build.wasm
 ninja
 popd
-pushd ~/github.com/josd/eyenext
+pushd ~/github.com/josd/tweye
 rsync -azv ~/github.com/josd/eye/eye.pl .
 mkdir -p swipl-wasm
 mkdir -p swipl-wasm/home
