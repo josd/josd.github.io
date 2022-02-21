@@ -2,7 +2,7 @@
 pushd ~/github.com/SWI-Prolog/swipl-devel/build.wasm
 ninja
 popd
-pushd ~/github.com/josd/eyeweb
+pushd ~/github.com/josd/eye-web
 rsync -azv ~/github.com/josd/eye/eye.pl .
 mkdir -p swipl-wasm
 mkdir -p swipl-wasm/home
@@ -18,6 +18,9 @@ rsync -azv ~/github.com/SWI-Prolog/swipl-devel/build.wasm/home/library/unicode/I
 rsync -azv ~/github.com/SWI-Prolog/swipl-devel/build.wasm/home/library/INDEX.pl ./swipl-wasm/home/library
 rsync -azv ~/github.com/SWI-Prolog/swipl-devel/build.wasm/src/swipl.wasm ./swipl-wasm/home
 js-beautify ~/github.com/SWI-Prolog/swipl-devel/build.wasm/src/swipl.js > ./swipl-wasm/home/swipl.js
+js-beautify ~/github.com/SWI-Prolog/swipl-devel/build.wasm/src/swipl-web.js > ./swipl-wasm/home/swipl-web.js
+rsync -azv ~/github.com/SWI-Prolog/swipl-devel/build.wasm/src/swipl-web.wasm > ./swipl-wasm/home/swipl-web.wasm
+rsync -azv ~/github.com/SWI-Prolog/swipl-devel/build.wasm/src/swipl-web.data > ./swipl-wasm/home/swipl-web.data
 ./test
 git diff
 popd
