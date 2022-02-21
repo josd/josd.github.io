@@ -5,7 +5,7 @@ pushd ~/github.com/IDLabResearch/Webeye; git pull --all; popd
 echo ""
 pushd ~/github.com/josd/eye; git pull --all; popd
 echo ""
-pushd ~/github.com/josd/eyeing; git pull --all; popd
+pushd ~/github.com/josd/eyenext; git pull --all; popd
 echo ""
 pushd ~/github.com/josd/josd.github.io; git pull --all; popd
 echo ""
