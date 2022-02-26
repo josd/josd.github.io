@@ -1,5 +1,6 @@
 #!/bin/bash
 pushd ~/github.com/IDLabResearch/Webeye
-./test
+npm update tau-prolog
+./test-tau
 git diff
 popd
