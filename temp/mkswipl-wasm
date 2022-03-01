@@ -27,6 +27,7 @@ cmake -DCMAKE_TOOLCHAIN_FILE=$EMSCRIPTEN/cmake/Modules/Platform/Emscripten.cmake
   -DZLIB_LIBRARY=$HOME/zlib-1.2.11/libz.a \
   -DZLIB_INCLUDE_DIR=$HOME/zlib-1.2.11 \
   -DMULTI_THREADED=OFF \
+  -DUSE_SIGNALS=OFF \
   -DUSE_GMP=OFF \
   -DBUILD_SWIPL_LD=OFF \
   -DSWIPL_PACKAGES=OFF \
@@ -36,7 +37,6 @@ cmake -DCMAKE_TOOLCHAIN_FILE=$EMSCRIPTEN/cmake/Modules/Platform/Emscripten.cmake
 ninja
 popd
 pushd ~/github.com/IDLabResearch/eye-web
-rsync -azv ~/github.com/josd/eye/eye.pl .
 mkdir -p swipl-wasm
 mkdir -p swipl-wasm/home
 rsync -azv ~/github.com/SWI-Prolog/swipl-devel/build.wasm/swipl.home ./swipl-wasm
