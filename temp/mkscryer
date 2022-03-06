@@ -6,6 +6,6 @@ cargo build --release
 cargo test --release
 popd
 pushd ~/github.com/IDLabResearch/Webeye
-./test-scryer
+./test
 git diff
 popd
