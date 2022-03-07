@@ -11,7 +11,7 @@
 'https://idlabresearch.github.io/ns#atan'([1,2],[1.338972522294493,0.4023594781085251]) => true.
 
 % running examples/dt.pl
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'('http://example.org/ns#z','http://example.org/ns#N1000') => true.
+'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'('http://example.org/ns#z','http://example.org/ns#N10000') => true.
 
 % running examples/easter.pl
 'https://idlabresearch.github.io/ns#easter'(2021,[4,4]) => true.
