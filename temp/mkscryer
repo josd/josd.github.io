@@ -5,7 +5,7 @@ cargo check --release
 cargo build --release
 cargo test --release
 popd
-pushd ~/github.com/IDLabResearch/Webeye
+pushd ~/github.com/josd/oko
 ./test
 git diff
 popd
