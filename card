@@ -1,98 +1,79 @@
+@prefix con: <http://www.w3.org/2000/10/swap/pim/contact#> .
+@prefix card: <#> .
+@prefix geo: <http://www.w3.org/2003/01/geo/wgs84_pos#> .
+@prefix s: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
 
-<!-- Processed by Id: cwm.py,v 1.193 2007/06/26 02:36:15 syosi Exp -->
-<!--     using base http://www.agfa.com/w3c/jdroo/card.n3-->
+<>   a foaf:PersonalProfileDocument;
+     foaf:maker card:me;
+     foaf:primaryTopic card:me .
 
-
-<rdf:RDF xmlns="http://xmlns.com/foaf/0.1/"
-    xmlns:con="http://www.w3.org/2000/10/swap/pim/contact#"
-    xmlns:foaf="http://xmlns.com/foaf/0.1/"
-    xmlns:geo="http://www.w3.org/2003/01/geo/wgs84_pos#"
-    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-    xmlns:s="http://www.w3.org/2000/01/rdf-schema#">
-
-    <PersonalProfileDocument rdf:about="">
-        <maker rdf:resource="#me"/>
-        <primaryTopic rdf:resource="#me"/>
-    </PersonalProfileDocument>
-
-    <con:Male rdf:about="#me">
-        <rdf:type rdf:resource="http://xmlns.com/foaf/0.1/Person"/>
-        <s:label>Jos De Roo</s:label>
-        <con:familyName>De Roo</con:familyName>
-        <con:givenName>Jozef</con:givenName>
-        <con:mailbox rdf:resource="mailto:jos.deroo@agfa.com"/>
-        <con:office rdf:parseType="Resource">
-            <con:address rdf:parseType="Resource">
-                <con:city>Sint-Martens-Latem</con:city>
-                <con:country>BE</con:country>
-                <con:postalCode>B-9830</con:postalCode>
-                <con:street>Kortrijksesteenweg 157</con:street>
-            </con:address>
-            <con:phone rdf:resource="tel:+32-3-444-7618"/>
-            <geo:lat>51.00986N</geo:lat>
-            <geo:long>3.63530E</geo:long>
-        </con:office>
-        <con:personalTitle>ir</con:personalTitle>
-        <con:publicHomePage rdf:resource="./"/>
-        <depiction rdf:resource="images/jdroo.jpg"/>
-        <family_name>De Roo</family_name>
-        <givenname>Jozef</givenname>
-        <homepage rdf:resource="./"/>
-        <knows rdf:parseType="Resource">
-            <rdf:type rdf:resource="http://xmlns.com/foaf/0.1/Person"/>
-            <s:seeAlso rdf:resource="http://rdfweb.org/people/danbri/rdfweb/webwho.xrdf"/>
-            <mbox rdf:resource="mailto:danbri@w3.org"/>
-            <name>Dan Brickley</name>
-        </knows>
-        <knows rdf:parseType="Resource">
-            <rdf:type rdf:resource="http://xmlns.com/foaf/0.1/Person"/>
-            <s:seeAlso rdf:resource="http://www.w3.org/People/Berners-Lee/card.rdf"/>
-            <mbox rdf:resource="mailto:timbl@w3.org"/>
-            <name>Tim Berners-Lee</name>
-        </knows>
-        <knows rdf:parseType="Resource">
-            <rdf:type rdf:resource="http://xmlns.com/foaf/0.1/Person"/>
-            <s:seeAlso rdf:resource="http://www.w3.org/People/djweitzner/public/webwho.xrdf"/>
-            <mbox_sha1sum>032c319f439f63efba54f4fa51bfb3a3fafedfbe</mbox_sha1sum>
-            <name>Daniel J Weitzner</name>
-        </knows>
-        <knows rdf:parseType="Resource">
-            <rdf:type rdf:resource="http://xmlns.com/foaf/0.1/Person"/>
-            <s:seeAlso rdf:resource="http://www.w3.org/People/Connolly/home-smart.rdf"/>
-            <mbox rdf:resource="mailto:connolly@w3.org"/>
-            <name>Dan Connolly</name>
-        </knows>
-        <knows rdf:parseType="Resource">
-            <rdf:type rdf:resource="http://xmlns.com/foaf/0.1/Person"/>
-            <s:seeAlso rdf:resource="http://rdfweb.org/people/danbri/rdfweb/webwho.xrdf"/>
-            <depiction rdf:resource="http://rdfweb.org/people/danbri/rdfweb/libby.gif"/>
-            <img rdf:resource="http://swordfish.rdfweb.org/~libby/libby.jpg"/>
-            <mbox rdf:resource="mailto:libby.miller@bristol.ac.uk"/>
-            <name>Libby Miller</name>
-        </knows>
-        <knows rdf:parseType="Resource">
-            <rdf:type rdf:resource="http://xmlns.com/foaf/0.1/Person"/>
-            <s:seeAlso rdf:resource="http://purl.org/net/eric/webwho.xrdf"/>
-            <depiction rdf:resource="http://www.ilrt.bristol.ac.uk/people/cmdjb/events/dc7/orig/eric.png"/>
-            <homepage rdf:resource="http://purl.org/net/eric/"/>
-            <img rdf:resource="http://www.oclc.org/~emiller/capture.jpg"/>
-            <mbox rdf:resource="mailto:em@w3.org"/>
-            <name>Eric Miller</name>
-        </knows>
-        <knows rdf:parseType="Resource">
-            <rdf:type rdf:resource="http://xmlns.com/foaf/0.1/Person"/>
-            <s:seeAlso rdf:resource="http://purl.org/net/dajobe/webwho.xrdf"/>
-            <mbox rdf:resource="mailto:dave.beckett@bristol.ac.uk"/>
-            <name>Dave Beckett</name>
-        </knows>
-        <mbox rdf:resource="mailto:jos.deroo@agfa.com"/>
-        <name>Jos De Roo</name>
-        <nick>JosD</nick>
-        <openid rdf:resource="http://josd.myopenid.com/"/>
-        <phone rdf:resource="tel:+32-3-444-7618"/>
-        <schoolHomepage rdf:resource="./"/>
-        <title>ir</title>
-        <workInfoHomepage rdf:resource="./"/>
-        <workplaceHomepage rdf:resource="/"/>
-    </con:Male>
-</rdf:RDF>
+card:me    a con:Male, foaf:Person;
+     s:label "Jos De Roo";
+     con:familyName "De Roo";
+     con:givenName "Jozef";
+     con:mailbox <mailto:jos.deroo@agfa.com>;
+     con:office  [
+         con:address  [
+             con:city "Gent";
+             con:country "BE";
+             con:postalCode "B-9000";
+             con:street "Moutstraat 100" ];
+         con:phone <tel:+32-3-444-7618>;
+         geo:lat "51.02960N";
+         geo:long "3.73571E" ];
+     con:personalTitle "ir";
+     con:publicHomePage <http://www.agfa.com/w3c/jdroo/>;
+     foaf:openid <http://josd.myopenid.com/>;
+     foaf:depiction <http://www.agfa.com/w3c/jdroo/images/jdroo.jpg>;
+     foaf:family_name "De Roo";
+     foaf:givenname "Jozef";
+     foaf:homepage <http://www.agfa.com/w3c/jdroo/>;
+     foaf:knows  [
+         a foaf:Person;
+         s:seeAlso <http://rdfweb.org/people/danbri/rdfweb/webwho.xrdf>;
+         foaf:mbox <mailto:danbri@w3.org>;
+         foaf:name "Dan Brickley" ],
+             [
+         a foaf:Person;
+         s:seeAlso <http://www.w3.org/People/Berners-Lee/card.rdf>;
+         foaf:mbox <mailto:timbl@w3.org>;
+         foaf:name "Tim Berners-Lee" ],
+             [
+         a foaf:Person;
+         s:seeAlso <http://www.w3.org/People/djweitzner/public/webwho.xrdf>;
+         foaf:mbox_sha1sum "032c319f439f63efba54f4fa51bfb3a3fafedfbe";
+         foaf:name "Daniel J Weitzner" ],
+             [
+         a foaf:Person;
+         s:seeAlso <http://www.w3.org/People/Connolly/home-smart.rdf>;
+         foaf:mbox <mailto:connolly@w3.org>;
+         foaf:name "Dan Connolly" ],
+             [
+         a foaf:Person;
+         s:seeAlso <http://rdfweb.org/people/danbri/rdfweb/webwho.xrdf>;
+         foaf:depiction <http://rdfweb.org/people/danbri/rdfweb/libby.gif>;
+         foaf:img <http://swordfish.rdfweb.org/~libby/libby.jpg>;
+         foaf:mbox <mailto:libby.miller@bristol.ac.uk>;
+         foaf:name "Libby Miller" ],
+             [
+         a foaf:Person;
+         s:seeAlso <http://purl.org/net/eric/webwho.xrdf>;
+         foaf:depiction <http://www.ilrt.bristol.ac.uk/people/cmdjb/events/dc7/orig/eric.png>;
+         foaf:homepage <http://purl.org/net/eric/>;
+         foaf:img <http://www.oclc.org/~emiller/capture.jpg>;
+         foaf:mbox <mailto:em@w3.org>;
+         foaf:name "Eric Miller" ],
+             [
+         a foaf:Person;
+         s:seeAlso <http://purl.org/net/dajobe/webwho.xrdf>;
+         foaf:mbox <mailto:dave.beckett@bristol.ac.uk>;
+         foaf:name "Dave Beckett" ];
+     foaf:mbox <mailto:jos.deroo@agfa.com>;
+     foaf:name "Jos De Roo";
+     foaf:nick "JosD";
+     foaf:phone <tel:+32-3-444-7618>;
+     foaf:schoolHomepage <http://www.agfa.com/w3c/jdroo/>;
+     foaf:title "ir";
+     foaf:workInfoHomepage <http://www.agfa.com/w3c/jdroo/>;
+     foaf:workplaceHomepage <http://www.agfa.com/> .
