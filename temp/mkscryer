@@ -6,6 +6,6 @@ cargo build --release
 cargo test --release
 popd
 pushd ~/github.com/josd/josd.github.io/temp/webeye
-./test
+./test-scryer
 git diff
 popd
