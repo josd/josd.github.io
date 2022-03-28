@@ -1,25 +1,10 @@
-@prefix con: <http://www.w3.org/2000/10/swap/pim/contact#> .
-@prefix card: <#> .
-@prefix geo: <http://www.w3.org/2003/01/geo/wgs84_pos#> .
-@prefix s: <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+PREFIX vcard: <http://www.w3.org/2006/vcard/ns#>
 
-<>   a foaf:PersonalProfileDocument;
-     foaf:maker card:me;
-     foaf:primaryTopic card:me .
-
-card:me    a con:Male, foaf:Person;
-     s:label "Jos De Roo";
-     con:familyName "De Roo";
-     con:givenName "Jos";
-     con:mailbox <mailto:josderoo@gmail.com>;
-     con:publicHomePage <https://josd.github.io/>;
-     foaf:openid <http://josd.myopenid.com/>;
-     foaf:depiction <https://josd.github.io/images/jdroo.jpg>;
-     foaf:family_name "De Roo";
-     foaf:givenname "Jos";
-     foaf:homepage <https://josd.github.io/>;
-     foaf:mbox <mailto:josderoo@gmail.com>;
-     foaf:name "Jos De Roo";
-     foaf:nick "JosD";
-     foaf:title "ir".
+<#me> a foaf:Person;
+    foaf:givenName "Jos"@nl;
+    foaf:familyName "De Roo"@nl;
+    vcard:title "R&D Engineer";
+    foaf:mbox <mailto:jos.deroo@ugent.be>;
+    foaf:img <https://josd.github.io/images/jdroo.jpg>;
+    foaf:homepage <https://josd.github.io/>.
