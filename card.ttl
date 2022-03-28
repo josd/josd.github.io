@@ -1,0 +1,10 @@
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+PREFIX vcard: <http://www.w3.org/2006/vcard/ns#>
+
+<#me> a foaf:Person;
+    foaf:givenName "Jos"@nl;
+    foaf:familyName "De Roo"@nl;
+    vcard:title "R&D Engineer";
+    foaf:mbox <mailto:jos.deroo@ugent.be>;
+    foaf:img <https://josd.github.io/images/jdroo.jpg>;
+    foaf:homepage <https://josd.github.io/>.
