@@ -1,8 +1,6 @@
 #!/bin/bash
-pushd ~/github.com/josd/josd.github.io/temp/eye-wasm
-node swipl-wasm/home/swipl.js -f eye.pl -g main -- --nope socrates.n3 --query socrates-query.n3
-node swipl-wasm/home/swipl.js -f eye.pl -g main -- --nope gps-plugin.n3 gps-example1.n3 --query gps-query1.n3
-node swipl-wasm/home/swipl.js -f eye.pl -g main -- --nope test-dt1.n3 test-dt2.n3 test-facts.n3 --query test-query.n3
-node swipl-wasm/home/swipl.js -g run,halt webeye.pl dt.pl
-node swipl-wasm/home/swipl.js -g run,halt webeye.pl sdcoding.pl
-popd
+node swipl-wasm/home/swipl.js -f eye-wasm.pl -g main -- --quiet --nope examples/socrates.n3 --query examples/socrates-query.n3 > examples/socrates-answer.n3
+node swipl-wasm/home/swipl.js -f eye-wasm.pl -g main -- --quiet examples/socrates.n3 --query examples/socrates-query.n3 > examples/socrates-proof.n3
+node swipl-wasm/home/swipl.js -f eye-wasm.pl -g main -- --quiet --nope examples/gps-plugin.n3 examples/gps-example1.n3 --query examples/gps-query1.n3 > examples/gps-answer.n3
+node swipl-wasm/home/swipl.js -f eye-wasm.pl -g main -- --quiet --nope examples/dt-rules.n3 examples/dt-facts.n3 --query examples/dt-query.n3 > examples/dt-answer.n3
+node swipl-wasm/home/swipl.js -f eye-wasm.pl -g main -- --quiet --nope examples/complex.n3 --query examples/complex-query.n3 > examples/complex-answer.n3

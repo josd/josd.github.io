@@ -1,45 +1,9 @@
-sudo apt install cmake
-sudo apt install ninja-build
+--------
+eye-wasm
+--------
 
-cd ~
-git clone https://github.com/emscripten-core/emsdk.git
-cd emsdk
-./emsdk install latest
-./emsdk activate latest
-source ./emsdk_env.sh
+The EYE reasoner running on Node.
 
-cd ~
-wget https://zlib.net/zlib-1.2.11.tar.gz -O "$HOME/zlib-1.2.11.tar.gz"
-tar -xf "$HOME/zlib-1.2.11.tar.gz" -C "$HOME"
-cd "$HOME/zlib-1.2.11"
-emconfigure ./configure
-emmake make
+To make it see https://github.com/josd/josd.github.io/temp/mkswipl-wasm
 
-cd ~/github.com/SWI-Prolog/swipl-devel
-mkdir build.wasm
-cd build.wasm
-source ~/emsdk/emsdk_env.sh
-export EMSCRIPTEN=~/emsdk/upstream/emscripten/
-cmake -DCMAKE_TOOLCHAIN_FILE=$EMSCRIPTEN/cmake/Modules/Platform/Emscripten.cmake \
-  -DCMAKE_BUILD_TYPE=Release \
-  -DCMAKE_EXE_LINKER_FLAGS="${CMAKE_EXE_LINKER_FLAGS} -s ASSERTIONS=1 -s ALLOW_MEMORY_GROWTH=1" \
-  -DZLIB_LIBRARY=$HOME/zlib-1.2.11/libz.a \
-  -DZLIB_INCLUDE_DIR=$HOME/zlib-1.2.11 \
-  -DMULTI_THREADED=OFF \
-  -DUSE_SIGNALS=OFF \
-  -DUSE_GMP=OFF \
-  -DBUILD_SWIPL_LD=OFF \
-  -DSWIPL_PACKAGES=OFF \
-  -DINSTALL_DOCUMENTATION=OFF \
-  -DSWIPL_NATIVE_FRIEND=build \
-  -G Ninja ..
-ninja
-
-cd ~/github.com/josd/josd.github.io/temp/eye-wasm
-node swipl-wasm/home/swipl.js -f eye.pl -g main -- --nope socrates.n3 --query socrates-query.n3
-node swipl-wasm/home/swipl.js -f eye.pl -g main -- --nope gps-plugin.n3 gps-example1.n3 --query gps-query1.n3
-node swipl-wasm/home/swipl.js -f eye.pl -g main -- --nope test-dt.n3 test-facts.n3 --query test-query.n3
-
-node swipl-wasm/home/swipl.js -f eye.pl -g main -- --nope test-dt1.n3 test-dt2.n3 test-facts.n3 --query test-query.n3
-node swipl-wasm/home/swipl.js -g run,halt webeye.pl dt.pl
-node swipl-wasm/home/swipl.js -g run,halt webeye.pl sdcoding.pl
+Run the test cases via ./test
