@@ -1,13 +1,13 @@
-#Processed by EYE v22.0331.1259 josd
+#Processed by EYE v22.0331.1347 josd
 #eye --nope explicitq.n3 --pass
 
 @prefix : <http://www.example.org#>.
 @prefix var: <http://josd.github.io/var#>.
 
-@forSome var:qe_1. :a :b {@forSome var:qe_1. var:qe_1 :p :o}.
-@forAll var:qu_1. :c :d {@forAll var:qu_1. var:qu_1 :p :o}.
-@forSome var:qe_1. @forAll var:qu_1. var:qe_1 :q var:qu_1.
+:a :b {@forSome var:qe_1. var:qe_1 :p :o}.
+:c :d {@forAll var:qu_1. var:qu_1 :p :o}.
+var:qe_1 :q var:qu_1.
 
-#2022-03-31T13:17:26.526Z in=3 out=3 ent=1 step=2 brake=2 inf=20217 sec=0.037 inf/sec=546405
+#2022-03-31T13:50:00.217Z in=3 out=3 ent=1 step=2 brake=2 inf=19918 sec=0.041 inf/sec=485805
 #ENDS
 
