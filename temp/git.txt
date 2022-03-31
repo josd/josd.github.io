@@ -6,6 +6,8 @@ git config --global url."https://".insteadOf git://
 git config --global push.default simple
 git config --global pack.threads "1"
 
+git config -l
+
 git add *.js
 git commit -m "method renamed from add to addTriple"
 git push
