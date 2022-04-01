@@ -1,0 +1,11 @@
+#!/bin/bash
+pushd ~/github.com/mthom/scryer-prolog
+git pull --all
+cargo check --release
+cargo build --release
+cargo test --release
+popd
+pushd ~/github.com/josd/see
+./test
+git diff
+popd
