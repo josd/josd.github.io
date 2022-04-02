@@ -5,7 +5,7 @@ cargo check --release
 cargo build --release
 cargo test --release
 popd
-pushd ~/github.com/josd/see
+pushd ~/github.com/josd/n3p
 ./test
 git diff
 popd
