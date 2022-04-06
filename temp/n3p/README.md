@@ -2,7 +2,7 @@
 
 ## Architecture and design
 
-n3p is processing `n3p data` and is itself implemented as [`n3p code`](https://github.com/josd/josd.github.io/temp/n3p/blob/master/n3p.n3p).
+n3p is processing `n3p data` and is itself implemented as [`n3p code`](https://github.com/josd/josd.github.io/blob/master/temp/n3p/n3p.n3p).
 It produces `n3p answers` supported by `n3p lemmas`.
 
 It uses [Scryer](https://github.com/mthom/scryer-prolog) and runs on [Rust](https://www.rust-lang.org).
