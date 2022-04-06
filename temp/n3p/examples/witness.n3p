@@ -1,0 +1,13 @@
+% existential rules
+
+'http://josd.github.io/ns#directive'(dynamic('http://www.w3.org/1999/02/22-rdf-syntax-ns#type'/2),[]).
+'http://josd.github.io/ns#directive'(dynamic('http://www.example.org#hasParent'/2),[]).
+
+'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'('http://www.example.org#Pat','http://www.example.org#Person').
+
+'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://www.example.org#Person') =>
+    'http://www.example.org#hasParent'(X,Y),'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(Y,'http://www.example.org#Person').
+
+'http://josd.github.io/ns#witness_count'(Count,[]),'http://josd.github.io/ns#builtin'(Count>3,[]),'http://josd.github.io/ns#builtin'(halt,[]) => true.
+
+'http://josd.github.io/ns#domain_predicate'(P,[]),'http://josd.github.io/ns#builtin'(Triple =.. [P,_S,_O],[]),Triple => true.

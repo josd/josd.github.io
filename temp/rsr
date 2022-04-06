@@ -3,8 +3,6 @@ pushd ~/eyesvn; svn update; popd
 echo ""
 pushd ~/github.com/josd/eye; git pull --all; popd
 echo ""
-pushd ~/github.com/josd/n3p; git pull --all; popd
-echo ""
 pushd ~/github.com/josd/josd.github.io; git pull --all; popd
 echo ""
 pushd ~/github.com/mthom/scryer-prolog; git pull --all; popd

@@ -1,0 +1,12 @@
+% n3p patch example
+
+'http://josd.github.io/ns#directive'(dynamic('http://www.w3.org/1999/02/22-rdf-syntax-ns#type'/2),[]).
+'http://josd.github.io/ns#directive'(dynamic('http://www.w3.org/ns/solid/terms#where'/2),[]).
+'http://josd.github.io/ns#directive'(dynamic('http://www.w3.org/ns/solid/terms#inserts'/2),[]).
+'http://josd.github.io/ns#directive'(dynamic('http://www.w3.org/ns/solid/terms#deletes'/2),[]).
+
+true =>
+    'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(Patch,'http://www.w3.org/ns/solid/terms#InsertDeletePatch'),
+    'http://www.w3.org/ns/solid/terms#where'(Patch,'http://www.example.org/terms#familyName'(Person,"Garcia")),
+    'http://www.w3.org/ns/solid/terms#inserts'(Patch,'http://www.example.org/terms#givenName'(Person,"Alex")),
+    'http://www.w3.org/ns/solid/terms#deletes'(Patch,'http://www.example.org/terms#givenName'(Person,"Claudia")).
