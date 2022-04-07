@@ -3836,7 +3836,7 @@ var SWIPL = (() => {
                         "end": 2807023
                     }],
                     "remote_package_size": 2807023,
-                    "package_uuid": "9293bd78-f842-4187-be3a-f53c09af998f"
+                    "package_uuid": "707a0737-ef25-4e66-9cac-cdf76b3edcfc"
                 })
             })();
             if (Module["ENVIRONMENT_IS_PTHREAD"]) Module["preRun"] = [];
