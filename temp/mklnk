@@ -1,5 +1,6 @@
 #!/bin/bash
 sudo ln -sf ~/eyesvn/2006/02swap/mksf /usr/local/bin
+sudo ln -sf ~/github.com/josd/eil/eil /usr/local/bin
 sudo ln -sf ~/github.com/josd/eye/mkeye /usr/local/bin
 sudo ln -sf ~/github.com/josd/eye/proofcheck /usr/local/bin
 sudo ln -sf ~/github.com/josd/josd.github.io/temp/ei /usr/local/bin
@@ -18,7 +19,6 @@ sudo ln -sf ~/github.com/josd/josd.github.io/temp/mkswipl /usr/local/bin
 sudo ln -sf ~/github.com/josd/josd.github.io/temp/mkswipl-wasm /usr/local/bin
 sudo ln -sf ~/github.com/josd/josd.github.io/temp/mktau /usr/local/bin
 sudo ln -sf ~/github.com/josd/josd.github.io/temp/mktrealla /usr/local/bin
-sudo ln -sf ~/github.com/josd/josd.github.io/temp/n3p/n3p /usr/local/bin
 sudo ln -sf ~/github.com/josd/josd.github.io/temp/si /usr/local/bin
 sudo ln -sf ~/github.com/josd/josd.github.io/temp/u /usr/local/bin
 sudo ln -sf ~/github.com/mthom/scryer-prolog/target/release/scryer-prolog /usr/local/bin
