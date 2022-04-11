@@ -1,6 +1,6 @@
 #!/bin/bash
 sudo ln -sf ~/eyesvn/2006/02swap/mksf /usr/local/bin
-sudo ln -sf ~/github.com/josd/eil/eil /usr/local/bin
+sudo ln -sf ~/github.com/josd/elf/elf /usr/local/bin
 sudo ln -sf ~/github.com/josd/eye/mkeye /usr/local/bin
 sudo ln -sf ~/github.com/josd/eye/proofcheck /usr/local/bin
 sudo ln -sf ~/github.com/josd/josd.github.io/temp/ei /usr/local/bin
