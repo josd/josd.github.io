@@ -1,0 +1,20 @@
+% See https://en.wikipedia.org/wiki/Padovan_sequence
+
+'elf:padovan'(A,B) <=
+    'elf:pad'([A,0,1,1],B).
+
+'elf:pad'([0,A,_,_],A).
+'elf:pad'([1,_,A,_],A).
+'elf:pad'([2,_,_,A],A).
+'elf:pad'([A,B,C,D],E) <=
+    'elf:builtin'(A > 2,-),
+    'elf:builtin'(F is A-1,-),
+    'elf:builtin'(G is B+C,-),
+    'elf:pad'([F,C,D,G],E).
+
+% query 
+'elf:padovan'(1,_ANSWER) => true.
+'elf:padovan'(10,_ANSWER) => true.
+'elf:padovan'(100,_ANSWER) => true.
+'elf:padovan'(1000,_ANSWER) => true.
+'elf:padovan'(10000,_ANSWER) => true.

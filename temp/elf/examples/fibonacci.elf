@@ -1,0 +1,19 @@
+% See https://en.wikipedia.org/wiki/'elf:fibonacci'_number
+
+'elf:fibonacci'(A,B) <=
+    'elf:fib'([A,0,1],B).
+
+'elf:fib'([0,A,_],A).
+'elf:fib'([1,_,A],A).
+'elf:fib'([A,B,C],D) <=
+    'elf:builtin'(A > 1,-),
+    'elf:builtin'(E is A-1,-),
+    'elf:builtin'(F is B+C,-),
+    'elf:fib'([E,C,F],D).
+
+% query
+'elf:fibonacci'(1,_ANSWER) => true.
+'elf:fibonacci'(10,_ANSWER) => true.
+'elf:fibonacci'(100,_ANSWER) => true.
+'elf:fibonacci'(1000,_ANSWER) => true.
+'elf:fibonacci'(10000,_ANSWER) => true.

@@ -1,0 +1,68 @@
+% Lee routing for VLSI circuits
+% Code from the book "The Art of Prolog" Chapter 16
+
+'elf:route'([Source,Destination,Obstacles],Path) <=
+    'elf:waves'([Destination,[[Source],[]],Obstacles],Waves),
+    'elf:path'([Source,Destination,Waves],Path).
+
+% 'elf:waves'([Destination,Wavessofar,Obstacles],Waves)
+'elf:waves'([B,[Wave|Waves],_],Waves) <=
+    'elf:builtin'(member(B,Wave),-),
+    'elf:control'(!,-).
+'elf:waves'([B,[Wave,LastWave|LastWaves],Obstacles],Waves) <=
+    'elf:next_wave'([Wave,LastWave,Obstacles],NextWave),
+    'elf:waves'([B,[NextWave,Wave,LastWave|LastWaves],Obstacles],Waves).
+
+% 'elf:next_wave'([Wave,LastWave,Obstacles],NextWave)
+'elf:next_wave'([Wave,LastWave,Obstacles],NextWave) <=
+    'elf:builtin'(setof(X,'elf:admissible'([X,Wave,LastWave],Obstacles),NextWave),-).
+
+'elf:admissible'([X,Wave,LastWave],Obstacles) <=
+    'elf:adjacent'([X,Wave],Obstacles),
+    'elf:builtin'(\+ member(X,LastWave),-),
+    'elf:builtin'(\+ member(X,Wave),-).
+
+'elf:adjacent'([X,Wave],Obstacles) <=
+    'elf:builtin'(member(X1,Wave),-),
+    'elf:neighbor'(X1,X),
+    'elf:builtin'(\+ 'elf:obstructed'(X,Obstacles),-).
+
+'elf:neighbor'([X1,Y],[X2,Y]) <=
+    'elf:next_to'(X1,X2).
+'elf:neighbor'([X,Y1],[X,Y2]) <=
+    'elf:next_to'(Y1,Y2).
+
+'elf:next_to'(X,X1) <=
+    'elf:builtin'(X1 is X+1,-).
+'elf:next_to'(X,X1) <=
+    'elf:builtin'(X > 0,-),
+    'elf:builtin'(X1 is X-1,-).
+
+'elf:obstructed'(Point,Obstacles) <=
+    'elf:builtin'(member(Obstacle,Obstacles),-),
+    'elf:obstructs'(Point,Obstacle).
+
+'elf:obstructs'([X,Y],[[X,Y1],[_,Y2]]) <=
+    'elf:builtin'(Y1 =< Y,-),
+    'elf:builtin'(Y =< Y2,-).
+'elf:obstructs'([X,Y],[[_,Y1],[X,Y2]]) <=
+    'elf:builtin'(Y1 =< Y,-),
+    'elf:builtin'(Y =< Y2,-).
+'elf:obstructs'([X,Y],[[X1,Y],[X2,_]]) <=
+    'elf:builtin'(X1 =< X,-),
+    'elf:builtin'(X =< X2,-).
+'elf:obstructs'([X,Y],[[X1,_],[X2,Y]]) <=
+    'elf:builtin'(X1 =< X,-),
+    'elf:builtin'(X =< X2,-).
+
+% 'elf:path'([Source,Destination,Waves],Path)
+'elf:path'([A,A,_],[A]) <=
+    'elf:control'(!,-).
+'elf:path'([A,B,[Wave|Waves]],[B|Path]) <=
+    'elf:builtin'(member(B1,Wave),-),
+    'elf:neighbor'(B,B1),
+    'elf:control'(!,-),
+    'elf:path'([A,B1,Waves],Path).
+
+% query
+'elf:route'([[1,1],[9,8],[[[2,3],[4,5]],[[6,6],[8,8]]]],_ANSWER) => true.

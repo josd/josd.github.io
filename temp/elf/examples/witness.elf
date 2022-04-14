@@ -1,0 +1,13 @@
+% existential rules
+
+'elf:directive'(dynamic('rdf:type'/2),-).
+'elf:directive'(dynamic('eg:hasParent'/2),-).
+
+'rdf:type'('eg:Pat','eg:Person').
+
+'rdf:type'(X,'eg:Person') =>
+    'eg:hasParent'(X,Y),'rdf:type'(Y,'eg:Person').
+
+'elf:witness_count'(Count,-),'elf:builtin'(Count>3,-),'elf:builtin'(halt,-) => true.
+
+'elf:domain_predicate'(P,-),'elf:builtin'(Triple =.. [P,_S,_O],-),Triple => true.

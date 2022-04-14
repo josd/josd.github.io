@@ -1,0 +1,12 @@
+% elf patch example
+
+'elf:directive'(dynamic('rdf:type'/2),-).
+'elf:directive'(dynamic('solid:where'/2),-).
+'elf:directive'(dynamic('solid:inserts'/2),-).
+'elf:directive'(dynamic('solid:deletes'/2),-).
+
+true =>
+    'rdf:type'(Patch,'solid:InsertDeletePatch'),
+    'solid:where'(Patch,'eg:familyName'(Person,"Garcia")),
+    'solid:inserts'(Patch,'eg:givenName'(Person,"Alex")),
+    'solid:deletes'(Patch,'eg:givenName'(Person,"Claudia")).
