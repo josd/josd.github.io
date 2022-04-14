@@ -8,5 +8,4 @@
     foaf:mbox <mailto:jos.deroo@ugent.be>;
     foaf:img <https://josd.github.io/images/jdroo.jpg>;
     foaf:homepage <https://josd.github.io/>;
-    <http://www.w3.org/ns/solid/terms#oidcIssuerRegistrationToken> "7aa93f8d-497a-41ea-8d40-5f3485b3912e";
     <http://www.w3.org/ns/solid/terms#oidcIssuer> <https://josdroo.pod.knows.idlab.ugent.be/>.
