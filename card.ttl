@@ -11,4 +11,4 @@
     foaf:img <https://josd.github.io/images/jdroo.jpg>;
     foaf:homepage <https://josd.github.io/>;
     <http://www.w3.org/ns/solid/terms#oidcIssuer> <https://josdroo.pod.knows.idlab.ugent.be/>;
-    knows:hasAvailabilityCalendar [ schema:url "https://calendar.google.com/calendar/embed?src=josderoo%40gmail.com&ctz=Europe%2FBrussels" ].
+    knows:hasAvailabilityCalendar [ schema:url "https://calendar.google.com/calendar/ical/josderoo%40gmail.com/public/basic.ics" ].
