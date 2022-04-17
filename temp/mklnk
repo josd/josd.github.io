@@ -1,6 +1,5 @@
 #!/bin/bash
 sudo ln -sf ~/eyesvn/2006/02swap/mksf /usr/local/bin
-sudo ln -sf ~/github.com/josd/elf/elf /usr/local/bin
 sudo ln -sf ~/github.com/josd/eye/mkeye /usr/local/bin
 sudo ln -sf ~/github.com/josd/eye/proofcheck /usr/local/bin
 sudo ln -sf ~/github.com/josd/josd.github.io/temp/ei /usr/local/bin
@@ -21,6 +20,7 @@ sudo ln -sf ~/github.com/josd/josd.github.io/temp/mktau /usr/local/bin
 sudo ln -sf ~/github.com/josd/josd.github.io/temp/mktrealla /usr/local/bin
 sudo ln -sf ~/github.com/josd/josd.github.io/temp/si /usr/local/bin
 sudo ln -sf ~/github.com/josd/josd.github.io/temp/u /usr/local/bin
+sudo ln -sf ~/github.com/josd/sense/sense /usr/local/bin
 sudo ln -sf ~/github.com/mthom/scryer-prolog/target/release/scryer-prolog /usr/local/bin
 sudo ln -sf ~/github.com/trealla-prolog/trealla/tpl /usr/local/bin
 sudo ln -sf ~/julia-1.7.0/bin/julia /usr/local/bin
