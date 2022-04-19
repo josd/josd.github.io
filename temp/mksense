@@ -1,0 +1,5 @@
+#!/bin/bash
+pushd ~/github.com/josd/josd.github.io/temp/sense
+./test
+git diff
+popd

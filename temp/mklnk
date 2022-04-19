@@ -14,13 +14,14 @@ sudo ln -sf ~/github.com/josd/josd.github.io/temp/nh /usr/local/bin
 sudo ln -sf ~/github.com/josd/josd.github.io/temp/pn /usr/local/bin
 sudo ln -sf ~/github.com/josd/josd.github.io/temp/rsr /usr/local/bin
 sudo ln -sf ~/github.com/josd/josd.github.io/temp/mkscryer /usr/local/bin
+sudo ln -sf ~/github.com/josd/josd.github.io/temp/mksense /usr/local/bin
 sudo ln -sf ~/github.com/josd/josd.github.io/temp/mkswipl /usr/local/bin
 sudo ln -sf ~/github.com/josd/josd.github.io/temp/mkswipl-wasm /usr/local/bin
 sudo ln -sf ~/github.com/josd/josd.github.io/temp/mktau /usr/local/bin
 sudo ln -sf ~/github.com/josd/josd.github.io/temp/mktrealla /usr/local/bin
+sudo ln -sf ~/github.com/josd/josd.github.io/temp/sense/sense /usr/local/bin
 sudo ln -sf ~/github.com/josd/josd.github.io/temp/si /usr/local/bin
 sudo ln -sf ~/github.com/josd/josd.github.io/temp/u /usr/local/bin
-sudo ln -sf ~/github.com/josd/sense/sense /usr/local/bin
 sudo ln -sf ~/github.com/mthom/scryer-prolog/target/release/scryer-prolog /usr/local/bin
 sudo ln -sf ~/github.com/trealla-prolog/trealla/tpl /usr/local/bin
 sudo ln -sf ~/julia-1.7.0/bin/julia /usr/local/bin
