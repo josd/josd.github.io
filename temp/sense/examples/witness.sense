@@ -1,0 +1,9 @@
+% existential rules
+
+'rdf:type'('eg:Pat','eg:Person').
+
+'rdf:type'(X,'eg:Person') => 'eg:hasParent'(X,Y),'rdf:type'(Y,'eg:Person').
+
+'sense:witness_count'(Count,-),'sense:builtin'(Count>3,-),'sense:builtin'(halt,-) => true.
+
+'sense:domain_predicate'(P,-),'sense:builtin'(Triple =.. [P,_S,_O],-),Triple => true.

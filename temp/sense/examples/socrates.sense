@@ -1,0 +1,8 @@
+% Socrates is a mortal
+
+'rdf:type'('eg:Socrates','eg:Man').
+
+'rdf:type'(X,'eg:Man') => 'rdf:type'(X,'eg:Mortal').
+
+% query
+'rdf:type'(_WHO,_WHAT) => true.

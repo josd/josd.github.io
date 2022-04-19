@@ -1,0 +1,103 @@
+% See https://en.wikipedia.org/wiki/Complex_number
+
+'sense:exp'([[A,B],[C,D]],[E,F]) <=
+    'sense:polar'([A,B],[G,H]),
+    'sense:builtin'(E is G^C*exp(-D*H)*cos(D*log(G)+C*H),-),
+    'sense:builtin'(F is G^C*exp(-D*H)*sin(D*log(G)+C*H),-).
+
+'sense:log'([[A,B],[C,D]],[E,F]) <=
+    'sense:polar'([A,B],[G,H]),
+    'sense:polar'([C,D],[I,J]),
+    'sense:builtin'(K is log(G),-),
+    'sense:builtin'(L is log(I),-),
+    'sense:divide'([[L,J],[K,H]],[E,F]).
+
+'sense:sin'([A,B],[C,D]) <=
+    'sense:builtin'(C is sin(A)*(exp(B)+exp(-B))/2,-),
+    'sense:builtin'(D is cos(A)*(exp(B)-exp(-B))/2,-).
+
+'sense:cos'([A,B],[C,D]) <=
+    'sense:builtin'(C is cos(A)*(exp(B)+exp(-B))/2,-),
+    'sense:builtin'(D is -sin(A)*(exp(B)-exp(-B))/2,-).
+
+'sense:tan'(A,B) <=
+    'sense:sin'(A,C),
+    'sense:cos'(A,D),
+    'sense:divide'([C,D],B).
+
+'sense:asin'([A,B],[C,D]) <=
+    'sense:builtin'(E is (sqrt((1+A)^2+B^2)-sqrt((1-A)^2+B^2))/2,-),
+    'sense:builtin'(F is (sqrt((1+A)^2+B^2)+sqrt((1-A)^2+B^2))/2,-),
+    'sense:builtin'(C is asin(E),-),
+    'sense:builtin'(D is log(F+sqrt(F^2-1)),-).
+
+'sense:acos'([A,B],[C,D]) <=
+    'sense:builtin'(E is (sqrt((1+A)^2+B^2)-sqrt((1-A)^2+B^2))/2,-),
+    'sense:builtin'(F is (sqrt((1+A)^2+B^2)+sqrt((1-A)^2+B^2))/2,-),
+    'sense:builtin'(C is acos(E),-),
+    'sense:builtin'(D is -log(F+sqrt(F^2-1)),-).
+
+'sense:atan'(A,B) <=
+    'sense:subtract'([[0,1],A],C),
+    'sense:add'([[0,1],A],D),
+    'sense:divide'([C,D],E),
+    'sense:log'([[e,0],E],F),
+    'sense:divide'([F,[0,2]],B).
+
+'sense:polar'([A,B],[C,D]) <=
+    'sense:builtin'(C is sqrt(A^2+B^2),-),
+    'sense:builtin'(E is acos(abs(A)/C),-),
+    'sense:angular'([A,B,E],D).
+
+'sense:angular'([A,B,C],D) <=
+    'sense:builtin'(A >= 0,-),
+    'sense:builtin'(B >= 0,-),
+    'sense:builtin'(D = C,-).
+'sense:angular'([A,B,C],D) <=
+    'sense:builtin'(A < 0,-),
+    'sense:builtin'(B >= 0,-),
+    'sense:builtin'(D is pi-C,-).
+'sense:angular'([A,B,C],D) <=
+    'sense:builtin'(A < 0,-),
+    'sense:builtin'(B < 0,-),
+    'sense:builtin'(D is C+pi,-).
+'sense:angular'([A,B,C],D) <=
+    'sense:builtin'(A >= 0,-),
+    'sense:builtin'(B < 0,-),
+    'sense:builtin'(D is 2*pi-C,-).
+
+'sense:minus'([A,B],[C,D]) <=
+    'sense:builtin'(C is -A,-),
+    'sense:builtin'(D is -B,-).
+
+'sense:subtract'([[A,B],[C,D]],[E,F]) <=
+    'sense:builtin'(E is A-C,-),
+    'sense:builtin'(F is B-D,-).
+
+'sense:add'([[A,B],[C,D]],[E,F]) <=
+    'sense:builtin'(E is A+C,-),
+    'sense:builtin'(F is B+D,-).
+
+'sense:multiply'([[A,B],[C,D]],[E,F]) <=
+    'sense:builtin'(E is A*C-B*D,-),
+    'sense:builtin'(F is A*D+B*C,-).
+
+'sense:inverse'([A,B],[C,D]) <=
+    'sense:builtin'(C is A/(A^2+B^2),-),
+    'sense:builtin'(D is -B/(A^2+B^2),-).
+
+'sense:divide'([A,B],C) <=
+    'sense:inverse'(B,D),
+    'sense:multiply'([A,D],C).
+
+% query
+'sense:exp'([[-1,0],[0.5,0]],_ANSWER) => true.
+'sense:exp'([[e,0],[0,pi]],_ANSWER) => true.
+'sense:log'([[e,0],[-1,0]],_ANSWER) => true.
+'sense:log'([[0,1],[0,1]],_ANSWER) => true.
+'sense:sin'([1.570796326794897,1.316957896924817],_ANSWER) => true.
+'sense:cos'([0,-1.316957896924817],_ANSWER) => true.
+'sense:tan'([1.338972522294493,0.4023594781085251],_ANSWER) => true.
+'sense:asin'([2,0],_ANSWER) => true.
+'sense:acos'([2,0],_ANSWER) => true.
+'sense:atan'([1,2],_ANSWER) => true.

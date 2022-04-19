@@ -1,0 +1,8 @@
+#!/bin/bash
+echo -n "" | tee result.sense
+for f in examples/*.sense
+do
+    echo "% running $f" | tee -a result.sense
+    ./sense "$f" | tee -a result.sense
+    echo "" | tee -a result.sense
+done

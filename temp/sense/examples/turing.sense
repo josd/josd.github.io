@@ -1,0 +1,46 @@
+% See https://en.wikipedia.org/wiki/Universal_Turing_machine
+
+%
+% interpreter for Univeral Turing Machine
+%
+'sense:compute'([],OutTape) <=
+    'sense:start'(_MACHINE,I),
+    'sense:find'([I,[],"#",[]],OutTape).
+'sense:compute'([Head|Tail],OutTape) <=
+    'sense:start'(_MACHINE,I),
+    'sense:find'([I,[],Head,Tail],OutTape).
+
+'sense:find'([State,Left,Cell,Right],OutTape) <=
+    'sense:t'([State,Cell,Write,Move],Next),
+    'sense:move'([Move,Left,Write,Right],[A,B,C]),
+    'sense:continue'([Next,A,B,C],OutTape).
+
+'sense:continue'(["halt",Left,Cell,Right],OutTape) <=
+    'sense:builtin'(reverse(Left,R),-),
+    'sense:builtin'(append(R,[Cell|Right],OutTape),-).
+'sense:continue'([State,Left,Cell,Right],OutTape) <=
+    'sense:find'([State,Left,Cell,Right],OutTape).
+
+'sense:move'(["l",[],Cell,Right],[[],"#",[Cell|Right]]).
+'sense:move'(["l",[Head|Tail],Cell,Right],[Tail,Head,[Cell|Right]]).
+'sense:move'(["s",Left,Cell,Right],[Left,Cell,Right]).
+'sense:move'(["r",Left,Cell,[]],[[Cell|Left],"#",[]]).
+'sense:move'(["r",Left,Cell,[Head|Tail]],[[Cell|Left],Head,Tail]).
+
+%
+% a Turing machine to add 1 to a binary number
+%
+'sense:start'("add1",0).
+
+'sense:t'([0,0,0,"r"],0).
+'sense:t'([0,1,1,"r"],0).
+'sense:t'([0,"#","#","l"],1).
+'sense:t'([1,0,1,"s"],"halt").
+'sense:t'([1,1,0,"l"],1).
+'sense:t'([1,"#",1,"s"],"halt").
+
+% query
+'sense:compute'([1,0,1,0,0,1],_ANSWER) => true.
+'sense:compute'([1,0,1,1,1,1],_ANSWER) => true.
+'sense:compute'([1,1,1,1,1,1],_ANSWER) => true.
+'sense:compute'([],_ANSWER) => true.

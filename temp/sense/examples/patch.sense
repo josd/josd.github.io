@@ -1,0 +1,28 @@
+% sense patch example
+
+'sense:builtin'(style_check(-discontiguous),-).
+'sense:builtin'(dynamic('eg:givenName'/2),-).
+
+'eg:givenName'('eg:pers001',"Claudia").
+'eg:familyName'('eg:pers001',"Garcia").
+'eg:givenName'('eg:pers002',"Claudia").
+'eg:familyName'('eg:pers002',"Cardinale").
+
+'sense:patch'((
+    'rdf:type'(Patch,'solid:InsertDeletePatch'),
+    'solid:where'(Patch,'eg:familyName'(Person,"Garcia")),
+    'solid:inserts'(Patch,'eg:givenName'(Person,"Alex")),
+    'solid:deletes'(Patch,'eg:givenName'(Person,"Claudia"))),-).
+
+'sense:patch'((
+    'rdf:type'(Patch,'solid:InsertDeletePatch'),
+    'solid:where'(Patch,Where),
+    'solid:inserts'(Patch,Inserts),
+    'solid:deletes'(Patch,Deletes)),-),
+'sense:builtin'(call(Where),-),
+'sense:builtin'(retract(Deletes),-),
+'sense:builtin'(assert(Inserts),-)
+    => true.
+
+'eg:givenName'(_P,_N) => true.
+'eg:familyName'(_P,_N) => true.

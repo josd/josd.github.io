@@ -1,0 +1,68 @@
+% Lee routing for VLSI circuits
+% Code from the book "The Art of Prolog" Chapter 16
+
+'sense:route'([Source,Destination,Obstacles],Path) <=
+    'sense:waves'([Destination,[[Source],[]],Obstacles],Waves),
+    'sense:path'([Source,Destination,Waves],Path).
+
+% 'sense:waves'([Destination,Wavessofar,Obstacles],Waves)
+'sense:waves'([B,[Wave|Waves],_],Waves) <=
+    'sense:builtin'(member(B,Wave),-),
+    'sense:builtin'(!,-).
+'sense:waves'([B,[Wave,LastWave|LastWaves],Obstacles],Waves) <=
+    'sense:next_wave'([Wave,LastWave,Obstacles],NextWave),
+    'sense:waves'([B,[NextWave,Wave,LastWave|LastWaves],Obstacles],Waves).
+
+% 'sense:next_wave'([Wave,LastWave,Obstacles],NextWave)
+'sense:next_wave'([Wave,LastWave,Obstacles],NextWave) <=
+    'sense:builtin'(setof(X,'sense:admissible'([X,Wave,LastWave],Obstacles),NextWave),-).
+
+'sense:admissible'([X,Wave,LastWave],Obstacles) <=
+    'sense:adjacent'([X,Wave],Obstacles),
+    'sense:builtin'(\+ member(X,LastWave),-),
+    'sense:builtin'(\+ member(X,Wave),-).
+
+'sense:adjacent'([X,Wave],Obstacles) <=
+    'sense:builtin'(member(X1,Wave),-),
+    'sense:neighbor'(X1,X),
+    'sense:builtin'(\+ 'sense:obstructed'(X,Obstacles),-).
+
+'sense:neighbor'([X1,Y],[X2,Y]) <=
+    'sense:next_to'(X1,X2).
+'sense:neighbor'([X,Y1],[X,Y2]) <=
+    'sense:next_to'(Y1,Y2).
+
+'sense:next_to'(X,X1) <=
+    'sense:builtin'(X1 is X+1,-).
+'sense:next_to'(X,X1) <=
+    'sense:builtin'(X > 0,-),
+    'sense:builtin'(X1 is X-1,-).
+
+'sense:obstructed'(Point,Obstacles) <=
+    'sense:builtin'(member(Obstacle,Obstacles),-),
+    'sense:obstructs'(Point,Obstacle).
+
+'sense:obstructs'([X,Y],[[X,Y1],[_,Y2]]) <=
+    'sense:builtin'(Y1 =< Y,-),
+    'sense:builtin'(Y =< Y2,-).
+'sense:obstructs'([X,Y],[[_,Y1],[X,Y2]]) <=
+    'sense:builtin'(Y1 =< Y,-),
+    'sense:builtin'(Y =< Y2,-).
+'sense:obstructs'([X,Y],[[X1,Y],[X2,_]]) <=
+    'sense:builtin'(X1 =< X,-),
+    'sense:builtin'(X =< X2,-).
+'sense:obstructs'([X,Y],[[X1,_],[X2,Y]]) <=
+    'sense:builtin'(X1 =< X,-),
+    'sense:builtin'(X =< X2,-).
+
+% 'sense:path'([Source,Destination,Waves],Path)
+'sense:path'([A,A,_],[A]) <=
+    'sense:builtin'(!,-).
+'sense:path'([A,B,[Wave|Waves]],[B|Path]) <=
+    'sense:builtin'(member(B1,Wave),-),
+    'sense:neighbor'(B,B1),
+    'sense:builtin'(!,-),
+    'sense:path'([A,B1,Waves],Path).
+
+% query
+'sense:route'([[1,1],[9,8],[[[2,3],[4,5]],[[6,6],[8,8]]]],_ANSWER) => true.
