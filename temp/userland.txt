@@ -9,6 +9,9 @@ sudo dpkg-reconfigure tzdata
 # git
 sudo apt install git
 
+# websocketd
+wget https://github.com/joewalnes/websocketd/releases/download/v0.4.1/websocketd-0.4.1-linux_arm.zip
+
 # swipl
 mkdir github.com
 cd github.com
