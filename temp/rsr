@@ -9,8 +9,6 @@ pushd ~/github.com/josd/solidarity; git pull --all; popd
 echo ""
 pushd ~/github.com/mthom/scryer-prolog; git pull --all; popd
 echo ""
-pushd ~/github.com/ptarau/minlog; git pull --all; popd
-echo ""
 pushd ~/github.com/SWI-Prolog/swipl-devel; git pull --all; popd
 echo ""
 pushd ~/github.com/w3c/N3; git pull --all; popd
