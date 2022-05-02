@@ -1,0 +1,84 @@
+% ----------------------------------------------------------------------
+% The solidarity engine written in the solidarity language -- Jos De Roo
+% ----------------------------------------------------------------------
+%
+% See https://josd.github.io/solidarity/
+%
+
+'https://josd.github.io/ns#directive'(use_module(library(lists)),-).
+'https://josd.github.io/ns#directive'(use_module(library(terms)),-).
+'https://josd.github.io/ns#directive'(use_module(library(iso_ext)),-).
+
+'https://josd.github.io/ns#directive'(dynamic((=>)/2),-).
+'https://josd.github.io/ns#directive'(dynamic((<=)/2),-).
+'https://josd.github.io/ns#directive'(dynamic('https://josd.github.io/ns#brake'/2),-).
+'https://josd.github.io/ns#directive'(dynamic('https://josd.github.io/ns#witness_count'/2),-).
+'https://josd.github.io/ns#directive'(dynamic('https://josd.github.io/ns#domain_predicate'/2),-).
+'https://josd.github.io/ns#directive'(dynamic('https://josd.github.io/ns#answer'/2),-).
+
+%
+% solidarity abstract machine
+%
+% 1/ select rule P => C
+% 2/ prove P and if it fails backtrack to 1/
+% 3/ if C = true answer with P => true, else if ~C assert C and retract brake
+% 4/ backtrack to 2/ and if it fails backtrack to 1/
+% 5/ if 1/ fails and if brake halt, else assert brake and start again at 1/
+%
+'https://josd.github.io/ns#main'(-,-) <=
+    'https://josd.github.io/ns#control'(call((Prem => Conc)),-),
+    'https://josd.github.io/ns#control'(call(Prem),-),
+    'https://josd.github.io/ns#process'(Prem,Conc),
+    'https://josd.github.io/ns#control'(fail,-).
+'https://josd.github.io/ns#main'(_,-) <=
+    'https://josd.github.io/ns#brake'(-,-),
+    'https://josd.github.io/ns#builtin'(halt,-).
+'https://josd.github.io/ns#main'(-,-) <=
+    'https://josd.github.io/ns#builtin'(asserta('https://josd.github.io/ns#brake'(-,-)),-),
+    'https://josd.github.io/ns#main'(-,-).
+
+'https://josd.github.io/ns#process'(Prem,true) <=
+    'https://josd.github.io/ns#labelvars'(Prem,-),
+    'https://josd.github.io/ns#add_answer'(Prem,-).
+'https://josd.github.io/ns#process'(Prem,Conc) <=
+    'https://josd.github.io/ns#builtin'(\+Conc,-),
+    'https://josd.github.io/ns#labelvars'(Conc,-),
+    'https://josd.github.io/ns#astep'(Prem,Conc),
+    'https://josd.github.io/ns#builtin'(retract('https://josd.github.io/ns#brake'(-,-)),-).
+
+'https://josd.github.io/ns#add_answer'(Prem,-) <=
+    'https://josd.github.io/ns#builtin'(\+'https://josd.github.io/ns#answer'((Prem => true),-),-),
+    'https://josd.github.io/ns#builtin'(assertz('https://josd.github.io/ns#answer'((Prem => true),-)),-),
+    'https://josd.github.io/ns#builtin'(writeq(Prem),-),
+    'https://josd.github.io/ns#builtin'(write(' => true.\n'),-).
+'https://josd.github.io/ns#add_answer'(_,-).
+
+% create witnesses
+'https://josd.github.io/ns#labelvars'(Term,-) <=
+    'https://josd.github.io/ns#builtin'(retract('https://josd.github.io/ns#witness_count'(Current,-)),-),
+    'https://josd.github.io/ns#control'(!,-),
+    'https://josd.github.io/ns#builtin'(numbervars(Term,Current,Next),-),
+    'https://josd.github.io/ns#builtin'(assertz('https://josd.github.io/ns#witness_count'(Next,-)),-).
+'https://josd.github.io/ns#labelvars'(Term,-) <=
+    'https://josd.github.io/ns#builtin'(numbervars(Term,0,Next),-),
+    'https://josd.github.io/ns#builtin'(assertz('https://josd.github.io/ns#witness_count'(Next,-)),-).
+
+% assert new step
+'https://josd.github.io/ns#astep'(A,(B,C)) <=
+    'https://josd.github.io/ns#astep'(A,B),
+    'https://josd.github.io/ns#astep'(A,C).
+'https://josd.github.io/ns#astep'(A,false) <=
+    'https://josd.github.io/ns#builtin'(writeq(A),-),
+    'https://josd.github.io/ns#builtin'(write(' => false.\n'),-),
+    'https://josd.github.io/ns#builtin'(halt,-).
+'https://josd.github.io/ns#astep'(_,A) <=
+    'https://josd.github.io/ns#builtin'(\+A,-),
+    'https://josd.github.io/ns#builtin'(asserta(A),-),
+    'https://josd.github.io/ns#apred'(A,-).
+'https://josd.github.io/ns#astep'(_,_).
+
+'https://josd.github.io/ns#apred'(A,-) <=
+    'https://josd.github.io/ns#builtin'(functor(A,B,2),-),
+    'https://josd.github.io/ns#builtin'(\+'https://josd.github.io/ns#domain_predicate'(B,-),-),
+    'https://josd.github.io/ns#builtin'(assertz('https://josd.github.io/ns#domain_predicate'(B,-)),-).
+'https://josd.github.io/ns#apred'(_,-).

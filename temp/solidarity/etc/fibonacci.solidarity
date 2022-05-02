@@ -1,0 +1,19 @@
+% See https://en.wikipedia.org/wiki/'https://josd.github.io/ns#fibonacci'_number
+
+'https://josd.github.io/ns#fibonacci'(A,B) <=
+    'https://josd.github.io/ns#fib'([A,0,1],B).
+
+'https://josd.github.io/ns#fib'([0,A,_],A).
+'https://josd.github.io/ns#fib'([1,_,A],A).
+'https://josd.github.io/ns#fib'([A,B,C],D) <=
+    'https://josd.github.io/ns#builtin'(A > 1,-),
+    'https://josd.github.io/ns#builtin'(E is A-1,-),
+    'https://josd.github.io/ns#builtin'(F is B+C,-),
+    'https://josd.github.io/ns#fib'([E,C,F],D).
+
+% query
+'https://josd.github.io/ns#fibonacci'(1,_ANSWER) => true.
+'https://josd.github.io/ns#fibonacci'(10,_ANSWER) => true.
+'https://josd.github.io/ns#fibonacci'(100,_ANSWER) => true.
+'https://josd.github.io/ns#fibonacci'(1000,_ANSWER) => true.
+'https://josd.github.io/ns#fibonacci'(10000,_ANSWER) => true.

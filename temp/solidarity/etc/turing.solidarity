@@ -1,0 +1,48 @@
+% See https://en.wikipedia.org/wiki/Universal_Turing_machine
+
+'https://josd.github.io/ns#directive'(use_module(library(lists)),-).
+
+%
+% interpreter for Univeral Turing Machine
+%
+'https://josd.github.io/ns#compute'([],OutTape) <=
+    'https://josd.github.io/ns#start'(_MACHINE,I),
+    'https://josd.github.io/ns#find'([I,[],"#",[]],OutTape).
+'https://josd.github.io/ns#compute'([Head|Tail],OutTape) <=
+    'https://josd.github.io/ns#start'(_MACHINE,I),
+    'https://josd.github.io/ns#find'([I,[],Head,Tail],OutTape).
+
+'https://josd.github.io/ns#find'([State,Left,Cell,Right],OutTape) <=
+    'https://josd.github.io/ns#t'([State,Cell,Write,Move],Next),
+    'https://josd.github.io/ns#move'([Move,Left,Write,Right],[A,B,C]),
+    'https://josd.github.io/ns#continue'([Next,A,B,C],OutTape).
+
+'https://josd.github.io/ns#continue'(["halt",Left,Cell,Right],OutTape) <=
+    'https://josd.github.io/ns#builtin'(reverse(Left,R),-),
+    'https://josd.github.io/ns#builtin'(append(R,[Cell|Right],OutTape),-).
+'https://josd.github.io/ns#continue'([State,Left,Cell,Right],OutTape) <=
+    'https://josd.github.io/ns#find'([State,Left,Cell,Right],OutTape).
+
+'https://josd.github.io/ns#move'(["l",[],Cell,Right],[[],"#",[Cell|Right]]).
+'https://josd.github.io/ns#move'(["l",[Head|Tail],Cell,Right],[Tail,Head,[Cell|Right]]).
+'https://josd.github.io/ns#move'(["s",Left,Cell,Right],[Left,Cell,Right]).
+'https://josd.github.io/ns#move'(["r",Left,Cell,[]],[[Cell|Left],"#",[]]).
+'https://josd.github.io/ns#move'(["r",Left,Cell,[Head|Tail]],[[Cell|Left],Head,Tail]).
+
+%
+% a Turing machine to add 1 to a binary number
+%
+'https://josd.github.io/ns#start'("add1",0).
+
+'https://josd.github.io/ns#t'([0,0,0,"r"],0).
+'https://josd.github.io/ns#t'([0,1,1,"r"],0).
+'https://josd.github.io/ns#t'([0,"#","#","l"],1).
+'https://josd.github.io/ns#t'([1,0,1,"s"],"halt").
+'https://josd.github.io/ns#t'([1,1,0,"l"],1).
+'https://josd.github.io/ns#t'([1,"#",1,"s"],"halt").
+
+% query
+'https://josd.github.io/ns#compute'([1,0,1,0,0,1],_ANSWER) => true.
+'https://josd.github.io/ns#compute'([1,0,1,1,1,1],_ANSWER) => true.
+'https://josd.github.io/ns#compute'([1,1,1,1,1,1],_ANSWER) => true.
+'https://josd.github.io/ns#compute'([],_ANSWER) => true.

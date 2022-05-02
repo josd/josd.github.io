@@ -1,0 +1,12 @@
+% calculating body mass index
+
+'https://josd.github.io/ns#height'('https://josd.github.io/ns#joy',1.8).
+'https://josd.github.io/ns#weight'('https://josd.github.io/ns#joy',80).
+
+'https://josd.github.io/ns#bmi'(Person,Bmi) <=
+    'https://josd.github.io/ns#height'(Person,Height),
+    'https://josd.github.io/ns#weight'(Person,Weight),
+    'https://josd.github.io/ns#builtin'(Bmi is Weight/Height^2,-).
+
+% query
+'https://josd.github.io/ns#bmi'(_Person,_Bmi) => true.
