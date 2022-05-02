@@ -1,4 +1,4 @@
-# [solidarity](https://github.com/josd/solidarity)
+# solidarity
 
 ## solidarity language
 
