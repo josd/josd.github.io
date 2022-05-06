@@ -3,7 +3,7 @@ pushd ~/eyesvn; svn update; popd
 echo ""
 pushd ~/github.com/josd/eye; git pull --all; popd
 echo ""
-pushd ~/github.com/josd/heisens; git pull --all; popd
+pushd ~/github.com/josd/heisener; git pull --all; popd
 echo ""
 pushd ~/github.com/josd/josd.github.io; git pull --all; popd
 echo ""
