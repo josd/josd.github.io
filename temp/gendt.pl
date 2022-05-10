@@ -10,7 +10,7 @@ run :-
     format(Out,"~n",[]),
     format(Out,"'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'('https://josd.github.io/ns#z','https://josd.github.io/ns#N0').~n",[]),
     format(Out,"~n",[]),
-    (   between(0,9999,I),
+    (   between(0,99999,I),
         J is I+1,
         format(Out,"'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'https://josd.github.io/ns#N~d') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'https://josd.github.io/ns#N~d').~n",[J,I]),
         format(Out,"'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'https://josd.github.io/ns#I~d') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'https://josd.github.io/ns#N~d').~n",[J,I]),
@@ -25,4 +25,5 @@ run :-
     format(Out,"'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(_ELEMENT,'https://josd.github.io/ns#N100') => yes.~n",[]),
     format(Out,"'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(_ELEMENT,'https://josd.github.io/ns#N1000') => yes.~n",[]),
     format(Out,"'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(_ELEMENT,'https://josd.github.io/ns#N10000') => yes.~n",[]),
+    format(Out,"'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(_ELEMENT,'https://josd.github.io/ns#N100000') => yes.~n",[]),
     close(Out).
