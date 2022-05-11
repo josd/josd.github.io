@@ -1,8 +1,0 @@
-#!/bin/bash
-echo -n "" | tee result.solidarity
-for f in etc/*.solidarity
-do
-    echo "% running $f" | tee -a result.solidarity
-    ./solidarity "$f" | tee -a result.solidarity
-    echo "" | tee -a result.solidarity
-done

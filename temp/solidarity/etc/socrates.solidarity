@@ -1,9 +1,0 @@
-% Socrates is a mortal
-
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'('https://josd.github.io/ns#Socrates','https://josd.github.io/ns#Man').
-
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'https://josd.github.io/ns#Mortal') <=
-    'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'https://josd.github.io/ns#Man').
-
-% query
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(_WHO,_WHAT) => true.

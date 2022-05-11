@@ -1,3 +1,0 @@
-#!/bin/bash
-SOLIDARITY_DIR=$(dirname $(readlink -f $0))
-websocketd --port 8080 scryer-prolog $SOLIDARITY_DIR/solidarity.pl $SOLIDARITY_DIR/solidarity.solidarity

@@ -1,3 +1,0 @@
-#!/bin/bash
-SOLIDARITY_DIR=$(dirname $(readlink -f $0))
-scryer-prolog -g "'https://josd.github.io/ns#main'(-,-)" $SOLIDARITY_DIR/solidarity.pl $SOLIDARITY_DIR/solidarity.solidarity "$@"
