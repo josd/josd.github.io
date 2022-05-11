@@ -5,7 +5,7 @@ make
 make test
 echo ""
 popd
-pushd ~/github.com/josd/heisener
-./test tpl
+pushd ~/github.com/josd/josd.github.io/temp/webeye
+./test-trealla
 git diff
 popd

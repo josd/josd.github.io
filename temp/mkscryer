@@ -5,7 +5,7 @@ cargo check --release
 cargo build --release
 cargo test --release
 popd
-pushd ~/github.com/josd/josd.github.io/temp/solidarity
-./test
+pushd ~/github.com/josd/josd.github.io/temp/webeye
+./test-scryer
 git diff
 popd
