@@ -1,8 +1,0 @@
-#!/bin/bash
-echo -n "" | tee result.elf
-for f in examples/*.elf
-do
-    echo "% running $f" | tee -a result.elf
-    ./elf "$f" | tee -a result.elf
-    echo "" | tee -a result.elf
-done

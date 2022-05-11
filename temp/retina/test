@@ -1,8 +1,0 @@
-#!/bin/bash
-echo -n "" | tee result.n3p
-for f in examples/*.n3p
-do
-    echo "% running $f" | tee -a result.n3p
-    scryer-prolog -g "'http://josd.github.io/ns#main'([],[])" n3p.pl retina.n3p "$f" | tee -a result.n3p
-    echo "" | tee -a result.n3p
-done

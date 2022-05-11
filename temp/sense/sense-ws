@@ -1,3 +1,0 @@
-#!/bin/bash
-SENSE_DIR=$(dirname $(readlink -f $0))
-websocketd --port 8080 swipl $SENSE_DIR/sense.sense

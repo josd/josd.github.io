@@ -1,3 +1,0 @@
-#!/bin/bash
-ELF_DIR=$(dirname $(readlink -f $0))
-websocketd --port 8080 scryer-prolog $ELF_DIR/elf.pl $ELF_DIR/elf.elf
