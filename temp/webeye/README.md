@@ -5,7 +5,7 @@ It participates in dialogues leading to necessary and sufficient answers, suppor
 
 ## Webized reasoning
 
-[Webeye](https://github.com/IDLabResearch/Webeye) is using [ISO Prolog notation](https://en.wikipedia.org/wiki/Prolog#ISO_Prolog):
+Webeye is using [ISO Prolog notation](https://en.wikipedia.org/wiki/Prolog#ISO_Prolog):
 
 TERM            | Examples
 ----------------|---------
@@ -31,11 +31,6 @@ Queries are posed and answered as `GRAPH => true.` so the answers are also queri
 some parts substituted and eventually containing more variables than in the original query.
 This forms a dialogue leading to necessary and sufficient answers, supported by proof steps, so that action can take place.
 
-Class membership is currently expressed as `class_iri(element_iri,class_iri)` with the assumption that an instance of
-[rdfs:Class](https://www.w3.org/TR/rdf-schema/#ch_class) is a
-[rdfs:subPropertyOf](https://www.w3.org/TR/rdf-schema/#ch_subpropertyof)
-[rdf:type](https://www.w3.org/TR/rdf-schema/#ch_type).
-
 ## Installation and test
 
 ### Tau Prolog
@@ -43,19 +38,15 @@ Class membership is currently expressed as `class_iri(element_iri,class_iri)` wi
 Install [Node.js](https://nodejs.org/en/download/) and then
 
 ```
-$ git clone https://github.com/IDLabResearch/Webeye
-$ cd Webeye
 $ npm install tau-prolog
 $ ./test-tau
 ```
 
 ### Scryer Prolog
 
-Install [Rust](https://www.rust-lang.org/tools/install) and [Scryer Prolog](https://github.com/mthom/scryer-prolog#installing-scryer-prolog) `rebis-dev` branch and then
+Install [Rust](https://www.rust-lang.org/tools/install) and [Scryer Prolog](https://github.com/mthom/scryer-prolog#installing-scryer-prolog) and then
 
 ```
-$ git clone https://github.com/IDLabResearch/Webeye
-$ cd Webeye
 $ ./test-scryer
 ```
 
@@ -64,8 +55,6 @@ $ ./test-scryer
 Install [Trealla Prolog](https://github.com/trealla-prolog/trealla#building) and then
 
 ```
-$ git clone https://github.com/IDLabResearch/Webeye
-$ cd Webeye
 $ ./test-trealla
 ```
 
