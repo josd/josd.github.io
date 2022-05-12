@@ -11,4 +11,11 @@
     foaf:img <https://josd.github.io/images/jdroo.jpg>;
     foaf:homepage <https://josd.github.io/>;
     <http://www.w3.org/ns/solid/terms#oidcIssuer> <https://josdroo.pod.knows.idlab.ugent.be/>;
-    knows:hasAvailabilityCalendar [ schema:url "https://josdroo.pod.knows.idlab.ugent.be/availability" ].
+    knows:hasAvailabilityCalendar [
+        schema:url "https://josdroo.pod.knows.idlab.ugent.be/availability"
+    ];
+    foaf:account [ 
+        a knows:GitHubAccount;
+        foaf:accountName "josd";
+        foaf:accountServiceHomepage "https://github.com/josd/"
+    ].
