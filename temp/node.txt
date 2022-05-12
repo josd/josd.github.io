@@ -1,1 +1,2 @@
+npm install && npm run build
 node --max-old-space-size=8192 ~/github.com/jeswr/N3.js/perf/Reasoning-perf.js
