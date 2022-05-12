@@ -17,5 +17,5 @@
     foaf:account [ 
         a knows:GitHubAccount;
         foaf:accountName "josd";
-        foaf:accountServiceHomepage "https://github.com/josd/"
+        foaf:accountServiceHomepage <https://github.com/>
     ].
