@@ -9,7 +9,3 @@ pushd ~/github.com/josd/N3.js; git pull --all; git push; popd
 echo ""
 pushd ~/github.com/SWI-Prolog/swipl-devel; git pull --all; popd
 echo ""
-pushd ~/github.com/w3c/N3; git pull --all; popd
-echo ""
-pushd ~/github.com/w3c/rdf-star; git pull --all; popd
-echo ""
