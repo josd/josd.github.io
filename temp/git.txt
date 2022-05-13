@@ -108,7 +108,6 @@ git branch --set-upstream-to=upstream/devel devel
 git clone https://github.com/josd/N3.js
 cd N3.js
 git remote add upstream https://github.com/jeswr/N3.js
-git branch -a
 git checkout feat/N3Reasoner
 git pull --all
 git push
