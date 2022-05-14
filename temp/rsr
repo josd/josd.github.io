@@ -5,7 +5,5 @@ pushd ~/github.com/josd/eye; git pull --all; popd
 echo ""
 pushd ~/github.com/josd/josd.github.io; git pull --all; popd
 echo ""
-pushd ~/github.com/josd/N3.js; git pull --all; git push; popd
-echo ""
 pushd ~/github.com/SWI-Prolog/swipl-devel; git pull --all; popd
 echo ""

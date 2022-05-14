@@ -1,5 +1,5 @@
 #!/bin/bash
-pushd ~/github.com/josd/N3.js
+pushd ~/github.com/jeswr/N3.js
 git pull --all
 git push
 npm install
