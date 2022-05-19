@@ -1,8 +1,5 @@
 % Generating extended deep taxonomy
 
-:- use_module(library(format)).
-:- use_module(library(between)).
-
 run :-
     open('edt.pl',write,Out),
     format(Out,"% Extended deep taxonomy~n",[]),
@@ -26,5 +23,7 @@ run :-
     ),
     format(Out,"~n",[]),
     format(Out,"% query~n",[]),
-    format(Out,"run :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'('http://example.org/ns#i10000','http://example.org/ns#N10000'),write(true),nl.~n",[]),
+    format(Out,"query('http://www.w3.org/1999/02/22-rdf-syntax-ns#type'('http://example.org/ns#i10000','http://example.org/ns#N10000')).~n",[]),
+    format(Out,"~n",[]),
+    format(Out,"run :- forall(query(X),(X,writeq(X),write('.\\n'))).~n",[]),
     close(Out).
