@@ -1,9 +1,13 @@
 #!/bin/bash
 pushd ~/eyesvn; svn update; popd
 echo ""
+pushd ~/github.com/josd/brain; git pull --all; popd
+echo ""
 pushd ~/github.com/josd/eye; git pull --all; popd
 echo ""
 pushd ~/github.com/josd/josd.github.io; git pull --all; popd
 echo ""
 pushd ~/github.com/SWI-Prolog/swipl-devel; git pull --all; popd
+echo ""
+pushd ~/github.com/trealla-prolog/prolog; git pull --all; popd
 echo ""
