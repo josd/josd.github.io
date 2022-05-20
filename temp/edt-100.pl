@@ -1,8 +1,6 @@
 % Extended deep taxonomy
 % See http://ruleml.org/WellnessRules/files/WellnessRulesN3-2009-11-10.pdf
 
-:- dynamic('http://www.w3.org/1999/02/22-rdf-syntax-ns#type'/2).
-
 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'('http://example.org/ns#i0','http://example.org/ns#N0').
 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'('http://example.org/ns#i1','http://example.org/ns#N0').
 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'('http://example.org/ns#i2','http://example.org/ns#N0').
@@ -105,308 +103,316 @@
 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'('http://example.org/ns#i99','http://example.org/ns#N0').
 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'('http://example.org/ns#i100','http://example.org/ns#N0').
 
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N1') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N0').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#I1') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N0').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#J1') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N0').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N2') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N1').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#I2') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N1').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#J2') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N1').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N3') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N2').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#I3') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N2').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#J3') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N2').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N4') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N3').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#I4') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N3').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#J4') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N3').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N5') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N4').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#I5') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N4').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#J5') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N4').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N6') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N5').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#I6') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N5').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#J6') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N5').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N7') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N6').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#I7') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N6').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#J7') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N6').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N8') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N7').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#I8') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N7').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#J8') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N7').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N9') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N8').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#I9') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N8').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#J9') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N8').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N10') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N9').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#I10') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N9').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#J10') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N9').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N11') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N10').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#I11') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N10').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#J11') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N10').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N12') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N11').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#I12') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N11').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#J12') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N11').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N13') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N12').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#I13') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N12').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#J13') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N12').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N14') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N13').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#I14') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N13').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#J14') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N13').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N15') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N14').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#I15') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N14').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#J15') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N14').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N16') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N15').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#I16') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N15').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#J16') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N15').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N17') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N16').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#I17') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N16').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#J17') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N16').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N18') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N17').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#I18') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N17').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#J18') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N17').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N19') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N18').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#I19') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N18').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#J19') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N18').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N20') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N19').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#I20') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N19').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#J20') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N19').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N21') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N20').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#I21') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N20').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#J21') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N20').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N22') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N21').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#I22') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N21').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#J22') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N21').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N23') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N22').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#I23') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N22').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#J23') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N22').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N24') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N23').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#I24') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N23').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#J24') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N23').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N25') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N24').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#I25') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N24').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#J25') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N24').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N26') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N25').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#I26') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N25').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#J26') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N25').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N27') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N26').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#I27') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N26').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#J27') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N26').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N28') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N27').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#I28') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N27').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#J28') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N27').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N29') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N28').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#I29') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N28').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#J29') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N28').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N30') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N29').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#I30') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N29').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#J30') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N29').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N31') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N30').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#I31') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N30').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#J31') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N30').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N32') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N31').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#I32') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N31').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#J32') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N31').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N33') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N32').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#I33') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N32').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#J33') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N32').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N34') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N33').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#I34') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N33').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#J34') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N33').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N35') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N34').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#I35') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N34').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#J35') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N34').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N36') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N35').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#I36') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N35').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#J36') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N35').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N37') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N36').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#I37') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N36').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#J37') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N36').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N38') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N37').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#I38') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N37').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#J38') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N37').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N39') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N38').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#I39') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N38').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#J39') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N38').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N40') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N39').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#I40') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N39').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#J40') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N39').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N41') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N40').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#I41') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N40').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#J41') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N40').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N42') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N41').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#I42') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N41').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#J42') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N41').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N43') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N42').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#I43') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N42').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#J43') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N42').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N44') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N43').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#I44') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N43').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#J44') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N43').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N45') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N44').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#I45') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N44').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#J45') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N44').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N46') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N45').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#I46') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N45').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#J46') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N45').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N47') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N46').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#I47') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N46').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#J47') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N46').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N48') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N47').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#I48') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N47').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#J48') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N47').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N49') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N48').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#I49') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N48').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#J49') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N48').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N50') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N49').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#I50') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N49').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#J50') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N49').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N51') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N50').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#I51') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N50').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#J51') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N50').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N52') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N51').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#I52') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N51').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#J52') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N51').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N53') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N52').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#I53') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N52').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#J53') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N52').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N54') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N53').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#I54') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N53').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#J54') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N53').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N55') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N54').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#I55') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N54').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#J55') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N54').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N56') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N55').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#I56') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N55').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#J56') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N55').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N57') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N56').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#I57') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N56').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#J57') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N56').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N58') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N57').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#I58') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N57').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#J58') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N57').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N59') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N58').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#I59') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N58').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#J59') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N58').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N60') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N59').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#I60') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N59').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#J60') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N59').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N61') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N60').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#I61') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N60').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#J61') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N60').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N62') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N61').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#I62') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N61').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#J62') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N61').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N63') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N62').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#I63') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N62').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#J63') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N62').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N64') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N63').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#I64') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N63').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#J64') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N63').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N65') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N64').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#I65') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N64').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#J65') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N64').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N66') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N65').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#I66') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N65').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#J66') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N65').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N67') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N66').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#I67') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N66').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#J67') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N66').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N68') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N67').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#I68') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N67').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#J68') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N67').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N69') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N68').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#I69') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N68').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#J69') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N68').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N70') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N69').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#I70') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N69').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#J70') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N69').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N71') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N70').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#I71') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N70').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#J71') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N70').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N72') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N71').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#I72') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N71').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#J72') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N71').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N73') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N72').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#I73') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N72').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#J73') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N72').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N74') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N73').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#I74') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N73').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#J74') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N73').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N75') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N74').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#I75') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N74').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#J75') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N74').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N76') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N75').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#I76') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N75').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#J76') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N75').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N77') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N76').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#I77') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N76').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#J77') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N76').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N78') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N77').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#I78') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N77').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#J78') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N77').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N79') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N78').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#I79') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N78').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#J79') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N78').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N80') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N79').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#I80') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N79').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#J80') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N79').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N81') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N80').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#I81') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N80').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#J81') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N80').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N82') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N81').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#I82') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N81').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#J82') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N81').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N83') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N82').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#I83') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N82').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#J83') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N82').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N84') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N83').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#I84') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N83').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#J84') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N83').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N85') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N84').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#I85') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N84').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#J85') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N84').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N86') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N85').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#I86') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N85').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#J86') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N85').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N87') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N86').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#I87') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N86').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#J87') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N86').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N88') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N87').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#I88') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N87').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#J88') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N87').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N89') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N88').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#I89') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N88').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#J89') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N88').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N90') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N89').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#I90') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N89').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#J90') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N89').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N91') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N90').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#I91') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N90').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#J91') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N90').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N92') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N91').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#I92') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N91').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#J92') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N91').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N93') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N92').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#I93') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N92').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#J93') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N92').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N94') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N93').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#I94') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N93').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#J94') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N93').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N95') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N94').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#I95') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N94').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#J95') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N94').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N96') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N95').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#I96') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N95').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#J96') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N95').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N97') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N96').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#I97') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N96').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#J97') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N96').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N98') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N97').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#I98') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N97').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#J98') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N97').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N99') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N98').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#I99') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N98').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#J99') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N98').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N100') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N99').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#I100') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N99').
-'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#J100') :- 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(X,'http://example.org/ns#N99').
+'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(A,C) :- 'http://www.w3.org/2000/01/rdf-schema#subClassOf'(B,C),'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'(A,B).
+
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N0','http://example.org/ns#N1').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N0','http://example.org/ns#I1').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N0','http://example.org/ns#J1').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N1','http://example.org/ns#N2').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N1','http://example.org/ns#I2').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N1','http://example.org/ns#J2').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N2','http://example.org/ns#N3').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N2','http://example.org/ns#I3').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N2','http://example.org/ns#J3').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N3','http://example.org/ns#N4').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N3','http://example.org/ns#I4').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N3','http://example.org/ns#J4').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N4','http://example.org/ns#N5').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N4','http://example.org/ns#I5').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N4','http://example.org/ns#J5').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N5','http://example.org/ns#N6').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N5','http://example.org/ns#I6').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N5','http://example.org/ns#J6').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N6','http://example.org/ns#N7').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N6','http://example.org/ns#I7').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N6','http://example.org/ns#J7').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N7','http://example.org/ns#N8').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N7','http://example.org/ns#I8').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N7','http://example.org/ns#J8').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N8','http://example.org/ns#N9').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N8','http://example.org/ns#I9').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N8','http://example.org/ns#J9').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N9','http://example.org/ns#N10').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N9','http://example.org/ns#I10').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N9','http://example.org/ns#J10').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N10','http://example.org/ns#N11').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N10','http://example.org/ns#I11').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N10','http://example.org/ns#J11').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N11','http://example.org/ns#N12').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N11','http://example.org/ns#I12').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N11','http://example.org/ns#J12').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N12','http://example.org/ns#N13').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N12','http://example.org/ns#I13').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N12','http://example.org/ns#J13').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N13','http://example.org/ns#N14').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N13','http://example.org/ns#I14').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N13','http://example.org/ns#J14').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N14','http://example.org/ns#N15').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N14','http://example.org/ns#I15').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N14','http://example.org/ns#J15').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N15','http://example.org/ns#N16').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N15','http://example.org/ns#I16').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N15','http://example.org/ns#J16').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N16','http://example.org/ns#N17').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N16','http://example.org/ns#I17').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N16','http://example.org/ns#J17').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N17','http://example.org/ns#N18').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N17','http://example.org/ns#I18').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N17','http://example.org/ns#J18').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N18','http://example.org/ns#N19').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N18','http://example.org/ns#I19').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N18','http://example.org/ns#J19').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N19','http://example.org/ns#N20').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N19','http://example.org/ns#I20').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N19','http://example.org/ns#J20').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N20','http://example.org/ns#N21').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N20','http://example.org/ns#I21').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N20','http://example.org/ns#J21').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N21','http://example.org/ns#N22').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N21','http://example.org/ns#I22').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N21','http://example.org/ns#J22').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N22','http://example.org/ns#N23').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N22','http://example.org/ns#I23').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N22','http://example.org/ns#J23').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N23','http://example.org/ns#N24').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N23','http://example.org/ns#I24').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N23','http://example.org/ns#J24').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N24','http://example.org/ns#N25').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N24','http://example.org/ns#I25').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N24','http://example.org/ns#J25').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N25','http://example.org/ns#N26').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N25','http://example.org/ns#I26').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N25','http://example.org/ns#J26').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N26','http://example.org/ns#N27').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N26','http://example.org/ns#I27').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N26','http://example.org/ns#J27').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N27','http://example.org/ns#N28').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N27','http://example.org/ns#I28').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N27','http://example.org/ns#J28').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N28','http://example.org/ns#N29').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N28','http://example.org/ns#I29').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N28','http://example.org/ns#J29').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N29','http://example.org/ns#N30').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N29','http://example.org/ns#I30').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N29','http://example.org/ns#J30').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N30','http://example.org/ns#N31').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N30','http://example.org/ns#I31').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N30','http://example.org/ns#J31').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N31','http://example.org/ns#N32').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N31','http://example.org/ns#I32').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N31','http://example.org/ns#J32').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N32','http://example.org/ns#N33').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N32','http://example.org/ns#I33').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N32','http://example.org/ns#J33').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N33','http://example.org/ns#N34').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N33','http://example.org/ns#I34').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N33','http://example.org/ns#J34').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N34','http://example.org/ns#N35').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N34','http://example.org/ns#I35').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N34','http://example.org/ns#J35').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N35','http://example.org/ns#N36').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N35','http://example.org/ns#I36').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N35','http://example.org/ns#J36').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N36','http://example.org/ns#N37').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N36','http://example.org/ns#I37').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N36','http://example.org/ns#J37').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N37','http://example.org/ns#N38').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N37','http://example.org/ns#I38').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N37','http://example.org/ns#J38').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N38','http://example.org/ns#N39').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N38','http://example.org/ns#I39').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N38','http://example.org/ns#J39').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N39','http://example.org/ns#N40').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N39','http://example.org/ns#I40').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N39','http://example.org/ns#J40').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N40','http://example.org/ns#N41').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N40','http://example.org/ns#I41').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N40','http://example.org/ns#J41').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N41','http://example.org/ns#N42').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N41','http://example.org/ns#I42').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N41','http://example.org/ns#J42').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N42','http://example.org/ns#N43').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N42','http://example.org/ns#I43').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N42','http://example.org/ns#J43').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N43','http://example.org/ns#N44').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N43','http://example.org/ns#I44').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N43','http://example.org/ns#J44').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N44','http://example.org/ns#N45').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N44','http://example.org/ns#I45').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N44','http://example.org/ns#J45').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N45','http://example.org/ns#N46').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N45','http://example.org/ns#I46').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N45','http://example.org/ns#J46').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N46','http://example.org/ns#N47').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N46','http://example.org/ns#I47').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N46','http://example.org/ns#J47').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N47','http://example.org/ns#N48').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N47','http://example.org/ns#I48').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N47','http://example.org/ns#J48').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N48','http://example.org/ns#N49').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N48','http://example.org/ns#I49').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N48','http://example.org/ns#J49').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N49','http://example.org/ns#N50').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N49','http://example.org/ns#I50').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N49','http://example.org/ns#J50').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N50','http://example.org/ns#N51').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N50','http://example.org/ns#I51').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N50','http://example.org/ns#J51').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N51','http://example.org/ns#N52').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N51','http://example.org/ns#I52').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N51','http://example.org/ns#J52').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N52','http://example.org/ns#N53').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N52','http://example.org/ns#I53').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N52','http://example.org/ns#J53').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N53','http://example.org/ns#N54').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N53','http://example.org/ns#I54').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N53','http://example.org/ns#J54').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N54','http://example.org/ns#N55').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N54','http://example.org/ns#I55').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N54','http://example.org/ns#J55').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N55','http://example.org/ns#N56').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N55','http://example.org/ns#I56').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N55','http://example.org/ns#J56').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N56','http://example.org/ns#N57').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N56','http://example.org/ns#I57').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N56','http://example.org/ns#J57').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N57','http://example.org/ns#N58').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N57','http://example.org/ns#I58').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N57','http://example.org/ns#J58').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N58','http://example.org/ns#N59').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N58','http://example.org/ns#I59').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N58','http://example.org/ns#J59').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N59','http://example.org/ns#N60').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N59','http://example.org/ns#I60').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N59','http://example.org/ns#J60').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N60','http://example.org/ns#N61').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N60','http://example.org/ns#I61').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N60','http://example.org/ns#J61').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N61','http://example.org/ns#N62').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N61','http://example.org/ns#I62').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N61','http://example.org/ns#J62').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N62','http://example.org/ns#N63').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N62','http://example.org/ns#I63').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N62','http://example.org/ns#J63').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N63','http://example.org/ns#N64').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N63','http://example.org/ns#I64').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N63','http://example.org/ns#J64').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N64','http://example.org/ns#N65').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N64','http://example.org/ns#I65').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N64','http://example.org/ns#J65').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N65','http://example.org/ns#N66').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N65','http://example.org/ns#I66').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N65','http://example.org/ns#J66').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N66','http://example.org/ns#N67').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N66','http://example.org/ns#I67').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N66','http://example.org/ns#J67').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N67','http://example.org/ns#N68').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N67','http://example.org/ns#I68').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N67','http://example.org/ns#J68').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N68','http://example.org/ns#N69').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N68','http://example.org/ns#I69').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N68','http://example.org/ns#J69').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N69','http://example.org/ns#N70').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N69','http://example.org/ns#I70').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N69','http://example.org/ns#J70').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N70','http://example.org/ns#N71').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N70','http://example.org/ns#I71').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N70','http://example.org/ns#J71').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N71','http://example.org/ns#N72').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N71','http://example.org/ns#I72').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N71','http://example.org/ns#J72').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N72','http://example.org/ns#N73').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N72','http://example.org/ns#I73').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N72','http://example.org/ns#J73').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N73','http://example.org/ns#N74').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N73','http://example.org/ns#I74').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N73','http://example.org/ns#J74').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N74','http://example.org/ns#N75').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N74','http://example.org/ns#I75').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N74','http://example.org/ns#J75').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N75','http://example.org/ns#N76').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N75','http://example.org/ns#I76').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N75','http://example.org/ns#J76').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N76','http://example.org/ns#N77').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N76','http://example.org/ns#I77').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N76','http://example.org/ns#J77').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N77','http://example.org/ns#N78').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N77','http://example.org/ns#I78').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N77','http://example.org/ns#J78').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N78','http://example.org/ns#N79').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N78','http://example.org/ns#I79').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N78','http://example.org/ns#J79').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N79','http://example.org/ns#N80').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N79','http://example.org/ns#I80').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N79','http://example.org/ns#J80').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N80','http://example.org/ns#N81').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N80','http://example.org/ns#I81').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N80','http://example.org/ns#J81').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N81','http://example.org/ns#N82').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N81','http://example.org/ns#I82').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N81','http://example.org/ns#J82').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N82','http://example.org/ns#N83').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N82','http://example.org/ns#I83').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N82','http://example.org/ns#J83').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N83','http://example.org/ns#N84').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N83','http://example.org/ns#I84').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N83','http://example.org/ns#J84').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N84','http://example.org/ns#N85').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N84','http://example.org/ns#I85').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N84','http://example.org/ns#J85').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N85','http://example.org/ns#N86').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N85','http://example.org/ns#I86').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N85','http://example.org/ns#J86').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N86','http://example.org/ns#N87').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N86','http://example.org/ns#I87').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N86','http://example.org/ns#J87').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N87','http://example.org/ns#N88').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N87','http://example.org/ns#I88').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N87','http://example.org/ns#J88').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N88','http://example.org/ns#N89').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N88','http://example.org/ns#I89').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N88','http://example.org/ns#J89').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N89','http://example.org/ns#N90').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N89','http://example.org/ns#I90').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N89','http://example.org/ns#J90').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N90','http://example.org/ns#N91').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N90','http://example.org/ns#I91').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N90','http://example.org/ns#J91').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N91','http://example.org/ns#N92').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N91','http://example.org/ns#I92').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N91','http://example.org/ns#J92').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N92','http://example.org/ns#N93').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N92','http://example.org/ns#I93').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N92','http://example.org/ns#J93').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N93','http://example.org/ns#N94').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N93','http://example.org/ns#I94').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N93','http://example.org/ns#J94').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N94','http://example.org/ns#N95').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N94','http://example.org/ns#I95').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N94','http://example.org/ns#J95').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N95','http://example.org/ns#N96').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N95','http://example.org/ns#I96').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N95','http://example.org/ns#J96').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N96','http://example.org/ns#N97').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N96','http://example.org/ns#I97').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N96','http://example.org/ns#J97').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N97','http://example.org/ns#N98').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N97','http://example.org/ns#I98').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N97','http://example.org/ns#J98').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N98','http://example.org/ns#N99').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N98','http://example.org/ns#I99').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N98','http://example.org/ns#J99').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N99','http://example.org/ns#N100').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N99','http://example.org/ns#I100').
+'http://www.w3.org/2000/01/rdf-schema#subClassOf'('http://example.org/ns#N99','http://example.org/ns#J100').
 
 % query
 query('http://www.w3.org/1999/02/22-rdf-syntax-ns#type'('http://example.org/ns#i100','http://example.org/ns#N100')).
 
-run :- forall(query(X),(X,writeq(X),write('.\n'))).
+run :-
+    query(Q),
+    Q,
+    writeq(Q),
+    write('.\n'),
+    fail;
+    true.
