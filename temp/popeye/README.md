@@ -1,2 +1,2 @@
 # popeye
-BRAnches of INtelligence
+Power Of Prolog EYE
