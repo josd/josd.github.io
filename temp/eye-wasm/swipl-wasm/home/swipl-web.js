@@ -3864,7 +3864,7 @@ var SWIPL = (() => {
                         "end": 2940286
                     }],
                     "remote_package_size": 2940286,
-                    "package_uuid": "2d4b360b-9f24-4b16-be85-7105ba79ceaa"
+                    "package_uuid": "06ec4065-1561-45dc-a2f2-b8515e1cbcb8"
                 })
             })();
             if (Module["ENVIRONMENT_IS_PTHREAD"]) Module["preRun"] = [];
@@ -8840,6 +8840,7 @@ var SWIPL = (() => {
             var _PL_pred = Module["_PL_pred"] = createExportWrapper("PL_pred");
             var _PL_is_blob = Module["_PL_is_blob"] = createExportWrapper("PL_is_blob");
             var _saveSetjmp = Module["_saveSetjmp"] = createExportWrapper("saveSetjmp");
+            var _PL_put_bool = Module["_PL_put_bool"] = createExportWrapper("PL_put_bool");
             var _PL_unify_atom_chars = Module["_PL_unify_atom_chars"] = createExportWrapper("PL_unify_atom_chars");
             var _PL_put_float = Module["_PL_put_float"] = createExportWrapper("PL_put_float");
             var _PL_put_pointer = Module["_PL_put_pointer"] = createExportWrapper("PL_put_pointer");
@@ -8896,7 +8897,6 @@ var SWIPL = (() => {
             var _PL_get_head = Module["_PL_get_head"] = createExportWrapper("PL_get_head");
             var _PL_get_tail = Module["_PL_get_tail"] = createExportWrapper("PL_get_tail");
             var _PL_is_functor = Module["_PL_is_functor"] = createExportWrapper("PL_is_functor");
-            var _PL_put_bool = Module["_PL_put_bool"] = createExportWrapper("PL_put_bool");
             var _PL_put_atom_nchars = Module["_PL_put_atom_nchars"] = createExportWrapper("PL_put_atom_nchars");
             var _PL_put_string_nchars = Module["_PL_put_string_nchars"] = createExportWrapper("PL_put_string_nchars");
             var _PL_put_chars = Module["_PL_put_chars"] = createExportWrapper("PL_put_chars");

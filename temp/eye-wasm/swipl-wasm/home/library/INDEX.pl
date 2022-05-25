@@ -502,6 +502,7 @@ index((autoload_all), 0, prolog_autoload, prolog_autoload).
 index((autoload_all), 1, prolog_autoload, prolog_autoload).
 index((set_breakpoint), 4, prolog_breakpoints, prolog_breakpoints).
 index((set_breakpoint), 5, prolog_breakpoints, prolog_breakpoints).
+index((set_breakpoint_condition), 2, prolog_breakpoints, prolog_breakpoints).
 index((delete_breakpoint), 1, prolog_breakpoints, prolog_breakpoints).
 index((breakpoint_property), 2, prolog_breakpoints, prolog_breakpoints).
 index((clause_info), 4, prolog_clause, prolog_clause).
