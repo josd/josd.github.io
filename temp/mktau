@@ -1,6 +1,6 @@
 #!/bin/bash
-pushd ~/github.com/josd/josd.github.io/temp/webeye
+pushd ~/github.com/josd/eyebrow
 npm update tau-prolog
-./test-tau
+./test
 git diff
 popd
