@@ -1,6 +1,8 @@
 #!/bin/bash
+pushd ~/github.com/tau-prolog/tau-prolog
+git pull
+popd
 pushd ~/github.com/josd/eyebrow
-npm update tau-prolog
-./test
+rsync -azv ~/github.com/tau-prolog/tau-prolog/modules .
 git diff
 popd
