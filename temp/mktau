@@ -4,5 +4,6 @@ git pull
 popd
 pushd ~/github.com/josd/eyebrow
 rsync -azv ~/github.com/tau-prolog/tau-prolog/modules .
+./test
 git diff
 popd
