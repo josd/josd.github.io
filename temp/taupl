@@ -1,0 +1,2 @@
+#!/bin/bash
+node ~/github.com/tau-prolog/tau-prolog/taupl.js "$@"
