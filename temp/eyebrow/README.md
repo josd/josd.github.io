@@ -1,4 +1,4 @@
-# [eyebrow](https://github.com/josd/eyebrow)
+# [eyebrow](https://github.com/josd/josd.github.io/tree/master/temp/eyebrow)
 
 ## Reasoning in the browser
 
@@ -18,22 +18,22 @@ CLAUSE          | Examples
 FACT            | `LINK.`
 RULE            | `LINK :- GRAPH,`[`PROLOG`](http://tau-prolog.org/documentation#prolog)`.`
 
-Eyebrow is using [modules](https://github.com/josd/eyebrow/tree/master/modules) from [Tau Prolog](http://tau-prolog.org/).
+Eyebrow is using [modules](https://github.com/josd/josd.github.io/tree/master/temp/eyebrow/modules) from [Tau Prolog](http://tau-prolog.org/).
 
 
 ## Eyebrow examples
 
-- [Complex numbers](https://josd.github.io/eyebrow/examples/complex.html) ([view source](https://github.com/josd/eyebrow/blob/master/examples/complex.html))
-- [Easter date](https://josd.github.io/eyebrow/examples/easter.html) ([view source](https://github.com/josd/eyebrow/blob/master/examples/easter.html))
-- [Extended deep taxonomy](https://josd.github.io/eyebrow/examples/edt.html) ([view source](https://github.com/josd/eyebrow/blob/master/examples/edt.html))
-- [Four color case](https://josd.github.io/eyebrow/examples/fourcolor.html) ([view source](https://github.com/josd/eyebrow/blob/master/examples/fourcolor.html))
-- [GPS](https://josd.github.io/eyebrow/examples/gps.html) ([view source](https://github.com/josd/eyebrow/blob/master/examples/gps.html))
-- [Graph traversal](https://josd.github.io/eyebrow/examples/graph.html) ([view source](https://github.com/josd/eyebrow/blob/master/examples/graph.html))
-- [Lee routing](https://josd.github.io/eyebrow/examples/lee.html) ([view source](https://github.com/josd/eyebrow/blob/master/examples/lee.html))
-- [Meta-interpretation](https://josd.github.io/eyebrow/examples/mi.html) ([view source](https://github.com/josd/eyebrow/blob/master/examples/mi.html))
-- [Socrates is a mortal](https://josd.github.io/eyebrow/examples/socrates.html) ([view source](https://github.com/josd/eyebrow/blob/master/examples/socrates.html))
-- [Superdense coding](https://josd.github.io/eyebrow/examples/sdcoding.html) ([view source](https://github.com/josd/eyebrow/blob/master/examples/sdcoding.html))
-- [Turing machine](https://josd.github.io/eyebrow/examples/turing.html) ([view source](https://github.com/josd/eyebrow/blob/master/examples/turing.html))
+- [Complex numbers](https://josd.github.io/temp/eyebrow/examples/complex.html) ([view source](https://github.com/josd/josd.github.io/blob/master/temp/eyebrow/examples/complex.html))
+- [Easter date](https://josd.github.io/temp/eyebrow/examples/easter.html) ([view source](https://github.com/josd/josd.github.io/blob/master/temp/eyebrow/examples/easter.html))
+- [Extended deep taxonomy](https://josd.github.io/temp/eyebrow/examples/edt.html) ([view source](https://github.com/josd/josd.github.io/blob/master/temp/eyebrow/examples/edt.html))
+- [Four color case](https://josd.github.io/temp/eyebrow/examples/fourcolor.html) ([view source](https://github.com/josd/josd.github.io/blob/master/temp/eyebrow/examples/fourcolor.html))
+- [GPS](https://josd.github.io/temp/eyebrow/examples/gps.html) ([view source](https://github.com/josd/josd.github.io/blob/master/temp/eyebrow/examples/gps.html))
+- [Graph traversal](https://josd.github.io/temp/eyebrow/examples/graph.html) ([view source](https://github.com/josd/josd.github.io/blob/master/temp/eyebrow/examples/graph.html))
+- [Lee routing](https://josd.github.io/temp/eyebrow/examples/lee.html) ([view source](https://github.com/josd/josd.github.io/blob/master/temp/eyebrow/examples/lee.html))
+- [Meta-interpretation](https://josd.github.io/temp/eyebrow/examples/mi.html) ([view source](https://github.com/josd/josd.github.io/blob/master/temp/eyebrow/examples/mi.html))
+- [Socrates is a mortal](https://josd.github.io/temp/eyebrow/examples/socrates.html) ([view source](https://github.com/josd/josd.github.io/blob/master/temp/eyebrow/examples/socrates.html))
+- [Superdense coding](https://josd.github.io/temp/eyebrow/examples/sdcoding.html) ([view source](https://github.com/josd/josd.github.io/blob/master/temp/eyebrow/examples/sdcoding.html))
+- [Turing machine](https://josd.github.io/temp/eyebrow/examples/turing.html) ([view source](https://github.com/josd/josd.github.io/blob/master/temp/eyebrow/examples/turing.html))
 
 
 ## Background
