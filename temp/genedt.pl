@@ -1,7 +1,7 @@
 % Generating deep taxonomy
 
 run :-
-    open('edt-100000.html',write,Out),
+    open('edt.html',write,Out),
     write(Out,'<!DOCTYPE html>\n'),
     write(Out,'<html>\n'),
     write(Out,'    <head>\n'),
