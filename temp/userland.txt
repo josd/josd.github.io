@@ -12,6 +12,10 @@ sudo apt install git
 # websocketd
 wget https://github.com/joewalnes/websocketd/releases/download/v0.4.1/websocketd-0.4.1-linux_arm.zip
 
+# google-chrome
+sudo apt install chromium-browser
+sudo ln -sf /usr/bin/chromium-browser /usr/local/bin/google-chrome
+
 # swipl
 mkdir github.com
 cd github.com
