@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>eyebrow</title>
+    </head>
+    <body>
+        <script type="text/javascript" src="../modules/core.js"></script>
+        <script>
+var session = pl.create();
+
+var knows = `
+% Traversing graph paths
+
+'https://josd.github.io/eyebrow#oneway'('http://example.org/ns#paris','http://example.org/ns#orleans').
+'https://josd.github.io/eyebrow#oneway'('http://example.org/ns#paris','http://example.org/ns#chartres').
+'https://josd.github.io/eyebrow#oneway'('http://example.org/ns#paris','http://example.org/ns#amiens').
+'https://josd.github.io/eyebrow#oneway'('http://example.org/ns#orleans','http://example.org/ns#blois').
+'https://josd.github.io/eyebrow#oneway'('http://example.org/ns#orleans','http://example.org/ns#bourges').
+'https://josd.github.io/eyebrow#oneway'('http://example.org/ns#blois','http://example.org/ns#tours').
+'https://josd.github.io/eyebrow#oneway'('http://example.org/ns#chartres','http://example.org/ns#lemans').
+'https://josd.github.io/eyebrow#oneway'('http://example.org/ns#lemans','http://example.org/ns#angers').
+'https://josd.github.io/eyebrow#oneway'('http://example.org/ns#lemans','http://example.org/ns#tours').
+'https://josd.github.io/eyebrow#oneway'('http://example.org/ns#angers','http://example.org/ns#nantes').
+
+'https://josd.github.io/eyebrow#path'(A,B) :-
+    'https://josd.github.io/eyebrow#oneway'(A,B).
+'https://josd.github.io/eyebrow#path'(A,C) :-
+    'https://josd.github.io/eyebrow#oneway'(A,B),
+    'https://josd.github.io/eyebrow#path'(B,C).
+`;
+
+var query = `
+findall(
+    'https://josd.github.io/eyebrow#path'(City,'http://example.org/ns#nantes'),
+    'https://josd.github.io/eyebrow#path'(City,'http://example.org/ns#nantes'),
+    Answer
+).
+`;
+
+session.consult(knows, {
+    success: function() { /* Program loaded correctly */ },
+    error: function(err) { /* Error parsing program */ }
+});
+
+session.query(query, {
+    success: function(goal) { /* Goal loaded correctly */ },
+    error: function(err) { /* Error parsing goal */ }
+});
+
+session.answer({
+    success: function(answer) {
+        document.write("Query = ", query, "<br/><br/>");
+        document.write(session.format_answer(answer, {quoted: true}));
+    },
+    fail: function() { /* No more answers */ },
+    error: function(err) { /* Uncaught exception */ },
+    limit: function() { /* Limit exceeded */ }
+});
+        </script>
+    </body>
+</html>

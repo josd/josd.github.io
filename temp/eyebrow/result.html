@@ -1,0 +1,96 @@
+<!-- running examples/complex.html -->
+<html><head></head><body>Query = 
+findall(
+    Case,
+    (   case(Case),
+        Case
+    ),
+    Answer
+).
+<br><br>Answer = ['https://josd.github.io/eyebrow#exp'([[-1,0],[0.5,0]],[6.123233995736766e-17,1.0]),'https://josd.github.io/eyebrow#exp'([[e,0],[0,pi]],[-1.0,1.2246467991473532e-16]),'https://josd.github.io/eyebrow#log'([[e,0],[-1,0]],[0.0,3.141592653589793]),'https://josd.github.io/eyebrow#log'([[0,1],[0,1]],[1.0,0.0]),'https://josd.github.io/eyebrow#sin'([1.570796326794897,1.316957896924817],[2.0000000000000004,-6.631275506809351e-16]),'https://josd.github.io/eyebrow#cos'([0,-1.316957896924817],[2.0000000000000004,0.0]),'https://josd.github.io/eyebrow#tan'([1.338972522294493,0.4023594781085251],[1.000000000000001,1.9999999999999982]),'https://josd.github.io/eyebrow#asin'([2,0],[1.5707963267948966,1.3169578969248166]),'https://josd.github.io/eyebrow#acos'([2,0],[0.0,-1.3169578969248166]),'https://josd.github.io/eyebrow#atan'([1,2],[1.3389725222944935,0.4023594781085251])]</body></html>
+
+<!-- running examples/easter.html -->
+<html><head></head><body>Query = 
+findall(
+    'https://josd.github.io/eyebrow#easter'(Year,[Month,Day]),
+    (   between(2021,2050,Year),
+        'https://josd.github.io/eyebrow#easter'(Year,[Month,Day])
+    ),
+    Answer
+).
+<br><br>Answer = ['https://josd.github.io/eyebrow#easter'(2021,[4,4]),'https://josd.github.io/eyebrow#easter'(2022,[4,17]),'https://josd.github.io/eyebrow#easter'(2023,[4,9]),'https://josd.github.io/eyebrow#easter'(2024,[3,31]),'https://josd.github.io/eyebrow#easter'(2025,[4,20]),'https://josd.github.io/eyebrow#easter'(2026,[4,5]),'https://josd.github.io/eyebrow#easter'(2027,[3,28]),'https://josd.github.io/eyebrow#easter'(2028,[4,16]),'https://josd.github.io/eyebrow#easter'(2029,[4,1]),'https://josd.github.io/eyebrow#easter'(2030,[4,21]),'https://josd.github.io/eyebrow#easter'(2031,[4,13]),'https://josd.github.io/eyebrow#easter'(2032,[3,28]),'https://josd.github.io/eyebrow#easter'(2033,[4,17]),'https://josd.github.io/eyebrow#easter'(2034,[4,9]),'https://josd.github.io/eyebrow#easter'(2035,[3,25]),'https://josd.github.io/eyebrow#easter'(2036,[4,13]),'https://josd.github.io/eyebrow#easter'(2037,[4,5]),'https://josd.github.io/eyebrow#easter'(2038,[4,25]),'https://josd.github.io/eyebrow#easter'(2039,[4,10]),'https://josd.github.io/eyebrow#easter'(2040,[4,1]),'https://josd.github.io/eyebrow#easter'(2041,[4,21]),'https://josd.github.io/eyebrow#easter'(2042,[4,6]),'https://josd.github.io/eyebrow#easter'(2043,[3,29]),'https://josd.github.io/eyebrow#easter'(2044,[4,17]),'https://josd.github.io/eyebrow#easter'(2045,[4,9]),'https://josd.github.io/eyebrow#easter'(2046,[3,25]),'https://josd.github.io/eyebrow#easter'(2047,[4,14]),'https://josd.github.io/eyebrow#easter'(2048,[4,5]),'https://josd.github.io/eyebrow#easter'(2049,[4,18]),'https://josd.github.io/eyebrow#easter'(2050,[4,10])]</body></html>
+
+<!-- running examples/edt.html -->
+<html><head></head><body>Query = 
+'http://example.org/ns#N100000'('http://example.org/ns#i100000').
+<br><br>true</body></html>
+
+<!-- running examples/fourcolor.html -->
+<html><head></head><body>Query = 
+'https://josd.github.io/eyebrow#colors'(map1,Answer).
+<br><br>Answer = [['http://example.org/ns#place1',yellow],['http://example.org/ns#place2',blue],['http://example.org/ns#place3',green],['http://example.org/ns#place4',red],['http://example.org/ns#place5',red]]</body></html>
+
+<!-- running examples/gps.html -->
+<html><head></head><body>Query = 
+findall(
+    [Path,Duration,Cost,Belief,Comfort],
+    'https://josd.github.io/eyebrow#findpath'(
+        'http://example.org/ns#map_be',
+        [   'https://josd.github.io/eyebrow#location'(Subject,'http://example.org/ns#oostende'),
+            Path,
+            Duration,
+            Cost,
+            Belief,
+            Comfort,
+            [5000.0,5.0,0.2,0.4,1]
+        ]
+    ),
+    Answer
+).
+<br><br>Answer = [[['http://example.org/ns#drive_gent_brugge','http://example.org/ns#drive_brugge_oostende'],2400.0,0.01,0.9408,0.99],[['http://example.org/ns#drive_gent_kortrijk','http://example.org/ns#drive_kortrijk_brugge','http://example.org/ns#drive_brugge_oostende'],4100.0,0.018000000000000002,0.903168,0.9801]]</body></html>
+
+<!-- running examples/graph.html -->
+<html><head></head><body>Query = 
+findall(
+    'https://josd.github.io/eyebrow#path'(City,'http://example.org/ns#nantes'),
+    'https://josd.github.io/eyebrow#path'(City,'http://example.org/ns#nantes'),
+    Answer
+).
+<br><br>Answer = ['https://josd.github.io/eyebrow#path'('http://example.org/ns#angers','http://example.org/ns#nantes'),'https://josd.github.io/eyebrow#path'('http://example.org/ns#paris','http://example.org/ns#nantes'),'https://josd.github.io/eyebrow#path'('http://example.org/ns#chartres','http://example.org/ns#nantes'),'https://josd.github.io/eyebrow#path'('http://example.org/ns#lemans','http://example.org/ns#nantes')]</body></html>
+
+<!-- running examples/lee.html -->
+<html><head></head><body>Query = 
+'https://josd.github.io/eyebrow#route'([[1,1],[9,8],[[[2,3],[4,5]],[[6,6],[8,8]]]],Answer).
+<br><br>Answer = [[9,8],[9,7],[9,6],[9,5],[8,5],[7,5],[6,5],[5,5],[5,4],[5,3],[5,2],[4,2],[3,2],[2,2],[1,2],[1,1]]</body></html>
+
+<!-- running examples/mi.html -->
+<html><head></head><body>Query = 
+'https://josd.github.io/eyebrow#mi'(['https://josd.github.io/eyebrow#mi'(['https://josd.github.io/eyebrow#mi'([factorial(s(s(s(s(s(s(0)))))),Answer)],true)],true)],true).
+<br><br>Answer = s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(s(0))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))</body></html>
+
+<!-- running examples/sdcoding.html -->
+<html><head></head><body>Query = 
+reason,
+findall(
+    'https://josd.github.io/eyebrow#sdcoding'(N,M),
+    'https://josd.github.io/eyebrow#sdcoding'(N,M),
+    Answer
+).
+<br><br>Answer = ['https://josd.github.io/eyebrow#sdcoding'(1,1),'https://josd.github.io/eyebrow#sdcoding'(3,3),'https://josd.github.io/eyebrow#sdcoding'(0,0),'https://josd.github.io/eyebrow#sdcoding'(2,2)]</body></html>
+
+<!-- running examples/socrates.html -->
+<html><head></head><body>Query = 
+'http://example.org/ns#Mortal'(Answer).
+<br><br>Answer = 'http://example.org/ns#Socrates'</body></html>
+
+<!-- running examples/turing.html -->
+<html><head></head><body>Query = 
+findall(
+    Case,
+    (   case(Case),
+        Case
+    ),
+    Answer
+).
+<br><br>Answer = ['https://josd.github.io/eyebrow#compute'([1,0,1,0,0,1],[1,0,1,0,1,0,#]),'https://josd.github.io/eyebrow#compute'([1,0,1,1,1,1],[1,1,0,0,0,0,#]),'https://josd.github.io/eyebrow#compute'([1,1,1,1,1,1],[1,0,0,0,0,0,0,#]),'https://josd.github.io/eyebrow#compute'([],[1,#])]</body></html>
+
