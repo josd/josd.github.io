@@ -6,6 +6,9 @@ alias d="du -h --max-depth=1"
 # timezone
 sudo dpkg-reconfigure tzdata
 
+# rsync
+sudo apt install rsync
+
 # git
 sudo apt install git
 
