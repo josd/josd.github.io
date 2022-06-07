@@ -25,6 +25,7 @@ Eyebrow is using [modules](https://github.com/josd/josd.github.io/tree/master/te
 
 - [Complex numbers](https://josd.github.io/temp/eyebrow/examples/complex.html) ([view source](https://github.com/josd/josd.github.io/blob/master/temp/eyebrow/examples/complex.html))
 - [Easter date](https://josd.github.io/temp/eyebrow/examples/easter.html) ([view source](https://github.com/josd/josd.github.io/blob/master/temp/eyebrow/examples/easter.html))
+- [Enigma 1225](https://josd.github.io/temp/eyebrow/examples/enigma1225.html) ([view source](https://github.com/josd/josd.github.io/blob/master/temp/eyebrow/examples/enigma1225.html))
 - [Extended deep taxonomy](https://josd.github.io/temp/eyebrow/examples/edt.html) ([view source](https://github.com/josd/josd.github.io/blob/master/temp/eyebrow/examples/edt.html))
 - [Four color case](https://josd.github.io/temp/eyebrow/examples/fourcolor.html) ([view source](https://github.com/josd/josd.github.io/blob/master/temp/eyebrow/examples/fourcolor.html))
 - [GPS](https://josd.github.io/temp/eyebrow/examples/gps.html) ([view source](https://github.com/josd/josd.github.io/blob/master/temp/eyebrow/examples/gps.html))
