@@ -86,10 +86,6 @@ from_to(H, N, [H|T]) :-
     last([H|T], N),
     H =< N.
 
-is_list([]).
-is_list([_|T]) :-
-    is_list(T).
-
 from_to_acc(H, [H|T], [H|T]) :-
     !.
 from_to_acc(M, [H|T], L) :-
