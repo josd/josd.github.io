@@ -33,7 +33,6 @@ gedit ~/.subversion/config
     use-commit-times = yes
     diff-cmd = colordiff
 svn checkout https://svn.code.sf.net/p/eulersharp/code/trunk eyesvn
-svn checkout http://jirasvnprod.agfahealthcare.com/svn/ahca/trunk ahcasvn
 
 wget https://storage.googleapis.com/golang/go1.7.linux-amd64.tar.gz
 sudo tar -C /usr/local -xzf go1.7.linux-amd64.tar.gz
@@ -80,19 +79,6 @@ sudo apt install gcc g++ make
 curl -sL https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
 echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
 sudo apt-get update && sudo apt-get install yarn
-
-sudo apt-get purge docker lxc-docker docker-engine docker.io
-sudo apt-get install  curl  apt-transport-https ca-certificates software-properties-common
-curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add 
-sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
-sudo apt-get update
-sudo apt-get install docker-ce
-sudo service docker status
-sudo usermod -a -G docker $USER
-sudo reboot
-sudo gedit /etc/default/docker
-DOCKER_OPTS="--dns 10.233.63.202 --insecure-registry=aca-slave1.agfahealthcare.com:5000"
-sudo service docker restart
 
 download and install https://eid.belgium.be/nl/download-page/165/license?width=770&height=490&top=10
 sudo dpkg-reconfigure eid-archive
@@ -277,15 +263,6 @@ sudo apt install gnumeric
 
 sudo apt install webhttrack
 
-export GCSFUSE_REPO=gcsfuse-`lsb_release -c -s`
-echo "deb http://packages.cloud.google.com/apt $GCSFUSE_REPO main" | sudo tee /etc/apt/sources.list.d/gcsfuse.list
-curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
-sudo apt update
-sudo apt install gcsfuse
-gcloud auth application-default login
-mkdir ~/ahca
-gcsfuse agfa-healthcare-analytics ~/ahca
-
 sudo apt-get install imagemagick
 identify IMG-20190911-WA0002.jpg
 convert IMG-20190911-WA0002.jpg -crop 1440x1440+0+0 output.jpg
@@ -335,7 +312,6 @@ find . -name '*\?*' -exec rm -fr {} \; -print
 find . -depth -name 'CVS' -exec rm -rf '{}' \; -print
 sudo chown -R amdus:amdus .
 ps -aux
-rs jdroo@wopeg.he.agfa.be:/home/jdroo
 hd your_file
 od -t x1 your_file
 ls -laR | wc -l
@@ -400,7 +376,6 @@ strace executable
 gksu wireshark
 wget -q -d -O /dev/null --header "If-Modified-Since: $(date -R)" "$@"
 file executable
-plink wopeg@wopeg.he.agfa.be -pw wopeg command
 ./configure --help
 cat pvm.txt | awk '/===/{getline; print}' | sed 's/   .*//' | grep '.'
 pv /dev/zero > /dev/null
@@ -447,50 +422,6 @@ cat test_answer.ttl | grep -Po "(?<=:predicted )[01]"
 qpdf --empty --pages infile.pdf z-1 -- outfile.pdf
 
 
-### login
-http://oasis.mitra.com/sf/sfmain/do/changePassword/
-https://srssweb2012.agfa.net/RDWeb/Pages/en-US/password.aspx
-https://sourceforge.net/auth/preferences/
-https://github.com/settings/security
-https://twitter.com/settings/password
-https://www.linkedin.com/psettings/change-password
-https://accounts.google.com/b/0/EditPasswd?hl=en
-
-
-### vmware
-morlf095v.agfahealthcare.com 10.233.88.67   amdus
-gnesv004.agfahealthcare.com 10.233.88.108   administrator:ACA@Gent
-gnesv016.agfahealthcare.com 10.233.88.109   administrator:ACA@Gent - sqlplus sys/SYS as sysdba   shutdown immediate; startup;
-aca-slave1.agfahealthcare.com 10.233.88.111   aca:ACA@Gent
-aca-cluster0.agfahealthcare.com 10.233.88.113   aca:ACA@Gent
-aca-cluster1.agfahealthcare.com 10.233.88.114   aca:ACA@Gent
-aca-cluster2.agfahealthcare.com 10.233.88.115   aca:ACA@Gent
-aca-build-server.agfahealthcare.com 10.233.88.124   aca:ACA@Gent
-sftp://aca@terminology.agfahealthcare.com/   aca:ACA@Gent
-wopeg.he.agfa.be 10.233.88.126   wopeg:wopeg
-ssh jenkins@gnesuv002.agfahealthcare.com   ACA@Gent
-++++++++
-http://acabs:8081/nexus/#view-repositories;snapshots~browsestorage   admin:ACA@Gent
-++++++++
-https://debugit.agfa.net/hudson/ admin   xh?gMYMP
-++++++++
-telnet morsuv223.agfa.be
-ssh aca@morsuv223.agfa.be   5alu5HE%
-ssh aca@morsuv224.agfa.be   5alu5HE%
-ssh aca@morsuv225.agfa.be   5alu5HE%
-++++++++
-ssh aehr1dev@10.48.197.140   aehr1dev
-cd /opt/ehr/dumps/tests
-rs *.war aehr1dev@10.48.197.140:/home/aehr1dev/upload   aehr1dev
-mv /home/aehr1dev/upload/*.war /opt/ehr/ehr1dev1/apache-tomcat/webapps
-/opt/ehr/ehr1dev1/apache-tomcat/bin/shutdown.sh
-tstart
-less /opt/ehr/ehr1dev1/apache-tomcat/logs/argus.log
-rs aehr1dev@10.48.197.140:/opt/ehr/dumps/tests/snapshot-* /tmp   aehr1dev
-rs ~/02swap/eye.zip aehr1dev@10.48.197.140:/home/aehr1dev/upload   aehr1dev
-rs ~/com.agfa.aca.n3/lib/*.jar aehr1dev@10.48.197.140:/home/aehr1dev/upload   aehr1dev
-
-
 ### docker
 wget -qO- https://get.docker.io/ | sh
 sudo usermod -aG docker jdroo
@@ -515,85 +446,12 @@ docker rm $(docker ps -a -q)
 docker rmi $(docker images | grep "^<none>" | awk '{print $3}')
 docker rmi $(docker images -q)
 ++++++++
-docker run -d -p 5000:5000 --restart=always --name registry2 -v /home/aca/docker-registry/:/var/lib/registry registry:2
-docker stop registry2
-docker rm -f registry2
-sudo rm -fr /home/aca/docker-registry
-++++++++
-docker pull aca-slave1.agfahealthcare.com:5000/eye
-sudo gedit /etc/default/docker
-DOCKER_OPTS="--dns 10.233.63.202 --insecure-registry=aca-slave1.agfahealthcare.com:5000"
-sudo service docker restart
-++++++++
 docker pull bdevloed/eye
-docker run --net=host --rm -v $(pwd):$(pwd) -w $(pwd) bdevloed/eye --nope http://n3.restdesc.org/n3/friends.n3 http://n3.restdesc.org/n3/knows-rule.n3 --query http://n3.restdesc.org/n3/query-all.n3
-docker run --net=host --rm -v $(pwd):$(pwd) -w $(pwd) bdevloed/eye --nope http://josd.github.io/eye/reasoning/socrates/socrates.n3 --query http://josd.github.io/eye/reasoning/socrates/socrates-query.n3
-docker run --net=host --rm -v $(pwd):$(pwd) -w $(pwd) -ti bdevloed/eye --feest
-++++++++
-docker pull dockerhub.agfahealthcare.com/gyan/eye:930   ### jenkins - eye-git-poll - changes - build - downstream build view
-docker run --net=host --rm -v $(pwd):$(pwd) -w $(pwd) dockerhub.agfahealthcare.com/gyan/eye:930
-docker login dockerhub.agfahealthcare.com
-++++++++
-ssh aca@gnesuv002.agfahealthcare.com
-docker rmi -f $(docker images -q)
+docker run bdevloed/eye --nope http://n3.restdesc.org/n3/friends.n3 http://n3.restdesc.org/n3/knows-rule.n3 --query http://n3.restdesc.org/n3/query-all.n3
+docker run bdevloed/eye --nope http://josd.github.io/eye/reasoning/socrates/socrates.n3 --query http://josd.github.io/eye/reasoning/socrates/socrates-query.n3
+docker run --net=host --rm -v $HOME:$HOME -w $(pwd) -ti bdevloed/eye "$@"
 ++++++++
 docker system prune
-++++++++
-sudo docker run --rm -ti --gpus all -u $(id -u):$(id -g) -v /opt/ahca_dev:/opt/ahca_dev -v /home/$(id -nu):/home/$(id -nu) -e HOME=/home/$(id -nu) -w /opt/ahca_dev dockerhub.agfahealthcare.com/ahca/data-science:2.3.0-dev bash
-
-
-### CoreOS
-# http://wikihealthcare.agfa.net/display/ACA/Remote+ACA+test+environment
-ssh core@morsuv388.agfa.be
-update_engine_client -check_for_update
-journalctl -f
-sudo reboot
-journalctl --priority 1..3 --since "2016-07-31"
-dmesg -T | egrep -i -B100 'killed process' | less
-nano /etc/locale.gen
-/usr/sbin/locale-gen
-apt install -t jessie-backports openjdk-8-jre-headless ca-certificates-java
-update-alternatives --config java
-++++++++
-ssh -t core@morsuv388.agfa.be 'docker pull dockerhub.agfahealthcare.com/gyan/test-environment:2'
-ssh -t core@morsuv388.agfa.be 'docker create -v /data/jos:/root --name jos-data busybox /bin/sh'
-++++++++
-ssh -t core@morsuv388.agfa.be 'docker rm -f jos-durable'
-ssh -t core@morsuv388.agfa.be 'docker run -m 250g --name=jos-durable --volumes-from jos-data -d -w /root dockerhub.agfahealthcare.com/gyan/test-environment:2 background'
-++++++++
-ssh -t core@morsuv388.agfa.be 'docker start jos-durable'
-ssh -t core@morsuv388.agfa.be 'docker exec -ti jos-durable bash'
-++++++++
-mkdir ~/temp
-chown 500:500 ~/temp
-rs ~/temp/.bashrc ~/temp/.colordiffrc ~
-apt-get update
-apt-get upgrade
-sudo apt install build-essential autoconf curl libedit-dev
-apt-get install bc silversearcher-ag bsdmainutils
-npm install n3 request colors async
-++++++++
-rs core@morsuv388.agfa.be:/data/jos
-
-
-### Linux or04
-ssh amdus@websita1.agfa.be
-ssh amdus@morsuv707.agfa.be
-ssh amdus@morsuv708.agfa.be
-ssh amdus@morsuv709.agfa.be
-ssh amdus@morsuv836.agfahealthcare.com
-ssh amdus@morsuv684.agfahealthcare.com
-ssh amdus@morsuv685.agfahealthcare.com
-ssh amdus@morsuv686.agfahealthcare.com
-
-
-### Cloud
-sudo apt install cifs-utils
-sudo apt install keyutils
-sudo mount -t cifs //agfahealthcare.com/Dfs/data/emea/benelux/GNE/CA /Dfs/data/emea/benelux/GNE/CA -o user=amdus,domain=BE
-gsutil ls
-gcsfuse data_source_s2 ~/data_source_s2
-fusermount -u ~/data_source_s2
 
 
 ### Google Cloud
