@@ -82,17 +82,17 @@ in which agent1 and agent2 are GPS agents and agent2 reaches his goal thanks to 
 <h1>Multi-Agent Proofs: agent2 reaches his goal thanks to the lemmata made by agent1</h1>
 <p>agent2-proof makes use of lemma9 from agent1-proof
 <pre>
-<#lemma13> a r:Extraction;
+&lt;#lemma13&gt; a r:Extraction;
   r:gives {
-    <http://josd.github.io/eye/reasoning/map/agent1-proof.n3#lemma9> a r:Inference.
+    &lt;http://josd.github.io/eye/reasoning/map/agent1-proof.n3#lemma9&gt; a r:Inference.
   };
-  r:because [ a r:Parsing; r:source <http://josd.github.io/eye/reasoning/map/agent1-proof.n3>].
+  r:because [ a r:Parsing; r:source &lt;http://josd.github.io/eye/reasoning/map/agent1-proof.n3&gt;].
 
-<#lemma14> a r:Extraction;
+&lt;#lemma14&gt; a r:Extraction;
   r:gives {
-    <http://josd.github.io/eye/reasoning/map/agent1-proof.n3#lemma9> r:gives {:map-BE gps:description ({:i1 :location :Gent} true {:i1 :location :Brugge} :drive_gent_brugge 1500.0 0.006 0.96 0.99)}.
+    &lt;http://josd.github.io/eye/reasoning/map/agent1-proof.n3#lemma9&gt; r:gives {:map-BE gps:description ({:i1 :location :Gent} true {:i1 :location :Brugge} :drive_gent_brugge 1500.0 0.006 0.96 0.99)}.
   };
-  r:because [ a r:Parsing; r:source <http://josd.github.io/eye/reasoning/map/agent1-proof.n3>].
+  r:because [ a r:Parsing; r:source &lt;http://josd.github.io/eye/reasoning/map/agent1-proof.n3&gt;].
 </pre>
 </p>
 </div>
