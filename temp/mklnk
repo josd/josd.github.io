@@ -27,5 +27,5 @@ sudo ln -sf ~/github.com/josd/josd.github.io/temp/u /usr/local/bin
 sudo ln -sf ~/github.com/mthom/scryer-prolog/target/release/scryer-prolog /usr/local/bin
 sudo ln -sf ~/github.com/pbonte/roxi/target/release/server /usr/local/bin/roxi
 sudo ln -sf ~/github.com/trealla-prolog/trealla/tpl /usr/local/bin
-sudo ln -sf ~/julia-1.7.0/bin/julia /usr/local/bin
+sudo ln -sf ~/julia-1.7.3/bin/julia /usr/local/bin
 sudo ln -sf /opt/eye/bin/eye /usr/local/bin
