@@ -48,6 +48,7 @@ run :-
     write(Out,'\n'),
     write(Out,'session.answer({\n'),
     write(Out,'    success: function(answer) {\n'),
+    write(Out,'        document.write("<h2>Running ", location.pathname.split("/").slice(-1), "</h2>");\n'),
     write(Out,'        document.write("Query = ", query, "<br/><br/>");\n'),
     write(Out,'        document.write(session.format_answer(answer, {quoted: true}));\n'),
     write(Out,'    },\n'),
