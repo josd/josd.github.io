@@ -14,16 +14,16 @@ var knows = `
 
 :- use_module(library(lists)).
 
-'https://josd.github.io/eyebrow#colors'(_Map,Places) :-
-    findall([Place,_],'https://josd.github.io/eyebrow#neighbours'(Place,_),Places),
+'https://josd.github.io/eyebrow#colors'(_Map, Places) :-
+    findall([Place,_], 'https://josd.github.io/eyebrow#neighbours'(Place, _), Places),
     places(Places).
 
 places([]).
 places([[Place,Color]|Tail]) :-
     places(Tail),
-    'https://josd.github.io/eyebrow#neighbours'(Place,Neighbours),
-    member(Color,[red,green,blue,yellow]),
-    \\+ (member([Neighbour,Color],Tail),member(Neighbour,Neighbours)).
+    'https://josd.github.io/eyebrow#neighbours'(Place, Neighbours),
+    member(Color, [red,green,blue,yellow]),
+    \\+ (member([Neighbour,Color], Tail), member(Neighbour, Neighbours)).
 
 % test data
 'https://josd.github.io/eyebrow#neighbours'(
@@ -65,7 +65,7 @@ places([[Place,Color]|Tail]) :-
 `;
 
 var query = `
-'https://josd.github.io/eyebrow#colors'(map1,Answer).
+'https://josd.github.io/eyebrow#colors'(map1, Answer).
 `;
 
 session.consult(knows, {
@@ -80,8 +80,10 @@ session.query(query, {
 
 session.answer({
     success: function(answer) {
-        document.write("Query = ", query, "<br/><br/>");
-        document.write(session.format_answer(answer, {quoted: true}));
+        document.write("<style>p {word-wrap: break-word}</style>");
+        document.write("<h2>Running ", location.pathname.split("/").slice(-1), "</h2>");
+        document.write("<p>Query = ", query, "</p>");
+        document.write("<p>", session.format_answer(answer, {quoted: true}), "</p>");
     },
     fail: function() { /* No more answers */ },
     error: function(err) { /* Uncaught exception */ },

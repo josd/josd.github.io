@@ -7,7 +7,7 @@ Eyebrow is expressed in [ISO Prolog](https://en.wikipedia.org/wiki/Prolog#ISO_Pr
 TERM            | Examples
 ----------------|---------
 IRI             | `'http://example.org/etc#Socrates'`
-LITERAL         | `"abc"` `"chat"-fr` `"2022-01-15"-'http://www.w3.org/2001/XMLSchema#date'` `1.52` `1e-19` `pi`
+LITERAL         | `"abc"` `"chat"-fr` `1.52` `1e-19` `pi`
 VARIABLE        | `X` `_abc` `_`
 LIST            | `[TERM,...]` `[TERM,...`\|`LIST]` `[]`
 LINK            | `IRI(TERM)` `IRI(TERM,TERM)`
@@ -27,11 +27,15 @@ Eyebrow is using [modules](https://github.com/josd/josd.github.io/tree/master/te
 - [Easter date](https://josd.github.io/temp/eyebrow/examples/easter.html) ([view source](https://github.com/josd/josd.github.io/blob/master/temp/eyebrow/examples/easter.html))
 - [Enigma 1225](https://josd.github.io/temp/eyebrow/examples/enigma1225.html) ([view source](https://github.com/josd/josd.github.io/blob/master/temp/eyebrow/examples/enigma1225.html))
 - [Extended deep taxonomy](https://josd.github.io/temp/eyebrow/examples/edt.html) ([view source](https://github.com/josd/josd.github.io/blob/master/temp/eyebrow/examples/edt.html))
+- [Fibonacci numbers](https://josd.github.io/temp/eyebrow/examples/fibonacci.html) ([view source](https://github.com/josd/josd.github.io/blob/master/temp/eyebrow/examples/fibonacci.html))
 - [Four color case](https://josd.github.io/temp/eyebrow/examples/fourcolor.html) ([view source](https://github.com/josd/josd.github.io/blob/master/temp/eyebrow/examples/fourcolor.html))
-- [GPS](https://josd.github.io/temp/eyebrow/examples/gps.html) ([view source](https://github.com/josd/josd.github.io/blob/master/temp/eyebrow/examples/gps.html))
+- [Goal driven Parallel Sequences](https://josd.github.io/temp/eyebrow/examples/gps.html) ([view source](https://github.com/josd/josd.github.io/blob/master/temp/eyebrow/examples/gps.html))
 - [Graph traversal](https://josd.github.io/temp/eyebrow/examples/graph.html) ([view source](https://github.com/josd/josd.github.io/blob/master/temp/eyebrow/examples/graph.html))
+- [Hanoi towers](https://josd.github.io/temp/eyebrow/examples/hanoi.html) ([view source](https://github.com/josd/josd.github.io/blob/master/temp/eyebrow/examples/hanoi.html))
 - [Lee routing](https://josd.github.io/temp/eyebrow/examples/lee.html) ([view source](https://github.com/josd/josd.github.io/blob/master/temp/eyebrow/examples/lee.html))
 - [Meta-interpretation](https://josd.github.io/temp/eyebrow/examples/mi.html) ([view source](https://github.com/josd/josd.github.io/blob/master/temp/eyebrow/examples/mi.html))
+- [Padovan numbers](https://josd.github.io/temp/eyebrow/examples/padovan.html) ([view source](https://github.com/josd/josd.github.io/blob/master/temp/eyebrow/examples/padovan.html))
+- [Polynomial roots](https://josd.github.io/temp/eyebrow/examples/polynomial.html) ([view source](https://github.com/josd/josd.github.io/blob/master/temp/eyebrow/examples/polynomial.html))
 - [Socrates is a mortal](https://josd.github.io/temp/eyebrow/examples/socrates.html) ([view source](https://github.com/josd/josd.github.io/blob/master/temp/eyebrow/examples/socrates.html))
 - [Superdense coding](https://josd.github.io/temp/eyebrow/examples/sdcoding.html) ([view source](https://github.com/josd/josd.github.io/blob/master/temp/eyebrow/examples/sdcoding.html))
 - [Turing machine](https://josd.github.io/temp/eyebrow/examples/turing.html) ([view source](https://github.com/josd/josd.github.io/blob/master/temp/eyebrow/examples/turing.html))
