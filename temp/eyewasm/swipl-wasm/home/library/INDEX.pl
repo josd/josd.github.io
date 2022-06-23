@@ -775,7 +775,6 @@ index((current_foreign_library), 2, shlib, shlib).
 index((reload_foreign_libraries), 0, shlib, shlib).
 index((use_foreign_library), 1, shlib, shlib).
 index((use_foreign_library), 2, shlib, shlib).
-index((win_add_dll_directory), 1, shlib, shlib).
 index((distinct), 1, solution_sequences, solution_sequences).
 index((distinct), 2, solution_sequences, solution_sequences).
 index((reduced), 1, solution_sequences, solution_sequences).
