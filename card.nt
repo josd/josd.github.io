@@ -1,0 +1,14 @@
+_:genid1 <http://schema.org/url> "https://josdroo.pod.knows.idlab.ugent.be/availability" .
+_:genid2 <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://data.knows.idlab.ugent.be/person/office/#GitHubAccount> .
+_:genid2 <http://xmlns.com/foaf/0.1/accountName> "josd" .
+_:genid2 <http://xmlns.com/foaf/0.1/accountServiceHomepage> <https://github.com/> .
+<file:///home/jdroo/github.com/josd/josd.github.io/card.ttl#me> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://xmlns.com/foaf/0.1/Person> .
+<file:///home/jdroo/github.com/josd/josd.github.io/card.ttl#me> <http://xmlns.com/foaf/0.1/givenName> "Jos"@nl .
+<file:///home/jdroo/github.com/josd/josd.github.io/card.ttl#me> <http://xmlns.com/foaf/0.1/familyName> "De Roo"@nl .
+<file:///home/jdroo/github.com/josd/josd.github.io/card.ttl#me> <http://www.w3.org/2006/vcard/ns#title> "R&D Engineer" .
+<file:///home/jdroo/github.com/josd/josd.github.io/card.ttl#me> <http://xmlns.com/foaf/0.1/mbox> <mailto:jos.deroo@ugent.be> .
+<file:///home/jdroo/github.com/josd/josd.github.io/card.ttl#me> <http://xmlns.com/foaf/0.1/img> <https://josd.github.io/images/jdroo.jpg> .
+<file:///home/jdroo/github.com/josd/josd.github.io/card.ttl#me> <http://xmlns.com/foaf/0.1/homepage> <https://josd.github.io/> .
+<file:///home/jdroo/github.com/josd/josd.github.io/card.ttl#me> <http://www.w3.org/ns/solid/terms#oidcIssuer> <https://josdroo.pod.knows.idlab.ugent.be/> .
+<file:///home/jdroo/github.com/josd/josd.github.io/card.ttl#me> <https://data.knows.idlab.ugent.be/person/office/#hasAvailabilityCalendar> _:genid1 .
+<file:///home/jdroo/github.com/josd/josd.github.io/card.ttl#me> <http://xmlns.com/foaf/0.1/account> _:genid2 .
