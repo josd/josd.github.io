@@ -1,45 +1,26 @@
-<?xml version="1.0" encoding="utf-8"?>
-<rdf:RDF xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns:knows="https://data.knows.idlab.ugent.be/person/office/#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:schema="http://schema.org/" xmlns:vcard="http://www.w3.org/2006/vcard/ns#">
-  <rdf:Description rdf:nodeID="genid1">
-    <schema:url>https://josdroo.pod.knows.idlab.ugent.be/availability</schema:url>
-  </rdf:Description>
-  <rdf:Description rdf:nodeID="genid2">
-    <rdf:type rdf:resource="https://data.knows.idlab.ugent.be/person/office/#GitHubAccount"/>
-  </rdf:Description>
-  <rdf:Description rdf:nodeID="genid2">
-    <foaf:accountName>josd</foaf:accountName>
-  </rdf:Description>
-  <rdf:Description rdf:nodeID="genid2">
-    <foaf:accountServiceHomepage rdf:resource="https://github.com/"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="file:///home/jdroo/github.com/josd/josd.github.io/card.ttl#me">
-    <rdf:type rdf:resource="http://xmlns.com/foaf/0.1/Person"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="file:///home/jdroo/github.com/josd/josd.github.io/card.ttl#me">
-    <foaf:givenName xml:lang="nl">Jos</foaf:givenName>
-  </rdf:Description>
-  <rdf:Description rdf:about="file:///home/jdroo/github.com/josd/josd.github.io/card.ttl#me">
-    <foaf:familyName xml:lang="nl">De Roo</foaf:familyName>
-  </rdf:Description>
-  <rdf:Description rdf:about="file:///home/jdroo/github.com/josd/josd.github.io/card.ttl#me">
-    <vcard:title>R&amp;D Engineer</vcard:title>
-  </rdf:Description>
-  <rdf:Description rdf:about="file:///home/jdroo/github.com/josd/josd.github.io/card.ttl#me">
-    <foaf:mbox rdf:resource="mailto:jos.deroo@ugent.be"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="file:///home/jdroo/github.com/josd/josd.github.io/card.ttl#me">
+<rdf:RDF
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns:vcard="http://www.w3.org/2006/vcard/ns#"
+    xmlns:schema="http://schema.org/"
+    xmlns:j.0="http://www.w3.org/ns/solid/terms#"
+    xmlns:knows="https://data.knows.idlab.ugent.be/person/office/#"
+    xmlns:foaf="http://xmlns.com/foaf/0.1/">
+  <foaf:Person rdf:about="https://josd.github.io/card.ttl#me">
+    <j.0:oidcIssuer rdf:resource="https://josdroo.pod.knows.idlab.ugent.be/"/>
     <foaf:img rdf:resource="https://josd.github.io/images/jdroo.jpg"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="file:///home/jdroo/github.com/josd/josd.github.io/card.ttl#me">
+    <foaf:familyName xml:lang="nl">De Roo</foaf:familyName>
     <foaf:homepage rdf:resource="https://josd.github.io/"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="file:///home/jdroo/github.com/josd/josd.github.io/card.ttl#me">
-    <ns0:oidcIssuer xmlns:ns0="http://www.w3.org/ns/solid/terms#" rdf:resource="https://josdroo.pod.knows.idlab.ugent.be/"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="file:///home/jdroo/github.com/josd/josd.github.io/card.ttl#me">
-    <knows:hasAvailabilityCalendar rdf:nodeID="genid1"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="file:///home/jdroo/github.com/josd/josd.github.io/card.ttl#me">
-    <foaf:account rdf:nodeID="genid2"/>
-  </rdf:Description>
+    <foaf:givenName xml:lang="nl">Jos</foaf:givenName>
+    <foaf:account>
+      <knows:GitHubAccount>
+        <foaf:accountServiceHomepage rdf:resource="https://github.com/"/>
+        <foaf:accountName>josd</foaf:accountName>
+      </knows:GitHubAccount>
+    </foaf:account>
+    <foaf:mbox rdf:resource="mailto:jos.deroo@ugent.be"/>
+    <vcard:title>R&amp;D Engineer</vcard:title>
+    <knows:hasAvailabilityCalendar rdf:parseType="Resource">
+      <schema:url>https://josdroo.pod.knows.idlab.ugent.be/availability</schema:url>
+    </knows:hasAvailabilityCalendar>
+  </foaf:Person>
 </rdf:RDF>

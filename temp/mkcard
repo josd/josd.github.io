@@ -1,5 +1,5 @@
 #!/bin/bash
 pushd ~/github.com/josd/josd.github.io
-rapper -i turtle -o rdfxml card.ttl > card.rdf
-rapper -i turtle -o ntriples card.ttl > card.nt
+riot --base=https://josd.github.io/card.ttl --output=RDF/XML card.ttl > card.rdf
+riot --base=https://josd.github.io/card.ttl --output=N-Triples card.ttl > card.nt
 popd
