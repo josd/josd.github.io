@@ -1,0 +1,5 @@
+#!/bin/bash
+pushd ~/github.com/josd/josd.github.io
+rapper -i turtle -o rdfxml card.ttl > card.rdf
+rapper -i turtle -o ntriples card.ttl > card.nt
+popd
