@@ -1,5 +1,5 @@
 #!/bin/bash
-pushd ~/eyesvn/2006/02swap/reasoning/python
-./prepare
-svn diff
+pushd ~/github.com/josd/eye/looking/python
+./test
+git diff
 popd

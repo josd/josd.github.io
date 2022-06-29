@@ -5,7 +5,7 @@ make
 make test
 echo ""
 popd
-pushd ~/github.com/josd/roundel
+pushd ~/github.com/josd/eye/looking/roundel
 ./test
 git diff
 popd

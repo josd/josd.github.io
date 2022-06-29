@@ -1,10 +1,10 @@
 #!/bin/bash
 sudo ln -sf ~/eyesvn/2006/02swap/mksf /usr/local/bin
+sudo ln -sf ~/github.com/josd/eye/looking/eyebrow/eyebrow /usr/local/bin
 sudo ln -sf ~/github.com/josd/eye/mkeye /usr/local/bin
 sudo ln -sf ~/github.com/josd/eye/proofcheck /usr/local/bin
 sudo ln -sf ~/github.com/josd/josd.github.io/temp/ei /usr/local/bin
 sudo ln -sf ~/github.com/josd/josd.github.io/temp/etc /usr/local/bin
-sudo ln -sf ~/github.com/josd/josd.github.io/temp/eyebrow/eyebrow /usr/local/bin
 sudo ln -sf ~/github.com/josd/josd.github.io/temp/g /usr/local/bin
 sudo ln -sf ~/github.com/josd/josd.github.io/temp/gr /usr/local/bin
 sudo ln -sf ~/github.com/josd/josd.github.io/temp/i /usr/local/bin
@@ -17,7 +17,6 @@ sudo ln -sf ~/github.com/josd/josd.github.io/temp/nh /usr/local/bin
 sudo ln -sf ~/github.com/josd/josd.github.io/temp/pn /usr/local/bin
 sudo ln -sf ~/github.com/josd/josd.github.io/temp/rsr /usr/local/bin
 sudo ln -sf ~/github.com/josd/josd.github.io/temp/mkscryer /usr/local/bin
-sudo ln -sf ~/github.com/josd/josd.github.io/temp/mksense /usr/local/bin
 sudo ln -sf ~/github.com/josd/josd.github.io/temp/mkswipl /usr/local/bin
 sudo ln -sf ~/github.com/josd/josd.github.io/temp/mkswipl-wasm /usr/local/bin
 sudo ln -sf ~/github.com/josd/josd.github.io/temp/mktau /usr/local/bin

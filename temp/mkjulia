@@ -1,5 +1,5 @@
 #!/bin/bash
-pushd ~/eyesvn/2006/02swap/reasoning/julia
-./prepare
-svn diff
+pushd ~/github.com/josd/eye/looking/julia
+./test
+git diff
 popd
