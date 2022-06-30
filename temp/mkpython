@@ -3,7 +3,7 @@ pushd ~/github.com/josd/eye/looking/python
 ./test
 git diff
 popd
-pushd ~/github.com/josd/eye/looking/swap
+pushd ~/github.com/josd/eye/looking/eye.py
 ./test
 git diff
 popd
