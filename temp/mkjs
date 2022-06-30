@@ -1,0 +1,5 @@
+#!/bin/bash
+pushd ~/github.com/josd/eye/looking/eye.js
+./test
+git diff
+popd
