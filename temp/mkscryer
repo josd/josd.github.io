@@ -1,7 +1,6 @@
 #!/bin/bash
 pushd ~/github.com/mthom/scryer-prolog
-git pull --all
-cargo check --release
+git pull
 cargo build --release
 cargo test --release
 popd
