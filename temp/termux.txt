@@ -34,6 +34,7 @@ pkg install rust
 pkg install binutils
 pkg install m4
 pkg install perl
+pkg install openssl
 cd ~/scryer-prolog
 cargo install --release
 ln -s target/release/scryer-prolog ~/../usr/bin

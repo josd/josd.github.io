@@ -1,5 +1,5 @@
 #!/bin/bash
-pushd ~/github.com/josd/eye/looking/eye.js
+pushd ~/github.com/josd/imagining/temp/eye.js
 ./test
 git diff
 popd

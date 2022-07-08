@@ -1,9 +1,9 @@
 #!/bin/bash
-pushd ~/github.com/josd/eye/looking/python
+pushd ~/github.com/josd/imagining/temp/python
 ./test
 git diff
 popd
-pushd ~/github.com/josd/eye/looking/eye.py
+pushd ~/github.com/josd/imagining/temp/eye.py
 ./test
 git diff
 popd

@@ -1,5 +1,5 @@
 #!/bin/bash
-pushd ~/github.com/josd/eye/looking/julia
+pushd ~/github.com/josd/imagining/temp/julia
 ./test
 git diff
 popd
