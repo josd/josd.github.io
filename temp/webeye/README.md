@@ -1,9 +1,7 @@
-# Webeye
+# Webized reasoning
 
 Webeye is doing webized reasoning via forward and backward chaining.
 It participates in dialogues leading to necessary and sufficient answers, supported by proof steps, so that action can take place.
-
-## Webized reasoning
 
 Webeye is using [ISO Prolog notation](https://en.wikipedia.org/wiki/Prolog#ISO_Prolog):
 
@@ -33,29 +31,10 @@ This forms a dialogue leading to necessary and sufficient answers, supported by 
 
 ## Installation and test
 
-### Tau Prolog
-
-Install [Node.js](https://nodejs.org/en/download/) and then
+Install [Rust](https://www.rust-lang.org/tools/install) and [Scryer Prolog](https://github.com/mthom/scryer-prolog#installing-scryer-prolog) and then run
 
 ```
-$ npm install tau-prolog
-$ ./test-tau
-```
-
-### Scryer Prolog
-
-Install [Rust](https://www.rust-lang.org/tools/install) and [Scryer Prolog](https://github.com/mthom/scryer-prolog#installing-scryer-prolog) and then
-
-```
-$ ./test-scryer
-```
-
-### Trealla Prolog
-
-Install [Trealla Prolog](https://github.com/trealla-prolog/trealla#building) and then
-
-```
-$ ./test-trealla
+./test
 ```
 
 ## Background
