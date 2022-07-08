@@ -1,20 +1,20 @@
 #!/bin/bash
 
 function test {
-    python3 eye.py "$@" http://josd.github.io/eye/looking/eye.py/bell.n3
-    python3 eye.py "$@" http://josd.github.io/eye/looking/eye.py/easter.n3
-    python3 eye.py "$@" http://josd.github.io/eye/looking/eye.py/einstein.n3
-    python3 eye.py "$@" http://josd.github.io/eye/looking/eye.py/euler.n3
-    python3 eye.py "$@" http://josd.github.io/eye/looking/eye.py/fibonacci.n3
-    python3 eye.py "$@" http://josd.github.io/eye/looking/eye.py/graph.n3
-    python3 eye.py "$@" http://josd.github.io/eye/looking/eye.py/grapht.n3
-    python3 eye.py "$@" http://josd.github.io/eye/looking/eye.py/grover.n3
-    python3 eye.py "$@" http://josd.github.io/eye/looking/eye.py/list.n3
-    python3 eye.py "$@" http://josd.github.io/eye/looking/eye.py/socrates.n3
-    python3 eye.py "$@" http://josd.github.io/eye/looking/eye.py/tree.n3
-    python3 eye.py "$@" http://josd.github.io/eye/looking/eye.py/xanthippe.n3
-    python3 eye.py "$@" http://www.agfa.com/w3c/euler/example003P.n3
-    python3 eye.py "$@" http://www.agfa.com/w3c/euler/medI.n3
+    python3 eye.py "$@" https://josd.github.io/temp/eye.py/bell.n3
+    python3 eye.py "$@" https://josd.github.io/temp/eye.py/easter.n3
+    python3 eye.py "$@" https://josd.github.io/temp/eye.py/einstein.n3
+    python3 eye.py "$@" https://josd.github.io/temp/eye.py/euler.n3
+    python3 eye.py "$@" https://josd.github.io/temp/eye.py/fibonacci.n3
+    python3 eye.py "$@" https://josd.github.io/temp/eye.py/graph.n3
+    python3 eye.py "$@" https://josd.github.io/temp/eye.py/grapht.n3
+    python3 eye.py "$@" https://josd.github.io/temp/eye.py/grover.n3
+    python3 eye.py "$@" https://josd.github.io/temp/eye.py/list.n3
+    python3 eye.py "$@" https://josd.github.io/temp/eye.py/socrates.n3
+    python3 eye.py "$@" https://josd.github.io/temp/eye.py/tree.n3
+    python3 eye.py "$@" https://josd.github.io/temp/eye.py/xanthippe.n3
+    python3 eye.py "$@" https://www.agfa.com/w3c/euler/example003P.n3
+    python3 eye.py "$@" https://www.agfa.com/w3c/euler/medI.n3
 }
 
 test |& tee test.txt

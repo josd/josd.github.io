@@ -11,7 +11,3 @@ pushd ~/github.com/mthom/scryer-prolog; git pull --all; popd
 echo ""
 pushd ~/github.com/SWI-Prolog/swipl-devel; git pull --all; popd
 echo ""
-pushd ~/github.com/tau-prolog/tau-prolog; git pull --all; popd
-echo ""
-pushd ~/github.com/trealla-prolog/trealla; git pull --all; popd
-echo ""
