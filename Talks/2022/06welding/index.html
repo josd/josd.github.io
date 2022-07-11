@@ -31,13 +31,13 @@
 </div>
 
 <div class="slide">
-<h1>We want inter-engine interop which requires proof: SemWave diagram from Tim Berners-Lee</h&>
-<img src="https://www.w3.org/DesignIssues/diagrams/SemWave.png" alt="SemWave"/>
+<h1>We want inter-engine interop which requires proof: SemWave diagram from Tim Berners-Lee</h1>
+<p class="center"><img src="https://www.w3.org/DesignIssues/diagrams/SemWave.png" alt="SemWave"/></p>
 </div>
 
 <div class="slide">
 <h1>We need the full potential of the Semantic Web Databus and Proofbus from Tim Berners-Lee</h1>
-<img src="https://www.w3.org/DesignIssues/diagrams/sweb-bus.png" alt="sweb-bus"/>
+<p class="center"><img src="https://www.w3.org/DesignIssues/diagrams/sweb-bus.png" alt="sweb-bus"/></p>
 </div>
 
 <div class="slide">
@@ -48,40 +48,37 @@
 <p>Technologies used:
 <ul>
   <li>Semantic Web Language (JSON-LD, Turtle, N3)</li>
-  <li>Reasoning Engine (EYE)</li>
+  <li>Reasoning Engine (EYE, <a href="https://github.com/josd/eye/blob/master/reasoning/gps/gps-plugin.n3">GPS plugin for EYE</a>)</li>
 </ul>
 </p>
-<p>Using the <a href="https://github.com/josd/eye/blob/master/reasoning/gps/gps-plugin.n3">GPS plugin for EYE</a></p>
-<p>Goal driven Parallel Sequences (GPS)
+<p>Goal driven Parallel Sequences (GPS)</p>
 <ul>
-  <li>Inspired by https://www.cs.cmu.edu/~fp/courses/15816-s12/lectures/01-inference.pdf</li>
-  <li>In linear logic we are instead concerned with the change of truth with a
+  <li>Inspired by <a href="https://www.cs.cmu.edu/~fp/courses/15816-s12/lectures/01-inference.pdf">Linear Logic</a></li>
+  <li>"In linear logic we are instead concerned with the change of truth with a
       change of state. We model this in a very simple way: when an inference rule
       is applied we consume the propositions used as premises and produce the
-      propositions in the conclusions, thereby effecting an overall change in state.</li>
+      propositions in the conclusions, thereby effecting an overall change in state."</li>
 </ul>
-</p>
 </div>
 
 <div class="slide">
 <h1>Use case GPS4IntegratedCare findings</h1>
 <p>The project worked out fine, but the architecture is centralized around a single smart workflow engine and that is really not scalable.</p>
 <p>The proposal is to address the scalability with <a href="https://github.com/josd/eye/tree/master/reasoning/map">MAP</a></p>
-<p>Multi-Agent Proofs (MAP)
+<p>Multi-Agent Proofs (MAP)</p>
 <ul>
   <li>Multiple agents can work together by using their own knowledge/logic/data and proofs made by other agents.</li>
   <li>The proofs are guaranteeing a transparent and accountable way of working
       and they only disclose what is relevant, so there is no need to have an
       "All knowledge is contained in here" (what I learned from Tim Berners-Lee).</li>
 </ul>
-</p>
 <p>This is just a proposal with a <a href="https://github.com/josd/eye/tree/master/reasoning/map">proof of concept</a>
 in which agent1 and agent2 are GPS agents and agent2 reaches his goal thanks to the lemmata made by agent1.</p>
 </div>
 
 <div class="slide">
-<h1>Multi-Agent Proofs: agent2 reaches his goal thanks to the lemmata made by agent1</h1>
-<p>agent2-proof makes use of lemma9 from agent1-proof
+<h1>Multi-Agent Proofs: Agent2 reaches his goal thanks to the lemmata made by Agent1</h1>
+<p>Agent2-proof makes use of lemma9 from Agent1-proof</p>
 <pre>
 &lt;#lemma13&gt; a r:Extraction;
   r:gives {
@@ -97,7 +94,6 @@ in which agent1 and agent2 are GPS agents and agent2 reaches his goal thanks to 
   };
   r:because [ a r:Parsing; r:source &lt;http://josd.github.io/eye/reasoning/map/agent1-proof.n3&gt;].
 </pre>
-</p>
 </div>
 
 <div class="slide">
@@ -106,13 +102,13 @@ in which agent1 and agent2 are GPS agents and agent2 reaches his goal thanks to 
   <li>The burden of proof is now at the server side: the server has to find out if he should do the job for the client</li>
   <li>Reverse the burden of proof: the client provides a proof, the server checks that proof and if fine does the job for the client</li>
   <li>Is much more scalable but requires client side reasoning and proof generation</li>
-  <li>The proof could be provided for instance as HTTP GET payload</li>
+  <li>The proof could be provided as HTTP GET payload</li>
 </ul>
 </div>
 
 <div class="slide">
 <h1>Thank you</h1>
-<p>Thank you for your attention</p>
+<p>Thank you for your attention!</p>
 <p><a href="https://josd.github.io/Talks/2022/06welding/">https://josd.github.io/Talks/2022/06welding/</a></p>
 </div>
 
