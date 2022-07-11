@@ -45,13 +45,12 @@
 <p>The <a href="https://www.imec-int.com/en/what-we-offer/research-portfolio/gps4integratedcare">GPS4IntegratedCare project</a>
    objective is <b>Automatic generation of dynamic and personalized care workflows</b>
 </p>
-<p>Technologies used:
+<p>Technologies used:</p>
 <ul>
   <li>Semantic Web Language (JSON-LD, Turtle, N3)</li>
   <li>Reasoning Engine (EYE, <a href="https://github.com/josd/eye/blob/master/reasoning/gps/gps-plugin.n3">GPS plugin for EYE</a>)</li>
 </ul>
-</p>
-<p>Goal driven Parallel Sequences (GPS)</p>
+<p>Goal driven Parallel Sequences (GPS):</p>
 <ul>
   <li>Inspired by <a href="https://www.cs.cmu.edu/~fp/courses/15816-s12/lectures/01-inference.pdf">Linear Logic</a></li>
   <li>"In linear logic we are instead concerned with the change of truth with a
@@ -65,7 +64,7 @@
 <h1>Use case GPS4IntegratedCare findings</h1>
 <p>The project worked out fine, but the architecture is centralized around a single smart workflow engine and that is really not scalable.</p>
 <p>The proposal is to address the scalability with <a href="https://github.com/josd/eye/tree/master/reasoning/map">MAP</a></p>
-<p>Multi-Agent Proofs (MAP)</p>
+<p>Multi-Agent Proofs (MAP):</p>
 <ul>
   <li>Multiple agents can work together by using their own knowledge/logic/data and proofs made by other agents.</li>
   <li>The proofs are guaranteeing a transparent and accountable way of working
@@ -100,6 +99,7 @@ in which agent1 and agent2 are GPS agents and agent2 reaches his goal thanks to 
 <h1>Reverse the burden of proof</h1>
 <ul>
   <li>The burden of proof is now at the server side: the server has to find out if he should do the job for the client</li>
+  <li>There is no omniscient server</li>
   <li>Reverse the burden of proof: the client provides a proof, the server checks that proof and if fine does the job for the client</li>
   <li>Is much more scalable but requires client side reasoning and proof generation</li>
   <li>The proof could be provided as HTTP GET payload</li>
