@@ -283,7 +283,7 @@ predicates.</p>
 
 <div class="slide">
 <h1>EYE under the hood</h1>
-In the current design things are layered and cascaded as follows:
+<p>In the current design things are layered and cascaded as follows:</p>
 <pre>
                      .------------------.
         .------------|- - -   N3S       |
@@ -309,26 +309,26 @@ In the current design things are layered and cascaded as follows:
 
 <div class="slide">
 <h1>EYE intermediate code: Prolog Coherent Logic (PCL)</h1>
-A PCL rule has the general form
+<p>A PCL rule has the general form</p>
 <pre>
 	A1 , A2 , . . . , Am =&gt; C1 | C2 | . . . | Cn		(1)
 </pre>
-where the Ai are atomic expressions and each Cj is a conjunction of atomic expressions, m, n >= 1.
+<p>where the Ai are atomic expressions and each Cj is a conjunction of atomic expressions, m, n >= 1.
 The left-hand side of a rule is called the antecedent of the rule (a conjunction) and the right-hand side is
 called the consequent (a disjunction). All atomic expressions can contain variables.
 If n = 1 then there is a single consequent for the rule (1), and the rule is said to be definite. Otherwise
 the rule is a splitting rule that requires a case distinction (case of C1 or case of C2 or . . . case of Cn).
-The separate cases (disjuncts) Cj must have a conjunctive form
+The separate cases (disjuncts) Cj must have a conjunctive form</p>
 <pre>
 	B1 , B2 , . . . , Bh					(2)
 </pre>
-where the Bi are atomic expressions, and h >= 1 varies with j. Any free variables occurring in (2) other
+<p>where the Bi are atomic expressions, and h >= 1 varies with j. Any free variables occurring in (2) other
 than those which occurred free in the antecedent of the rule are taken to be existential variables and their
-scope is this disjunct (2).
+scope is this disjunct (2).</p>
 <pre>
 
 </pre>
-<a href="http://www.ii.uib.no/acl/description.pdf">http://www.ii.uib.no/acl/description.pdf</a>
+<p><a href="http://www.ii.uib.no/acl/description.pdf">http://www.ii.uib.no/acl/description.pdf</a></p>
 </div>
 
 <div class="slide">
@@ -442,22 +442,22 @@ wget -q -O- "http://eye.restdesc.org?data=http://eulersharp.sourceforge.net/2003
 
 <div class="slide">
 <h1>Advanced Clinical Applications</h1>
-<a href="http://www.w3.org/2005/04/swls/#agfa"><img src="http://www.agfa.com/w3c/Talks/2011/11swig/aock.png" width="700" height="350" alt="Agfa on 'Connected Knowledge'"/></a>
+<p><a href="http://www.w3.org/2005/04/swls/#agfa"><img src="http://www.agfa.com/w3c/Talks/2011/11swig/aock.png" width="700" height="350" alt="Agfa on 'Connected Knowledge'"/></a></p>
 </div>
 
 <div class="slide">
 <h1>Advanced Clinical Applications: Using Semantic Web and Proof Technologies to Reduce Errors in Radiological Procedure Orders</h1>
-<a href="http://www.w3.org/2001/sw/sweo/public/UseCases/Agfa/"><img src="http://www.agfa.com/w3c/Talks/2011/11swig/rerpo.png" width="700" height="350" alt="Using Semantic Web and Proof Technologies to Reduce Errors in Radiological Procedure Orders"/></a>
+<p><a href="http://www.w3.org/2001/sw/sweo/public/UseCases/Agfa/"><img src="http://www.agfa.com/w3c/Talks/2011/11swig/rerpo.png" width="700" height="350" alt="Using Semantic Web and Proof Technologies to Reduce Errors in Radiological Procedure Orders"/></a></p>
 </div>
 
 <div class="slide">
 <h1>Advanced Clinical Applications: Leg Length Discrepancy Measurement</h1>
-<a href="http://www.agfa.com/w3c/2002/10/medicad/op/"><img src="http://www.agfa.com/w3c/Talks/2011/11swig/lldm.jpg" width="700" height="500" alt="Leg Length Discrepancy Measuremen"/></a>
+<p><a href="http://www.agfa.com/w3c/2002/10/medicad/op/"><img src="http://www.agfa.com/w3c/Talks/2011/11swig/lldm.jpg" width="700" height="500" alt="Leg Length Discrepancy Measuremen"/></a></p>
 </div>
 
 <div class="slide">
 <h1>Advanced Clinical Applications: DebugIT Project</h1>
-<a href="http://www.debugit.eu/"><img src="http://www.agfa.com/w3c/Talks/2011/11swig/debugit.png" width="700" height="500" alt="DebugIT Project"/></a>
+<p><a href="http://www.debugit.eu/"><img src="http://www.agfa.com/w3c/Talks/2011/11swig/debugit.png" width="700" height="500" alt="DebugIT Project"/></a></p>
 </div>
 
 <div class="slide">
@@ -469,12 +469,12 @@ wget -q -O- "http://eye.restdesc.org?data=http://eulersharp.sourceforge.net/2003
     <li>operational knowledge (e.g. cost, reimbursement)</li>
     <li>patient preference</li>
 </ul>
-<img src="http://www.agfa.com/w3c/Talks/2011/11swig/acwgps.jpg" width="400" height="300" alt="ACW GPS"/>
+<p><img src="http://www.agfa.com/w3c/Talks/2011/11swig/acwgps.jpg" width="400" height="300" alt="ACW GPS"/></p>
 </div>
 
 <div class="slide">
 <h1>Advanced Clinical Applications Summary</h1>
-<img src="http://www.agfa.com/w3c/Talks/2011/11swig/acas.png" alt="ACA Summary"/>
+<p><img src="http://www.agfa.com/w3c/Talks/2011/11swig/acas.png" alt="ACA Summary"/></p>
 </div>
 
 <div class="slide">
@@ -488,7 +488,6 @@ wget -q -O- "http://eye.restdesc.org?data=http://eulersharp.sourceforge.net/2003
 
 <div class="slide">
 <h1>Thank You</h1>
-<p/>
 <p>Thank you for your attention</p>
 <p><a href="http://www.agfa.com/w3c/Talks/2011/11swig/">http://www.agfa.com/w3c/Talks/2011/11swig/</a></p>
 </div>

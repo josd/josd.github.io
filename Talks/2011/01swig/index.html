@@ -259,7 +259,7 @@ predicates.</p>
 
 <div class="slide">
 <h1>EYE under the hood</h1>
-In the current design things are layered and cascaded as follows:
+<p>In the current design things are layered and cascaded as follows:</p>
 <pre>
                      .------------------.
         .------------|- - -   N3S       |
@@ -285,26 +285,26 @@ In the current design things are layered and cascaded as follows:
 
 <div class="slide">
 <h1>EYE intermediate code: Prolog Coherent Logic (PCL)</h1>
-A PCL rule has the general form
+<p>A PCL rule has the general form</p>
 <pre>
 	A1 , A2 , . . . , Am =&gt; C1 | C2 | . . . | Cn		(1)
 </pre>
-where the Ai are atomic expressions and each Cj is a conjunction of atomic expressions, m, n >= 1.
+<p>where the Ai are atomic expressions and each Cj is a conjunction of atomic expressions, m, n >= 1.
 The left-hand side of a rule is called the antecedent of the rule (a conjunction) and the right-hand side is
 called the consequent (a disjunction). All atomic expressions can contain variables.
 If n = 1 then there is a single consequent for the rule (1), and the rule is said to be definite. Otherwise
 the rule is a splitting rule that requires a case distinction (case of C1 or case of C2 or . . . case of Cn).
-The separate cases (disjuncts) Cj must have a conjunctive form
+The separate cases (disjuncts) Cj must have a conjunctive form</p>
 <pre>
 	B1 , B2 , . . . , Bh					(2)
 </pre>
-where the Bi are atomic expressions, and h >= 1 varies with j. Any free variables occurring in (2) other
+<p>where the Bi are atomic expressions, and h >= 1 varies with j. Any free variables occurring in (2) other
 than those which occurred free in the antecedent of the rule are taken to be existential variables and their
-scope is this disjunct (2).
+scope is this disjunct (2).</p>
 <pre>
 
 </pre>
-<a href="http://www.ii.uib.no/acl/description.pdf">http://www.ii.uib.no/acl/description.pdf</a>
+<p><a href="http://www.ii.uib.no/acl/description.pdf">http://www.ii.uib.no/acl/description.pdf</a></p>
 </div>
 
 <div class="slide">
@@ -392,7 +392,7 @@ reality.
 
 <div class="slide">
 <h1>A concrete example: wet grass</h1>
-<b>The background theory</b>
+<p><b>The background theory</b></p>
 <pre>
 true =&gt; (
 	{:loc001 :ascribed :Cloudy, :NonSprinkler, :Rain, :WetGrass, []}
@@ -416,7 +416,7 @@ true =&gt; (
 
 <div class="slide">
 <h1>A concrete example: wet grass</h1>
-<b>The observation</b>
+<p><b>The observation</b></p>
 <pre>
 :loc001 :ascribed :WetGrass.
 </pre>
@@ -424,7 +424,7 @@ true =&gt; (
 
 <div class="slide">
 <h1>A concrete example: wet grass</h1>
-<b>The queries, expressed as "filter" rules</b>
+<p><b>The queries, expressed as "filter" rules</b></p>
 <pre>
 {?S :ascribed :Sprinkler} =&gt; {?S :ascribed :Sprinkler}.
 
@@ -434,7 +434,7 @@ true =&gt; (
 
 <div class="slide">
 <h1>A concrete example: wet grass</h1>
-<b>Was the sprinkler causing wet grass?</b>
+<p><b>Was the sprinkler causing wet grass?</b></p>
 <pre>
 [ e:counterModel {:loc001 :ascribed :Cloudy. :loc001 :ascribed :NonSprinkler.
                   :loc001 :ascribed :Rain. :loc001 :ascribed :WetGrass. :loc001 :ascribed _:sk0}
@@ -461,7 +461,7 @@ true =&gt; (
 
 <div class="slide">
 <h1>A concrete example: wet grass</h1>
-<b>Was the rain causing wet grass?</b>
+<p><b>Was the rain causing wet grass?</b></p>
 <pre>
 [ e:possibleModel {:loc001 :ascribed :Cloudy. :loc001 :ascribed :NonSprinkler.
                    :loc001 :ascribed :Rain. :loc001 :ascribed :WetGrass. :loc001 :ascribed _:sk0}
@@ -554,12 +554,11 @@ swap/check.py --report for brain anatomy test case
 
 
 </pre>
-<a href="http://ruleml.org/WellnessRules/files/WellnessRulesN3-2009-11-10.pdf">http://ruleml.org/WellnessRules/files/WellnessRulesN3-2009-11-10.pdf</a>
+<p><a href="http://ruleml.org/WellnessRules/files/WellnessRulesN3-2009-11-10.pdf">http://ruleml.org/WellnessRules/files/WellnessRulesN3-2009-11-10.pdf</a><p>
 </div>
 
 <div class="slide">
 <h1>Thank You</h1>
-<p/>
 <p>Thank you for your attention</p>
 <p><a href="http://www.agfa.com/w3c/Talks/2011/01swig/">http://www.agfa.com/w3c/Talks/2011/01swig/</a></p>
 </div>
