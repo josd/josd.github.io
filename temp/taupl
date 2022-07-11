@@ -1,2 +1,2 @@
 #!/bin/bash
-node --max-old-space-size=12000 ~/github.com/tau-prolog/tau-prolog/taupl.js "$@"
+node --max-old-space-size=12000 --stack-size=4000 ~/github.com/tau-prolog/tau-prolog/taupl.js "$@"
