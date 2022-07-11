@@ -16,81 +16,74 @@
     line-height: 110%;
     font-family: "Times New Roman", Garamond, Times, serif;
   }
-  .underline { text-decoration: underline }
+  .underline {
+    text-decoration: underline;
+  }
+  .hover {
+    background: #ffa;
+  }
 </style>
 </head>
 
 <body xml:lang="en" lang="en">
 <div class="slide">
-<h2>World wide welding machine transforming data into proofs</h2>
+<h1>World wide welding machine transforming data into proofs</h1>
 <p>2022-06</p>
 <p><a href="https://josd.github.io/Talks/2022/06welding/">https://josd.github.io/Talks/2022/06welding/</a></p>
 <p>by <a href="https://josd.github.io/">Jos De Roo</a> of <a href="https://knows.idlab.ugent.be/">KNoWS office of IDLab - Ghent University - imec.</a><br/></p>
 </div>
 
 <div class="slide">
-<h2>We want inter-engine interop which requires proof - SemWave diagram from Tim Berners-Lee</h2>
+<h1>We want inter-engine interop which requires proof - SemWave diagram from TimBL</h1>
 <img src="https://www.w3.org/DesignIssues/diagrams/SemWave.png" alt="SemWave"/>
 </div>
 
 <div class="slide">
-<h2>We need the full potential of the Semantic Web Databus and Proofbus from Tim Berners-Lee</h2>
+<h1>We need the full potential of the Semantic Web Databus and Proofbus from TimBL</h1>
 <img src="https://www.w3.org/DesignIssues/diagrams/sweb-bus.png" alt="sweb-bus"/>
 </div>
 
 <div class="slide">
-<h2>Use case GPS4IntegratedCare</h2>
+<h1>Use case GPS4IntegratedCare</h1>
 <p>The <a href="https://www.imec-int.com/en/what-we-offer/research-portfolio/gps4integratedcare">GPS4IntegratedCare project</a>
-   objective is <b>Automatic generation of dynamic and personalized care workflows</b><p>
-<p>Technologies used:
-    <ul>
-        <li>Semantic Web Language (JSON-LD, Turtle, N3)</li>
-        <li>Reasoning Engine (EYE)</li>
-    </ul>
+   objective is <b>Automatic generation of dynamic and personalized care workflows</b>
 </p>
-<p>Using the <a href="https://github.com/josd/eye/blob/master/reasoning/gps/gps-plugin.n3">GPS plugin for EYE</a>
-<pre>
-------------------------------
-Goal driven Parallel Sequences
-------------------------------
-
-Inspired by https://www.cs.cmu.edu/~fp/courses/15816-s12/lectures/01-inference.pdf
-
-[[
-In linear logic we are instead concerned with the change of truth with a
-change of state. We model this in a very simple way: when an inference rule
-is applied we consume the propositions used as premises and produce the
-propositions in the conclusions, thereby effecting an overall change in state.
-]]
-</pre>
+<p>Technologies used:
+<ul>
+  <li>Semantic Web Language (JSON-LD, Turtle, N3)</li>
+  <li>Reasoning Engine (EYE)</li>
+</ul>
+</p>
+<p>Using the <a href="https://github.com/josd/eye/blob/master/reasoning/gps/gps-plugin.n3">GPS plugin for EYE</a></p>
+<p>Goal driven Parallel Sequences (GPS)
+<ul>
+  <li>Inspired by https://www.cs.cmu.edu/~fp/courses/15816-s12/lectures/01-inference.pdf</li>
+  <li>In linear logic we are instead concerned with the change of truth with a
+      change of state. We model this in a very simple way: when an inference rule
+      is applied we consume the propositions used as premises and produce the
+      propositions in the conclusions, thereby effecting an overall change in state.</li>
+</ul>
 </p>
 </div>
 
 <div class="slide">
-<h2>Use case GPS4IntegratedCare findings</h2>
-<p></p>
+<h1>Use case GPS4IntegratedCare findings</h1>
 <p>The project worked out fine, but the architecture is centralized around a single smart workflow engine and that is really not scalable.</p>
-<p>The proposal is to address the scalability with <a href="https://github.com/josd/eye/tree/master/reasoning/map">MAP</a>
-<pre>
-------------------
-Multi-Agent Proofs
-------------------
-
-Multiple agents can work together by using their own knowledge/logic/data
-and proofs made by other agents.
-
-The proofs are guaranteeing a transparent and accountable way of working
-and they only disclose what is relevant, so there is no need to have an
-"All knowledge is contained in here" (what I learned from Tim Berners-Lee).
-</pre>
+<p>The proposal is to address the scalability with <a href="https://github.com/josd/eye/tree/master/reasoning/map">MAP</a></p>
+<p>Multi-Agent Proofs (MAP)
+<ul>
+  <li>Multiple agents can work together by using their own knowledge/logic/data and proofs made by other agents.</li>
+  <li>The proofs are guaranteeing a transparent and accountable way of working
+      and they only disclose what is relevant, so there is no need to have an
+      "All knowledge is contained in here" (what I learned from Tim Berners-Lee).</li>
+</ul>
 </p>
 <p>This is just a proposal with a <a href="https://github.com/josd/eye/tree/master/reasoning/map">proof of concept</a>
-in which agent1 and agent2 are GPS agents and agent2 reaches his goal thanks to the lemmata made by agent1.
-</p>
+in which agent1 and agent2 are GPS agents and agent2 reaches his goal thanks to the lemmata made by agent1.</p>
 </div>
 
 <div class="slide">
-<h2>Multi-Agent Proofs: agent2 reaches his goal thanks to the lemmata made by agent1</h2>
+<h1>Multi-Agent Proofs: agent2 reaches his goal thanks to the lemmata made by agent1</h1>
 <p>agent2-proof makes use of lemma9 from agent1-proof
 <pre>
 &lt;#lemma13&gt; a r:Extraction;
@@ -111,7 +104,7 @@ in which agent1 and agent2 are GPS agents and agent2 reaches his goal thanks to 
 </div>
 
 <div class="slide">
-<h2>Reverse the burden of proof</h2>
+<h1>Reverse the burden of proof</h1>
 <ul>
     <li>The burden of proof is now at the server side: the server has to find out if he should do the job for the client</li>
     <li>Reverse the burden of proof: the client provides a proof, the server checks that proof and if fine does the job for the client</li>
@@ -120,8 +113,6 @@ in which agent1 and agent2 are GPS agents and agent2 reaches his goal thanks to 
 </div>
 
 <div class="slide">
-<h2>Thank You</h2>
-<p/>
 <p>Thank you for your attention</p>
 <p><a href="https://josd.github.io/Talks/2022/06welding/">https://josd.github.io/Talks/2022/06welding/</a></p>
 </div>
