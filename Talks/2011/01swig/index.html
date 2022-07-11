@@ -3,10 +3,10 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
 <title>Euler YAP Engine, a birds EYE view</title>
-<link rel="stylesheet" type="text/css" media="print" href="https://www.w3.org/Talks/Tools/Slidy/print.css" /> 
-<link rel="stylesheet" type="text/css" media="screen, projection" href="https://www.w3.org/Talks/Tools/Slidy/show.css" /> 
-<link rel="stylesheet" type="text/css" media="screen, projection" href="https://www.w3.org/Talks/Tools/Slidy/w3c-blue.css" /> 
-<script src="https://www.w3.org/Talks/Tools/Slidy/slidy.js" type="text/javascript"></script> 
+<link rel="stylesheet" type="text/css" media="print" href="https://www.w3.org/Talks/Tools/Slidy/print.css" />
+<link rel="stylesheet" type="text/css" media="screen, projection" href="https://www.w3.org/Talks/Tools/Slidy/show.css" />
+<link rel="stylesheet" type="text/css" media="screen, projection" href="https://www.w3.org/Talks/Tools/Slidy/w3c-blue.css" />
+<script src="https://www.w3.org/Talks/Tools/Slidy/slidy.js" type="text/javascript"></script>
 <style type="text/css">
   .extract {
     margin-left: 20%;
@@ -19,7 +19,7 @@
   .underline {
     text-decoration: underline;
   }
-  .hover {
+  a:hover {
     background: #ffa;
   }
 </style>
@@ -199,7 +199,7 @@ predicates.</p>
 <p>and a property:</p>
 <pre>:sister a rdf:Property.</pre>
 <p>Something about the Property <code>:sister</code>::</p>
-<pre>:sister rdfs:domain :Person; 
+<pre>:sister rdfs:domain :Person;
         rdfs:range :Woman.</pre>
 <p></p>
 <p>Use:</p>
@@ -238,10 +238,10 @@ predicates.</p>
 
 <div class="slide">
 <h1>More Complex Consequent</h1>
-<pre>{ ?x :son ?y } 
-  =&gt; 
-{ ?y a :Male.  
-  ?y :parent ?x. 
+<pre>{ ?x :son ?y }
+  =&gt;
+{ ?y a :Male.
+  ?y :parent ?x.
   ?x a :Parent }.
 </pre>
 </div>
