@@ -40071,9 +40071,6 @@ zip([H1|T1], [H2|T2], [(H1, H2)|T]) :-
     zip(T1, T2, T).
 
 from_to(M, N, L) :-
-    %(   var(L)
-    %;   is_list(L)
-    %),
     integer(M),
     integer(N),
     M =< N,
@@ -40268,6 +40265,7 @@ head_body_(prod(s(N),M,P),[prod(N,M,K),sum(K,M,P)|Rs],Rs).
 
 head_body_(sum(0,M,M),Rs,Rs).
 head_body_(sum(s(N),M,s(K)),[sum(N,M,K)|Rs],Rs).
+
 
 % query
 query('http://example.org/ns#N10000'('http://example.org/ns#i10000')).
