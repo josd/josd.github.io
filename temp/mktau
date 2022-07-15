@@ -2,7 +2,7 @@
 pushd ~/github.com/tau-prolog/tau-prolog
 git pull
 popd
-pushd ~/github.com/josd/josd.github.io/temp/eyebrow
+pushd ~/github.com/josd/brow
 rsync -azv ~/github.com/tau-prolog/tau-prolog/modules .
 ./test
 git diff
