@@ -1,2 +1,2 @@
 #!/bin/bash
-node ~/github.com/josd/eye/eyejs/swipl-wasm/home/swipl.js "$@"
+node ~/github.com/josd/eyebrow/swipl-wasm/home/swipl.js "$@"
