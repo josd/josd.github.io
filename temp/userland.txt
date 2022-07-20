@@ -12,8 +12,16 @@ sudo apt install rsync
 # git
 sudo apt install git
 
+# node
+curl -sL https://deb.nodesource.com/setup_16.x | sudo -E bash -
+sudo apt install nodejs
+
 # websocketd
+cd /tmp
 wget https://github.com/joewalnes/websocketd/releases/download/v0.4.1/websocketd-0.4.1-linux_arm.zip
+unzip websocketd-0.4.1-linux_arm.zip
+mv websocketd /usr/local/bin
+npm install -g websocket
 
 # google-chrome
 sudo apt install chromium-browser
@@ -54,10 +62,6 @@ cd build
 cmake -G Ninja ..
 ninja
 sudo ninja install
-
-# node
-curl -sL https://deb.nodesource.com/setup_16.x | sudo -E bash -
-sudo apt install nodejs
 
 # eye
 cd ~/github.com
