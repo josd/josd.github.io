@@ -55,6 +55,10 @@ cmake -G Ninja ..
 ninja
 sudo ninja install
 
+# node
+curl -sL https://deb.nodesource.com/setup_16.x | sudo -E bash -
+sudo apt install nodejs
+
 # eye
 cd ~/github.com
 mkdir josd

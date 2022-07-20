@@ -53,8 +53,8 @@ sudo apt install openjdk-8-jdk
 sudo update-alternatives --config java
 
 sudo apt-add-repository ppa:swi-prolog/stable
-sudo apt-get update
-sudo apt-get install swi-prolog
+sudo apt update
+sudo apt install swi-prolog
 ++++
 sudo ppa-purge ppa:swi-prolog/stable
  
@@ -73,16 +73,16 @@ cd carl
 make
 sudo make install
 
-curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash -
-sudo apt install -y nodejs
+curl -sL https://deb.nodesource.com/setup_16.x | sudo -E bash -
+sudo apt install nodejs
 sudo apt install gcc g++ make
 curl -sL https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
 echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
-sudo apt-get update && sudo apt-get install yarn
+sudo apt update && sudo apt install yarn
 
 download and install https://eid.belgium.be/nl/download-page/165/license?width=770&height=490&top=10
 sudo dpkg-reconfigure eid-archive
-sudo apt-get update
+sudo apt update
 sudo apt install eid-mw eid-viewer
 Firefox about:preferences#privacy 'Security Devices' Load "Belgium eID PKCS#11 Module" "libbeidpkcs11.so.0"
 
@@ -263,7 +263,7 @@ sudo apt install gnumeric
 
 sudo apt install webhttrack
 
-sudo apt-get install imagemagick
+sudo apt install imagemagick
 identify IMG-20190911-WA0002.jpg
 convert IMG-20190911-WA0002.jpg -crop 1440x1440+0+0 output.jpg
 eog output.jpg
@@ -433,7 +433,7 @@ sudo service docker start
 #  EXTRA_ARGS="--dns 10.233.63.202"
 sudo service docker restart
 docker stop $(docker ps -a -q)
-sudo apt-get remove lxc-docker-1.1.1
+sudo apt remove lxc-docker-1.1.1
 cd ~/temp/docker
 rs slave1:/home/axgze/tests/docker/eye/Dockerfile .
 docker build --no-cache=true -t="jdroo/eye" .
