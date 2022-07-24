@@ -1,6 +1,7 @@
 https://raw.githubusercontent.com/josd/josd.github.io/master/temp/bench.pl
 is a benchmark combining the extended deep taxonomy, a new scientist 
-puzzle and a 5 fold meta-interpretation.
+puzzle and a 5 fold meta-interpretation. It is intended to be representative
+for Solid reasoning in https://github.com/SolidLabResearch/Challenges/issues.
 
 It requires 214246 inferences.
 
