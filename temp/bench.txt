@@ -7,7 +7,7 @@ It requires 214246 inferences.
 The Tau Prolog javascript backward chainer takes 95 sec reasoning time 
 so it runs at 2265 lips (logical inferences per second).
 
-The swipljs (used by eyejs) takes 0.082 sec reasoning time so it runs 
+The swipljs (used by eyebrow) takes 0.082 sec reasoning time so it runs 
 at 2612146 lips which is 1150 times faster! 
 
 Rust based Scryer Prolog takes 0.097 sec reasoning time which is 2208598 lips
