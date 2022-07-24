@@ -10,6 +10,8 @@ so it runs at 2265 lips (logical inferences per second).
 The swipljs (used by eyebrow) takes 0.082 sec reasoning time so it runs 
 at 2612146 lips which is 1150 times faster! 
 
+Trealla Prolog takes 0.143 sec reasoning time so it runs at 1498224 lips.
+
 Rust based Scryer Prolog takes 0.097 sec reasoning time which is 2208598 lips
 and its rebis-dev branch takes 0.048 sec reasoning time which is 4463458 lips.
 
