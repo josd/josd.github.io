@@ -1,0 +1,127 @@
+$ strace eye
+execve("/usr/local/bin/eye", ["eye"], 0x7ffc1f279d80 /* 32 vars */) = 0
+brk(NULL)                               = 0x559e39a78000
+arch_prctl(0x3001 /* ARCH_??? */, 0x7ffeb1a38c00) = -1 EINVAL (Invalid argument)
+access("/etc/ld.so.preload", R_OK)      = -1 ENOENT (No such file or directory)
+openat(AT_FDCWD, "/etc/ld.so.cache", O_RDONLY|O_CLOEXEC) = 3
+fstat(3, {st_mode=S_IFREG|0644, st_size=91140, ...}) = 0
+mmap(NULL, 91140, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7fbec1aa3000
+close(3)                                = 0
+openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libc.so.6", O_RDONLY|O_CLOEXEC) = 3
+read(3, "\177ELF\2\1\1\3\0\0\0\0\0\0\0\0\3\0>\0\1\0\0\0\300A\2\0\0\0\0\0"..., 832) = 832
+pread64(3, "\6\0\0\0\4\0\0\0@\0\0\0\0\0\0\0@\0\0\0\0\0\0\0@\0\0\0\0\0\0\0"..., 784, 64) = 784
+pread64(3, "\4\0\0\0\20\0\0\0\5\0\0\0GNU\0\2\0\0\300\4\0\0\0\3\0\0\0\0\0\0\0", 32, 848) = 32
+pread64(3, "\4\0\0\0\24\0\0\0\3\0\0\0GNU\0\30x\346\264ur\f|Q\226\236i\253-'o"..., 68, 880) = 68
+fstat(3, {st_mode=S_IFREG|0755, st_size=2029592, ...}) = 0
+mmap(NULL, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fbec1aa1000
+pread64(3, "\6\0\0\0\4\0\0\0@\0\0\0\0\0\0\0@\0\0\0\0\0\0\0@\0\0\0\0\0\0\0"..., 784, 64) = 784
+pread64(3, "\4\0\0\0\20\0\0\0\5\0\0\0GNU\0\2\0\0\300\4\0\0\0\3\0\0\0\0\0\0\0", 32, 848) = 32
+pread64(3, "\4\0\0\0\24\0\0\0\3\0\0\0GNU\0\30x\346\264ur\f|Q\226\236i\253-'o"..., 68, 880) = 68
+mmap(NULL, 2037344, PROT_READ, MAP_PRIVATE|MAP_DENYWRITE, 3, 0) = 0x7fbec18af000
+mmap(0x7fbec18d1000, 1540096, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x22000) = 0x7fbec18d1000
+mmap(0x7fbec1a49000, 319488, PROT_READ, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x19a000) = 0x7fbec1a49000
+mmap(0x7fbec1a97000, 24576, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x1e7000) = 0x7fbec1a97000
+mmap(0x7fbec1a9d000, 13920, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_ANONYMOUS, -1, 0) = 0x7fbec1a9d000
+close(3)                                = 0
+arch_prctl(ARCH_SET_FS, 0x7fbec1aa2580) = 0
+mprotect(0x7fbec1a97000, 16384, PROT_READ) = 0
+mprotect(0x559e37f5d000, 8192, PROT_READ) = 0
+mprotect(0x7fbec1ae7000, 4096, PROT_READ) = 0
+munmap(0x7fbec1aa3000, 91140)           = 0
+getuid()                                = 1000
+getgid()                                = 1000
+getpid()                                = 17883
+rt_sigaction(SIGCHLD, {sa_handler=0x559e37f52c30, sa_mask=~[RTMIN RT_1], sa_flags=SA_RESTORER, sa_restorer=0x7fbec18f2090}, NULL, 8) = 0
+geteuid()                               = 1000
+brk(NULL)                               = 0x559e39a78000
+brk(0x559e39a99000)                     = 0x559e39a99000
+getppid()                               = 17880
+stat("/home/jdroo/github.com/josd/josd.github.io/temp", {st_mode=S_IFDIR|0755, st_size=4096, ...}) = 0
+stat(".", {st_mode=S_IFDIR|0755, st_size=4096, ...}) = 0
+openat(AT_FDCWD, "/usr/local/bin/eye", O_RDONLY) = 3
+fcntl(3, F_DUPFD, 10)                   = 10
+close(3)                                = 0
+fcntl(10, F_SETFD, FD_CLOEXEC)          = 0
+geteuid()                               = 1000
+getegid()                               = 1000
+rt_sigaction(SIGINT, NULL, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=0}, 8) = 0
+rt_sigaction(SIGINT, {sa_handler=0x559e37f52c30, sa_mask=~[RTMIN RT_1], sa_flags=SA_RESTORER, sa_restorer=0x7fbec18f2090}, NULL, 8) = 0
+rt_sigaction(SIGQUIT, NULL, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=0}, 8) = 0
+rt_sigaction(SIGQUIT, {sa_handler=SIG_DFL, sa_mask=~[RTMIN RT_1], sa_flags=SA_RESTORER, sa_restorer=0x7fbec18f2090}, NULL, 8) = 0
+rt_sigaction(SIGTERM, NULL, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=0}, 8) = 0
+rt_sigaction(SIGTERM, {sa_handler=SIG_DFL, sa_mask=~[RTMIN RT_1], sa_flags=SA_RESTORER, sa_restorer=0x7fbec18f2090}, NULL, 8) = 0
+read(10, "#!/bin/sh\nswipl -x /opt/eye/lib/"..., 8192) = 48
+stat("/home/linuxbrew/.linuxbrew/bin/swipl", 0x7ffeb1a38890) = -1 ENOENT (No such file or directory)
+stat("/home/linuxbrew/.linuxbrew/sbin/swipl", 0x7ffeb1a38890) = -1 ENOENT (No such file or directory)
+stat("/home/jdroo/.elan/bin/swipl", 0x7ffeb1a38890) = -1 ENOENT (No such file or directory)
+stat("/home/jdroo/.local/bin/swipl", 0x7ffeb1a38890) = -1 ENOENT (No such file or directory)
+stat("/home/jdroo/.cargo/bin/swipl", 0x7ffeb1a38890) = -1 ENOENT (No such file or directory)
+stat("/bin/swipl", 0x7ffeb1a38890)      = -1 ENOENT (No such file or directory)
+stat("/usr/local/sbin/swipl", 0x7ffeb1a38890) = -1 ENOENT (No such file or directory)
+stat("/usr/local/bin/swipl", {st_mode=S_IFREG|0755, st_size=67736, ...}) = 0
+clone(child_stack=NULL, flags=CLONE_CHILD_CLEARTID|CLONE_CHILD_SETTID|SIGCHLD, child_tidptr=0x7fbec1aa2850) = 17884
+wait4(-1, eye
+EYE v22.0725.1110 josd
+SWI-Prolog version 8.5.15
+starting 38 [msec cputime] 37 [msec walltime]
+Usage: eye <options>* <data>* <query>*
+eye
+    swipl -g main eye.pl --
+<options>
+    --csv-separator <separator>     CSV separator such as , or ;
+    --debug                         output debug info on stderr
+    --debug-cnt                     output debug info about counters on stderr
+    --debug-djiti                   output debug info about DJITI on stderr
+    --debug-pvm                     output debug info about PVM code on stderr
+    --help                          show help info
+    --hmac-key <key>                HMAC key used in e:hmac-sha built-in
+    --ignore-inference-fuse         do not halt in case of inference fuse
+    --image <pvm-file>              output all <data> and all code to <pvm-file>
+    --intermediate <n3p-file>       output all <data> to <n3p-file>
+    --license                       show license info
+    --multi-query                   go into query answer loop
+    --no-distinct-input             no distinct triples in the input
+    --no-distinct-output            no distinct answers in the output
+    --no-numerals                   no numerals in the output
+    --no-qnames                     no qnames in the output
+    --no-qvars                      no qvars in the output
+    --no-ucall                      no extended unifier for forward rules
+    --nope                          no proof explanation
+    --profile                       output profile info on stderr
+    --quantify <prefix>             quantify uris with <prefix> in the output
+    --quiet                         quiet mode
+    --random-seed                   create random seed for e:random built-in
+    --restricted                    restricting to core built-ins
+    --rule-histogram                output rule histogram info on stderr
+    --skolem-genid <genid>          use <genid> in Skolem IRIs
+    --source <file>                 read command line arguments from <file>
+    --statistics                    output statistics info on stderr
+    --strings                       output log:outputString objects on stdout
+    --tactic limited-answer <nr>    give only a limited number of answers
+    --tactic limited-brake <nr>     take only a limited number of brakes
+    --tactic limited-step <nr>      take only a limited number of steps
+    --tactic limited-witness <nr>   use only a limited number of witnesses
+    --tactic linear-select          select each rule only once
+    --version                       show version info
+    --warn                          output warning info on stderr
+    --wcache <uri> <file>           to tell that <uri> is cached as <file>
+<data>
+    [--n3] <uri>                    N3 triples and rules
+    --blogic <uri>                  RDF surfaces
+    --n3p <uri>                     N3P intermediate
+    --proof <uri>                   N3 proof lemmas
+    --turtle <uri>                  Turtle triples
+<query>
+    --entail <rdf-graph>            output true if RDF graph is entailed
+    --not-entail <rdf-graph>        output true if RDF graph is not entailed
+    --pass                          output deductive closure
+    --pass-all                      output deductive closure plus rules
+    --pass-all-ground               ground the rules and run --pass-all
+    --pass-only-new                 output only new derived triples
+    --query <n3-query>              output filtered with filter rules
+[{WIFEXITED(s) && WEXITSTATUS(s) == 0}], 0, NULL) = 17884
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=17884, si_uid=1000, si_status=0, si_utime=4, si_stime=0} ---
+rt_sigreturn({mask=[]})                 = 17884
+read(10, "", 8192)                      = 0
+exit_group(0)                           = ?
++++ exited with 0 +++
