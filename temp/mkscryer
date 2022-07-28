@@ -4,7 +4,7 @@ git pull
 cargo build --release
 cargo test --release
 popd
-pushd ~/github.com/josd/imagining
+pushd ~/github.com/josd/eyeglass
 ./test
 git diff
 popd
