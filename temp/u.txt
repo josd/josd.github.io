@@ -490,4 +490,16 @@ echo "eval \"\$($(brew --prefix)/bin/brew shellenv)\"" >> ~/.profile
 ### Wasmer
 sudo apt install libtinfo5
 curl https://get.wasmer.io -sSfL | sh
++++
+git clone --recursive https://github.com/WebAssembly/wasi-sdk.git
+cd wasi-sdk/
+NINJA_FLAGS=-v make package
+sudo dpkg -i dist/wasi-sdk_16.4g67f8fa515c68_amd64.deb
+++++
+cd ~/github.com/trealla-prolog/trealla
+make clean
+WASI=1 NOFFI=1 NOSSL=1 CC=/opt/wasi-sdk/bin/clang make
+++++
+cd ~/github.com/josd/retina/
+time wasmer run --dir . ~/github.com/trealla-prolog/trealla/tpl -- -g run,halt gps.pl
 
