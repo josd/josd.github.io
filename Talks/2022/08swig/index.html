@@ -237,8 +237,8 @@ predicates.</p>
 <div class="slide">
 <h1>EYE, an open source reasoning engine</h1>
 <ul>
-    <li>EYE stands for "Euler Yet another proof Engine" and it is a further incremental development of Euler which is an inference engine supporting logic based proofs.</li>
-    <li>EYE is a backward-forward-backward chaining reasoner design enhanced with Euler path detection.</li>
+    <li>EYE stands for "Euler Yet another proof Engine" and it is an inference engine supporting logic based proofs.</li>
+    <li>It performs forward and backward chaining along Euler paths.</li>
     <li>The Euler path detection is roughly "don't step in your own steps" to avoid vicious circles so to speak and in that respect there is a similarity with what
         Leonhard Euler discovered in 1736 for the <a href="http://mathworld.wolfram.com/KoenigsbergBridgeProblem.html">Koenigsberg Bridge Problem</a>.</li>
     <li>The reasoning that EYE is performing is grounded in FOL (First Order Logic).</li>
@@ -263,6 +263,19 @@ predicates.</p>
 <h1>EYE under the hood</h1>
 <p>Here are the layers of the EYE stack:</p>
 <p><img src="https://josd.github.io/images/EYE-stack.png" alt="EYE" height="600" width="750"/></p>
+</div>
+
+
+<div class="slide">
+<h1>EYE under the hood (cont)</h1>
+<p>This is what the basic EAM (Euler Abstract Machine) does in a nutshell:</p>
+<ul>
+    <li>Select rule P =&lt; C</li>
+    <li>Prove P &amp; C (backward chaining) and if it fails backtrack to 1.</li>
+    <li>If P &amp; C assert C (forward chaining) and remove brake</li>
+    <li>If C = answer(A) and tactic limited-answer stop, else backtrack to 2.</li>
+    <li>If brake or tactic linear-select stop, else start again at 1.</li>
+</ul>
 </div>
 
 <div class="slide">
@@ -329,24 +342,6 @@ Usage: eye &lt;options&gt;* &lt;data&gt;* &lt;query&gt;*
     --warn                          output warning info on stderr
     --wcache &lt;uri&gt; &lt;file&gt;           to tell that &lt;uri&gt; is cached as &lt;file&gt;
 </pre>
-</div>
-
-<div class="slide">
-<h1>EYE Server by Ruben Verborgh</h1>
-<ul>
-    <li>Online reasoning service at <a href="http://eye.restdesc.org">http://eye.restdesc.org</a></li>
-    <li>Open source code at <a href="https://github.com/RubenVerborgh/EyeServer">https://github.com/RubenVerborgh/EyeServer</a></li>
-    <li>For instance the following command<pre>
-curl "http://eye.restdesc.org?data=http://eulersharp.sourceforge.net/2003/03swap/socrates.n3
-                &amp;query=http://eulersharp.sourceforge.net/2003/03swap/socratesF.n3"
-</pre>returns<pre>
-@prefix log: &lt;http://www.w3.org/2000/10/swap/log#&gt;.
-...
-
-:Socrates a _:Man_1.
-:Socrates a :Mortal.
-</pre></li>
-</ul>
 </div>
 
 <div class="slide">
