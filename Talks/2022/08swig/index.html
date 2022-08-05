@@ -1,0 +1,365 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<title>Building Semantic Web reasoning engines</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" media="print" href="https://www.w3.org/Talks/Tools/Slidy/print.css" />
+<link rel="stylesheet" type="text/css" media="screen, projection" href="https://www.w3.org/Talks/Tools/Slidy/w3c-blue.css" />
+<script src="https://www.w3.org/Talks/Tools/Slidy/slidy.js" type="text/javascript"></script>
+</head>
+
+<body xml:lang="en" lang="en">
+<div class="slide">
+<h1>Building Semantic Web reasoning engines</h1>
+<p>2022-07</p>
+<p><a href="https://josd.github.io/Talks/2022/08swig/">https://josd.github.io/Talks/2022/08swig/</a></p>
+<p>by <a href="https://josd.github.io/">Jos De Roo</a> of <a href="https://knows.idlab.ugent.be/">KNoWS office of IDLab - Ghent University - imec.</a><br/></p>
+</div>
+
+<div class="slide">
+<h1>Context is Semantic Web (slides from TimBL)</h1>
+<ul>
+  <li>Really simple</li>
+  <li>Based on RDF standards</li>
+  <li><a href="http://www.w3.org/TeamSubmission/n3/">N3</a> (Notation 3) syntax makes it much easier</li>
+</ul>
+</div>
+
+<div class="slide">
+<h1>Subject, verb and object</h1>
+<p>All knowledge is just a set of statements</p>
+<pre>&lt;#pat&gt; &lt;#knows&gt; &lt;#jo&gt; .
+
+### in classical logic: <span style="background: #ffff00">knows(pat,jo)</span>
+</pre>
+<ul>
+  <li>Everything is identified by URI
+    <p>Here a local URI but could point to ANY document</p>
+    <p><em>Verb</em> known as <em>predicate</em> in the statement</p>
+
+  </li>
+  <li>The thing you use a predicate is a <em>Property</em>.</li>
+  <li>Don't forget the period.</li>
+</ul>
+</div>
+
+<div class="slide">
+<h1>Object can be literal</h1>
+<p></p>
+<pre>&lt;#pat&gt; &lt;#knows&gt; &lt;#jo&gt; .
+&lt;#pat&gt; &lt;#age&gt; 24 .</pre>
+<p></p>
+<p>Note: noun form "age"  preferred to the verb style "knows" for
+predicates.</p>
+</div>
+
+<div class="slide">
+<h1>Saving space: the comma and semicolon</h1>
+<p></p>
+<pre>&lt;#pat&gt; &lt;#child&gt;  &lt;#al&gt;, &lt;#chaz&gt;, &lt;#mo&gt; ;
+       &lt;#age&gt;    24 ;
+       &lt;#eyecolor&gt; "blue" .</pre>
+<p></p>
+<ul>
+  <li>Comma: Here comes another object for same subject &amp; predicate</li>
+  <li>Semicolon: here comes another predicate for same subject.</li>
+  <li>Aim?  Easy scribbling of data.</li>
+</ul>
+</div>
+
+<div class="slide">
+<h1>Data .. e.g. a table</h1>
+<p></p>
+<table border="1">
+  <tbody>
+    <tr>
+      <td></td>
+      <td>age</td>
+      <td>eyecolor</td>
+    </tr>
+    <tr>
+      <td>pat</td>
+      <td>24</td>
+      <td>blue</td>
+    </tr>
+    <tr>
+      <td>al</td>
+      <td>3</td>
+      <td>green</td>
+    </tr>
+    <tr>
+      <td>jo</td>
+      <td>5</td>
+      <td>green</td>
+    </tr>
+  </tbody>
+</table>
+<pre>
+
+  &lt;#pat&gt;   &lt;#age&gt; 24;  &lt;#eyecolor&gt; "blue" .
+  &lt;#al&gt;    &lt;#age&gt;  3;  &lt;#eyecolor&gt; "green" .
+  &lt;#jo&gt;    &lt;#age&gt;  5;  &lt;#eyecolor&gt; "green" .
+</pre>
+<p></p>
+</div>
+
+<div class="slide">
+<h1>Unnamed things: Square brackets</h1>
+<p></p>
+<pre>
+&lt;#pat&gt; &lt;#child&gt; [ &lt;#age&gt; 4 ] , [ &lt;#age&gt; 3 ].
+
+### in classical logic: <span style="background: #ffff00">&exist;x &exist;y child(pat,x) &and; child(pat,y) &and; age(x,4) &and; age(y,3)</span>
+</pre>
+<p></p>
+<p>Note:</p>
+<ul>
+  <li>Words used as IDs have no actual meaning.</li>
+  <li>Unnamed nodes can't be used elsewhere.</li>
+  <li>If things are names, make the name explicit</li>
+</ul>
+<pre>
+  [ &lt;#name&gt; "Pat"; &lt;#age&gt; 24;  &lt;#eyecolor&gt; "blue"  ].
+  [ &lt;#name&gt; "Al" ; &lt;#age&gt;  3;  &lt;#eyecolor&gt; "green" ].
+  [ &lt;#name&gt; "Jo" ; &lt;#age&gt;  5;  &lt;#eyecolor&gt; "green" ].
+</pre>
+<p></p>
+</div>
+
+<div class="slide">
+<h1>Local concept</h1>
+<p></p>
+<pre>&lt;&gt; &lt;#title&gt;  "A simple example of N3".</pre>
+<p></p>
+<p>Who or what knows what &lt;#title&gt; is?</p>
+<p></p>
+</div>
+
+<div class="slide">
+<h1>Shared concept</h1>
+<pre>&lt;&gt; &lt;http://purl.org/dc/elements/1.1/title&gt;
+ "Primer - Getting into the Semantic Web and RDF using N3".</pre>
+<p></p>
+<p>To save space:</p>
+<pre>@prefix dc:  &lt;http://purl.org/dc/elements/1.1/&gt; .
+&lt;&gt; dc:title
+  "Primer - Getting into the Semantic Web and RDF using N3".</pre>
+<p></p>
+<p>Note</p>
+<ul>
+  <li>No &lt;&gt; used when prefixed identifier</li>
+  <li>Typically prefix stands for eveything up to including a "#"</li>
+  <li>Dublin core example alas does not give RDF schema directly: no "#"</li>
+</ul>
+<p></p>
+</div>
+
+<div class="slide">
+<h1>Making vocabularies</h1>
+<ul>
+  <li>A set of shared concepts</li>
+  <li><strong>Properties</strong> are things to use as predicates (verbs)
+    <p><strong>Classes</strong> can be the type of an object</p>
+    <p><strong>rdf:type</strong> is just a property, abbrevaiated to
+    <code>"a"</code> in N3</p>
+  </li>
+  <li>You can invent them and describe Properties and Classes.</li>
+</ul>
+<p></p>
+<p>Equivalent:</p>
+<pre>:Person rdf:type  rdfs:Class
+:Person a rdfs:Class.</pre>
+<p></p>
+<p>which we could use with data;</p>
+<pre>:Pat a :Person.</pre>
+<p></p>
+</div>
+
+<div class="slide">
+<h1>Examples: class and property</h1>
+<pre>:Woman a rdfs:Class; rdfs:subClassOf :Person .
+</pre>
+<p>and a property:</p>
+<pre>:sister a rdf:Property.</pre>
+<p>Something about the Property <code>:sister</code>::</p>
+<pre>:sister rdfs:domain :Person;
+        rdfs:range :Woman.</pre>
+<p></p>
+<p>Use:</p>
+<pre>:Pat  :sister  :Jo.</pre>
+<p></p>
+<p>Convention:</p>
+<ul>
+  <li>Class ids start with capital, Property ids with lowercase</li>
+</ul>
+<p></p>
+<p></p>
+</div>
+
+<div class="slide">
+<h1>Rules Are Just Statements</h1>
+<pre>
+
+#   subject        verb        object
+#=============  ==========    ==============
+{ ?x :son ?y }      =&gt;        { ?y a :Male }.
+{ ?x :son ?y }  log:implies   { ?y a :Male }.
+
+### in classical logic: <span style="background: #ffff00">&forall;x &forall;y son(x,y) &rArr; male(y)</span></pre>
+<p>The terms in braces { } are <em>formulas</em>.</p>
+<p>The rule statement relates two formulas.</p>
+</div>
+
+<div class="slide">
+<h1>More Complex Antecedent</h1>
+<pre>{ ?x :son ?y.
+  ?y!:age math:lessThan 15 }
+ =&gt;
+{ ?y a :Boy }
+</pre>
+</div>
+
+<div class="slide">
+<h1>More Complex Consequent</h1>
+<pre>{ ?x :son ?y }
+  =&gt;
+{ ?y a :Male.
+  ?y :parent ?x.
+  ?x a :Parent }.
+</pre>
+</div>
+
+<div class="slide">
+<h1>Layer Cake</h1>
+<img src="http://www.w3.org/DesignIssues/diagrams/sweb-stack/2006a.png" alt="sweb-stack"/>
+</div>
+
+<div class="slide">
+<h1>EYE, an open source reasoning engine</h1>
+<ul>
+    <li>EYE stands for "Euler Yet another proof Engine" and it is a further incremental development of Euler which is an inference engine supporting logic based proofs.</li>
+    <li>EYE is a backward-forward-backward chaining reasoner design enhanced with Euler path detection.</li>
+    <li>The Euler path detection is roughly "don't step in your own steps" to avoid vicious circles so to speak and in that respect there is a similarity with what
+        Leonhard Euler discovered in 1736 for the <a href="http://mathworld.wolfram.com/KoenigsbergBridgeProblem.html">Koenigsberg Bridge Problem</a>.</li>
+    <li>The reasoning that EYE is performing is grounded in FOL (First Order Logic).</li>
+    <li>Keeping a language less powerful than FOL is quite reasonable within an application, but not for the Web, see
+        <a href="http://www.w3.org/DesignIssues/Logic.html">http://www.w3.org/DesignIssues/Logic.html</a>.</li>
+    <li>Open source project hosted at <a href="https://github.com/josd/eye">https://github.com/josd/eye</a>.</li>
+</ul>
+</div>
+
+<div class="slide">
+<h1>Detailed design of EYE</h1>
+<ul>
+    <li><a href="http://www.w3.org/TeamSubmission/n3/">N3</a> (Notation 3) parser</li>
+    <li><a href="http://www.w3.org/DesignIssues/N3Logic">N3Logic</a> to N3P (Notation 3 P-code) compiler</li>
+    <li>EAM (Euler Abstract Machine) with Euler path detection to avoid loops and with postponed brake mechanism to run at much increased speed</li>
+    <li>proof construction using the <a href="http://www.w3.org/2000/10/swap/reason.n3">http://www.w3.org/2000/10/swap/reason</a> vocabulary for proofs</li>
+    <li>builtins and support predicates for the above functionalities</li>
+</ul>
+</div>
+
+<div class="slide">
+<h1>EYE under the hood</h1>
+<p>Here are the layers of the EYE stack:</p>
+<p><img src="https://josd.github.io/images/EYE-stack.png" alt="EYE" height="600" width="750"/></p>
+</div>
+
+<div class="slide">
+<h1>EYE command line interface</h1>
+<pre>
+Usage: eye &lt;options&gt;* &lt;data&gt;* &lt;query&gt;*
+
+&lt;data&gt;
+    [--n3] &lt;uri&gt;                    N3 triples and rules
+    --blogic &lt;uri&gt;                  RDF surfaces
+    --n3p &lt;uri&gt;                     N3P intermediate
+    --proof &lt;uri&gt;                   N3 proof lemmas
+    --turtle &lt;uri&gt;                  Turtle triples
+&lt;query&gt;
+    --entail &lt;rdf-graph&gt;            output true if RDF graph is entailed
+    --not-entail &lt;rdf-graph&gt;        output true if RDF graph is not entailed
+    --pass                          output deductive closure
+    --pass-all                      output deductive closure plus rules
+    --pass-all-ground               ground the rules and run --pass-all
+    --pass-only-new                 output only new derived triples
+    --query &lt;n3-query&gt;              output filtered with filter rules
+</pre>
+</div>
+
+<div class="slide">
+<h1>EYE command line interface (cont)</h1>
+<pre>
+&lt;options&gt;
+    --csv-separator &lt;separator&gt;     CSV separator such as , or ;
+    --debug                         output debug info on stderr
+    --debug-cnt                     output debug info about counters on stderr
+    --debug-djiti                   output debug info about DJITI on stderr
+    --debug-pvm                     output debug info about PVM code on stderr
+    --help                          show help info
+    --hmac-key &lt;key&gt;                HMAC key used in e:hmac-sha built-in
+    --ignore-inference-fuse         do not halt in case of inference fuse
+    --image &lt;pvm-file&gt;              output all &lt;data&gt; and all code to &lt;pvm-file&gt;
+    --intermediate &lt;n3p-file&gt;       output all &lt;data&gt; to &lt;n3p-file&gt;
+    --license                       show license info
+    --multi-query                   go into query answer loop
+    --no-distinct-input             no distinct triples in the input
+    --no-distinct-output            no distinct answers in the output
+    --no-numerals                   no numerals in the output
+    --no-qnames                     no qnames in the output
+    --no-qvars                      no qvars in the output
+    --no-ucall                      no extended unifier for forward rules
+    --nope                          no proof explanation
+    --profile                       output profile info on stderr
+    --quantify &lt;prefix&gt;             quantify uris with &lt;prefix&gt; in the output
+    --quiet                         quiet mode
+    --random-seed                   create random seed for e:random built-in
+    --restricted                    restricting to core built-ins
+    --rule-histogram                output rule histogram info on stderr
+    --skolem-genid &lt;genid&gt;          use &lt;genid&gt; in Skolem IRIs
+    --source &lt;file&gt;                 read command line arguments from &lt;file&gt;
+    --statistics                    output statistics info on stderr
+    --strings                       output log:outputString objects on stdout
+    --tactic limited-answer &lt;nr&gt;    give only a limited number of answers
+    --tactic limited-brake &lt;nr&gt;     take only a limited number of brakes
+    --tactic limited-step &lt;nr&gt;      take only a limited number of steps
+    --tactic limited-witness &lt;nr&gt;   use only a limited number of witnesses
+    --tactic linear-select          select each rule only once
+    --version                       show version info
+    --warn                          output warning info on stderr
+    --wcache &lt;uri&gt; &lt;file&gt;           to tell that &lt;uri&gt; is cached as &lt;file&gt;
+</pre>
+</div>
+
+<div class="slide">
+<h1>EYE Server by Ruben Verborgh</h1>
+<ul>
+    <li>Online reasoning service at <a href="http://eye.restdesc.org">http://eye.restdesc.org</a></li>
+    <li>Open source code at <a href="https://github.com/RubenVerborgh/EyeServer">https://github.com/RubenVerborgh/EyeServer</a></li>
+    <li>For instance the following command<pre>
+curl "http://eye.restdesc.org?data=http://eulersharp.sourceforge.net/2003/03swap/socrates.n3
+                &amp;query=http://eulersharp.sourceforge.net/2003/03swap/socratesF.n3"
+</pre>returns<pre>
+@prefix log: &lt;http://www.w3.org/2000/10/swap/log#&gt;.
+...
+
+:Socrates a _:Man_1.
+:Socrates a :Mortal.
+</pre></li>
+</ul>
+</div>
+
+<div class="slide">
+<h1>Online course by Ruben Verborgh</h1>
+<p><a href="http://n3.restdesc.org/">Semantic Web Reasoning With EYE</a></p>
+</div>
+
+<div class="slide">
+<h1>Thank You</h1>
+<p/>
+<p>Thank you for your attention</p>
+<p><a href="https://josd.github.io/Talks/2022/08swig/">https://josd.github.io/Talks/2022/08swig/</a></p>
+</div>
+
+</body>
+</html>
