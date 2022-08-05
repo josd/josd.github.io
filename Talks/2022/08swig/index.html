@@ -267,14 +267,31 @@ predicates.</p>
 
 
 <div class="slide">
-<h1>EYE under the hood (cont)</h1>
+<h1>EYE under the hood: basic EAM (Euler Abstract Machine)</h1>
 <p>This is what the basic EAM (Euler Abstract Machine) does in a nutshell:</p>
+<ol>
+    <li>Select rule P =&gt; C</li>
+    <li>Prove P &amp; NOT(C) (backward chaining) and if it fails backtrack to 1/</li>
+    <li>If P &amp; NOT(C) assert C (forward chaining) and remove brake</li>
+    <li>If C = answer(A) and tactic limited-answer stop, else backtrack to 2/</li>
+    <li>If brake or tactic linear-select stop, else start again at 1/</li>
+</ol>
+</div>
+
+<div class="slide">
+<h1>EYE under the hood: Proof generation</h1>
+<p>Proof generation:</p>
 <ul>
-    <li>Select rule P =&lt; C</li>
-    <li>Prove P &amp; C (backward chaining) and if it fails backtrack to 1.</li>
-    <li>If P &amp; C assert C (forward chaining) and remove brake</li>
-    <li>If C = answer(A) and tactic limited-answer stop, else backtrack to 2.</li>
-    <li>If brake or tactic linear-select stop, else start again at 1.</li>
+    <li>using lemmata to avoid "exponential" length of proofs</li>
+    <li>lemmata also enable "multi-agent proofs"</li>
+</ul>
+</div>
+
+<div class="slide">
+<h1>EYE under the hood: Deep just-in-time indexing</h1>
+<ul>
+    <li>Just-in-time indexing means that indexes are generated on the first call to a predicate if index might help</li>
+    <li>Deep indexes allow for efficient lookup of arbitrary terms</li>
 </ul>
 </div>
 
