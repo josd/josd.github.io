@@ -1,0 +1,46 @@
+#!/bin/bash
+: '
+pushd ~
+mkdir wasm
+cd wasm
+git clone https://github.com/emscripten-core/emsdk.git
+cd emsdk
+./emsdk install latest
+./emsdk activate latest
+cd ~/wasm
+wget https://zlib.net/zlib-1.2.12.tar.gz
+tar xf zlib-1.2.12.tar.gz
+cd zlib-1.2.12/
+source ../emsdk/emsdk_env.sh 
+emconfigure ./configure
+emmake make
+popd
+'
+export CTEST_OUTPUT_ON_FAILURE=y
+pushd ~/github.com/SWI-Prolog/swipl-devel
+git pull
+git submodule update
+mkdir -p build.wasm
+cd build.wasm
+WASM_HOME=$HOME/wasm
+source $WASM_HOME/emsdk/emsdk_env.sh
+TOOLCHAIN=$EMSDK/upstream/emscripten/cmake/Modules/Platform/Emscripten.cmake
+[ -f $TOOLCHAIN ] || echo "Could not find emscripten toolchain"
+cmake -DCMAKE_TOOLCHAIN_FILE=$TOOLCHAIN \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DZLIB_LIBRARY=$WASM_HOME/zlib-1.2.12/libz.a \
+    -DZLIB_INCLUDE_DIR=$WASM_HOME/zlib-1.2.12 \
+    -DMULTI_THREADED=OFF \
+    -DUSE_SIGNALS=OFF \
+    -DUSE_GMP=OFF \
+    -DBUILD_SWIPL_LD=OFF \
+    -DSWIPL_PACKAGES=OFF \
+    -DINSTALL_DOCUMENTATION=OFF \
+    -G Ninja ..
+ninja
+popd
+pushd ~/github.com/josd/eyebrow
+rsync -azv ~/github.com/SWI-Prolog/swipl-devel/build.wasm/src/swipl-web.wasm swipl-web.wasm
+rsync -azv ~/github.com/SWI-Prolog/swipl-devel/build.wasm/src/swipl-web.data swipl-web.data
+js-beautify ~/github.com/SWI-Prolog/swipl-devel/build.wasm/src/swipl-web.js > swipl-web.js
+popd

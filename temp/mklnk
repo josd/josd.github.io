@@ -2,11 +2,7 @@
 sudo ln -sf ~/eyesvn/2006/02swap/mksf /usr/local/bin
 sudo ln -sf ~/github.com/josd/brow/brow /usr/local/bin
 sudo ln -sf ~/github.com/josd/eye/mkeye /usr/local/bin
-sudo ln -sf ~/github.com/josd/eye/mkswipl /usr/local/bin
 sudo ln -sf ~/github.com/josd/eye/proofcheck /usr/local/bin
-sudo ln -sf ~/github.com/josd/eyebrow/eyebrow /usr/local/bin
-sudo ln -sf ~/github.com/josd/eyebrow/mkeyebrow /usr/local/bin
-sudo ln -sf ~/github.com/josd/eyebrow/mkswipl-wasm /usr/local/bin
 sudo ln -sf ~/github.com/josd/josd.github.io/temp/ei /usr/local/bin
 sudo ln -sf ~/github.com/josd/josd.github.io/temp/etc /usr/local/bin
 sudo ln -sf ~/github.com/josd/josd.github.io/temp/g /usr/local/bin
@@ -18,6 +14,8 @@ sudo ln -sf ~/github.com/josd/josd.github.io/temp/mkjulia /usr/local/bin
 sudo ln -sf ~/github.com/josd/josd.github.io/temp/mklnk /usr/local/bin
 sudo ln -sf ~/github.com/josd/josd.github.io/temp/mkn3 /usr/local/bin
 sudo ln -sf ~/github.com/josd/josd.github.io/temp/mkpython /usr/local/bin
+sudo ln -sf ~/github.com/josd/josd.github.io/temp/mkswipl /usr/local/bin
+sudo ln -sf ~/github.com/josd/josd.github.io/temp/mkswipl-wasm /usr/local/bin
 sudo ln -sf ~/github.com/josd/josd.github.io/temp/nh /usr/local/bin
 sudo ln -sf ~/github.com/josd/josd.github.io/temp/pn /usr/local/bin
 sudo ln -sf ~/github.com/josd/josd.github.io/temp/rsr /usr/local/bin
