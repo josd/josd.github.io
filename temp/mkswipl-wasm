@@ -43,4 +43,5 @@ pushd ~/github.com/josd/eyebrow
 rsync -azv ~/github.com/SWI-Prolog/swipl-devel/build.wasm/src/swipl-web.wasm swipl-web.wasm
 rsync -azv ~/github.com/SWI-Prolog/swipl-devel/build.wasm/src/swipl-web.data swipl-web.data
 js-beautify ~/github.com/SWI-Prolog/swipl-devel/build.wasm/src/swipl-web.js > swipl-web.js
+git diff
 popd
