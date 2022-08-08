@@ -44,66 +44,6 @@
 </div>
 
 <div class="slide">
-<h1>Object can be literal</h1>
-<p></p>
-<pre>&lt;#pat&gt; &lt;#knows&gt; &lt;#jo&gt; .
-&lt;#pat&gt; &lt;#age&gt; 24 .</pre>
-<p></p>
-<p>Note: noun form "age"  preferred to the verb style "knows" for
-predicates.</p>
-</div>
-
-<div class="slide">
-<h1>Saving space: the comma and semicolon</h1>
-<p></p>
-<pre>&lt;#pat&gt; &lt;#child&gt;  &lt;#al&gt;, &lt;#chaz&gt;, &lt;#mo&gt; ;
-       &lt;#age&gt;    24 ;
-       &lt;#eyecolor&gt; "blue" .</pre>
-<p></p>
-<ul>
-  <li>Comma: Here comes another object for same subject &amp; predicate</li>
-  <li>Semicolon: here comes another predicate for same subject.</li>
-  <li>Aim?  Easy scribbling of data.</li>
-</ul>
-</div>
-
-<div class="slide">
-<h1>Data .. e.g. a table</h1>
-<p></p>
-<table border="1">
-  <tbody>
-    <tr>
-      <td></td>
-      <td>age</td>
-      <td>eyecolor</td>
-    </tr>
-    <tr>
-      <td>pat</td>
-      <td>24</td>
-      <td>blue</td>
-    </tr>
-    <tr>
-      <td>al</td>
-      <td>3</td>
-      <td>green</td>
-    </tr>
-    <tr>
-      <td>jo</td>
-      <td>5</td>
-      <td>green</td>
-    </tr>
-  </tbody>
-</table>
-<pre>
-
-  &lt;#pat&gt;   &lt;#age&gt; 24;  &lt;#eyecolor&gt; "blue" .
-  &lt;#al&gt;    &lt;#age&gt;  3;  &lt;#eyecolor&gt; "green" .
-  &lt;#jo&gt;    &lt;#age&gt;  5;  &lt;#eyecolor&gt; "green" .
-</pre>
-<p></p>
-</div>
-
-<div class="slide">
 <h1>Unnamed things: Square brackets</h1>
 <p></p>
 <pre>
@@ -127,76 +67,6 @@ predicates.</p>
 </div>
 
 <div class="slide">
-<h1>Local concept</h1>
-<p></p>
-<pre>&lt;&gt; &lt;#title&gt;  "A simple example of N3".</pre>
-<p></p>
-<p>Who or what knows what &lt;#title&gt; is?</p>
-<p></p>
-</div>
-
-<div class="slide">
-<h1>Shared concept</h1>
-<pre>&lt;&gt; &lt;http://purl.org/dc/elements/1.1/title&gt;
- "Primer - Getting into the Semantic Web and RDF using N3".</pre>
-<p></p>
-<p>To save space:</p>
-<pre>@prefix dc:  &lt;http://purl.org/dc/elements/1.1/&gt; .
-&lt;&gt; dc:title
-  "Primer - Getting into the Semantic Web and RDF using N3".</pre>
-<p></p>
-<p>Note</p>
-<ul>
-  <li>No &lt;&gt; used when prefixed identifier</li>
-  <li>Typically prefix stands for eveything up to including a "#"</li>
-  <li>Dublin core example alas does not give RDF schema directly: no "#"</li>
-</ul>
-<p></p>
-</div>
-
-<div class="slide">
-<h1>Making vocabularies</h1>
-<ul>
-  <li>A set of shared concepts</li>
-  <li><strong>Properties</strong> are things to use as predicates (verbs)
-    <p><strong>Classes</strong> can be the type of an object</p>
-    <p><strong>rdf:type</strong> is just a property, abbrevaiated to
-    <code>"a"</code> in N3</p>
-  </li>
-  <li>You can invent them and describe Properties and Classes.</li>
-</ul>
-<p></p>
-<p>Equivalent:</p>
-<pre>:Person rdf:type  rdfs:Class
-:Person a rdfs:Class.</pre>
-<p></p>
-<p>which we could use with data;</p>
-<pre>:Pat a :Person.</pre>
-<p></p>
-</div>
-
-<div class="slide">
-<h1>Examples: class and property</h1>
-<pre>:Woman a rdfs:Class; rdfs:subClassOf :Person .
-</pre>
-<p>and a property:</p>
-<pre>:sister a rdf:Property.</pre>
-<p>Something about the Property <code>:sister</code>::</p>
-<pre>:sister rdfs:domain :Person;
-        rdfs:range :Woman.</pre>
-<p></p>
-<p>Use:</p>
-<pre>:Pat  :sister  :Jo.</pre>
-<p></p>
-<p>Convention:</p>
-<ul>
-  <li>Class ids start with capital, Property ids with lowercase</li>
-</ul>
-<p></p>
-<p></p>
-</div>
-
-<div class="slide">
 <h1>Rules Are Just Statements</h1>
 <pre>
 
@@ -211,27 +81,18 @@ predicates.</p>
 </div>
 
 <div class="slide">
-<h1>More Complex Antecedent</h1>
-<pre>{ ?x :son ?y.
-  ?y!:age math:lessThan 15 }
- =&gt;
-{ ?y a :Boy }
-</pre>
-</div>
-
-<div class="slide">
-<h1>More Complex Consequent</h1>
-<pre>{ ?x :son ?y }
-  =&gt;
-{ ?y a :Male.
-  ?y :parent ?x.
-  ?x a :Parent }.
-</pre>
-</div>
-
-<div class="slide">
 <h1>Layer Cake</h1>
 <img src="http://www.w3.org/DesignIssues/diagrams/sweb-stack/2006a.png" alt="sweb-stack"/>
+</div>
+
+<div class="slide">
+<h1>We want inter-engine interop which requires proof: SemWave diagram from Tim Berners-Lee</h1>
+<p><img src="https://www.w3.org/DesignIssues/diagrams/SemWave.png" alt="SemWave"/></p>
+</div>
+
+<div class="slide">
+<h1>We need the full potential of the Semantic Web Databus and Proofbus from Tim Berners-Lee</h1>
+<p><img src="https://www.w3.org/DesignIssues/diagrams/sweb-bus.png" alt="sweb-bus"/></p>
 </div>
 
 <div class="slide">
@@ -255,7 +116,7 @@ predicates.</p>
     <li><a href="http://www.w3.org/DesignIssues/N3Logic">N3Logic</a> to N3P (Notation 3 P-code) compiler</li>
     <li>EAM (Euler Abstract Machine) with Euler path detection to avoid loops and with postponed brake mechanism to run at much increased speed</li>
     <li>proof construction using the <a href="http://www.w3.org/2000/10/swap/reason.n3">http://www.w3.org/2000/10/swap/reason</a> vocabulary for proofs</li>
-    <li>builtins and support predicates for the above functionalities</li>
+    <li>built-ins and support predicates for the above functionalities</li>
 </ul>
 </div>
 
@@ -280,7 +141,18 @@ predicates.</p>
 
 <div class="slide">
 <h1>EYE under the hood: Proof generation</h1>
-<p>Proof generation:</p>
+<pre>
+[] a r:Proof, r:Conjunction;
+  r:component <#lemma1>;
+  r:component <#lemma2>;
+  r:gives {
+    :Socrates a :Human.
+    :Socrates a :Mortal.
+  }.
+
+...
+</pre>
+
 <ul>
     <li>using lemmata to avoid "exponential" length of proofs</li>
     <li>lemmata also enable "multi-agent proofs"</li>
@@ -288,10 +160,50 @@ predicates.</p>
 </div>
 
 <div class="slide">
+<h1>EYE under the hood: Proof generation (cont)</h1>
+<pre>
+<#lemma5> a r:Inference;
+  r:gives {
+    :Socrates a :Mortal.
+  };
+  r:evidence (
+    <#lemma6>
+    <#lemma3>
+  );
+  r:binding [ r:variable [ n3:uri "http://josd.github.io/var#x_0"]; r:boundTo [ n3:uri "http://example.org/socrates#Human"]];
+  r:binding [ r:variable [ n3:uri "http://josd.github.io/var#x_1"]; r:boundTo [ n3:uri "http://example.org/socrates#Mortal"]];
+  r:binding [ r:variable [ n3:uri "http://josd.github.io/var#x_2"]; r:boundTo [ n3:uri "http://example.org/socrates#Socrates"]];
+  r:rule <#lemma7>.
+
+<#lemma6> a r:Extraction;
+  r:gives {
+    :Human rdfs:subClassOf :Mortal.
+  };
+  r:because [ a r:Parsing; r:source <http://josd.github.io/eye/reasoning/socrates/socrates.n3>].
+
+<#lemma7> a r:Extraction;
+  r:gives {
+    @forAll var:x_0, var:x_1, var:x_2. {var:x_0 rdfs:subClassOf var:x_1.
+     var:x_2 a var:x_0} => {var:x_2 a var:x_1}.
+  };
+  r:because [ a r:Parsing; r:source <http://josd.github.io/eye/reasoning/socrates/socrates.n3>].
+</pre>
+</div>
+
+<div class="slide">
 <h1>EYE under the hood: Deep just-in-time indexing</h1>
 <ul>
     <li>Just-in-time indexing means that indexes are generated on the first call to a predicate if index might help</li>
     <li>Deep indexes allow for efficient lookup of arbitrary terms</li>
+</ul>
+</div>
+
+<div class="slide">
+<h1>Built-ins</h1>
+    <li>Predicates with special meanings</li>
+    <li>"Traditional" N3 built-ins: <a href="https://www.w3.org/2000/10/swap/doc/CwmBuiltins">https://www.w3.org/2000/10/swap/doc/CwmBuiltins</a></li>
+    <li>"New" built-ins are currently discussed in the W3C N3 community group</li>
+    <li>List of EYE built-ins: <a href="https://github.com/josd/eye/blob/master/eye-builtins.n3">https://github.com/josd/eye/blob/master/eye-builtins.n3</a></li>
 </ul>
 </div>
 
@@ -359,6 +271,190 @@ Usage: eye &lt;options&gt;* &lt;data&gt;* &lt;query&gt;*
     --warn                          output warning info on stderr
     --wcache &lt;uri&gt; &lt;file&gt;           to tell that &lt;uri&gt; is cached as &lt;file&gt;
 </pre>
+</div>
+
+<div class="slide">
+<h1>Use case GPS4IntegratedCare</h1>
+<p>The <a href="https://www.imec-int.com/en/what-we-offer/research-portfolio/gps4integratedcare">GPS4IntegratedCare project</a>
+   objective is <b>Automatic generation of dynamic and personalized care workflows</b>
+</p>
+<p>Technologies used:</p>
+<ul>
+  <li>Semantic Web Language (JSON-LD, Turtle, N3)</li>
+  <li>Reasoning Engine (EYE)</li>
+</ul>
+<p>Goal driven Parallel Sequences (GPS):</p>
+<ul>
+  <li>Inspired by <a href="https://www.cs.cmu.edu/~fp/courses/15816-s12/lectures/01-inference.pdf">Linear Logic</a></li>
+  <li>"In linear logic we are instead concerned with the change of truth with a
+      change of state. We model this in a very simple way: when an inference rule
+      is applied we consume the propositions used as premises and produce the
+      propositions in the conclusions, thereby effecting an overall change in state."</li>
+  <li>Implemented in <a href="https://github.com/josd/eye/blob/master/reasoning/gps/gps-plugin.n3">GPS plugin for EYE</a></li>
+</ul>
+</div>
+
+<div class="slide">
+<h1>Use case GPS4IntegratedCare lessons learned</h1>
+<p>The project worked out fine, but the architecture is centralized around a single smart workflow engine and that is really not scalable.</p>
+<p>The proposal is to address the scalability with <a href="https://github.com/josd/eye/tree/master/reasoning/map">MAP</a></p>
+<p>Multi-Agent Proofs (MAP):</p>
+<ul>
+  <li>Multiple agents can work together by using their own knowledge/logic/data and proofs made by other agents.</li>
+  <li>The proofs are guaranteeing a transparent and accountable way of working
+      and they only disclose what is relevant, so there is no need to have an
+      "All knowledge is contained in here" (what I learned from Tim Berners-Lee).</li>
+      
+</ul>
+<p>This is just a proposal with a <a href="https://github.com/josd/eye/tree/master/reasoning/map">proof of concept</a>
+in which agent1 and agent2 are GPS agents and agent2 reaches his goal thanks to the lemmata made by agent1.</p>
+</div>
+
+<div class="slide">
+<h1>Multi-Agent Proofs: Agent2 reaches his goal thanks to the lemmata made by Agent1</h1>
+<p>Agent2-proof makes use of lemma9 from Agent1-proof</p>
+<pre>
+&lt;#lemma13&gt; a r:Extraction;
+  r:gives {
+    &lt;http://josd.github.io/eye/reasoning/map/agent1-proof.n3#lemma9&gt; a r:Inference.
+  };
+  r:because [ a r:Parsing; r:source &lt;http://josd.github.io/eye/reasoning/map/agent1-proof.n3&gt;].
+
+&lt;#lemma14&gt; a r:Extraction;
+  r:gives {
+    &lt;http://josd.github.io/eye/reasoning/map/agent1-proof.n3#lemma9&gt; r:gives {
+      :map-BE gps:description ({:i1 :location :Gent} true {:i1 :location :Brugge} :drive_gent_brugge 1500.0 0.006 0.96 0.99)
+    }.
+  };
+  r:because [ a r:Parsing; r:source &lt;http://josd.github.io/eye/reasoning/map/agent1-proof.n3&gt;].
+</pre>
+</div>
+
+<div class="slide">
+<h1>Reverse the burden of proof</h1>
+<p>The burden of proof is now on the server:</p>
+<ul> 
+  <li>the server has to find out why he should do the job for the client</li>
+  <li>but there is no omniscient server</li>
+</ul>
+<p>Reverse the burden of proof:</p>
+<ul> 
+  <li>the client provides a proof</li>
+  <li>the server checks that proof</li>
+  <li>if the proof is fine the server does the job for the client</li>
+</ul>
+<p>This is much more scalable but requires client side reasoning + proof generation</p>
+<p>The proof could be provided as HTTP GET payload</p>
+</div>
+
+<div class="slide">
+<h1>Basic MONADIC Benchmark</h1>
+<pre>
+       triples   cycles |         <a href="http://www.w3.org/2000/10/swap/doc/cwm">cwm</a>         <a href="https://github.com/josd/eye">eye</a>        <a href="http://jena.apache.org">jena</a>
+                        |       [sec]       [sec]       [sec]
+------------------------|------------------------------------
+        10,000    1,518 |      15.400       0.420       3.200
+       100,000      645 |      99.860       2.190       9.310
+     1,000,000      380 |   1,094.860      21.170      75.380
+    10,000,000      480 |  (OutOfMem)     231.610     853.060
+   100,000,000      480 |               2,640.580   9,217.800
+ 1,000,000,000      431 |              32,474.540  (OutOfMem)
+
+Test environment:
+
+Linux 4.0.5 x86_64
+processor	: 0
+model name	: Intel(R) Xeon(R) CPU E5-2665 0 @ 2.40GHz
+processor	: 1
+model name	: Intel(R) Xeon(R) CPU E5-2665 0 @ 2.40GHz
+processor	: 2
+model name	: Intel(R) Xeon(R) CPU E5-2665 0 @ 2.40GHz
+processor	: 3
+model name	: Intel(R) Xeon(R) CPU E5-2665 0 @ 2.40GHz
+MemTotal:       264163268 kB
+
+
+Reference:
+
+<a href="https://github.com/josd/bmb">https://github.com/josd/bmb</a>
+</pre>
+</div>
+
+<div class="slide">
+<h1>Deep taxonomy benchmark</h1>
+<pre>
+         depth |         <a href="http://www.w3.org/2000/10/swap/doc/cwm">cwm</a>         <a href="https://github.com/josd/eye">eye</a>      <a href="http://hermit-reasoner.com/">hermit</a>       <a href="http://www.jdrew.org/jDREWebsite/jDREW.html">jdrew</a>        <a href="http://jena.apache.org">jena</a>
+               |       [sec]       [sec]       [sec]       [sec]       [sec]
+---------------|------------------------------------------------------------
+            10 |       0.160       0.018       0.055       0.130       0.047
+           100 |       1.050       0.022       1.040       0.200       0.422
+         1,000 |      65.930       0.063       3.580       0.870       9.302
+        10,000 |   7,298.000       0.482     310.510      18.680   2,597.242
+       100,000 | 732,974.070       4.808  (OutOfMem)   1,875.000  (OutOfMem)
+     1,000,000 |  (848 days)      48.434              (OutOfMem)
+
+
+Test environment:
+
+Linux 4.0.5 x86_64
+processor	: 0
+model name	: Intel(R) Xeon(R) CPU E5-2665 0 @ 2.40GHz
+processor	: 1
+model name	: Intel(R) Xeon(R) CPU E5-2665 0 @ 2.40GHz
+processor	: 2
+model name	: Intel(R) Xeon(R) CPU E5-2665 0 @ 2.40GHz
+processor	: 3
+model name	: Intel(R) Xeon(R) CPU E5-2665 0 @ 2.40GHz
+MemTotal:       264163268 kB
+
+
+Reference:
+
+<a href="http://ruleml.org/WellnessRules/files/WellnessRulesN3-2009-11-10.pdf">http://ruleml.org/WellnessRules/files/WellnessRulesN3-2009-11-10.pdf</a>
+</pre>
+</div>
+
+<div class="slide">
+<h1>RESTdesc Composition Benchmark</h1>
+<pre>
+        length |         <a href="http://www.w3.org/2000/10/swap/doc/cwm">cwm</a>         <a href="https://github.com/josd/eye">eye</a>
+               |       [sec]       [sec]
+---------------|------------------------
+             2 |       0.188       0.029
+             4 |       0.371       0.032
+             8 |       1.004       0.038
+            16 |       3.504       0.053
+            32 |      13.968       0.085
+            64 |      58.689       0.157
+           128 |     251.361       0.344
+           256 |   1,081.179       0.936
+           512 | (MaxRecurs)       2.894
+         1,024 |                   9.764
+
+
+Test environment:
+
+Linux 4.0.5 x86_64
+processor	: 0
+model name	: Intel(R) Xeon(R) CPU E5-2665 0 @ 2.40GHz
+processor	: 1
+model name	: Intel(R) Xeon(R) CPU E5-2665 0 @ 2.40GHz
+processor	: 2
+model name	: Intel(R) Xeon(R) CPU E5-2665 0 @ 2.40GHz
+processor	: 3
+model name	: Intel(R) Xeon(R) CPU E5-2665 0 @ 2.40GHz
+MemTotal:       264163268 kB
+
+
+Reference:
+
+<a href="https://github.com/RubenVerborgh/RESTdesc-Composition-Benchmark">https://github.com/RubenVerborgh/RESTdesc-Composition-Benchmark</a>
+</pre>
+</div>
+
+<div class="slide">
+<h1>Online N3 editor by William Van Woensel</h1>
+<p><a href="http://ppr.cs.dal.ca:3002/n3/editor/">http://ppr.cs.dal.ca:3002/n3/editor/</a></p>
 </div>
 
 <div class="slide">
