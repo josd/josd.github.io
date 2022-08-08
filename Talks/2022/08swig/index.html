@@ -17,7 +17,7 @@
 </div>
 
 <div class="slide">
-<h1>Context is Semantic Web (slides from TimBL)</h1>
+<h1>Context is Semantic Web (some slides from Tim Berners-Lee, Doerthe Arndt and William Van Woensel)</h1>
 <ul>
   <li>Really simple</li>
   <li>Based on RDF standards</li>
@@ -58,6 +58,44 @@
 </div>
 
 <div class="slide">
+<h1>Queries and Closure</h1>
+<ul>
+  <li>N3 reasoners can give either the <b>result of a query</b> or the <b>deductive closure</b> of an N3 graph
+  <li>Result of a query
+  <pre>
+  Given:
+    William :likes :spaghetti.
+
+  Query:
+    {?x :likes :spaghetti} => {?x :likes :pizza}.
+
+  Result:
+    :William :likes :pizza.
+  </pre>
+  <li>A query is a special rule. Query reasoning provides all the results of the rule marked as query.
+      The reasoning process can include other rules as well.
+</ul>
+</div>
+
+<div class="slide">
+<h1>Queries and Closure (cont)</h1>
+<ul>
+  <li>Deductive Closure
+  <pre>
+  Given:
+    :William :likes :spaghetti.
+    {?x :likes :spaghetti} => {?x :likes :pizza}.
+
+  Closure:
+    :William :likes :spaghetti.
+    {?x :likes :spaghetti} => {?x :likes :pizza}.
+    :William :likes :pizza.
+  </pre>
+  <li>The deductive closure is the set of all triples which can be derived from a dataset
+</ul>
+</div>
+
+<div class="slide">
 <h1>Layer Cake</h1>
 <img src="http://www.w3.org/DesignIssues/diagrams/sweb-stack/2006a.png" alt="sweb-stack"/>
 </div>
@@ -75,26 +113,26 @@
 <div class="slide">
 <h1>EYE, an open source reasoning engine</h1>
 <ul>
-    <li>EYE stands for "Euler Yet another proof Engine" and it is an inference engine supporting logic based proofs.</li>
-    <li>It performs forward and backward chaining along Euler paths.</li>
-    <li>The Euler path detection is roughly "don't step in your own steps" to avoid vicious circles so to speak and in that respect there is a similarity with what
-        Leonhard Euler discovered in 1736 for the <a href="http://mathworld.wolfram.com/KoenigsbergBridgeProblem.html">Koenigsberg Bridge Problem</a>.</li>
-    <li>The reasoning that EYE is performing is grounded in FOL (First Order Logic).</li>
-    <li>Keeping a language less powerful than FOL is quite reasonable within an application, but not for the Web, see
-        <a href="http://www.w3.org/DesignIssues/Logic.html">http://www.w3.org/DesignIssues/Logic.html</a>.</li>
-    <li>Open source project hosted at <a href="https://github.com/josd/eye">https://github.com/josd/eye</a>.</li>
+  <li>EYE stands for "Euler Yet another proof Engine" and it is an inference engine supporting logic based proofs.</li>
+  <li>It performs forward and backward chaining along Euler paths.</li>
+  <li>The Euler path detection is roughly "don't step in your own steps" to avoid vicious circles so to speak and in that respect there is a similarity with what
+      Leonhard Euler discovered in 1736 for the <a href="http://mathworld.wolfram.com/KoenigsbergBridgeProblem.html">Koenigsberg Bridge Problem</a>.</li>
+  <li>The reasoning that EYE is performing is grounded in FOL (First Order Logic).</li>
+  <li>Keeping a language less powerful than FOL is quite reasonable within an application, but not for the Web, see
+      <a href="http://www.w3.org/DesignIssues/Logic.html">http://www.w3.org/DesignIssues/Logic.html</a>.</li>
+  <li>Open source project hosted at <a href="https://github.com/josd/eye">https://github.com/josd/eye</a>.</li>
 </ul>
 </div>
 
 <div class="slide">
 <h1>Detailed design of EYE</h1>
 <ul>
-    <li><a href="http://www.w3.org/TeamSubmission/n3/">N3</a> (Notation 3) parser</li>
-    <li><a href="http://www.w3.org/DesignIssues/N3Logic">N3Logic</a> to N3P (Notation 3 P-code) compiler</li>
-    <li>EAM (Euler Abstract Machine) with Euler path detection to avoid loops and with postponed brake mechanism to run at much increased speed</li>
-    <li>proof construction using the <a href="http://www.w3.org/2000/10/swap/reason.n3">http://www.w3.org/2000/10/swap/reason</a> vocabulary for proofs</li>
-    <li>built-ins and support predicates for the above functionalities</li>
-    <li>EYE Stack</li>
+  <li><a href="http://www.w3.org/TeamSubmission/n3/">N3</a> (Notation 3) parser</li>
+  <li><a href="http://www.w3.org/DesignIssues/N3Logic">N3Logic</a> to N3P (Notation 3 P-code) compiler</li>
+  <li>EAM (Euler Abstract Machine) with Euler path detection to avoid loops and with postponed brake mechanism to run at much increased speed</li>
+  <li>proof construction using the <a href="http://www.w3.org/2000/10/swap/reason.n3">http://www.w3.org/2000/10/swap/reason</a> vocabulary for proofs</li>
+  <li>built-ins and support predicates for the above functionalities</li>
+  <li>EYE Stack</li>
 <ul>
 <img src="https://josd.github.io/images/EYE-stack.png" alt="EYE" height="300" width="375"/>
 </div>
@@ -104,11 +142,11 @@
 <h1>Basic EAM (Euler Abstract Machine)</h1>
 <p>This is what the basic EAM (Euler Abstract Machine) does in a nutshell:</p>
 <ol>
-    <li>Select rule P =&gt; C</li>
-    <li>Prove P &amp; NOT(C) (backward chaining) and if it fails backtrack to 1/</li>
-    <li>If P &amp; NOT(C) assert C (forward chaining) and remove brake</li>
-    <li>If C = answer(A) and tactic limited-answer stop, else backtrack to 2/</li>
-    <li>If brake or tactic linear-select stop, else start again at 1/</li>
+  <li>Select rule P =&gt; C</li>
+  <li>Prove P &amp; NOT(C) (backward chaining) and if it fails backtrack to 1/</li>
+  <li>If P &amp; NOT(C) assert C (forward chaining) and remove brake</li>
+  <li>If C = answer(A) and tactic limited-answer stop, else backtrack to 2/</li>
+  <li>If brake or tactic linear-select stop, else start again at 1/</li>
 </ol>
 </div>
 
@@ -116,10 +154,10 @@
 <h1>Forward vs. Backward Chaining</h1>
 <p>In N3 you can indicate how a rule should be applied:</p>
 <ul>
-    <li>Forward-chaining:</li>
-    <pre>{?x :likes :Spaghetti} => {?x :likes :Pizza}.</pre>
-    <li>Backward-chaining:</li>
-    <pre>{?x :likes :Pizza} <= {?x :likes :Spaghetti}.</pre>
+  <li>Forward-chaining:</li>
+  <pre>{?x :likes :Spaghetti} => {?x :likes :Pizza}.</pre>
+  <li>Backward-chaining:</li>
+  <pre>{?x :likes :Pizza} <= {?x :likes :Spaghetti}.</pre>
 <ul>
 </div>
 
@@ -138,8 +176,8 @@
 </pre>
 
 <ul>
-    <li>using lemmata to avoid "exponential" length of proofs</li>
-    <li>lemmata also enable "multi-agent proofs"</li>
+  <li>using lemmata to avoid "exponential" length of proofs</li>
+  <li>lemmata also enable "multi-agent proofs"</li>
 </ul>
 </div>
 
@@ -177,10 +215,10 @@
 
 <div class="slide">
 <h1>Built-ins</h1>
-    <li>Predicates with special meanings</li>
-    <li>"Traditional" N3 built-ins: <a href="https://www.w3.org/2000/10/swap/doc/CwmBuiltins">https://www.w3.org/2000/10/swap/doc/CwmBuiltins</a></li>
-    <li>"New" built-ins are currently discussed in the W3C N3 community group</li>
-    <li>List of EYE built-ins: <a href="https://github.com/josd/eye/blob/master/eye-builtins.n3">https://github.com/josd/eye/blob/master/eye-builtins.n3</a></li>
+  <li>Predicates with special meanings</li>
+  <li>"Traditional" N3 built-ins: <a href="https://www.w3.org/2000/10/swap/doc/CwmBuiltins">https://www.w3.org/2000/10/swap/doc/CwmBuiltins</a></li>
+  <li>"New" built-ins are currently discussed in the W3C N3 community group</li>
+  <li>List of EYE built-ins: <a href="https://github.com/josd/eye/blob/master/eye-builtins.n3">https://github.com/josd/eye/blob/master/eye-builtins.n3</a></li>
 </ul>
 </div>
 
