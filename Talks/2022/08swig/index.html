@@ -128,7 +128,7 @@
 
 
 <div class="slide">
-<h1>EYE under the hood: basic EAM (Euler Abstract Machine)</h1>
+<h1>Basic EAM (Euler Abstract Machine)</h1>
 <p>This is what the basic EAM (Euler Abstract Machine) does in a nutshell:</p>
 <ol>
     <li>Select rule P =&gt; C</li>
@@ -140,7 +140,18 @@
 </div>
 
 <div class="slide">
-<h1>EYE under the hood: Proof generation</h1>
+<h1>Forward vs. Backward Chaining</h1>
+<p>In N3 you can indicate how a rule should be applied:</p>
+<ul>
+    <li>Forward-chaining:</li>
+    <pre>{?x :likes :Spaghetti} => {?x :likes :Pizza}.</pre>
+    <li>Backward-chaining:</li>
+    <pre>{?x :likes :Pizza} <= {?x :likes :Spaghetti}.</pre>
+<ul>
+</div>
+
+<div class="slide">
+<h1>Proof generation</h1>
 <pre>
 [] a r:Proof, r:Conjunction;
   r:component <#lemma1>;
@@ -160,7 +171,7 @@
 </div>
 
 <div class="slide">
-<h1>EYE under the hood: Proof generation (cont)</h1>
+<h1>Proof generation (cont)</h1>
 <pre>
 <#lemma5> a r:Inference;
   r:gives {
@@ -191,7 +202,7 @@
 </div>
 
 <div class="slide">
-<h1>EYE under the hood: Deep just-in-time indexing</h1>
+<h1>Deep just-in-time indexing</h1>
 <ul>
     <li>Just-in-time indexing means that indexes are generated on the first call to a predicate if index might help</li>
     <li>Deep indexes allow for efficient lookup of arbitrary terms</li>
