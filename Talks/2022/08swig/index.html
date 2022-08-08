@@ -19,7 +19,6 @@
 <div class="slide">
 <h1>Context is Semantic Web (some slides from Tim Berners-Lee, Doerthe Arndt and William Van Woensel)</h1>
 <ul>
-  <li>Really simple</li>
   <li>Based on RDF standards</li>
   <li><a href="http://www.w3.org/TeamSubmission/n3/">N3</a> (Notation 3) syntax makes it much easier</li>
 </ul>
@@ -60,8 +59,8 @@
 <div class="slide">
 <h1>Queries and Closure</h1>
 <ul>
-  <li>N3 reasoners can give either the <b>result of a query</b> or the <b>deductive closure</b> of an N3 graph
-  <li>Result of a query
+  <li>N3 reasoners can give either the <b>result of a query</b> or the <b>deductive closure</b> of an N3 graph</li>
+  <li>Result of a query</li>
   <pre>
   Given:
     William :likes :spaghetti.
@@ -72,15 +71,16 @@
   Result:
     :William :likes :pizza.
   </pre>
-  <li>A query is a special rule. Query reasoning provides all the results of the rule marked as query.
-      The reasoning process can include other rules as well.
+  <li>A query is a special rule.</li>
+  <li>Query reasoning provides all the results of the rule marked as query.</li>
+  <li>The reasoning process can include other rules as well.</li>
 </ul>
 </div>
 
 <div class="slide">
 <h1>Queries and Closure (cont)</h1>
 <ul>
-  <li>Deductive Closure
+  <li>Deductive Closure</li>
   <pre>
   Given:
     :William :likes :spaghetti.
@@ -91,7 +91,7 @@
     {?x :likes :spaghetti} => {?x :likes :pizza}.
     :William :likes :pizza.
   </pre>
-  <li>The deductive closure is the set of all triples which can be derived from a dataset
+  <li>The deductive closure is the set of all triples which can be derived from a dataset</li>
 </ul>
 </div>
 
