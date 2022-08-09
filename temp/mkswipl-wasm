@@ -37,7 +37,7 @@ cmake -DCMAKE_TOOLCHAIN_FILE=$TOOLCHAIN \
     -DSWIPL_PACKAGES=OFF \
     -DINSTALL_DOCUMENTATION=OFF \
     -G Ninja ..
-ninja
+rm -rf src/wasm-preload && ninja
 popd
 pushd ~/github.com/josd/eyebrow
 rsync -azv ~/github.com/SWI-Prolog/swipl-devel/build.wasm/src/swipl-web.wasm swipl-web.wasm
