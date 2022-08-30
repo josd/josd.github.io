@@ -14,6 +14,13 @@ cd zlib-1.2.12/
 source ../emsdk/emsdk_env.sh 
 emconfigure ./configure
 emmake make
+cd ~/wasm
+wget https://gmplib.org/download/gmp/gmp-6.2.1.tar.lz
+tar xf gmp-6.2.1.tar.lz
+cd gmp-6.2.1
+emconfigure ./configure --host=none --disable-assembly --prefix=${HOME}/wasm
+make -j
+make install
 popd
 '
 export CTEST_OUTPUT_ON_FAILURE=y
@@ -30,12 +37,10 @@ cmake -DCMAKE_TOOLCHAIN_FILE=$TOOLCHAIN \
     -DCMAKE_BUILD_TYPE=Release \
     -DZLIB_LIBRARY=$WASM_HOME/zlib-1.2.12/libz.a \
     -DZLIB_INCLUDE_DIR=$WASM_HOME/zlib-1.2.12 \
-    -DMULTI_THREADED=OFF \
-    -DUSE_SIGNALS=OFF \
-    -DUSE_GMP=OFF \
-    -DBUILD_SWIPL_LD=OFF \
+    -DGMP_ROOT=$HOME/wasm \
     -DINSTALL_DOCUMENTATION=OFF \
     -G Ninja ..
+
 rm -rf src/wasm-preload && ninja
 popd
 pushd ~/github.com/josd/eyebrow
