@@ -73,7 +73,7 @@ cd carl
 make
 sudo make install
 
-curl -sL https://deb.nodesource.com/setup_16.x | sudo -E bash -
+curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash -
 sudo apt install nodejs
 sudo apt install gcc g++ make
 curl -sL https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
@@ -431,16 +431,13 @@ DOCKER_OPTS="--dns 10.233.63.202"
 sudo service docker start
 #sudo vi /var/lib/boot2docker/profile
 #  EXTRA_ARGS="--dns 10.233.63.202"
-sudo service docker restart
+sudo service docker start
 docker stop $(docker ps -a -q)
 sudo apt remove lxc-docker-1.1.1
 cd ~/temp/docker
 rs slave1:/home/axgze/tests/docker/eye/Dockerfile .
 docker build --no-cache=true -t="jdroo/eye" .
 docker run -t -i jdroo/eye /bin/bash
-++++++++
-sudo service docker status
-sudo service docker restart
 ++++++++
 docker rm $(docker ps -a -q)
 docker rmi $(docker images | grep "^<none>" | awk '{print $3}')
