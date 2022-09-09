@@ -1,8 +1,5 @@
 #!/bin/bash
-pushd ~/github.com/jeswr/N3.js
+pushd ~/github.com/phochste/Notation3-By-Example
 git pull --all
-git push
-npm install
-npm run build
-node --max-old-space-size=8192 perf/N3Reasoner-perf.js
+./make_examples.sh
 popd
