@@ -1,5 +1,4 @@
 #!/bin/bash
 pushd ~/github.com/josd/eye
-cp -a eye.pl /opt/eye/src
 sudo ./install.sh
 popd

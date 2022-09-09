@@ -1,4 +1,0 @@
-#!/bin/bash
-pushd /opt/eye/lib
-sudo swipl -q -f ../src/eye.pl -g main -- --image eye.pvm
-popd
