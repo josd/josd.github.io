@@ -2,6 +2,7 @@
 @prefix vcard: <http://www.w3.org/2006/vcard/ns#>.
 @prefix knows:  <https://data.knows.idlab.ugent.be/person/office/#>.
 @prefix schema: <http://schema.org/>.
+@prefix solid: <http://www.w3.org/ns/solid/terms#>.
 
 <#me> a foaf:Person;
     foaf:givenName "Jos"@nl;
@@ -10,8 +11,8 @@
     foaf:mbox <mailto:jos.deroo@ugent.be>;
     foaf:img <https://josd.github.io/images/jdroo.jpg>;
     foaf:homepage <https://josd.github.io/>;
-    <http://www.w3.org/ns/solid/terms#oidcIssuer> <https://josdroo.pod.knows.idlab.ugent.be/>;
-    <http://www.w3.org/ns/solid/terms#oidcIssuerRegistrationToken> "ed8a17dd-23d4-45a7-a15d-a36aa0f9fc20";
+    solid:oidcIssuer <https://josdroo.pod.knows.idlab.ugent.be/>;
+    solid:oidcIssuerRegistrationToken "ed8a17dd-23d4-45a7-a15d-a36aa0f9fc20";
     knows:hasAvailabilityCalendar [
         schema:url "https://josdroo.pod.knows.idlab.ugent.be/availability"
     ];
