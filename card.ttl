@@ -11,7 +11,8 @@
     foaf:mbox <mailto:jos.deroo@ugent.be>;
     foaf:img <https://josd.github.io/images/jdroo.jpg>;
     foaf:homepage <https://josd.github.io/>;
-    solid:oidcIssuer <https://josdroo.pod.knows.idlab.ugent.be/>;
+    solid:oidcIssuer <https://josdroo.pod.knows.idlab.ugent.be/>,
+        <https://pod.playground.solidlab.be/>;
     solid:oidcIssuerRegistrationToken "ed8a17dd-23d4-45a7-a15d-a36aa0f9fc20";
     knows:hasAvailabilityCalendar [
         schema:url "https://josdroo.pod.knows.idlab.ugent.be/availability"
