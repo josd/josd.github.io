@@ -1,0 +1,8 @@
+#!/bin/bash
+pushd ~/github.com/phochste/Notation3-By-Example
+./make_examples.sh
+popd
+pushd ~/github.com/josd/eye/reasoning/blogic
+./test --quiet
+git diff
+popd
