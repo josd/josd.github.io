@@ -13,7 +13,7 @@ pushd ~/github.com/josd/eyeglass; git pull --all; popd
 echo ""
 pushd ~/github.com/josd/josd.github.io; git pull --all; popd
 echo ""
-pushd ~/github.com/josd/know; git pull --all; popd
+pushd ~/github.com/josd/knowards; git pull --all; popd
 echo ""
 pushd ~/github.com/josd/retina; git pull --all; popd
 echo ""
