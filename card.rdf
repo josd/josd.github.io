@@ -2,25 +2,27 @@
     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
     xmlns:vcard="http://www.w3.org/2006/vcard/ns#"
     xmlns:schema="http://schema.org/"
-    xmlns:j.0="http://www.w3.org/ns/solid/terms#"
+    xmlns:solid="http://www.w3.org/ns/solid/terms#"
     xmlns:knows="https://data.knows.idlab.ugent.be/person/office/#"
     xmlns:foaf="http://xmlns.com/foaf/0.1/">
   <foaf:Person rdf:about="https://josd.github.io/card.ttl#me">
-    <j.0:oidcIssuer rdf:resource="https://josdroo.pod.knows.idlab.ugent.be/"/>
+    <solid:oidcIssuer rdf:resource="https://josdroo.pod.knows.idlab.ugent.be/"/>
     <foaf:img rdf:resource="https://josd.github.io/images/jdroo.jpg"/>
-    <foaf:familyName xml:lang="nl">De Roo</foaf:familyName>
-    <foaf:homepage rdf:resource="https://josd.github.io/"/>
-    <foaf:givenName xml:lang="nl">Jos</foaf:givenName>
+    <knows:hasAvailabilityCalendar rdf:parseType="Resource">
+      <schema:url>https://josdroo.pod.knows.idlab.ugent.be/availability</schema:url>
+    </knows:hasAvailabilityCalendar>
     <foaf:account>
       <knows:GitHubAccount>
         <foaf:accountServiceHomepage rdf:resource="https://github.com/"/>
         <foaf:accountName>josd</foaf:accountName>
       </knows:GitHubAccount>
     </foaf:account>
+    <foaf:familyName xml:lang="nl">De Roo</foaf:familyName>
+    <foaf:homepage rdf:resource="https://josd.github.io/"/>
+    <foaf:givenName xml:lang="nl">Jos</foaf:givenName>
     <foaf:mbox rdf:resource="mailto:jos.deroo@ugent.be"/>
+    <solid:oidcIssuerRegistrationToken>ed8a17dd-23d4-45a7-a15d-a36aa0f9fc20</solid:oidcIssuerRegistrationToken>
     <vcard:title>R&amp;D Engineer</vcard:title>
-    <knows:hasAvailabilityCalendar rdf:parseType="Resource">
-      <schema:url>https://josdroo.pod.knows.idlab.ugent.be/availability</schema:url>
-    </knows:hasAvailabilityCalendar>
+    <solid:oidcIssuer rdf:resource="https://pod.playground.solidlab.be/"/>
   </foaf:Person>
 </rdf:RDF>
