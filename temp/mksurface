@@ -1,8 +1,4 @@
 #!/bin/bash
-pushd ~/github.com/phochste/Notation3-By-Example
-git pull
-./make_examples.sh
-popd
 pushd ~/github.com/josd/eye/reasoning/blogic
 git pull
 ./test --quiet
