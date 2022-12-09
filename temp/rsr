@@ -1,5 +1,5 @@
 #!/bin/bash
-pushd ~/eyesvn; svn update; popd
+pushd ~/github.com/Dexagod/RDF-surfaces-reasoning; git pull --all; popd
 echo ""
 pushd ~/github.com/inrupt/eye-js; git pull --all; popd
 echo ""
@@ -16,6 +16,8 @@ echo ""
 pushd ~/github.com/josd/retina; git pull --all; popd
 echo ""
 pushd ~/github.com/josd/surface; git pull --all; popd
+echo ""
+pushd ~/github.com/MellonScholarlyCommunication/MiniOrchestrator; git pull --all; popd
 echo ""
 pushd ~/github.com/mthom/scryer-prolog; git pull --all; popd
 echo ""
