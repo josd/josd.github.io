@@ -11,7 +11,7 @@ pushd ~/github.com/josd/brow; git pull --all; popd
 echo ""
 pushd ~/github.com/josd/eye; git pull --all; popd
 echo ""
-pushd ~/github.com/josd/eyeglass; git pull --all; popd
+pushd ~/github.com/josd/glass; git pull --all; popd
 echo ""
 pushd ~/github.com/josd/josd.github.io; git pull --all; popd
 echo ""
