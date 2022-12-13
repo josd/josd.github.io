@@ -39,7 +39,7 @@ ninja
 sudo ninja install
 ei
 popd
-pushd ~/github.com/josd/eye/reasoning
+pushd ~/github.com/eyereasoner/eye/reasoning
 ./test
 git diff
 popd
