@@ -1,5 +1,5 @@
 #!/bin/bash
-pushd ~/github.com/josd/eye/reasoning/blogic
+pushd ~/github.com/eyereasoner/eye/reasoning/blogic
 git pull
 ./test --quiet
 git diff
