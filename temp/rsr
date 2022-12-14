@@ -1,6 +1,8 @@
 #!/bin/bash
 pushd ~/github.com/Dexagod/RDF-surfaces-reasoning; git pull --all; popd
 echo ""
+pushd ~/github.com/eyereasoner/eye; git pull --all; popd
+echo ""
 pushd ~/github.com/eyereasoner/eye.js; git pull --all; popd
 echo ""
 pushd ~/github.com/eyereasoner/eyebrow; git pull --all; popd
