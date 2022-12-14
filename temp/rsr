@@ -5,11 +5,11 @@ pushd ~/github.com/eyereasoner/eye.js; git pull --all; popd
 echo ""
 pushd ~/github.com/eyereasoner/eyebrow; git pull --all; popd
 echo ""
+pushd ~/github.com/eyereasoner/Notation3-By-Example; git pull --all; popd
+echo ""
 pushd ~/github.com/inrupt/eye-js; git pull --all; popd
 echo ""
 pushd ~/github.com/josd/brow; git pull --all; popd
-echo ""
-pushd ~/github.com/josd/eye; git pull --all; popd
 echo ""
 pushd ~/github.com/josd/glass; git pull --all; popd
 echo ""
@@ -22,8 +22,6 @@ echo ""
 pushd ~/github.com/MellonScholarlyCommunication/MiniOrchestrator; git pull --all; popd
 echo ""
 pushd ~/github.com/mthom/scryer-prolog; git pull --all; popd
-echo ""
-pushd ~/github.com/phochste/Notation3-By-Example; git pull --all; popd
 echo ""
 pushd ~/github.com/SWI-Prolog/swipl-devel; git pull --all; popd
 echo ""

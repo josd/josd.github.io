@@ -1,5 +1,5 @@
 #!/bin/bash
-pushd ~/github.com/phochste/Notation3-By-Example
+pushd ~/github.com/eyereasoner/Notation3-By-Example
 git pull --all
 ./make_examples.sh
 popd
