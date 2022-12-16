@@ -13,7 +13,7 @@ pkg install swi-prolog
 
 # eye
 cd ~
-git clone https://github.com/josd/eye
+git clone https://github.com/eyereasoner/eye
 cd eye
 swipl -q -f eye.pl -g main -- --image eye.pvm
 echo -e '#!/bin/bash\nswipl -x ~/eye/eye.pvm -- "$@"' > ~/../usr/bin/eye

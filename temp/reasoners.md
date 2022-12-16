@@ -2,7 +2,7 @@
 | --------- | ---------- | ----------- |
 | brow | taupl/JavaScript | [https://github.com/josd/brow](https://github.com/josd/brow) |
 | Cwm | Python | [https://github.com/linkeddata/swap](https://github.com/linkeddata/swap) |
-| eye | swipl/C | [https://github.com/josd/eye](https://github.com/josd/eye) |
+| eye | swipl/C | [https://github.com/eyereasoner/eye](https://github.com/eyereasoner/eye) |
 | eyebrow | swipl-wasm | [https://github.com/eyereasoner/eyebrow](https://github.com/eyereasoner/eyebrow) |
 | glass | scryer-prolog/Rust | [https://github.com/josd/glass](https://github.com/josd/glass) |
 | jen3 | Java | [https://github.com/william-vw/jen3](https://github.com/william-vw/jen3) |

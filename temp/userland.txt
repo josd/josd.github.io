@@ -67,7 +67,7 @@ sudo ninja install
 cd ~/github.com
 mkdir josd
 cd josd
-git clone https://github.com/josd/eye
+git clone https://github.com/eyereasoner/eye
 cd eye
 sudo ./install.sh
 cd reasoning

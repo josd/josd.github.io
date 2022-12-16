@@ -1,5 +1,5 @@
 #!/bin/bash
-pushd ~/github.com/josd/eye
+pushd ~/github.com/eyereasoner/eye
 gr
 sudo ./install.sh
 popd
