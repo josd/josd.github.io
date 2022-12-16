@@ -3,9 +3,19 @@ pushd ~/github.com/Dexagod/RDF-surfaces-reasoning; git pull --all; popd
 echo ""
 pushd ~/github.com/eyereasoner/eye; git pull --all; popd
 echo ""
+pushd ~/github.com/eyereasoner/eyebrow; git pull --all; popd
+echo ""
+pushd ~/github.com/eyereasoner/EyeClient; git pull --all; popd
+echo ""
+pushd ~/github.com/eyereasoner/EyeEarl; git pull --all; popd
+echo ""
 pushd ~/github.com/eyereasoner/eye.js; git pull --all; popd
 echo ""
-pushd ~/github.com/eyereasoner/eyebrow; git pull --all; popd
+pushd ~/github.com/eyereasoner/EyeServer; git pull --all; popd
+echo ""
+pushd ~/github.com/eyereasoner/Koreografeye; git pull --all; popd
+echo ""
+pushd ~/github.com/eyereasoner/lib-rdfs; git pull --all; popd
 echo ""
 pushd ~/github.com/eyereasoner/Notation3-By-Example; git pull --all; popd
 echo ""
