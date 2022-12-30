@@ -18,6 +18,8 @@ wget http://prdownloads.sourceforge.net/hplip/hplip-3.17.11.run
 sh hplip-3.17.11.run
 hp-setup
 
+find . -name '*.blogic' -exec sh -c 'git mv "$0" "${0%.n3}.blogic"' {} \;
+
 sudo apt install git
 git config --global user.name josd
 git config --global user.email "josderoo@gmail.com"
