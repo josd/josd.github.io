@@ -27,8 +27,8 @@ async function main() {
   Module.FS.writeFile('data.n3', data);
   Module.FS.writeFile('query.n3', query);
 
-  // Execute main(['--nope', '--quiet', './data.n3', '--query', './query.n3']).
-  queryOnce(Module, 'main', ['--nope', '--quiet', './data.n3', '--query', './query.n3']);
+  // Execute main(['--nope', './data.n3', '--query', './query.n3']).
+  queryOnce(Module, 'main', ['--nope', './data.n3', '--query', './query.n3']);
 }
 
 main();

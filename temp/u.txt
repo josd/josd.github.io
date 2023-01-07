@@ -445,10 +445,10 @@ docker rm $(docker ps -a -q)
 docker rmi $(docker images | grep "^<none>" | awk '{print $3}')
 docker rmi $(docker images -q)
 ++++++++
-docker pull bdevloed/eye
-docker run bdevloed/eye --nope http://n3.restdesc.org/n3/friends.n3 http://n3.restdesc.org/n3/knows-rule.n3 --query http://n3.restdesc.org/n3/query-all.n3
-docker run bdevloed/eye --nope http://josd.github.io/eye/reasoning/socrates/socrates.n3 --query http://josd.github.io/eye/reasoning/socrates/socrates-query.n3
-docker run --net=host --rm -v $HOME:$HOME -w $(pwd) -ti bdevloed/eye "$@"
+docker pull eyereasoner/eye
+docker run eyereasoner/eye --nope http://n3.restdesc.org/n3/friends.n3 http://n3.restdesc.org/n3/knows-rule.n3 --query http://n3.restdesc.org/n3/query-all.n3
+docker run eyereasoner/eye --nope http://eyereasoner.github.io/eye/reasoning/socrates/socrates.n3 --query http://eyereasoner.github.io/eye/reasoning/socrates/socrates-query.n3
+docker run --net=host --rm -v $HOME:$HOME -w $(pwd) -ti eyereasoner/eye "$@"
 ++++++++
 docker system prune
 
