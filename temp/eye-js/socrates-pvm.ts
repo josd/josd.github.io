@@ -1,4 +1,4 @@
-import { SWIPL, loadEye, queryOnce } from 'eyereasoner';
+import { queryOnce, SwiplEye } from 'eyereasoner';
 
 const query = `
 @prefix : <http://example.org/socrates#>.
@@ -16,15 +16,18 @@ const data = `
 {?A rdfs:subClassOf ?B. ?S a ?A} => {?S a ?B}.
 `
 
+// The results recorded using DELL XPS 15 9520 (32GB RAM)
+// Initialise SWIPL        : 110.441ms (averages about 50-60ms on subsequent loads in the same session)
+// Load data.n3            : 0.081ms
+// Load query.n3           : 0.03ms
+// Execute query           : 10.882ms
 async function main() {
-  console.log('Testing performance of socrates query')
+  console.log('Testing performance of socrates query using eye.pvm')
 
   // Instantiate a new SWIPL module and log any results it produces to the console
-  console.time(`Initialise SWIPL and load EYE\t`);
-  const Module = await SWIPL({ print: (str: string) => { console.log(str) }, arguments: ['-q'] });
-  // Load EYE into the SWIPL Module and run consule("eye.pl").
-  loadEye(Module)
-  console.timeEnd(`Initialise SWIPL and load EYE\t`);
+  console.time(`Initialise SWIPL with EYE image\t`);
+  const Module = await SwiplEye({ print: (str: string) => { console.log(str) }, arguments: ['-q'] });
+  console.timeEnd(`Initialise SWIPL with EYE image\t`);
 
   // Load the the strings data and query as files data.n3 and query.n3 into the module
   console.time('Load data.n3\t\t');
