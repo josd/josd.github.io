@@ -1,4 +1,4 @@
-import { SWIPL, loadEye, queryOnce } from 'eyereasoner';
+import { queryOnce, SwiplEye } from 'eyereasoner';
 
 const data = `
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
@@ -22,8 +22,7 @@ const data = `
 `
 
 async function main() {
-  const Module = await SWIPL({ print: (str: string) => { console.log(str) }, arguments: ['-q'] });
-  loadEye(Module)
+  const Module = await SwiplEye({ print: (str: string) => { console.log(str) }, arguments: ['-q'] });
   Module.FS.writeFile('data.n3', data);
   queryOnce(Module, 'main', ['--blogic','--quiet', './data.n3']);
 }
