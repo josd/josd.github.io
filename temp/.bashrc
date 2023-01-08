@@ -125,29 +125,37 @@ fi
 
 shopt -s globstar
 
-export JENA_HOME=$HOME/temp/apache-jena-3.2.0
+export JENA_HOME=$HOME/temp/apache-jena-4.6.1
 export LC_CTYPE=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
 export TRAVIS_BUILD_NUMBER=0
 export DISPLAY="$(/sbin/ip route | awk '/default/ { print $3 }'):0"
+#export PATH="$(brew --prefix llvm)/bin:${PATH}"
 
+alias bd='od -t x1'
+alias d='du --max-depth=1 | sort -n'
 alias del='rm -fr'
 alias df='df -Th'
+alias di='ls -lRh | wc -l'
 alias diff=colordiff
 alias dir='ls -altrh --full-time'
 alias dis='ls -altrSh'
-alias di='ls -lRh | wc -l'
-alias d='du -h --max-depth=1'
 alias ff='find . | grep'
 alias free='free -h'
 alias h='history'
 alias l='locate'
-alias rs='rsync -azv'
-alias rs2='rsync -azv -e "ssh -p 2222"'
-alias ts='find . -type f -print0 | xargs -0 grep'
-alias bd='od -t x1'
 alias p='ps afux'
+alias rs='rsync -azv'
 alias s='ps afux | grep'
+alias si='inxi -v 5'
 alias t='/usr/bin/time -f "sec=%e0 kB=%M cpu=%P"'
+alias ts='find . -type f -print0 | xargs -0 grep'
 
 . "$HOME/.cargo/env"
+
+# Wasmer
+#export WASMER_DIR="/home/jdroo/.wasmer"
+#[ -s "$WASMER_DIR/wasmer.sh" ] && source "$WASMER_DIR/wasmer.sh"
+
+# Emscripten
+#source "/home/jdroo/wasm/emsdk/emsdk_env.sh"
