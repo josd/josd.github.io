@@ -132,8 +132,7 @@ export TRAVIS_BUILD_NUMBER=0
 export DISPLAY="$(/sbin/ip route | awk '/default/ { print $3 }'):0"
 #export PATH="$(brew --prefix llvm)/bin:${PATH}"
 
-alias bd='od -t x1'
-alias d='du --max-depth=1 | sort -n'
+alias d='du -BM -d1 | sort -n'
 alias del='rm -fr'
 alias df='df -Th'
 alias di='ls -lRh | wc -l'
