@@ -23,8 +23,6 @@ pushd ~/github.com/eyereasoner/lib-rdfs; git pull --all; popd
 echo ""
 pushd ~/github.com/eyereasoner/Notation3-By-Example; git pull --all; popd
 echo ""
-pushd ~/github.com/inrupt/eye-js; git pull --all; popd
-echo ""
 pushd ~/github.com/josd/brow; git pull --all; popd
 echo ""
 pushd ~/github.com/josd/glass; git pull --all; popd
