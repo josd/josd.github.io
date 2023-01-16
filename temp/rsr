@@ -39,6 +39,10 @@ pushd ~/github.com/MellonScholarlyCommunication/MiniOrchestrator; git pull --all
 echo ""
 pushd ~/github.com/mthom/scryer-prolog; git pull --all; popd
 echo ""
+pushd ~/github.com/pbonte/roxi; git pull --all; popd
+echo ""
+pushd ~/github.com/pbonte/RSP-JS; git pull --all; popd
+echo ""
 pushd ~/github.com/phochste/Latar; git pull --all; popd
 echo ""
 pushd ~/github.com/SWI-Prolog/swipl-devel; git pull --all; popd

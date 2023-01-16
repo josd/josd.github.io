@@ -1,0 +1,82 @@
+@prefix log: <http://www.w3.org/2000/10/swap/log#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix : <http://example.org#>.
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:Field :allows "1"^^xsd:int, "2"^^xsd:int, "3"^^xsd:int, "4"^^xsd:int.
+
+{ 
+
+?F14 log:equalTo "3"^^xsd:int.
+?F24 log:equalTo "4"^^xsd:int.
+?F31 log:equalTo "2"^^xsd:int.
+?F41 log:equalTo "3"^^xsd:int.
+
+# rows  
+?F11 log:notEqualTo ?F12, ?F13, ?F14.
+?F12 log:notEqualTo ?F13, ?F14.
+?F13 log:notEqualTo ?F14.
+  
+?F21 log:notEqualTo ?F22, ?F23, ?F24.
+?F22 log:notEqualTo ?F23, ?F24.
+?F23 log:notEqualTo ?F24.
+  
+?F31 log:notEqualTo ?F32, ?F33, ?F34.
+?F32 log:notEqualTo ?F33, ?F34.
+?F33 log:notEqualTo ?F34.
+
+?F41 log:notEqualTo ?F42, ?F43, ?F44.
+?F42 log:notEqualTo ?F43, ?F44.
+?F43 log:notEqualTo ?F44.
+  
+#columns
+?F11 log:notEqualTo ?F21, ?F31, ?F41.
+?F21 log:notEqualTo ?F31, ?F41.
+?F31 log:notEqualTo ?F41.
+
+?F12 log:notEqualTo ?F22, ?F32, ?F42.
+?F22 log:notEqualTo ?F32, ?F42.
+?F32 log:notEqualTo ?F42.
+
+?F13 log:notEqualTo ?F23, ?F33, ?F43.
+?F23 log:notEqualTo ?F33, ?F43.
+?F33 log:notEqualTo ?F43.
+
+?F14 log:notEqualTo ?F24, ?F34, ?F44.
+?F24 log:notEqualTo ?F34, ?F44.
+?F34 log:notEqualTo ?F44.
+
+# diagonals
+?F11 log:notEqualTo ?F22.
+?F12 log:notEqualTo ?F21.
+?F13 log:notEqualTo ?F24.
+?F14 log:notEqualTo ?F23.
+?F31 log:notEqualTo ?F42.
+?F32 log:notEqualTo ?F41.
+?F33 log:notEqualTo ?F44.
+?F34 log:notEqualTo ?F43.
+
+:Field :allows ?F11, ?F12, ?F13, ?F14.
+:Field :allows ?F21, ?F22, ?F23, ?F24.
+:Field :allows ?F31, ?F32, ?F33, ?F34.
+:Field :allows ?F41, ?F42, ?F43, ?F44.
+
+} => {
+:F11 :is ?F11.
+:F12 :is ?F12.
+:F13 :is ?F13.
+:F14 :is ?F14.
+:F21 :is ?F21.
+:F22 :is ?F22.
+:F23 :is ?F23.
+:F24 :is ?F24.
+:F31 :is ?F31.
+:F32 :is ?F32.
+:F33 :is ?F33.
+:F34 :is ?F34.
+:F41 :is ?F41.
+:F42 :is ?F42.
+:F43 :is ?F43.
+:F44 :is ?F44.
+}.
