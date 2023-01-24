@@ -1,0 +1,9 @@
+#!/bin/bash
+pushd ~/github.com
+for dir in */*
+do
+    pushd "${dir}"
+    git pull --all
+    popd
+    echo ""
+done
