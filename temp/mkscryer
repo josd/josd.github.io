@@ -4,7 +4,7 @@ git pull
 cargo build --release
 cargo test --release
 popd
-pushd ~/github.com/josd/glass
+pushd ~/github.com/eyereasoner/marble
 ./test
 git diff
 popd
