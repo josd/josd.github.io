@@ -7,9 +7,9 @@ pushd ~/github.com/eyereasoner/Koreografeye; git pull --all; popd
 echo ""
 pushd ~/github.com/eyereasoner/Notation3-By-Example; git pull --all; popd
 echo ""
-pushd ~/github.com/josd/josd.github.io; git pull --all; popd
+pushd ~/github.com/eyereasoner/rs2; git pull --all; popd
 echo ""
-pushd ~/github.com/josd/marble; git pull --all; popd
+pushd ~/github.com/josd/josd.github.io; git pull --all; popd
 echo ""
 pushd ~/github.com/MellonScholarlyCommunication/Latar; git pull --all; popd
 echo ""
