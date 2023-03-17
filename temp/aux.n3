@@ -1,0 +1,464 @@
+@prefix string: <http://www.w3.org/2000/10/swap/string#> .
+@prefix list: <http://www.w3.org/2000/10/swap/list#> .
+@prefix log: <http://www.w3.org/2000/10/swap/log#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix spin: <http://spinrdf.org/spin#>.
+@prefix sp: <http://spinrdf.org/sp#>.
+@prefix ex: <http://example.org/spin#>.
+@prefix aux: <http://example.org/aux#>.
+@prefix math: <http://www.w3.org/2000/10/swap/math#>.
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+
+##################################################
+# create variable if needed (used in where clause and in select pattern)
+##################################################
+{?s aux:gets ?s1}<={?s log:uri ?suri.
+ ?suri string:startsWith "http://spinrdf.org/".
+ ?s log:skolem ?s1.
+ true log:callWithCut true}.
+{?s aux:gets ?s1}<={?s  sp:varName ?name . ?name log:skolem ?s1. true log:callWithCut true
+  }.
+{?s aux:gets ?s1}<={?s  sp:arg1 ?arg . ?s log:skolem ?s1. true log:callWithCut true
+    }.
+{?s aux:gets ?s1}<={?s  sp:expression ?arg . ?s log:skolem ?s1. true log:callWithCut true
+    }.
+{?s aux:gets ?s}<={}.
+
+
+##################################################
+# translate where clause to n3 graph
+##################################################
+{?list aux:createGraph ?graph}<={
+?list aux:handleTriples ?graph1.
+?list aux:handleFilter ?graph2.
+?list aux:handleUnion ?graph3.
+?list aux:handleBind ?graph4.
+
+
+(?graph1 ?graph2 ?graph3 ?graph4) log:conjunction ?graph
+
+}.
+
+
+#create a graph from subject-predicate-object patterns
+{?list aux:handleTriples ?graph }<={
+  #normal triples
+  ({?s1 ?p1 ?o1}{?t list:in ?list. ?t sp:subject ?s;
+                                               sp:predicate ?p;
+                                               sp:object ?o.
+                                               ?s aux:gets ?s1.
+                                               ?p aux:gets ?p1.
+                                               ?o aux:gets ?o1
+               } ?whereList) log:collectAllIn ?scope.
+               (?whereList ({})) list:append ?fl.
+               ?fl  log:conjunction ?graph.
+  }.
+
+###################
+# filter
+  {?list aux:handleFilter ?graph }<={
+  (?tr {?t list:in ?list. ?t a  sp:Filter ;
+                    aux:getFunctionTriples ?tr.
+               } ?filterList) log:collectAllIn ?scope.
+               (?filterList ({})) list:append ?fl.
+            ?fl  log:conjunction ?graph. 
+}.
+
+##############
+# union
+{?list aux:handleUnion ?graph}<={
+  (?t {?t list:in ?list. ?t a  sp:Union .} ?uList) log:collectAllIn ?scope.
+  (?uList {}) aux:createUGraph ?graph.
+
+  }.
+
+{ (() ?graph) aux:createUGraph ?graph.}<={}.
+
+{(?uList ?ingraph ) aux:createUGraph ?graph.}<={
+  ?uList rdf:first ?t.
+  ?t sp:elements ?elist.
+  ?et list:in ?elist.
+  ?et aux:handleTriples ?tr.
+  ?uList rdf:rest ?rest.
+  (?ingraph ?tr) log:conjunction ?newgraph.
+  (?rest ?newgraph ) aux:createUGraph ?graph.
+  }.
+
+##############################################
+#getFunctions
+{?t aux:getFunctionTriples ?tr}<={
+  ?t sp:expression ?e.
+  ?e sp:arg1 ?something.
+   true log:callWithCut true.
+ 
+  
+  #getArguments
+  # get  argument-predicates
+  (?argp {?e ?argp ?o. ?argp log:uri ?argpuri.
+  ?argpuri string:startsWith "http://spinrdf.org/sp#arg".
+      } ?ns ) log:collectAllIn ?scope.
+  ?ns list:sort ?nsort.
+  # get labeled arguments in the right order
+  (?argl {
+    ?argp list:in ?nsort.
+    ?e ?argp ?arg.
+    ?arg aux:gets ?argl.
+      } ?arguments ) log:collectAllIn ?scope.
+  #get unlabled arguments
+    (?arg {
+    ?argp list:in ?nsort.
+    ?e ?argp ?arg.
+      } ?uarguments ) log:collectAllIn ?scope.
+  ?e  a ?f.
+  ?t aux:gets ?e1.
+{?arguments ?f ?e1 } log:equalTo ?in.
+ ?in  aux:funcTranslation ?tr1.
+# check for arguments of arguments
+(?triples {
+  ?ar list:in ?uarguments.
+  ?ar ?p ?o.
+  ?ar aux:getFunctionTriples ?triples.
+    } ?trlist  ) log:collectAllIn ?scope.
+
+  ( ?trlist (?tr1)) list:append ?trs.
+  ?trs log:conjunction ?tr.
+
+  }.
+
+#getFunctions
+{?t aux:getFunctionTriples ?tr}<={
+
+  ?t sp:arg1 ?something.
+   true log:callWithCut true.
+ 
+  
+  #getArguments
+  # get  argument-predicates
+  (?argp {?t ?argp ?o. ?argp log:uri ?argpuri.
+  ?argpuri string:startsWith "http://spinrdf.org/sp#arg".
+      } ?ns ) log:collectAllIn ?scope.
+ 
+  ?ns list:sort ?nsort.
+  # get labeled arguments in the right order
+  (?argl {
+    ?argp list:in ?nsort.
+    ?t ?argp ?arg.
+    ?arg aux:gets ?argl.
+      } ?arguments ) log:collectAllIn ?scope.
+  #get unlabled arguments
+    (?arg {
+    ?argp list:in ?nsort.
+    ?t ?argp ?arg.
+      } ?uarguments ) log:collectAllIn ?scope.
+  ?t  a ?f.
+  ?t aux:gets ?e1. 
+{?arguments ?f ?e1 } log:equalTo ?in.
+ ?in  aux:funcTranslation ?tr1.
+
+# check for arguments of arguments
+(?triples {
+  ?ar list:in ?uarguments.
+  ?ar ?p ?o.
+  ?ar aux:getFunctionTriples ?triples.
+    } ?trlist  ) log:collectAllIn ?scope.
+
+  ( ?trlist (?tr1)) list:append ?trs.
+  ?trs log:conjunction ?tr.
+
+  }.
+
+ 
+{?t aux:getFunctionTriples ?tr.}
+<=
+{
+?t sp:expression ?ex.
+
+?ex sp:varName ?aggrVar.
+true log:callWithCut true.
+?t aux:gets ?nvar.
+
+?t a ?function.
+             
+
+(aux:aggregationInput ?aggrVar) log:skolem ?args.
+# this log:equalTo is only here for technical reasons
+?d log:equalTo {?args ?function ?nvar}.
+?d aux:aggTranslation ?tr.
+          
+}.
+
+{?t aux:getFunctionTriples ?tr.}
+<=
+{
+?t sp:expression ?ex.
+?ex sp:expression [sp:varName ?aggrVar].
+true log:callWithCut true.
+?t aux:gets ?nvar.
+
+?ex a ?function.
+
+             
+
+             (aux:aggregationInput ?aggrVar) log:skolem ?args.
+             # this log:equalTo is only here for technical reasons
+             ?d log:equalTo {?args ?function ?nvar}.
+             ?d aux:aggTranslation ?tr.
+          
+}.
+
+
+
+
+{?e aux:getFunctionTriples {}}<={}.
+
+
+#Bind
+{
+  ?list aux:handleBind ?graph.
+  }<={
+(?t {?t list:in ?list. ?t a  sp:Bind .} ?bList) log:collectAllIn ?scope.
+(({?e1 log:equalTo ?v1} ?tr) {?b list:in ?bList. ?b sp:expression ?e. ?b sp:variable ?v. ?v aux:gets ?v1. ?e aux:gets ?e1.
+ ?e aux:getFunctionTriples ?tr.
+  } ?gList) log:collectAllIn ?scope.
+
+?gList  list:append ?oList.
+(?oList ({})) list:append ?pList.
+?pList log:conjunction ?graph.
+}.
+
+
+
+#select with variables
+{?x aux:getResultVariables ?outvars}<={
+  ?x  sp:resultVariables ?varlist.
+  true log:callWithCut true.
+    ((?name ?s1){?s list:in ?varlist. ?s  sp:varName ?name . ?name log:skolem ?s1.} ?outvars) log:collectAllIn ?scope.
+}.
+
+#select with star 
+{?x aux:getResultVariables ?outvars}<={
+  ?x aux:getGraphVariables ?outvars
+}.
+
+
+
+#get graph variables
+#todo - bind is not refelcted
+{?x aux:getGraphVariables ?outvars}
+<=
+{
+
+  ?x sp:where ?where.
+
+((?name ?s1) {?t list:in ?list. ?t ?p ?s.
+                       ?p list:in (sp:subject sp:predicate sp:object).
+                       ?s  sp:varName ?name . ?name log:skolem ?s1.
+             } ?preVarList) log:collectAllIn ?scope.
+?preVarList list:removeDuplicates ?outvars.}.
+
+#get all variables mentioned in the result pattern
+{ ?x aux:getQueryVariables ?invars.}
+<=
+{
+?x sp:resultVariables ?list.
+(?var {?a list:in ?list. ?a aux:hasVar ?var} ?vars) log:collectAllIn _:t.
+?vars list:append ?var2.
+?var2 list:removeDuplicates ?invars.
+}.
+
+
+
+# has variable
+{?x  aux:hasVar ((?name ?ns)).}
+<=
+{
+ ?x sp:varName ?name.
+ ?name log:skolem ?ns.
+}.
+
+{?x  aux:hasVar ?var.}
+<=
+{
+ ?x sp:expression ?e.
+ ?e  aux:hasVar ?var.
+}.
+
+{?x  aux:hasVar ?var.}
+<=
+{
+ ?x ?arg ?argument.
+ ?arg log:uri ?uri.
+ ?uri string:startsWith "http://spinrdf.org/sp#arg". 
+ ?argument aux:hasVar ?var.
+}.
+
+
+
+
+
+
+##################################################
+# handle aggregation
+##################################################
+{(?x ?g) aux:handleAggregation ?g2 }<={
+ ?x sp:resultVariables ?list.
+ _:t list:in ?list; sp:expression _:e.
+ true log:callWithCut true.
+ #getting all aggregate function expressions
+
+ (?tr {?t list:in ?list.
+  ?t aux:getFunctionTriples ?tr.
+               } ?aggList) log:collectAllIn ?scope.
+   #make query to get groups
+        (?x ?g ) aux:makeGroups ?collectExpression.
+
+   #putting all together       
+          ( (?collectExpression) ?aggList) list:append ?fl.
+            ?fl  log:conjunction ?g2.
+
+}.
+
+
+#case: no aggregation 
+{(?x ?g) aux:handleAggregation ?g }<={}.
+
+
+
+
+
+
+
+               
+
+
+
+#makeGroups
+{( ?x ?g) aux:makeGroups ?graph.}<={
+  ?x sp:groupBy ?vars.
+  true log:callWithCut true.
+    # create all new variables needed
+aux:scope log:skolem ?scope.
+aux:pairs log:skolem ?pairs.
+aux:aggVal log:skolem ?aggVal.
+aux:f log:skolem ?f.
+aux:g3 log:skolem ?g3.
+aux:g2 log:skolem ?g2.
+aux:ilist log:skolem ?ilist.
+aux:value log:skolem ?value.
+
+  #get group variables
+   ( (?groupVarName ?groupVar) { ?x!sp:groupBy!list:member sp:varName ?groupVarName. ?groupVarName log:skolem ?groupVar.  } ?groupVars ) 
+            log:collectAllIn _:t .
+
+
+  #get agg variables -> todo:involve filter
+ ?x aux:getGraphVariables ?outvars2.
+ (?outvars2 ?groupVars) aux:listDifference ?outvars.
+
+
+
+ #get aggregation variables needed in the query
+ ?x aux:getQueryVariables ?qvars.
+
+
+  (?qvars ?outvars) aux:listIntersection ?aggvars.
+
+
+  
+  
+
+  #get list of only aggvarsnames
+ ( ?name {(?name ?var) list:in ?aggvars } ?aggvarNames ) log:collectAllIn _:t.
+ 
+ #create one collectAllIn expression per aggregate variable name
+ (
+  #what we produce
+   { 
+    ( ?value {(?f ?ilist) list:in ?pairs.
+             (?name ?value ) list:in ?ilist }?args) log:collectAllIn ?scope.
+    } 
+    #based on
+    {(?name ?var) list:in ?aggvars.
+    (aux:aggregationInput ?name) log:skolem ?args.
+  } ?tripleList ) log:collectAllIn _:t.
+ 
+
+#group variables needed in the output
+(?outvars2 ?groupVars) aux:listIntersection ?outList.
+({?ell list:in ?f}{?ell list:in ?outList } ?unificationTriples) log:collectAllIn _:t.
+
+ (
+    (
+      {  
+      # get values   
+        ( (?groupVars ?outvars) ?g ?pairs  ) log:collectAllIn ?scope.
+      # get lists for one groupVar Value
+        (?f ?g3) list:in ?pairs.
+      }
+    )
+    ?tripleList 
+    ?unificationTriples
+ ) list:append ?graphList.
+ ?graphList log:conjunction ?graph.
+}.
+
+#todo: aggregation without groupBy
+
+
+#######################################################
+# list functions (use them where you want :) 
+#######################################################
+# list difference
+{(?result ()) aux:listDifference ?result}<={}.
+
+{(?l1 ?l2) aux:listDifference ?result}<={
+  ?l2 rdf:first ?first.
+  (?l1  ?first) list:remove ?l11.
+  ?l2 rdf:rest ?rest.
+  (?l11 ?rest) aux:listDifference ?result.
+}.
+
+# list intersection
+{(?l1 ?l2) aux:listIntersection ?result}<={
+ (?x {?x list:in ?l1, ?l2 } ?xs) log:collectAllIn _:t.
+ ?xs list:removeDuplicates ?result.
+}.
+
+#####################################################################################
+# sparql-functions and their translations
+#####################################################################################
+{  {(?a1 ?a2) sp:lt  ?o} aux:funcTranslation {?a1 math:lessThan ?a2}.}<={}.
+{{?list sp:concat ?o} aux:funcTranslation { ?list string:concatenation ?o. }. }<={}.
+{{ (?a1 ?a2) sp:eq ?o} aux:funcTranslation { ?a1 log:equalTo ?a2. }. }<={}.
+{ {(?a) sp:lcase ?o} aux:funcTranslation {?a string:lowerCase ?o}}<={}.
+{ {(?a) sp:ucase ?o} aux:funcTranslation {?a string:upperCase ?o}}<={}.
+{ {(?a) sp:uri ?o} aux:funcTranslation {?o log:uri ?a}}<={}.
+{ {(?a) sp:iri ?o} aux:funcTranslation {?o log:uri ?a}}<={}.
+{{?list sp:replace ?o} aux:funcTranslation {?list string:replace ?o}}<={}.
+{{(?a) sp:bound ?o} aux:funcTranslation {?a log:bound true}}<={}.
+{{(?a) sp:isIri ?o} aux:funcTranslation {?a log:rawType log:Other. ?a log:uri []}}<={}.
+{{(?a) sp:isUri ?o} aux:funcTranslation {?a log:rawType log:Other. ?a log:uri []}}<={}.
+{{(?a) sp:isBlank ?o} aux:funcTranslation {?a log:rawType ?type. ?type list:in ( log:BlankNode log:LabeledBlankNode  log:UnlabeledBlankNode)}}<={}.
+{{(?a) sp:isLiteral ?o} aux:funcTranslation {?a log:rawType log:Literal. }}<={}.
+{{(?a) sp:isNumeric ?o} aux:funcTranslation { (?z ?dt)log:dtlit ?a.	?dt list:in (xsd:byte xsd:decimal xsd:int xsd:integer xsd:long xsd:negativeInteger xsd:nonNegativeInteger xsd:nonPositiveInteger xsd:positiveInteger xsd:short xsd:unsignedLong xsd:unsignedInt xsd:unsignedShort xsd:unsignedByte )}}<={}.
+{{(?a) sp:str ?o} aux:funcTranslation { true log:callWithOptional {?a log:uri ?o}. true log:callWithOptional {?a log:rawType log:Literal. ?a log:equalTo ?o}.}}<={}.
+{{(?a) sp:lang ?o} aux:funcTranslation { ([] ?o) log:langlit ?a}}<={}.
+{{(?a) sp:datatype ?o} aux:funcTranslation { ([] ?o) log:dtlit ?a}}<={}.
+{{?list sp:bnode ?o} aux:funcTranslation { ?list log:skolem ?o}}<={}.
+{{?list sp:strdt ?o} aux:funcTranslation { ?list log:dtlit ?o}}<={}.
+{{?list sp:strlang ?o} aux:funcTranslation { ?list log:langlit ?o}}<={}.
+{{(?a) sp:strlen ?o} aux:funcTranslation { ?a string:length ?o}}<={}.
+{{?list sp:substr ?o} aux:funcTranslation { ?list string:substring ?o}}<={}.
+{{(?a1 ?a2) sp:strStarts ?o} aux:funcTranslation { ?a1 string:startsWith ?a2}}<={}.
+{{(?a1 ?a2) sp:strEnds ?o} aux:funcTranslation { ?a1 string:endsWith ?a2}}<={}.
+{{(?a1 ?a2) sp:contains ?o} aux:funcTranslation { ?a1 string:contains ?a2}}<={}.
+{{?list sp:mul ?o} aux:funcTranslation {?list math:product ?o}}<={}.
+# MISSING: uuid, struuid
+
+#aggregate functions
+{{ ?values sp:Sum ?result } aux:aggTranslation { ?values math:sum ?result }}<={} .
+{{ ?values sp:Avg ?result } aux:aggTranslation { ?values math:sum ?sum . ?values list:length ?l . ( ?sum ?l ) math:quotient ?result }}<={}.
+{{ ?values sp:Max ?result } aux:aggTranslation { ?values math:max ?result }}<={}.
+{{ ?values sp:Min ?result } aux:aggTranslation { ?values math:min ?result }}<={}.
+
