@@ -3,11 +3,11 @@ pushd ~/github.com/eyereasoner/eye; git pull --all; popd
 echo ""
 pushd ~/github.com/eyereasoner/eye-js; git pull --all; popd
 echo ""
-pushd ~/github.com/eyereasoner/is; git pull --all; popd
-echo ""
 pushd ~/github.com/eyereasoner/Koreografeye; git pull --all; popd
 echo ""
 pushd ~/github.com/eyereasoner/Notation3-By-Example; git pull --all; popd
+echo ""
+pushd ~/github.com/eyereasoner/si; git pull --all; popd
 echo ""
 pushd ~/github.com/josd/josd.github.io; git pull --all; popd
 echo ""

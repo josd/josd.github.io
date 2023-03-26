@@ -4,7 +4,7 @@ git pull
 cargo build --release
 cargo test --release
 popd
-pushd ~/github.com/eyereasoner/is
+pushd ~/github.com/eyereasoner/si
 ./test
 git diff
 popd
