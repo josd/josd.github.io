@@ -4,7 +4,7 @@ git pull
 cargo build --release
 cargo test --release
 popd
-pushd ~/github.com/josd/phy
+pushd ~/github.com/josd/retina
 ./test
 git diff
 popd
