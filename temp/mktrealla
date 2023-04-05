@@ -5,7 +5,7 @@ make
 make test
 echo ""
 popd
-pushd ~/github.com/josd/retina
+pushd ~/github.com/josd/phy
 sudo ln -sf /usr/local/bin/tpl /usr/local/bin/prolog
 ./test
 git diff

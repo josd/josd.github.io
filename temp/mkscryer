@@ -4,7 +4,7 @@ git pull
 cargo build --release
 cargo test --release
 popd
-pushd ~/github.com/josd/retina
+pushd ~/github.com/josd/phy
 sudo ln -sf /usr/local/bin/scryer-prolog /usr/local/bin/prolog
 ./test
 git diff
