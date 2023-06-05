@@ -13,6 +13,8 @@ pushd ~/github.com/josd/josd.github.io; git pull --all; popd
 echo ""
 pushd ~/github.com/SWI-Prolog/swipl-devel; git pull --all; popd
 echo ""
+pushd ~/github.com/trealla-prolog/trealla; git pull --all; popd
+echo ""
 pushd ~/github.com/w3c/N3; git pull --all; popd
 echo ""
 pushd ~/github.com/w3c-cg/rdfsurfaces; git pull --all; popd
