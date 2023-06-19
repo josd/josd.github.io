@@ -6,6 +6,6 @@ make test
 echo ""
 popd
 pushd ~/github.com/eyereasoner/retina
-./test tpl
+./test
 git diff
 popd
