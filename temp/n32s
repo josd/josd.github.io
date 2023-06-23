@@ -1,0 +1,2 @@
+#!/bin/bash
+node ~/github.com/eyereasoner/n32s/js/index.js "$@"
