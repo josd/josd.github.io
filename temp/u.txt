@@ -133,9 +133,9 @@ sudo add-apt-repository ppa:webupd8team/tor-browser
 sudo apt update
 sudo apt install tor-browser
 
-sudo gedit /usr/share/gtksourceview-3.0/language-specs/sparql.lang
-sudo gedit /usr/share/gtksourceview-3.0/language-specs/prolog.lang
-sudo gedit /usr/share/gtksourceview-3.0/language-specs/perl.lang
+sudo gedit /usr/share/gtksourceview-4/language-specs/sparql.lang
+sudo gedit /usr/share/gtksourceview-4/language-specs/prolog.lang
+sudo gedit /usr/share/gtksourceview-4/language-specs/perl.lang
 
 sudo apt install imagemagick
 sudo apt install tree
@@ -422,7 +422,8 @@ awk '{print NF}' test_delirium.observation | sort -n | tail -n 1
 for file in *; do mv "$file" "${file//delirium/aki}"; done
 cat test_answer.ttl | grep -Po "(?<=:predicted )[01]"
 qpdf --empty --pages infile.pdf z-1 -- outfile.pdf
-
+for file in *.n3; do; git mv "$file" "${file%.n3}.n3s"; done
+for file in *proof.n3s; do git mv "$file" "${file%proof.n3s}proof.n3"; done
 
 ### docker
 wget -qO- https://get.docker.io/ | sh
