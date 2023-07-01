@@ -5,7 +5,7 @@ make
 make test
 echo ""
 popd
-pushd ~/github.com/eyereasoner/retina
+pushd ~/github.com/IDLabResearch/retina
 ./test
 git diff
 popd

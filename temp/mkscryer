@@ -4,7 +4,7 @@ git pull
 cargo build --release
 cargo test --release
 popd
-pushd ~/github.com/eyereasoner/retina
+pushd ~/github.com/IDLabResearch/retina
 ./test scryer-prolog
 git diff
 popd
