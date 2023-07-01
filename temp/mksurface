@@ -1,6 +1,6 @@
 #!/bin/bash
 pushd ~/github.com/eyereasoner/eye/reasoning/blogic
 git pull
-./test "$@" --quiet --skolem-genid 3917894951695475063
+./test "$@" --quiet --skolem-genid 8b98b360-9a70-4845-b52c-c675af60ad01
 git diff
 popd
