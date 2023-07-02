@@ -1,6 +1,6 @@
 | reasoner | implemented in | website |
 | --------- | ---------- | ----------- |
-| brow | taupl/JavaScript | [https://github.com/josd/brow](https://github.com/josd/brow) |
+| brow | taupl/JavaScript | [https://github.com/IDLabResearch/brow](https://github.com/IDLabResearch/brow) |
 | Cwm | Python | [https://github.com/linkeddata/swap](https://github.com/linkeddata/swap) |
 | eye | swipl/C | [https://github.com/eyereasoner/eye](https://github.com/eyereasoner/eye) |
 | eye-js | swipl-wasm | [https://github.com/eyereasoner/eyebrow](https://github.com/eyereasoner/eyebrow) |
