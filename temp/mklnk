@@ -23,7 +23,6 @@ sudo ln -sf ~/github.com/josd/josd.github.io/temp/mkswipl-wasm /usr/local/bin
 sudo ln -sf ~/github.com/josd/josd.github.io/temp/nh /usr/local/bin
 sudo ln -sf ~/github.com/josd/josd.github.io/temp/pn /usr/local/bin
 sudo ln -sf ~/github.com/josd/josd.github.io/temp/rsa /usr/local/bin
-sudo ln -sf ~/github.com/josd/josd.github.io/temp/rsr /usr/local/bin
 sudo ln -sf ~/github.com/josd/josd.github.io/temp/mkscryer /usr/local/bin
 sudo ln -sf ~/github.com/josd/josd.github.io/temp/mktau /usr/local/bin
 sudo ln -sf ~/github.com/josd/josd.github.io/temp/mktrealla /usr/local/bin
