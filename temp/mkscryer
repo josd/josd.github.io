@@ -4,7 +4,7 @@ git pull
 cargo build --release
 cargo test --release
 popd
-pushd ~/github.com/IDLabResearch/retina
+pushd ~/github.com/KNowledgeOnWebScale/retina
 ./test scryer-prolog
 git diff
 popd

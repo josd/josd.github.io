@@ -500,6 +500,6 @@ cd ~/github.com/trealla-prolog/trealla
 make clean
 WASI=1 NOFFI=1 NOSSL=1 CC=/opt/wasi-sdk/bin/clang make
 ++++
-cd ~/github.com/IDLabResearch/retina/
+cd ~/github.com/KNowledgeOnWebScale/retina/
 time wasmer run --dir . ~/github.com/trealla-prolog/trealla/tpl -- -g run,halt gps.pl
 
