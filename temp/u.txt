@@ -270,6 +270,19 @@ identify IMG-20190911-WA0002.jpg
 convert IMG-20190911-WA0002.jpg -crop 1440x1440+0+0 output.jpg
 eog output.jpg
 
+sudo apt remove --purge --auto-remove cmake
+sudo apt update
+sudo apt install -y software-properties-common lsb-release
+sudo apt clean all
+wget -O - https://apt.kitware.com/keys/kitware-archive-latest.asc 2>/dev/null | gpg --dearmor - | sudo tee /etc/apt/trusted.gpg.d/kitware.gpg >/dev/null
+sudo apt-add-repository "deb https://apt.kitware.com/ubuntu/ $(lsb_release -cs) main"
+sudo apt update
+... when getting NO_PUBKEY xyz
+... sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys xyz
+sudo apt install kitware-archive-keyring
+sudo rm /etc/apt/trusted.gpg.d/kitware.gpg
+sudo apt update
+sudo apt install cmake
 
 ### local
 mvn install:install-file -Dfile=/home/jdroo/temp/ojdbc6.jar -DgroupId=com.oracle -DartifactId=ojdbc6 -Dversion=11.2.0.4 -Dpackaging=jar
