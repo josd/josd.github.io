@@ -1,0 +1,15 @@
+To disable the beep in bash you need to uncomment (or add if not already there) the line set bell-style none in your /etc/inputrc file.
+
+sudo apt install gnome-icon-theme
+
+Windows-Shift-S
+
+\\wsl$
+file://wsl%24/Ubuntu-20.04/
+
+Command prompt
+wsl --list --verbose
+
+Font NSimSun
+
+ALT + 0128

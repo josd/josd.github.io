@@ -1,0 +1,464 @@
+Life must be lived forward,
+but can only be understood backward.
+-- S. Kierkegaard
+
+
+Now this is not the end.
+It is not even the beginning of the end.
+But it is, perhaps, the end of the beginning.
+-- Winston Churchill, November 10, 1942
+
+
+Be liberal in what you accept, and conservative in what you send.
+-- Postel's Law.
+
+
+I'm disinclined to wait for all the planets to align before creating ...
+-- Dan Connolly
+
+
+Perfection is achieved, not when there is nothing more to add,
+but when there is nothing left to take away.
+-- Antoine de Saint-Exupéry, Airman's Odyssey
+
+
+The sure sign of the success of developments will be that people
+stop talking about them. They'll be like electricity, where people
+stopped talking about it and started talking about all the
+interesting new things that you can plug into the wall.
+-- James Bell
+
+
+Its never correct to assume on no evidence, seems to me.
+Even if you are right, its only because you were lucky.
+-- Pat Hayes
+
+
+Nothing about semantics nor results depends on how it's processed.
+2+2 is 4 whether your calculator is working or not.
+-- Dan Connolly
+
+
+Science is built up with facts, as a house is with stones.
+But a collection of facts is no more a science than a heap
+of stones is a house.
+-- Poincaré, Jules Henri (1854-1912)
+
+
+Only by making ideas into reality
+can we call ourselves true Innovators.
+-- http://firecat.nihonsoft.org/researchers.nsp
+
+
+You can't allow everything you want without allowing things
+you don't want.
+-- Corollary to the Gödel Theorem
+
+
+The empty multiset [] should be distinguished from the empty set 0,
+since nothing is a member of 0, but everything is a member of []
+zero times.
+-- John Slaney
+
+
+In theory, there is no difference between theory and practice;
+In practice, there is.
+-- Chuck Reid
+
+
+You see things and say "Why?",
+But I dream things that never were
+and I say "Why not?"
+-- George Bernard Shaw
+
+
+Good mathematicians see analogies between theorems;
+great mathematicians see analogies between analogies.
+-- S. Banach (quoted by S. Ulam, 1957)
+
+
+You insist that there is something a machine cannot do.
+If you will tell me precisely what it is that a machine cannot
+do, then I can always make a machine which will do just that!
+-- J. von Neumann Princeton 1948
+
+
+The best way to predict the future is to invent it
+-- Alan Kay
+
+
+A theorem a day prevents mental decay.
+-- Eric Charles Milner
+
+
+It is reasonable to hope that the relationship between computation
+and mathematical logic will be as fruitful in the next century as
+that between analysis and physics in the last.
+-- J. MacCarthy, 1961
+
+
+Im not really interested in your position, but in the arguments
+you have to support it. WHY do you take this position? More to the
+point, why do you claim that this position is inevitable, so that
+anyone who takes a different position is making a mistake or
+committing a fallacy?
+-- Pat Hayes
+
+
+For small problems the following Law of Nature for ATP seems to be valid:
+Either the problem is solved in 100 milliseconds, or it is not solved at all.
+-- Tarmo Uustalu
+
+
+It is not the strongest of the species that survives, nor the most
+intelligent, but rather the one most responsive to change.
+-- Charles Darwin (1809 - 1882)
+
+
+All truths are easy to understand once they are discovered; the
+point is to discover them.
+-- Galileo Galilei (1564 - 1642)
+
+
+And so you touch this limit, something happens and you suddenly can
+go a little bit further. With your mind power, your determination,
+your instinct, and the experience as well, you can fly very high.
+-- Ayrton Senna (1960 - 1994)
+
+
+... what's the plan?
+Drive fast and win the race, that's the plan.
+-- Damon Hill
+
+
+Enthusiasm is everything. It must be taut and vibrating like a
+guitar string.
+-- Pelé ́(1940 - 2022)
+
+
+One man alone can be pretty dumb sometimes, but for real bona
+fide stupidity, there ain't nothin' can beat teamwork.
+-- Edward Abbey (1927 - 1989)
+
+
+I never think of the future - it comes soon enough.
+-- Albert Einstein (1879 - 1955)
+
+
+Mathematics is the language in which God wrote the universe.
+-- Galileo (1564-1642 AD)
+
+
+Science may set limits to knowledge, but should not set limits to imagination.
+-- Bertrand Russell
+
+
+De wetenschap is een bron van rijkdom, maar is zelf arm. Wij moeten haar helpen.
+-- Koning Albert I (1865 - 1934)
+
+
+Building coherent logic provers is a very complicate engineering task
+requiring seemingly endless experimentation.
+-- John Fisher
+
+
+It is easier to optimize correct code than to correct optimized code.
+-- Bill Harlan 
+
+
+When once you have tasted flight, you will forever walk the earth with your eyes
+turned skyward, for there you have been and there you will always long to return.
+-- Leonardo da Vinci
+
+
+And so, my fellow Americans: ask not what your country can do for you
+ask what you can do for your country.
+-- John F. Kennedy
+
+
+If we thought twice about everything we say, perhaps we would only say half as much.
+-- Benjamin Franklin
+
+
+Life begins when you can spend your spare time programming instead of watching television.
+-- Cal Keegan
+
+
+It is not how much we have, but how much we enjoy that makes happiness.
+-- Charles Sprugeon
+
+
+Life is like riding a bicycle. To keep your balance, you must keep moving.
+-- Albert Einstein
+
+
+Wisdom begins in wonder.
+-- Socrates
+
+
+Meaning is something we find and make. It is never complete.
+-- Siri Hustvedt
+
+
+The gem cannot be polished without friction, nor man perfected without trials.
+-- Confucius
+
+
+A journey of a thousand miles must begin with a single step.
+-- Lao-Tsu
+
+
+Give me six hours to chop down a tree and I will spend the first four sharpening the axe.
+-- Abraham Lincoln
+
+
+All our dreams can come true, if we have the courage to pursue them.
+-- Walt Disney
+
+
+Silicon seems to scale like n square - web seems to scale like n cube.
+-- Jos De Roo
+
+
+In the End, we will remember not the words of our enemies, but the silence of our friends.
+-- Martin Luther King Jr.
+
+
+Machines can devise a hypothesis, carry out experiments to test it and assess results
+without human intervention.
+-- Ross D. King
+
+
+You can never cross the ocean unless you have the courage to lose sight of the shore.
+-- Christopher Columbus
+
+
+Mathematics is the opposite of religion.
+Mathematics fits our mind to the world around us,
+religion fits the real world around us to our mind.
+-- math prof
+
+
+Wirtschaft ist wie ein Fahrrad: es halt nur die Balance, wenn es fahrt.
+-- Peter Drucker
+
+
+That which is asserted without evidence, can be dismissed without argument.
+-- Julian Assange @ http://www.youtube.com/watch?v=zL6433U87HU
+
+
+Success is achieved by development of our strengths, not by elimination of our weakness.
+-- Marilyn Vos Savant
+
+
+I have not failed. I've just found 10,000 ways that won't work.
+-- Thomas Edison
+
+
+Our greatest glory is not in never falling but in rising every time we fall.
+-- Confucius
+
+
+The computer is the most remarkable tool that we've ever come up with.
+It's the equivalent of a bicycle for our minds.
+-- Steve Jobs
+
+
+Simple can look simple, but be complex to get there. Start at the heart of the
+question and build in the series of layers, to the most beautiful resolution.
+-- Steve Jobs
+
+
+The object-oriented version of spaghetti code is, of course, lasagna code.
+Too many layers.
+-- Roberto Waltman
+
+
+It's the existence of this plan that counts.. and the motivated people behind it.
+-- Ruben Verborgh
+
+
+Any technology that scales ought to have some reasonable amount of redundancy.
+-- Jos De Roo
+
+
+People tend to overestimate what can happen in the next year
+but underestimate what can happen in the next five.
+-- Larry Page
+
+
+Just don't give up trying to do what you really want to do.
+Where there is love and inspiration, I don't think you can go wrong.
+-- Ella Fitzgerald
+
+
+You have to be run by ideas, not hierarchy.
+-- Steve Jobs
+
+
+If you have an apple and I have an apple and we exchange apples then you and I
+will still each have one apple. But if you have an idea and I have an idea and
+we exchange these ideas, then each of us will have two ideas.
+-- George Bernard Shaw
+
+
+Live as if you were to die tomorrow. Learn as if you were to live forever.
+-- Mahatma Gandhi
+
+
+So far as the laws of mathematics refer to reality, they are not certain.
+And so far as they are certain, they do not refer to reality.
+-- Albert Einstein
+
+
+The key to success is to focus our conscious mind on things we desire not things we fear.
+-- Brian Tracy
+
+
+Design is the beauty of using constraints as advantages.
+-@aza #tedxsf pic.twitter.com/RxpEiTsl
+
+
+Mathematics, rightly viewed, possesses not only truth, but supreme beauty - a beauty
+cold and austere, like that of sculpture.
+-- Bertrand Russell
+
+
+Those who mind don't matter, and those who matter don't mind.
+-- anonymous 1938
+
+
+Some people want it to happen, some wish it would happen, others make it happen.
+-- Michael Jordan
+
+
+Any society that would give up a little liberty to gain a little security
+will deserve neither and lose both.
+-- Benjamin Franklin
+
+
+Good design composes complex systems out of recursive patterns,
+such that each necessary complexity can be bound by beautiful simplicity.
+-- Roy T. Fielding
+
+
+I would rather have questions that can't be answered
+than answers that can't be questioned.
+-- Richard Feynman
+
+
+Code that is not maintained, should not dictate.
+-- Nicos Angelopoulos
+
+
+It always seems impossible until it's done.
+-- Nelson Mandela
+
+
+The meaning of life is to find your gift.
+The purpose of life is to give it away.
+-- Pablo Picasso
+
+
+If you don’t build your dream, someone else will hire you to help them build theirs.
+-- Dhirubhai Ambani
+
+
+If I had asked people what they wanted, they would have said faster horses.
+-- Henry Ford
+
+
+It would be wrong to write this song and get rich from it too.
+-- Leonard Cohen https://www.youtube.com/watch?v=tIssqxixYp0&index=16&list=RDtAmQgI_Mun4
+
+
+Tell me and I forget, teach me and I may remember, involve me and I learn.
+-- Benjamin Franklin
+
+
+Nothing in life is to be feared, it is only to be understood.
+-- Marie Curie
+
+
+It is not true that people stop pursuing dreams because they grow old,
+they grow old because they stop pursuing dreams.
+-- Gabriel Garcí­a Márquez
+
+
+Als je echt wil kijken, kan je heel veel zien.
+-- Frank Deboosere
+
+
+Age is an issue of mind over matter. If you don't mind, it doesn't matter.
+-- Mark Twain
+
+
+If you want to live a happy life, tie it to a goal, not to people or things.
+-- Albert Einstein
+
+
+It is about improvement; a succession of large and small inventions, sometimes by chance.
+-- Gerard Philips
+
+
+It's not that I'm so smart, it's just that I stay with problems longer.
+-- Albert Einstein
+
+
+Chance favors only the prepared mind.
+-- Louis Pasteur
+
+
+The true sign of intelligence is not knowledge but imagination.
+-- Albert Einstein
+
+
+There’s a road from the eye to the heart that doesn’t go through the intellect.
+-- Chesterton
+
+
+Darkness cannot drive out darkness; only light can do that.
+Hate cannot drive out hate; only love can do that.
+-- Martin Luther King Jr.
+
+
+AI systems must have the ability to explain their reasoning in a way
+that users can understand and assent to.
+-- Alan Bundy
+
+
+The earth laughs in flowers - https://twitter.com/FroukjeKrist/status/855861505841082369
+-- Ralph Waldo Emerson
+
+
+Research is creating new knowledge.
+-- Neil Armstrong
+
+
+Wat je vandaag moet doen, moet je doen zoals je morgen denkt dat je het had moeten doen.
+-- Toon Hermans
+
+
+If you talk to a man in a language he understands, that goes to his head.
+If you talk to him in his own language, that goes to his heart.
+-- Nelson Mandela
+
+
+Reasoning is like a welding machine transforming data into pragmatic proofs.
+-- Jos De Roo
+
+
+Julia: You could express things exactly how your mind thinks about them.
+You want the machine to bend to your will, not you to bend to the machine's will.
+-- Edelman
+
+
+I think that modern physics has definitely decided in favor of Plato.
+In fact the smallest units of matter are not physical objects in the ordinary sense;
+they are forms, ideas which can be expressed unambiguously only in mathematical language.
+-- Werner Heisenberg
+
+
+Life is journey to be experienced, not a problem to be solved.
+-- Alan Alexander Milne
+
