@@ -42,3 +42,7 @@ ln -s target/release/scryer-prolog ~/../usr/bin
 # python
 pkg install python
 pip install sympy
+
+# etc
+pkg install silversearcher-ag
+
