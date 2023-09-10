@@ -22,27 +22,6 @@ cd reasoning
 ./test
 git diff
 
-# tpl
-pkg install xxd
-pkg install vim
-cd ~/trealla
-make
-ln -s tpl ~/../usr/bin
-
-# scryer-prolog
-pkg install rust
-pkg install binutils
-pkg install m4
-pkg install perl
-pkg install openssl
-cd ~/scryer-prolog
-cargo install --release
-ln -s target/release/scryer-prolog ~/../usr/bin
-
-# python
-pkg install python
-pip install sympy
-
 # etc
 pkg install silversearcher-ag
 
