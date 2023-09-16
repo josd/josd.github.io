@@ -10,6 +10,7 @@ sudo ln -sf ~/github.com/josd/josd.github.io/temp/g /usr/local/bin
 sudo ln -sf ~/github.com/josd/josd.github.io/temp/gr /usr/local/bin
 sudo ln -sf ~/github.com/josd/josd.github.io/temp/gri /usr/local/bin
 sudo ln -sf ~/github.com/josd/josd.github.io/temp/i /usr/local/bin
+sudo ln -sf ~/github.com/josd/josd.github.io/temp/latar /usr/local/bin
 sudo ln -sf ~/github.com/josd/josd.github.io/temp/mkcard /usr/local/bin
 sudo ln -sf ~/github.com/josd/josd.github.io/temp/mkeye-js /usr/local/bin
 sudo ln -sf ~/github.com/josd/josd.github.io/temp/mkjs /usr/local/bin
