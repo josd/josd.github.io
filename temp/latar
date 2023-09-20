@@ -1,0 +1,2 @@
+#!/bin/bash
+swipl -f ~/github.com/KNowledgeOnWebScale/Latar/core.pl -g "run('$1'), halt"

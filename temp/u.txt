@@ -418,7 +418,7 @@ echo -e "this is\nnice"
 history -c && history -w
 find . -type f -exec sed -i 's|/etc|/fluid|g' {} +
 find . -type f -exec sed -i 's|^PREFIX|@prefix|g; /@prefix/ s|>$|>.|g' {} +
-find . -type f -exec sed -i 's|) log:on|\| log:on|g' {} +
+find . -type f -exec sed -i 's|) log:on| $) log:on|g; /\$) log:on/ s|(|($ |' {} +
 printf Aladdin:OpenSesame | base64
 printf QWxhZGRpbjpPcGVuU2VzYW1l | base64 --decode
 sed -i '1 s/^\xef\xbb\xbf//' *.n3
