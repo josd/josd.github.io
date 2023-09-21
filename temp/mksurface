@@ -3,7 +3,3 @@ pushd ~/github.com/eyereasoner/eye/reasoning/blogic
 ./test "$@" --quiet --skolem-genid 8b98b360-9a70-4845-b52c-c675af60ad01
 git diff .
 popd
-pushd ~/github.com/eyereasoner/eye/logic
-./test
-git diff .
-popd
