@@ -462,3 +462,8 @@ they are forms, ideas which can be expressed unambiguously only in mathematical 
 Life is journey to be experienced, not a problem to be solved.
 -- Alan Alexander Milne
 
+
+An expert is a person who has found out by his own painful experience
+all the mistakes that one can make in a very narrow field.
+-- Niels Bohr (1855-1962)
+
