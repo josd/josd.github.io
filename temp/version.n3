@@ -1,6 +1,8 @@
-@prefix log: <http://www.w3.org/2000/10/swap/log#> .
+@prefix log: <http://www.w3.org/2000/10/swap/log#>.
+@prefix : <http://example.org/ns#>.
 
-# query
-(_:V) log:onQuerySurface {
-    () log:version _:V.
+{
+    ?a log:version ?v.
+} => {
+    ?a :version ?v.
 }.
