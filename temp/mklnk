@@ -18,6 +18,7 @@ sudo ln -sf ~/github.com/josd/josd.github.io/temp/mkjulia /usr/local/bin
 sudo ln -sf ~/github.com/josd/josd.github.io/temp/mklnk /usr/local/bin
 sudo ln -sf ~/github.com/josd/josd.github.io/temp/mkn3 /usr/local/bin
 sudo ln -sf ~/github.com/josd/josd.github.io/temp/mkpython /usr/local/bin
+sudo ln -sf ~/github.com/josd/josd.github.io/temp/mkreasoning /usr/local/bin
 sudo ln -sf ~/github.com/josd/josd.github.io/temp/mksurface /usr/local/bin
 sudo ln -sf ~/github.com/josd/josd.github.io/temp/mkswipl /usr/local/bin
 sudo ln -sf ~/github.com/josd/josd.github.io/temp/mkswipl-wasm /usr/local/bin
