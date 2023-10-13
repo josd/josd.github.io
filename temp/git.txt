@@ -5,6 +5,7 @@ git config --global credential.helper store
 git config --global url."https://".insteadOf git://
 git config --global push.default simple
 git config --global pack.threads "1"
+git config --global http.version HTTP/1.1
 
 git config -l
 
