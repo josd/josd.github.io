@@ -1,11 +1,11 @@
 #!/bin/bash
-pushd ~/github.com/trealla-prolog/trealla
+pushd ~/github.com/trealla-prolog/trealla > /dev/null
 git pull --all
 make
 make test
 echo ""
-popd
-pushd ~/github.com/KNowledgeOnWebScale/retina
+popd > /dev/null
+pushd ~/github.com/KNowledgeOnWebScale/retina > /dev/null
 ./test
 git diff
-popd
+popd > /dev/null

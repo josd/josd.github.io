@@ -1,10 +1,11 @@
 #!/bin/bash
-pushd ~/github.com
+pushd ~/github.com > /dev/null
 for dir in */*
 do
-    pushd "${dir}"
+    pushd "${dir}" > /dev/null
+    pwd
     git pull --all
-    popd
+    popd > /dev/null
     echo ""
 done
-popd
+popd > /dev/null

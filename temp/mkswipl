@@ -1,8 +1,8 @@
 #!/bin/bash
 : '
-pushd ~/github.com/SWI-Prolog
+pushd ~/github.com/SWI-Prolog > /dev/null
 git clone https://github.com/SWI-Prolog/swipl-devel
-cd swipl-devel
+pushd swipl-devel > /dev/null
 git submodule update --init
 sudo apt install \
     build-essential \
@@ -36,22 +36,29 @@ sudo apt install \
     texlive-fonts-extra-doc \
     texlive-fonts-recommended \
     texlive-fonts-recommended-doc
-popd
+popd > /dev/null
+popd > /dev/null
 '
 
 export CTEST_OUTPUT_ON_FAILURE=y
-pushd ~/github.com/SWI-Prolog/swipl-devel
+pushd ~/github.com/SWI-Prolog/swipl-devel > /dev/null
 git pull
 git submodule update --init
 mkdir -p build
-cd build
+pushd build > /dev/null
 cmake -G Ninja ..
 ninja
 ctest -j 8
 sudo ninja install
-i
-popd
-pushd ~/github.com/eyereasoner/eye/reasoning
+popd > /dev/null
+popd > /dev/null
+echo ""
+
+pushd ~/github.com/eyereasoner/eye > /dev/null
+sudo ./install.sh
+echo ""
+pushd reasoning > /dev/null
 ./test
 git diff
-popd
+popd > /dev/null
+popd > /dev/null

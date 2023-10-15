@@ -1,6 +1,6 @@
 #!/bin/bash
 : '
-pushd ~
+pushd ~ > /dev/null
 mkdir wasm
 cd wasm
 git clone https://github.com/emscripten-core/emsdk.git
@@ -21,10 +21,11 @@ cd gmp-6.2.1
 emconfigure ./configure --host=none --disable-assembly --prefix=${HOME}/wasm
 make -j
 make install
-popd
+popd > /dev/null
 '
+
 export CTEST_OUTPUT_ON_FAILURE=y
-pushd ~/github.com/SWI-Prolog/swipl-devel
+pushd ~/github.com/SWI-Prolog/swipl-devel > /dev/null
 git pull
 git submodule update
 mkdir -p build.wasm
@@ -42,10 +43,12 @@ cmake -DCMAKE_TOOLCHAIN_FILE=$TOOLCHAIN \
     -G Ninja ..
 
 rm -rf src/wasm-preload && ninja
-popd
-pushd ~/github.com/eyereasoner/eyebrow
+echo ""
+popd > /dev/null
+
+pushd ~/github.com/eyereasoner/eyebrow > /dev/null
 rsync -azv ~/github.com/SWI-Prolog/swipl-devel/build.wasm/src/swipl-web.js swipl-web.js
 rsync -azv ~/github.com/SWI-Prolog/swipl-devel/build.wasm/src/swipl-web.wasm swipl-web.wasm
 rsync -azv ~/github.com/SWI-Prolog/swipl-devel/build.wasm/src/swipl-web.data swipl-web.data
 git diff
-popd
+popd > /dev/null

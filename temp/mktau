@@ -1,9 +1,11 @@
 #!/bin/bash
-pushd ~/github.com/tau-prolog/tau-prolog
+pushd ~/github.com/tau-prolog/tau-prolog > /dev/null
 git pull
-popd
-pushd ~/github.com/josd/brow
+echo ""
+popd > /dev/null
+
+pushd ~/github.com/KNowledgeOnWebScale/brow > /dev/null
 rsync -azv ~/github.com/tau-prolog/tau-prolog/modules .
 ./test
 git diff
-popd
+popd > /dev/null

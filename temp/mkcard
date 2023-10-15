@@ -1,5 +1,5 @@
 #!/bin/bash
-pushd ~/github.com/josd/josd.github.io
+pushd ~/github.com/josd/josd.github.io > /dev/null
 riot --base=https://josd.github.io/card.ttl --output=RDF/XML card.ttl > card.rdf
 riot --base=https://josd.github.io/card.ttl --output=N-Triples card.ttl > card.nt
-popd
+popd > /dev/null

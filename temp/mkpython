@@ -1,8 +1,11 @@
 #!/bin/bash
-pushd ~/github.com/josd/josd.github.io/temp/python
+pushd ~/github.com/josd/josd.github.io/temp/python > /dev/null
 ./test
 git diff
-pushd ~/github.com/josd/josd.github.io/temp/eye.py
+echo ""
+popd > /dev/null
+
+pushd ~/github.com/josd/josd.github.io/temp/eye.py > /dev/null
 ./test
 git diff
-popd
+popd > /dev/null

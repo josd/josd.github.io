@@ -1,10 +1,11 @@
 #!/bin/bash
-pushd ~/github.com/mthom/scryer-prolog
+pushd ~/github.com/mthom/scryer-prolog > /dev/null
 git pull
 cargo build --release
 cargo test --release
-popd
-pushd ~/github.com/KNowledgeOnWebScale/retina
+echo ""
+popd > /dev/null
+pushd ~/github.com/KNowledgeOnWebScale/retina > /dev/null
 ./test scryer-prolog
 git diff
-popd
+popd > /dev/null
