@@ -1,5 +1,0 @@
-#!/bin/bash
-pushd ~/github.com/eyereasoner/eye/reasoning/blogic > /dev/null
-./test "$@" --quiet --skolem-genid 8b98b360-9a70-4845-b52c-c675af60ad01
-git diff .
-popd > /dev/null
