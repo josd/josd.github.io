@@ -57,8 +57,6 @@ echo ""
 pushd ~/github.com/eyereasoner/eye > /dev/null
 sudo ./install.sh
 echo ""
-pushd reasoning > /dev/null
 ./test
 git diff
-popd > /dev/null
 popd > /dev/null
