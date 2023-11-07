@@ -5,7 +5,7 @@ cargo build --release
 cargo test --release
 echo ""
 popd > /dev/null
-pushd ~/github.com/KNowledgeOnWebScale/retina > /dev/null
-./test scryer-prolog
+pushd ~/github.com/josd/retina > /dev/null
+./test
 git diff
 popd > /dev/null
