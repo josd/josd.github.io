@@ -58,5 +58,8 @@ pushd ~/github.com/eyereasoner/eye > /dev/null
 sudo ./install.sh
 echo ""
 ./test
-git diff
+popd > /dev/null
+
+pushd ~/github.com/KNowledgeOnWebScale/retina > /dev/null
+./test swipl
 popd > /dev/null

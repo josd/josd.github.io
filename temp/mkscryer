@@ -6,6 +6,5 @@ cargo test --release
 echo ""
 popd > /dev/null
 pushd ~/github.com/KNowledgeOnWebScale/retina > /dev/null
-./test
-git diff
+./test scryer-prolog
 popd > /dev/null
