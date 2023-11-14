@@ -59,7 +59,3 @@ sudo ./install.sh
 echo ""
 ./test
 popd > /dev/null
-
-pushd ~/github.com/KNowledgeOnWebScale/retina > /dev/null
-./test swipl
-popd > /dev/null
