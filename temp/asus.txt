@@ -23,3 +23,9 @@ ln -s /mnt/g/Mijn\ Drive/ Google\ Drive
 
 # ssconvert
 sudo apt-get install --no-install-recommends gnumeric
+
+# Rust
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+
+# trealla
+sudo apt install libreadline-dev xxd libffi-dev
