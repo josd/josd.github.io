@@ -1,0 +1,2 @@
+#!/bin/bash
+octave -q --eval "printf('%f\n', $1)"

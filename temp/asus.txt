@@ -1,0 +1,25 @@
+# swipl
+sudo apt-get install \
+        build-essential cmake ninja-build pkg-config \
+        ncurses-dev libreadline-dev libedit-dev \
+        libgoogle-perftools-dev \
+        libgmp-dev \
+        libssl-dev \
+        unixodbc-dev \
+        zlib1g-dev libarchive-dev \
+        libossp-uuid-dev \
+        libxext-dev libice-dev libjpeg-dev libxinerama-dev libxft-dev \
+        libxpm-dev libxt-dev \
+        libdb-dev \
+        libpcre2-dev \
+        libyaml-dev \
+        python3 libpython3-dev \
+        default-jdk junit4
+
+# Google Drive
+sudo mkdir /mnt/g
+sudo mount -t drvfs G: /mnt/g
+ln -s /mnt/g/Mijn\ Drive/ Google\ Drive
+
+# ssconvert
+sudo apt-get install --no-install-recommends gnumeric
