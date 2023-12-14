@@ -1,5 +1,5 @@
 # swipl
-sudo apt-get install \
+sudo apt install \
         build-essential cmake ninja-build pkg-config \
         ncurses-dev libreadline-dev libedit-dev \
         libgoogle-perftools-dev \
@@ -15,6 +15,8 @@ sudo apt-get install \
         libyaml-dev \
         python3 libpython3-dev \
         default-jdk junit4
+sudo apt install python3-pip
+pip install --upgrade google-api-python-client
 
 # Google Drive
 sudo mkdir /mnt/g
@@ -22,10 +24,17 @@ sudo mount -t drvfs G: /mnt/g
 ln -s /mnt/g/Mijn\ Drive/ Google\ Drive
 
 # ssconvert
-sudo apt-get install --no-install-recommends gnumeric
+sudo apt install --no-install-recommends gnumeric
 
 # Rust
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 
 # trealla
 sudo apt install libreadline-dev xxd libffi-dev
+
+# node
+curl -ffSL https://deb.nodesource.com/setup_20.x | sudo -E bash -
+sudo apt install nodejs -y
+
+# issues
+sudo hwclock --hctosys
