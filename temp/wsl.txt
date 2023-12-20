@@ -13,3 +13,6 @@ wsl --list --verbose
 Font NSimSun
 
 ALT + 0128
+
+sudo crontab -e
+@hourly /usr/sbin/hwclock -s
