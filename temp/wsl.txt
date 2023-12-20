@@ -15,4 +15,4 @@ Font NSimSun
 ALT + 0128
 
 sudo crontab -e
-0 * * * * /usr/sbin/hwclock -s
+*/5 * * * * /usr/sbin/hwclock -s
