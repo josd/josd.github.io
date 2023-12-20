@@ -14,5 +14,7 @@ Font NSimSun
 
 ALT + 0128
 
+sudo mount -t drvfs G: /mnt/g
+
 sudo crontab -e
 */5 * * * * /usr/sbin/hwclock -s
