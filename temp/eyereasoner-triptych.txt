@@ -1,6 +1,6 @@
-------------------------
-eyereasoner triptych (*)
-------------------------
+----------------------------
+eyereasoner [1] triptych [2]
+----------------------------
 
 - Origin = Euler
     @@ Euler who lost both eyes
@@ -12,4 +12,5 @@ eyereasoner triptych (*)
     @@ eye generating proofs
 
 
-(*) https://fosstodon.org/@josd/110986388912487800
+[1] https://github.com/eyereasoner
+[2] https://fosstodon.org/@josd/110986388912487800
