@@ -1,8 +1,15 @@
-Origin = Euler
-    @@ Euler who lost both his left and right eye
+------------------------
+eyereasoner triptych (*)
+------------------------
 
-Evolution = unifying logic
-    @@ the left eye implementing built-ins
+- Origin = Euler
+    @@ Euler who lost both eyes
 
-Observership = explainable reasoning
-    @@ the right eye generating proofs
+- Evolution = unifying logic
+    @@ eye implementing built-ins
+
+- Observership = explainable reasoning
+    @@ eye generating proofs
+
+
+(*) https://fosstodon.org/@josd/110986388912487800
