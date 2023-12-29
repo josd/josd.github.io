@@ -1,0 +1,8 @@
+Origin = Euler
+    @@ Euler who lost both his left and right eye
+
+Evolution = unifying logic
+    @@ the left eye implementing built-ins
+
+Observership = explainable reasoning
+    @@ the right eye generating proofs

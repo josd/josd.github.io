@@ -1,0 +1,3 @@
+#!/bin/bash
+fold -w 72 -s $1 > /tmp/out
+mv /tmp/out $1
