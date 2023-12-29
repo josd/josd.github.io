@@ -2,14 +2,9 @@
 eyereasoner [1] triptych [2]
 ----------------------------
 
-- Origin = Euler
-    @@ Leonhard Euler [3] who lost both eyes
-
-- Evolution = unifying logic
-    @@ unifying logic eye implementing built-ins
-
-- Observership = explainable reasoning
-    @@ explainable reasoning eye generating proofs
+- Origin = Euler [3] who lost both eyes
+- Evolution = unifying logic as eye built-ins
+- Observership = explainable reasoning as eye proofs
 
 
 [1] https://github.com/eyereasoner
