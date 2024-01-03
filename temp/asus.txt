@@ -39,3 +39,4 @@ sudo apt install nodejs -y
 # issues
 sudo hwclock --hctosys
 sudo cp /etc/apt/trusted.gpg /etc/apt/trusted.gpg.d
+chmod 700 /run/user/1000
