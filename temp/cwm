@@ -1,2 +1,2 @@
 #!/bin/bash
-python2 ~/github.com/linkeddata/swap/cwm.py "$@"
+python3 ~/github.com/linkeddata/swap/cwm.py "$@"
