@@ -36,18 +36,26 @@ sudo apt install libreadline-dev xxd libffi-dev
 curl -ffSL https://deb.nodesource.com/setup_20.x | sudo -E bash -
 sudo apt install nodejs -y
 
-# other
+# bikeshed
 pip install bikeshed
+
+# http-server
 sudo npm install -g http-server
+
+# websocket
 sudo apt install websocket
 
 # date issue
 sudo crontab -e
 */5 * * * * /usr/sbin/hwclock -s
+crontab -l > ~/crontab
+crontab ~/crontab
 
 # gedit issue
 wsl --shutdown
 
-# other issues
+# apt issue
 sudo cp /etc/apt/trusted.gpg /etc/apt/trusted.gpg.d
+
+# octave issue
 chmod 700 /run/user/1000
