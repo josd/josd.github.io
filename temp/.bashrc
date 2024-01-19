@@ -25,7 +25,7 @@ shopt -s checkwinsize
 
 # If set, the pattern "**" used in a pathname expansion context will
 # match all files and zero or more directories and subdirectories.
-#shopt -s globstar
+shopt -s globstar
 
 # make less more friendly for non-text input files, see lesspipe(1)
 [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
@@ -47,12 +47,12 @@ esac
 
 if [ -n "$force_color_prompt" ]; then
     if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
-        # We have color support; assume it's compliant with Ecma-48
-        # (ISO/IEC-6429). (Lack of such support is extremely rare, and such
-        # a case would tend to support setf rather than setaf.)
-        color_prompt=yes
+	# We have color support; assume it's compliant with Ecma-48
+	# (ISO/IEC-6429). (Lack of such support is extremely rare, and such
+	# a case would tend to support setf rather than setaf.)
+	color_prompt=yes
     else
-        color_prompt=
+	color_prompt=
     fi
 fi
 
@@ -116,45 +116,14 @@ if ! shopt -oq posix; then
   fi
 fi
 
-# Start Docker daemon automatically when logging in if not running.
-RUNNING=`ps aux | grep dockerd | grep -v grep`
-if [ -z "$RUNNING" ]; then
-    sudo dockerd > /dev/null 2>&1 &
-    disown
-fi
-
-shopt -s globstar
-
-export JENA_HOME=$HOME/temp/apache-jena-4.6.1
-export LC_CTYPE=en_US.UTF-8
-export LC_ALL=en_US.UTF-8
-export TRAVIS_BUILD_NUMBER=0
-export DISPLAY="$(/sbin/ip route | awk '/default/ { print $3 }'):0"
-#export PATH="$(brew --prefix llvm)/bin:${PATH}"
-
 alias d='du -BM -d1 | sort -n'
 alias del='rm -fr'
 alias df='df -Th'
-alias di='ls -lRh | wc -l'
-alias diff=colordiff
 alias dir='ls -altrh --full-time'
-alias dis='ls -altrSh'
-alias ff='find . | grep'
-alias free='free -h'
 alias h='history'
-alias l='locate'
-alias p='ps afux'
 alias rs='rsync -azv'
-alias s='ps afux | grep'
-alias si='inxi -v 5'
-alias t='/usr/bin/time -f "sec=%e0 kB=%M cpu=%P"'
-alias ts='find . -type f -print0 | xargs -0 grep'
 
 . "$HOME/.cargo/env"
-
-# Wasmer
-#export WASMER_DIR="/home/jdroo/.wasmer"
-#[ -s "$WASMER_DIR/wasmer.sh" ] && source "$WASMER_DIR/wasmer.sh"
-
-# Emscripten
-#source "/home/jdroo/wasm/emsdk/emsdk_env.sh"
+sudo mount -t drvfs G: /mnt/g
+chmod 700 /run/user/1000
+crontab crontab
