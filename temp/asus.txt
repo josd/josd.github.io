@@ -41,7 +41,13 @@ pip install bikeshed
 sudo npm install -g http-server
 sudo apt install websocket
 
-# issues
-sudo hwclock --hctosys
+# date issue
+sudo crontab -e
+*/5 * * * * /usr/sbin/hwclock -s
+
+# gedit issue
+wsl --shutdown
+
+# other issues
 sudo cp /etc/apt/trusted.gpg /etc/apt/trusted.gpg.d
 chmod 700 /run/user/1000
