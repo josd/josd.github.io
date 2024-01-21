@@ -2,7 +2,7 @@
 pushd ~/github.com/mthom/scryer-prolog > /dev/null
 git pull
 cargo build --release
-#cargo test --release
+# cargo test --release
 echo ""
 popd > /dev/null
 pushd ~/github.com/KNowledgeOnWebScale/retina > /dev/null

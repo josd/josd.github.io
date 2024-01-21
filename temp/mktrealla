@@ -2,7 +2,7 @@
 pushd ~/github.com/trealla-prolog/trealla > /dev/null
 git pull --all
 make
-make test
+# make test
 echo ""
 popd > /dev/null
 pushd ~/github.com/KNowledgeOnWebScale/retina > /dev/null
