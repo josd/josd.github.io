@@ -120,10 +120,11 @@ alias d='du -BM -d1 | sort -n'
 alias del='rm -fr'
 alias df='df -Th'
 alias dir='ls -altrh --full-time'
+alias ff='find . | grep'
 alias h='history'
 alias rs='rsync -azv'
 
 . "$HOME/.cargo/env"
 sudo mount -t drvfs G: /mnt/g
 chmod 700 /run/user/1000
-crontab crontab
+crontab $HOME/crontab
