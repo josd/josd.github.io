@@ -127,4 +127,3 @@ alias rs='rsync -azv'
 . "$HOME/.cargo/env"
 sudo mount -t drvfs G: /mnt/g
 chmod 700 /run/user/1000
-crontab $HOME/crontab
