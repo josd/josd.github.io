@@ -45,12 +45,6 @@ sudo npm install -g http-server
 # websocket
 sudo apt install websocket
 
-# date issue
-sudo crontab -e
-*/5 * * * * /usr/sbin/hwclock -s
-crontab -l > ~/crontab
-crontab ~/crontab
-
 # gedit issue
 wsl --shutdown
 
