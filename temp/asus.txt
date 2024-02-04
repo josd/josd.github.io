@@ -51,5 +51,9 @@ wsl --shutdown
 # apt issue
 sudo cp /etc/apt/trusted.gpg /etc/apt/trusted.gpg.d
 
-# octave issue
+# octave
+sudo apt install octave
 chmod 700 /run/user/1000
+
+# exiftool
+sudo apt intsall exiftool
