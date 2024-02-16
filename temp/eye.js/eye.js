@@ -1,9 +1,6 @@
 // ---------------------------------------
 // Another eye in javascript -- Jos De Roo
 // ---------------------------------------
-//
-// See https://github.com/josd/eye/tree/master/looking/eye.js#readme
-//
 
 module.exports = {
   prove: function (cases, goal, evidence) {
