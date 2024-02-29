@@ -57,3 +57,6 @@ chmod 700 /run/user/1000
 
 # exiftool
 sudo apt intsall exiftool
+
+# java
+sudo apt install openjdk-17-jdk openjdk-17-jre
