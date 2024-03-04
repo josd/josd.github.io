@@ -384,7 +384,113 @@ gre(Argus) :-
     ;   true
     ),
     args(Args),
-    see,
+    assertz(flag(nope)),
+    assertz(flag(explain)),
+    % create named graphs
+    (   quad(_, A),
+        findall(C,
+            (   retract(quad(triple(S, P, O), A)),
+                C =.. [P, S, O]
+            ),
+            D
+        ),
+        D \= [],
+        conjoin(D, E),
+        assertz(graph(A, E)),
+        fail
+    ;   true
+    ),
+    (   graph(A, B),
+        conj_list(B, C),
+        relist(C, D),
+        conj_list(E, D),
+        E \= B,
+        retract(graph(A, B)),
+        assertz(graph(A, E)),
+        fail
+    ;   true
+    ),
+    % create terms
+    (   pred(P),
+        P \= '<http://www.w3.org/1999/02/22-rdf-syntax-ns#first>',
+        P \= '<http://www.w3.org/1999/02/22-rdf-syntax-ns#rest>',
+        X =.. [P, _, _],
+        call(X),
+        getterm(X, Y),
+        (   Y = X
+        ->  true
+        ;   retract(X),
+            assertz(Y)
+        ),
+        fail
+    ;   true
+    ),
+    \+flag('pass-merged'),
+    % forward rule
+    assertz(implies((
+            '<http://www.w3.org/2000/10/swap/lingua#premise>'(R, A),
+            '<http://www.w3.org/2000/10/swap/lingua#conclusion>'(R, B),
+            findvars([A, B], V, alpha),
+            list_to_set(V, U),
+            makevars([A, B, U], [Q, I, X], beta(U)),
+            (   flag(explain),
+                I \= false
+            ->  zip_list(U, X, W),
+                conj_append(I, remember(answer('<http://www.w3.org/2000/10/swap/lingua#premise>', R, A)), D),
+                conj_append(D, remember(answer('<http://www.w3.org/2000/10/swap/lingua#conclusion>', R, B)), E),
+                conj_append(E, remember(answer('<http://www.w3.org/2000/10/swap/lingua#bindings>', R, W)), F)
+            ;   F = I
+            )), '<http://www.w3.org/2000/10/swap/log#implies>'(Q, F), '<>')),
+    % backward rule
+    assertz(implies((
+            '<http://www.w3.org/2000/10/swap/lingua#body>'(R, A),
+            '<http://www.w3.org/2000/10/swap/lingua#head>'(R, B),
+            findvars([A, B], V, alpha),
+            list_to_set(V, U),
+            makevars([A, B, U], [Q, I, X], beta(U)),
+            (   flag(explain)
+            ->  zip_list(U, X, W),
+                conj_append(Q, remember(answer('<http://www.w3.org/2000/10/swap/lingua#body>', R, A)), D),
+                conj_append(D, remember(answer('<http://www.w3.org/2000/10/swap/lingua#head>', R, B)), E),
+                conj_append(E, remember(answer('<http://www.w3.org/2000/10/swap/lingua#bindings>', R, W)), F)
+            ;   F = Q
+            ),
+            C = ':-'(I, F),
+            copy_term_nat(C, CC),
+            labelvars(CC, 0, _, avar),
+            (   \+cc(CC)
+            ->  assertz(cc(CC)),
+                assertz(C),
+                retractall(brake)
+            ;   true
+            )), true, '<>')),
+    % query
+    assertz(implies((
+            '<http://www.w3.org/2000/10/swap/lingua#question>'(R, A),
+            (   '<http://www.w3.org/2000/10/swap/lingua#answer>'(R, B)
+            ->  true
+            ;   B = A
+            ),
+            djiti_answer(answer(B), J),
+            findvars([A, B], V, alpha),
+            list_to_set(V, U),
+            makevars([A, J, U], [Q, I, X], beta(U)),
+            (   flag(explain)
+            ->  zip_list(U, X, W),
+                conj_append(Q, remember(answer('<http://www.w3.org/2000/10/swap/lingua#question>', R, A)), D),
+                conj_append(D, remember(answer('<http://www.w3.org/2000/10/swap/lingua#answer>', R, B)), E),
+                conj_append(E, remember(answer('<http://www.w3.org/2000/10/swap/lingua#bindings>', R, W)), F)
+            ;   F = Q
+            ),
+            C = implies(F, I, '<>'),
+            copy_term_nat(C, CC),
+            labelvars(CC, 0, _, avar),
+            (   \+cc(CC)
+            ->  assertz(cc(CC)),
+                assertz(C),
+                retractall(brake)
+            ;   true
+            )), true, '<>')),
     (   implies(_, Conc, _),
         (   var(Conc)
         ;   Conc \= answer(_, _, _),
@@ -566,139 +672,6 @@ gre(Argus) :-
     ;   true
     ).
 
-% init for N3
-init :-
-    % create quads
-    (   retract(graph(N, G)),
-        conj_list(G, L),
-        forall(
-            (   member(M, L),
-                M =.. [P, S, O]
-            ),
-            assertz(quad(triple(S, P, O), N))
-        ),
-        fail
-    ;   true
-    ).
-
-%
-% Second Eye of Euler - SEE
-% Supporting RDF Lingua
-%
-% RDF as the web talking language
-% Reasoning with rules described in RDF
-
-see :-
-    % configure
-    assertz(flag(nope)),
-    assertz(flag(explain)),
-    % create named graphs
-    (   quad(_, A),
-        findall(C,
-            (   retract(quad(triple(S, P, O), A)),
-                C =.. [P, S, O]
-            ),
-            D
-        ),
-        D \= [],
-        conjoin(D, E),
-        assertz(graph(A, E)),
-        fail
-    ;   true
-    ),
-    (   graph(A, B),
-        conj_list(B, C),
-        relist(C, D),
-        conj_list(E, D),
-        E \= B,
-        retract(graph(A, B)),
-        assertz(graph(A, E)),
-        fail
-    ;   true
-    ),
-    % create terms
-    (   pred(P),
-        P \= '<http://www.w3.org/1999/02/22-rdf-syntax-ns#first>',
-        P \= '<http://www.w3.org/1999/02/22-rdf-syntax-ns#rest>',
-        X =.. [P, _, _],
-        call(X),
-        getterm(X, Y),
-        (   Y = X
-        ->  true
-        ;   retract(X),
-            assertz(Y)
-        ),
-        fail
-    ;   true
-    ),
-    \+flag('pass-merged'),
-    % forward rule
-    assertz(implies((
-            '<http://www.w3.org/2000/10/swap/lingua#premise>'(R, A),
-            '<http://www.w3.org/2000/10/swap/lingua#conclusion>'(R, B),
-            findvars([A, B], V, alpha),
-            list_to_set(V, U),
-            makevars([A, B, U], [Q, I, X], beta(U)),
-            (   flag(explain),
-                I \= false
-            ->  zip_list(U, X, W),
-                conj_append(I, remember(answer('<http://www.w3.org/2000/10/swap/lingua#premise>', R, A)), D),
-                conj_append(D, remember(answer('<http://www.w3.org/2000/10/swap/lingua#conclusion>', R, B)), E),
-                conj_append(E, remember(answer('<http://www.w3.org/2000/10/swap/lingua#bindings>', R, W)), F)
-            ;   F = I
-            )), '<http://www.w3.org/2000/10/swap/log#implies>'(Q, F), '<>')),
-    % backward rule
-    assertz(implies((
-            '<http://www.w3.org/2000/10/swap/lingua#body>'(R, A),
-            '<http://www.w3.org/2000/10/swap/lingua#head>'(R, B),
-            findvars([A, B], V, alpha),
-            list_to_set(V, U),
-            makevars([A, B, U], [Q, I, X], beta(U)),
-            (   flag(explain)
-            ->  zip_list(U, X, W),
-                conj_append(Q, remember(answer('<http://www.w3.org/2000/10/swap/lingua#body>', R, A)), D),
-                conj_append(D, remember(answer('<http://www.w3.org/2000/10/swap/lingua#head>', R, B)), E),
-                conj_append(E, remember(answer('<http://www.w3.org/2000/10/swap/lingua#bindings>', R, W)), F)
-            ;   F = Q
-            ),
-            C = ':-'(I, F),
-            copy_term_nat(C, CC),
-            labelvars(CC, 0, _, avar),
-            (   \+cc(CC)
-            ->  assertz(cc(CC)),
-                assertz(C),
-                retractall(brake)
-            ;   true
-            )), true, '<>')),
-    % query
-    assertz(implies((
-            '<http://www.w3.org/2000/10/swap/lingua#question>'(R, A),
-            (   '<http://www.w3.org/2000/10/swap/lingua#answer>'(R, B)
-            ->  true
-            ;   B = A
-            ),
-            djiti_answer(answer(B), J),
-            findvars([A, B], V, alpha),
-            list_to_set(V, U),
-            makevars([A, J, U], [Q, I, X], beta(U)),
-            (   flag(explain)
-            ->  zip_list(U, X, W),
-                conj_append(Q, remember(answer('<http://www.w3.org/2000/10/swap/lingua#question>', R, A)), D),
-                conj_append(D, remember(answer('<http://www.w3.org/2000/10/swap/lingua#answer>', R, B)), E),
-                conj_append(E, remember(answer('<http://www.w3.org/2000/10/swap/lingua#bindings>', R, W)), F)
-            ;   F = Q
-            ),
-            C = implies(F, I, '<>'),
-            copy_term_nat(C, CC),
-            labelvars(CC, 0, _, avar),
-            (   \+cc(CC)
-            ->  assertz(cc(CC)),
-                assertz(C),
-                retractall(brake)
-            ;   true
-            )), true, '<>')).
-see.
-
 %
 % command line options
 %
@@ -879,115 +852,6 @@ args([Argument|Args]) :-
         flush_output(user_error)
     ),
     args(Args).
-
-n3pin(Rt, In, File, Mode) :-
-    (   Rt = ':-'(Rg)
-    ->  (   flag('parse-only')
-        ->  true
-        ;   call(Rg)
-        ),
-        (   flag(intermediate, Out)
-        ->  format(Out, '~q.~n', [Rt])
-        ;   true
-        )
-    ;   dynify(Rt),
-        (   (   Rt = ':-'(Rh, _)
-            ->  predicate_property(Rh, dynamic)
-            ;   predicate_property(Rt, dynamic)
-            )
-        ->  true
-        ;   (   File = '-'
-            ->  true
-            ;   close(In)
-            ),
-            (   retract(tmpfile(File))
-            ->  delete_file(File)
-            ;   true
-            ),
-            throw(builtin_redefinition(Rt))
-        ),
-        (   Rt = pfx(Pfx, _)
-        ->  retractall(pfx(Pfx, _))
-        ;   true
-        ),
-        (   Rt = scope(Scope)
-        ->  nb_setval(current_scope, Scope)
-        ;   true
-        ),
-        (   Rt = ':-'(Ci, Px),
-            conjify(Px, Pi)
-        ->  (   Ci = true
-            ->  (   flag('parse-only')
-                ->  true
-                ;   call(Pi)
-                )
-            ;   nb_getval(current_scope, Si),
-                copy_term_nat('<http://www.w3.org/2000/10/swap/log#implies>'(Pi, Ci), Ri),
-                (   flag(nope)
-                ->  Ph = Pi
-                ;   (   Pi = when(Ai, Bi)
-                    ->  conj_append(Bi, istep(Si, Pi, Ci, Ri), Bh),
-                        Ph = when(Ai, Bh)
-                    ;   conj_append(Pi, istep(Si, Pi, Ci, Ri), Ph)
-                    )
-                ),
-                (   flag('rule-histogram')
-                ->  (   Ph = when(Ak, Bk)
-                    ->  conj_append(Bk, pstep(Ri), Bj),
-                        Pj = when(Ak, Bj)
-                    ;   conj_append(Ph, pstep(Ri), Pj)
-                    )
-                ;   Pj = Ph
-                ),
-                functor(Ci, CPi, _),
-                (   flag(intermediate, Out)
-                ->  (   \+cpred(CPi)
-                    ->  portray_clause(Out, cpred(CPi))
-                    ;   true
-                    ),
-                    portray_clause(Out, ':-'(Ci, Pi))
-                ;   true
-                ),
-                (   \+cpred(CPi)
-                ->  assertz(cpred(CPi))
-                ;   true
-                ),
-                assertz(':-'(Ci, Pj))
-            )
-        ;   (   Rt \= implies(_, _, _),
-                Rt \= scount(_),
-                Rt \= '<http://www.w3.org/1999/02/22-rdf-syntax-ns#first>'(_, _),
-                Rt \= '<http://www.w3.org/1999/02/22-rdf-syntax-ns#rest>'(_, _),
-                \+flag('no-distinct-input'),
-                call(Rt)
-            ->  true
-            ;   (   Rt \= pred('<http://eulersharp.sourceforge.net/2003/03swap/log-rules#relabel>'),
-                    \+ (Rt = scope(_), Mode = query)
-                ->  djiti_assertz(Rt),
-                    (   flag(intermediate, Out),
-                        Rt \= scount(_)
-                    ->  format(Out, '~q.~n', [Rt])
-                    ;   true
-                    ),
-                    (   Rt \= flag(_, _),
-                        Rt \= scope(_),
-                        Rt \= pfx(_, _),
-                        Rt \= pred(_),
-                        Rt \= cpred(_),
-                        Rt \= scount(_)
-                    ->  (   flag(nope)
-                        ->  true
-                        ;   term_index(true, Pnd),
-                            nb_getval(current_scope, Src),
-                            assertz(prfstep(Rt, true, Pnd, Rt, _, forward, Src))
-                        )
-                    ;   true
-                    )
-                ;   true
-                )
-            )
-        )
-    ).
 
 trig_n3p(literal(type(A, B)), C) :-
     memberchk(A, ['http://www.w3.org/2001/XMLSchema#integer', 'http://www.w3.org/2001/XMLSchema#long', 'http://www.w3.org/2001/XMLSchema#decimal', 'http://www.w3.org/2001/XMLSchema#double']),
