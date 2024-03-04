@@ -114,9 +114,10 @@ git checkout feat/N3Reasoner
 git pull --all
 git push
 
-git branch lingua v9.4.10
+git branch lingua v9.11.1
 git checkout lingua
 git push --set-upstream origin lingua
+git checkout master
 
 git push -d origin lingua
 git branch -d lingua
