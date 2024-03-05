@@ -57,7 +57,6 @@ eye
     --rdf-list-output               output lists as RDF lists
     --restricted                    restricting to core built-ins
     --skolem-genid <genid>          use <genid> in Skolem IRIs
-    --strings                       output log:outputString objects on stdout
     --version                       show version info
     --warn                          output warning info on stderr
     --wcache <uri> <file>           to tell that <uri> is cached as <file>
@@ -98,7 +97,6 @@ eye
 :- dynamic(intern/1).
 :- dynamic(keep_ng/1).
 :- dynamic(keep_skolem/1).
-:- dynamic(lemma/6).                % lemma(Count, Source, Premise, Conclusion, Premise-Conclusion_index, Rule)
 :- dynamic(mtime/2).
 :- dynamic(n3s/2).
 :- dynamic(ncllit/0).
@@ -133,13 +131,6 @@ eye
 :- dynamic(wcache/2).
 :- dynamic(wpfx/1).
 :- dynamic(wtcache/2).
-:- dynamic('<http://eulersharp.sourceforge.net/2003/03swap/log-rules#biconditional>'/2).
-:- dynamic('<http://eulersharp.sourceforge.net/2003/03swap/log-rules#call>'/2).
-:- dynamic('<http://eulersharp.sourceforge.net/2003/03swap/log-rules#conditional>'/2).
-:- dynamic('<http://eulersharp.sourceforge.net/2003/03swap/log-rules#finalize>'/2).
-:- dynamic('<http://eulersharp.sourceforge.net/2003/03swap/log-rules#relabel>'/2).
-:- dynamic('<http://eulersharp.sourceforge.net/2003/03swap/log-rules#tactic>'/2).
-:- dynamic('<http://eulersharp.sourceforge.net/2003/03swap/log-rules#transaction>'/2).
 :- dynamic('<http://www.w3.org/1999/02/22-rdf-syntax-ns#first>'/2).
 :- dynamic('<http://www.w3.org/1999/02/22-rdf-syntax-ns#rest>'/2).
 :- dynamic('<http://www.w3.org/1999/02/22-rdf-syntax-ns#type>'/2).
@@ -345,9 +336,7 @@ gre(Argus) :-
     ),
     atomic_list_concat(['http://eyereasoner.github.io/.well-known/genid/', Genid, '#'], Sns),
     nb_setval(var_ns, Sns),
-    (   (   flag(strings)
-        ;   flag(image, _)
-        )
+    (   flag(image, _)
     ->  true
     ;   version_info(Version),
         (   flag(quiet)
@@ -563,8 +552,6 @@ gre(Argus) :-
     nb_setval(tc, 0),
     nb_setval(tp, 0),
     nb_setval(rn, 0),
-    nb_setval(lemma_count, 0),
-    nb_setval(lemma_cursor, 0),
     nb_setval(answer_count, 0),
     nb_setval(keep_ng, true),
     (   flag(profile)
@@ -589,7 +576,6 @@ gre(Argus) :-
         w2,
         retractall(pfx(_, _)),
         retractall(wpfx(_)),
-        nb_setval(lemma_cursor, 0),
         forall(
             apfx(Pfx, Uri),
             assertz(pfx(Pfx, Uri))
@@ -600,10 +586,6 @@ gre(Argus) :-
         ;   true
         ),
         w2
-    ;   true
-    ),
-    (   flag(strings)
-    ->  wst
     ;   true
     ),
     nb_getval(tc, TC),
@@ -628,9 +610,7 @@ gre(Argus) :-
     ;   Inf = ''
     ),
     catch(Speed is round(Inf/Cpu*1000), _, Speed = ''),
-    (   (   flag(strings)
-        ;   flag(quiet)
-        )
+    (   flag(quiet)
     ->  true
     ;   (   flag('n3p-output')
         ->  format('% ~w in=~d out=~d ent=~d step=~w brake=~w inf=~w sec=~3d inf/sec=~w~n% ENDS~n~n', [Stamp, Inp, Outp, Ent, Step, Brake, Inf, Cpu, Speed])
@@ -723,11 +703,6 @@ opts(['--skolem-genid', Genid|Argus], Args) :-
     !,
     retractall(flag('skolem-genid', _)),
     assertz(flag('skolem-genid', Genid)),
-    opts(Argus, Args).
-opts(['--strings'|Argus], Args) :-
-    !,
-    retractall(flag(strings)),
-    assertz(flag(strings)),
     opts(Argus, Args).
 opts(['--version'|_], _) :-
     !,
@@ -1059,11 +1034,6 @@ wt0(!) :-
 wt0(:-) :-
     !,
     wp('<http://www.w3.org/2000/10/swap/log#isImpliedBy>').
-wt0(fail) :-
-    !,
-    write('("fail") '),
-    wp('<http://eulersharp.sourceforge.net/2003/03swap/log-rules#derive>'),
-    write(' true').
 wt0([]) :-
     !,
     (   flag('rdf-list-output')
@@ -1162,17 +1132,6 @@ wt0(X) :-
     ),
     !.
 wt0(X) :-
-    flag('quantify', Prefix),
-    flag(nope),
-    atom(X),
-    sub_atom(X, 1, _, _, Prefix),
-    !,
-    (   getlist(X, M)
-    ->  wt(M)
-    ;   '<http://eulersharp.sourceforge.net/2003/03swap/log-rules#tuple>'(Y, ['quantify', Prefix, X]),
-        wt0(Y)
-    ).
-wt0(X) :-
     (   wtcache(X, W)
     ->  true
     ;   (   \+flag('no-qnames'),
@@ -1202,8 +1161,7 @@ wt0(X) :-
             sub_atom(X, _, K, 1, F)
         ->  atom_concat(E, F, W),
             assertz(wtcache(X, W))
-        ;   (   \+flag(strings),
-                atom(X),
+        ;   (   atom(X),
                 \+ (sub_atom(X, 0, 1, _, '<'), sub_atom(X, _, 1, 0, '>')),
                 \+sub_atom(X, 0, 2, _, '_:'),
                 X \= true,
@@ -1221,11 +1179,7 @@ wt0(X) :-
             atom_codes(Z, V)
         ;   Z = W
         ),
-        (   atom(Z)
-        ->  write(Z)
-        ;   '<http://eulersharp.sourceforge.net/2003/03swap/log-rules#tuple>'(A, [blob, Z]),
-            wt(A)
-        )
+        write(Z)
     ).
 
 wt1(set(X)) :-
@@ -1262,14 +1216,8 @@ wt2((X, Y)) :-
     ;   wt(X),
         ws(X),
         write('.'),
-        (   flag(strings)
-        ->  write(' ')
-        ;   (   flag('no-beautified-output')
-            ->  write(' ')
-            ;   nl,
-                indent
-            )
-        ),
+        nl,
+        indent,
         wt(Y)
     ).
 wt2([X|Y]) :-
@@ -1605,29 +1553,17 @@ wg(X) :-
         ;   nb_setval(keep_ng, true),
             write('{'),
             indentation(4),
-            (   flag(strings)
-            ->  true
-            ;   (   flag('no-beautified-output')
-                ->  true
-                ;   nl,
-                    indent
-                )
-            ),
+            nl,
+            indent,
             nb_getval(fdepth, D),
             E is D+1,
             nb_setval(fdepth, E),
             wt(X),
             nb_setval(fdepth, D),
             indentation(-4),
-            (   flag(strings)
-            ->  true
-            ;   (   flag('no-beautified-output')
-                ->  true
-                ;   write('.'),
-                    nl,
-                    indent
-                )
-            ),
+            write('.'),
+            nl,
+            indent,
             write('}')
         )
     ;   wt(X)
@@ -1765,136 +1701,6 @@ ws(X) :-
         )
     ).
 
-wst :-
-    findall([Key, Str],
-        (   '<http://www.w3.org/2000/10/swap/log#outputString>'(Key, Str)
-        ;   answer(A1, A2, A3),
-            djiti_answer(answer('<http://www.w3.org/2000/10/swap/log#outputString>'(Key, Str)), answer(A1, A2, A3))
-        ),
-        KS
-    ),
-    sort(KS, KT),
-    forall(
-        (   member([_, MT], KT),
-            getcodes(MT, LT)
-        ),
-        (   escape_string(NT, LT),
-            atom_codes(ST, NT),
-            wt(ST)
-        )
-    ),
-    (   catch(nb_getval(csv_header, Header), _, Header = []),
-        catch(nb_getval(csv_header_strings, Headers), _, Headers = []),
-        wct(Headers, Header),
-        length(Header, Headerl),
-        query(Where, '<http://eulersharp.sourceforge.net/2003/03swap/log-rules#csvTuple>'(_, Select)),
-        catch(call(Where), _, fail),
-        \+got_cs(Select),
-        assertz(got_cs(Select)),
-        write('\r\n'),
-        wct(Select, Header),
-        cnt(output_statements, Headerl),
-        cnt(answer_count),
-        nb_getval(answer_count, AnswerCount),
-        (   flag('limited-answer', AnswerLimit),
-            AnswerCount >= AnswerLimit
-        ->  true
-        ;   fail
-        )
-    ;   true
-    ),
-    nl.
-
-wct([], []) :-
-    !.
-wct([A], [C]) :-
-    !,
-    wcf(A, C).
-wct([A|B], [C|D]) :-
-    wcf(A, C),
-    (   flag('csv-separator', S)
-    ->  true
-    ;   S = ','
-    ),
-    write(S),
-    wct(B, D).
-
-wcf(A, _) :-
-    var(A),
-    !.
-wcf(rdiv(X, Y), _) :-
-    number_codes(Y, [0'1|Z]),
-    lzero(Z, Z),
-    !,
-    (   Z = []
-    ->  F = '~d.0'
-    ;   length(Z, N),
-        number_codes(X, U),
-        (   length(U, N)
-        ->  F = '0.~d'
-        ;   atomic_list_concat(['~', N, 'd'], F)
-        )
-    ),
-    format(F, [X]).
-wcf(literal(A, B), _) :-
-    !,
-    atom_codes(A, C),
-    subst([[[0'\\, 0'"], [0'", 0'"]]], C, E),
-    atom_codes(F, E),
-    (   B \= type('<http://www.w3.org/2001/XMLSchema#dateTime>'),
-        B \= type('<http://www.w3.org/2001/XMLSchema#date>'),
-        B \= type('<http://www.w3.org/2001/XMLSchema#time>'),
-        B \= type('<http://www.w3.org/2001/XMLSchema#duration>'),
-        B \= type('<http://www.w3.org/2001/XMLSchema#yearMonthDuration>'),
-        B \= type('<http://www.w3.org/2001/XMLSchema#dayTimeDuration>')
-    ->  write('"'),
-        write(F),
-        write('"')
-    ;   write(F)
-    ).
-wcf(A, _) :-
-    atom(A),
-    nb_getval(var_ns, Sns),
-    sub_atom(A, 1, I, _, Sns),
-    !,
-    J is I+1,
-    sub_atom(A, J, _, 1, B),
-    write('_:'),
-    write(B).
-wcf(A, _) :-
-    atom(A),
-    flag('quantify', Prefix),
-    sub_atom(A, 1, _, _, Prefix),
-    !,
-    '<http://eulersharp.sourceforge.net/2003/03swap/log-rules#tuple>'(B, ['quantify', Prefix, A]),
-    wt0(B).
-wcf(A, B) :-
-    atom(A),
-    relabel(A, C),
-    sub_atom(C, 0, 1, _, '<'),
-    sub_atom(C, _, 1, 0, '>'),
-    !,
-    sub_atom(C, 1, _, 1, D),
-    (   sub_atom(B, _, 2, 0, 'ID')
-    ->  (   flag('hmac-key', Key)
-        ->  hmac_sha(Key, D, E, [algorithm(sha1)])
-        ;   sha_hash(D, E, [algorithm(sha1)])
-        ),
-        atom_codes(F, E),
-        base64xml(F, G),
-        write(G)
-    ;   write(D)
-    ).
-wcf(A, _) :-
-    atom(A),
-    sub_atom(A, 0, 1, _, '_'),
-    !,
-    sub_atom(A, 1, _, 0, B),
-    write(B).
-wcf(A, _) :-
-    with_output_to(atom(B), wg(A)),
-    write(B).
-
 indent:-
     nb_getval(indentation, A),
     tab(A).
@@ -1932,10 +1738,6 @@ eam(Recursion) :-
         ;   true
         ),
         implies(Prem, Conc, Src),
-        (   flag('pass-merged')
-        ->  Src = '<http://eulersharp.sourceforge.net/2003/03swap/pass-all>'
-        ;   true
-        ),
         ignore(Prem = true),
         (   flag(nope),
             \+flag('rule-histogram')
@@ -2006,8 +1808,7 @@ eam(Recursion) :-
             cnt(tc, Ci)
         ;   cnt(tc)
         ),
-        (   Concd \= '<http://eulersharp.sourceforge.net/2003/03swap/log-rules#transaction>'(_, _),
-            Concd \= ':-'(_, _)
+        (   Concd \= ':-'(_, _)
         ->  nb_getval(wn, W),
             labelvars(Prem-Concd, W, N),        % failing when Prem contains attributed variables
             nb_setval(wn, N)
@@ -2043,10 +1844,7 @@ eam(Recursion) :-
         nb_getval(answer_count, AnswerCount),
         (   flag('limited-answer', AnswerLimit),
             AnswerCount >= AnswerLimit
-        ->  (   flag(strings)
-            ->  true
-            ;   w3
-            )
+        ->  w3
         ;   retract(brake),
             fail
         )
@@ -2061,52 +1859,48 @@ eam(Recursion) :-
             nb_getval(limit, Limit),
             Recursion < Limit,
             eam(R)
-        ;   (   flag(strings)
+        ;   (   flag('pass-only-new')
             ->  true
-            ;   (   flag('pass-only-new')
-                ->  true
-                ;   open_null_stream(Ws),
-                    tell(Ws),
-                    nb_getval(wn, Wn),
-                    w3,
-                    forall(
-                        retract(keep_ng(NG)),
-                        (   wt(NG),
-                            nl
-                        )
-                    ),
-                    forall(
-                        retract(keep_ng(NG)),
-                        (   wt(NG),
-                            nl
-                        )
-                    ),
-                    retractall(pfx(_, _)),
-                    retractall(wpfx(_)),
-                    nb_setval(wn, Wn),
-                    nb_setval(output_statements, 0),
-                    nb_setval(lemma_cursor, 0),
-                    forall(
-                        apfx(Pfx, Uri),
-                        assertz(pfx(Pfx, Uri))
-                    ),
-                    told,
-                    (   flag('output', Output)
-                    ->  tell(Output)
-                    ;   true
-                    ),
-                    w3,
-                    forall(
-                        retract(keep_ng(NG)),
-                        (   wt(NG),
-                            nl
-                        )
-                    ),
-                    forall(
-                        retract(keep_ng(NG)),
-                        (   wt(NG),
-                            nl
-                        )
+            ;   open_null_stream(Ws),
+                tell(Ws),
+                nb_getval(wn, Wn),
+                w3,
+                forall(
+                    retract(keep_ng(NG)),
+                    (   wt(NG),
+                        nl
+                    )
+                ),
+                forall(
+                    retract(keep_ng(NG)),
+                    (   wt(NG),
+                        nl
+                    )
+                ),
+                retractall(pfx(_, _)),
+                retractall(wpfx(_)),
+                nb_setval(wn, Wn),
+                nb_setval(output_statements, 0),
+                forall(
+                    apfx(Pfx, Uri),
+                    assertz(pfx(Pfx, Uri))
+                ),
+                told,
+                (   flag('output', Output)
+                ->  tell(Output)
+                ;   true
+                ),
+                w3,
+                forall(
+                    retract(keep_ng(NG)),
+                    (   wt(NG),
+                        nl
+                    )
+                ),
+                forall(
+                    retract(keep_ng(NG)),
+                    (   wt(NG),
+                        nl
                     )
                 )
             )
@@ -2122,9 +1916,6 @@ astep(A, B, Cd, Cn, Rule) :-        % astep(Source, Premise, Conclusion, Conclus
     (   Cn = (Dn, En)
     ->  functor(Dn, P, N),
         (   \+pred(P),
-            P \= '<http://eulersharp.sourceforge.net/2003/03swap/log-rules#finalize>',
-            P \= '<http://eulersharp.sourceforge.net/2003/03swap/log-rules#relabel>',
-            P \= '<http://eulersharp.sourceforge.net/2003/03swap/log-rules#transaction>',
             P \= '<http://www.w3.org/2000/10/swap/log#implies>',
             P \= '<http://www.w3.org/2000/10/swap/log#callWithCleanup>',
             N = 2
@@ -2143,14 +1934,8 @@ astep(A, B, Cd, Cn, Rule) :-        % astep(Source, Premise, Conclusion, Conclus
             ),
             (   flag(nope)
             ->  true
-            ;   (   B = '<http://eulersharp.sourceforge.net/2003/03swap/log-rules#transaction>'(P1, Q1),
-                    Rule = '<http://www.w3.org/2000/10/swap/log#implies>'(Q6, R6),
-                    prfstep('<http://eulersharp.sourceforge.net/2003/03swap/log-rules#transaction>'(P1, Q1), Q3, Q4, _,
-                        '<http://www.w3.org/2000/10/swap/log#implies>'(P6, Q6), forward, A)
-                ->  assertz(prfstep(Dn, Q3, Q4, Cd, '<http://www.w3.org/2000/10/swap/log#implies>'(P6, R6), forward, A))
-                ;   term_index(B, Pnd),
-                    assertz(prfstep(Dn, B, Pnd, Cd, Rule, forward, A))
-                )
+            ;   term_index(B, Pnd),
+                assertz(prfstep(Dn, B, Pnd, Cd, Rule, forward, A))
             )
         ),
         astep(A, B, Cd, En, Rule)
@@ -2158,9 +1943,6 @@ astep(A, B, Cd, Cn, Rule) :-        % astep(Source, Premise, Conclusion, Conclus
         ->  true
         ;   functor(Cn, P, N),
             (   \+pred(P),
-                P \= '<http://eulersharp.sourceforge.net/2003/03swap/log-rules#finalize>',
-                P \= '<http://eulersharp.sourceforge.net/2003/03swap/log-rules#relabel>',
-                P \= '<http://eulersharp.sourceforge.net/2003/03swap/log-rules#transaction>',
                 P \= '<http://www.w3.org/2000/10/swap/log#callWithCleanup>',
                 P \= '<http://www.w3.org/2000/10/swap/log#implies>',
                 N = 2
@@ -2179,14 +1961,8 @@ astep(A, B, Cd, Cn, Rule) :-        % astep(Source, Premise, Conclusion, Conclus
                 ),
                 (   flag(nope)
                 ->  true
-                ;   (   B = '<http://eulersharp.sourceforge.net/2003/03swap/log-rules#transaction>'(P1, Q1),
-                        Rule = '<http://www.w3.org/2000/10/swap/log#implies>'(Q6, R6),
-                        prfstep('<http://eulersharp.sourceforge.net/2003/03swap/log-rules#transaction>'(P1, Q1), Q3, Q4, _,
-                            '<http://www.w3.org/2000/10/swap/log#implies>'(P6, Q6), forward, A)
-                    ->  assertz(prfstep(Cn, Q3, Q4, Cd, '<http://www.w3.org/2000/10/swap/log#implies>'(P6, R6), forward, A))
-                    ;   term_index(B, Pnd),
-                        assertz(prfstep(Cn, B, Pnd, Cd, Rule, forward, A))
-                    )
+                ;   term_index(B, Pnd),
+                    assertz(prfstep(Cn, B, Pnd, Cd, Rule, forward, A))
                 )
             )
         )
@@ -2270,8 +2046,7 @@ djiti_conc(A, A).
 djiti_fact(answer(P, S, O), answer(P, S, O)) :-
     atomic(P),
     !,
-    (   P \= '<http://eulersharp.sourceforge.net/2003/03swap/log-rules#finalize>',
-        P \= '<http://www.w3.org/2000/10/swap/log#callWithCleanup>',
+    (   P \= '<http://www.w3.org/2000/10/swap/log#callWithCleanup>',
         \+pred(P)
     ->  assertz(pred(P))
     ;   true
@@ -2335,9 +2110,7 @@ djiti_fact('<http://www.w3.org/2000/10/swap/log#dcg>'(_, literal(A, type('<http:
 djiti_fact(A, A) :-
     ground(A),
     A =.. [P, _, _],
-    (   P \= '<http://eulersharp.sourceforge.net/2003/03swap/log-rules#finalize>',
-        P \= '<http://eulersharp.sourceforge.net/2003/03swap/log-rules#relabel>',
-        P \= '<http://www.w3.org/2000/10/swap/log#callWithCleanup>',
+    (   P \= '<http://www.w3.org/2000/10/swap/log#callWithCleanup>',
         P \= '<http://www.w3.org/1999/02/22-rdf-syntax-ns#first>',
         P \= '<http://www.w3.org/1999/02/22-rdf-syntax-ns#rest>',
         P \= query,
@@ -4363,7 +4136,6 @@ djiti_assertz(A) :-
 %
 
 def_pfx('math:', '<http://www.w3.org/2000/10/swap/math#>').
-def_pfx('e:', '<http://eulersharp.sourceforge.net/2003/03swap/log-rules#>').
 def_pfx('list:', '<http://www.w3.org/2000/10/swap/list#>').
 def_pfx('xsd:', '<http://www.w3.org/2001/XMLSchema#>').
 def_pfx('log:', '<http://www.w3.org/2000/10/swap/log#>').
@@ -5087,8 +4859,6 @@ quant(answer('<http://www.w3.org/2000/10/swap/log#implies>', _, _), allv) :-
     !.
 quant(answer(':-', _, _), allv) :-
     !.
-quant(answer('<http://eulersharp.sourceforge.net/2003/03swap/log-rules#tactic>', _, _), allv) :-
-    !.
 quant(_-A, avar) :-
     conj_list(A, B),
     member('<http://www.w3.org/2000/10/swap/lingua#premise>'(_, _), B),
@@ -5146,13 +4916,9 @@ relabel([A|B], [C|D]) :-
     !,
     relabel(A, C),
     relabel(B, D).
-relabel(A, B) :-
+relabel(A, A) :-
     atom(A),
-    !,
-    (   '<http://eulersharp.sourceforge.net/2003/03swap/log-rules#relabel>'(A, B)
-    ->  labelvars(B, 0, _)
-    ;   B = A
-    ).
+    !.
 relabel(A, A) :-
     number(A),
     !.
@@ -5187,14 +4953,6 @@ conjify((A, B), (C, D)) :-
     !,
     conjify(A, C),
     conjify(B, D).
-conjify('<http://eulersharp.sourceforge.net/2003/03swap/log-rules#derive>'([literal(when, type('<http://www.w3.org/2001/XMLSchema#string>')),
-        '<http://eulersharp.sourceforge.net/2003/03swap/log-rules#derive>'([literal(A, type('<http://www.w3.org/2001/XMLSchema#string>'))|B], true), C], true), when(D, C)) :-
-    !,
-    D =.. [A|B].
-conjify('<http://eulersharp.sourceforge.net/2003/03swap/prolog#cut>'([], true), !) :-
-    !.
-conjify('<http://eulersharp.sourceforge.net/2003/03swap/log-rules#derive>'([literal(!, type('<http://www.w3.org/2001/XMLSchema#string>'))], true), !) :-
-    !.
 conjify('<http://www.w3.org/2000/10/swap/log#callWithCut>'(A, _), (A, !)) :-
     !.
 conjify(A, A).
@@ -5211,9 +4969,6 @@ atomify(literal(A, type('<http://www.w3.org/2001/XMLSchema#string>')), A) :-
     !.
 atomify(A, A).
 
-commonvars('<http://eulersharp.sourceforge.net/2003/03swap/log-rules#transaction>'(A, _), B, C) :-
-    !,
-    commonvars(A, B, C).
 commonvars(A, B, C) :-
     term_variables(A, D),
     term_variables(B, E),
@@ -5399,8 +5154,6 @@ raw_type(literal(_, _), '<http://www.w3.org/2000/10/swap/log#Literal>') :-
     !.
 raw_type(rdiv(_, _), '<http://www.w3.org/2000/10/swap/log#Literal>') :-
     !.
-raw_type('<http://eulersharp.sourceforge.net/2003/03swap/log-rules#epsilon>', '<http://www.w3.org/2000/10/swap/log#Literal>') :-
-    !.
 raw_type((_, _), '<http://www.w3.org/2000/10/swap/log#Formula>') :-
     !.
 raw_type(set(_), '<http://www.w3.org/2000/10/swap/log#Set>') :-
@@ -5434,10 +5187,6 @@ getnumber(rdiv(A, B), C) :-
     C is A/B.
 getnumber(A, A) :-
     number(A),
-    !.
-getnumber(A, epsilon) :-
-    nonvar(A),
-    A = '<http://eulersharp.sourceforge.net/2003/03swap/log-rules#epsilon>',
     !.
 getnumber(A, A) :-
     nonvar(A),
@@ -6147,25 +5896,6 @@ wcacher(A, B) :-
     sub_atom(A, 0, I, _, C),
     sub_atom(A, I, _, 0, E),
     atomic_list_concat([D, E], B).
-
-prolog_verb(S, Name) :-
-    (   atom(S),
-        atom_concat('\'<http://eulersharp.sourceforge.net/2003/03swap/prolog#', A, S),
-        atom_concat(B, '>\'', A)
-    ->  (   B = conjunction
-        ->  Pred = '\', \''
-        ;   (   B = disjunction
-            ->  Pred = '\';\''
-            ;   (   prolog_sym(B, Pred, _)
-                ->  true
-                ;   nb_getval(line_number, Ln),
-                    throw(invalid_prolog_builtin(B, after_line(Ln)))
-                )
-            )
-        ),
-        Name = prolog:Pred
-    ;   Name = S
-    ).
 
 timestamp(Stamp) :-
     get_time(StampN),
