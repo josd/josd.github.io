@@ -5,4 +5,5 @@ You start somewhere in the middle and then go around, from more detail
 to more abstract and so on until "it feels good in your hands".
 
 That is also the core of the origin-evolution-observership approach of 
-the late Stephen Hawking.
+the late Stephen Hawking explained by Thomas Hertog in the best book I
+ever read, https://en.wikipedia.org/wiki/On_the_Origin_of_Time.
