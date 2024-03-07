@@ -1,0 +1,8 @@
+It is not really top-down nor bottom-up nor end-to-end, but rather the 
+middle-out approach of the late Hans Cools.
+
+You start somewhere in the middle and then go around, from more detail 
+to more abstract and so on until "it feels good in the hands".
+
+That is also the core of the origin-evolution-observership approach of 
+the late Stephen Hawking.
