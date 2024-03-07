@@ -1,0 +1,30 @@
+The idea of [RDF Lingua](https://github.com/eyereasoner/see/tree/main/lingua#readme)
+is as simple as reasoning with rules described in RDF and able to give answers
+and proof explanations in RDF.
+
+See some [examples](https://github.com/eyereasoner/see/tree/main/lingua)
+covering the whole reasoning spectrum from the classical
+[socrates](https://github.com/eyereasoner/see/blob/main/lingua/socrates.trig)
+to the modern
+[restdesc](https://github.com/eyereasoner/see/blob/main/lingua/restdesc.trig)
+and
+[gps](https://github.com/eyereasoner/see/blob/main/lingua/gps.trig).
+
+--------
+
+The dialog language is a not bottom up approach nor a top down approach
+but rather a middle out approach meaning to make real world problems
+tangible. Tangible in the sense to take them and talk/dialog about them
+in a universal lingua franca.
+
+So we separate talking/dialoging, reasoning and doing and what we
+mainly miss is a universal dialog language.
+
+--------
+
+N3 was invented in 2000 by TimBL as a research language but since many
+years he is not actively developing it anymore. The N3 CG kind of took
+over but all I can say is that I, as an implementor or the EYE reasoner
+am not feeling that we reached consensus.
+Today we work on RDF Lingua as a pure RDF 1.X which could rountrip to N3
+and we believe that it can work for everything we have done so far in N3.
