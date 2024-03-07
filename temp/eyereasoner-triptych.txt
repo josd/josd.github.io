@@ -8,5 +8,5 @@ eyereasoner triptych
         origin ------- evolution
 
 - origin: Euler who lost both eyes
-- evolution: unifying logic = eye built-ins
-- observership: explainable reasoning = eye proofs
+- evolution: Unifying Logic and Explainable Reasoning
+- observership: EYE reasoner and SEE reasoner
