@@ -3,7 +3,8 @@ middle-out approach of the late Hans Cools that could help us to reach
 our goal.
 
 You start somewhere in the middle and then go around, from more detail 
-to more abstract and so on until "it feels good in your hands".
+to more abstract, from more left end to more right end and so on until
+"it feels good in your hands".
 
 That is also the core of the origin-evolution-observership triptych of 
 the late Stephen Hawking explained by Thomas Hertog in the best book I
