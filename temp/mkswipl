@@ -60,7 +60,3 @@ echo ""
 ./test
 popd > /dev/null
 echo ""
-
-pushd ~/github.com/eyereasoner/see > /dev/null
-./test
-popd > /dev/null
