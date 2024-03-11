@@ -1,4 +1,7 @@
 #!/bin/bash
+pushd ~/github.com/KNowledgeOnWebScale/see > /dev/null
+swipl -f see.pl -g "qsave_program('see.pvm', [goal(main)]), halt."
+popd > /dev/null
 pushd ~/github.com/KNowledgeOnWebScale/see/lingua > /dev/null
 ./test
 popd > /dev/null
