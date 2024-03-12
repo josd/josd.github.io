@@ -2,11 +2,11 @@
 sudo ln -sf ~/eyesvn/2006/02swap/mksf /usr/local/bin
 sudo ln -sf ~/github.com/eyereasoner/eye/mkeye /usr/local/bin
 sudo ln -sf ~/github.com/eyereasoner/eye/proofcheck /usr/local/bin
+sudo ln -sf ~/github.com/eyereasoner/see-lingua/mksee /usr/local/bin
+sudo ln -sf ~/github.com/eyereasoner/see-lingua/see /usr/local/bin
 sudo ln -sf ~/github.com/KNowledgeOnWebScale/brow/brow /usr/local/bin
 sudo ln -sf ~/github.com/KNowledgeOnWebScale/retina/mkretina /usr/local/bin
 sudo ln -sf ~/github.com/KNowledgeOnWebScale/retina/retina /usr/local/bin
-sudo ln -sf ~/github.com/KNowledgeOnWebScale/see/mksee /usr/local/bin
-sudo ln -sf ~/github.com/KNowledgeOnWebScale/see/see /usr/local/bin
 sudo ln -sf ~/github.com/josd/josd.github.io/temp/cwm /usr/local/bin
 sudo ln -sf ~/github.com/josd/josd.github.io/temp/f /usr/local/bin
 sudo ln -sf ~/github.com/josd/josd.github.io/temp/g /usr/local/bin

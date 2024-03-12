@@ -2,3 +2,6 @@
 pushd ~/github.com/eyereasoner/eye > /dev/null
 sudo ./install.sh
 popd > /dev/null
+pushd ~/github.com/eyereasoner/see-lingua > /dev/null
+swipl -f see.pl -g "qsave_program('see.pvm', [goal(main)]), halt."
+popd > /dev/null
