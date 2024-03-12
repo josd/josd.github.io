@@ -1,0 +1,63 @@
+Easiest method is to replace the eyePlString function in scripts/generate-pvm.ts with
+
+async function eyePlString() {
+  return (fs.readFileSync(path.join(__dirname, 'eye.pl'))).toString();
+}
+
+And then define your modified version of eye.pl in scripts/eye.pl
+
+You'll need to run npm run build to rebuild the package each time
+
+And the CLI can be invoked by running ./dist/bin/index.js --strings ./data.n3 from the root of the repo
+
+--------
+
+You can look at the string input and outputs given to eye by updating the following function in dist/transformers.js
+
+async function executeBasicEyeQuery(swipl, data, query, options) {
+    /* eslint-enable max-len */
+    const outputType = options?.outputType;
+    let res = '';
+    const err = [];
+    const Module = await loadEyeImage(swipl)({
+        print: (str) => { res += `${str}\n`; },
+        printErr: (str) => { err.push(str); },
+    });
+    console.log('-'.repeat(10), 'input')
+    console.log((0, n3Writer_temp_1.write)(data))
+    runQuery(Module, typeof data === 'string' ? data : (0, n3Writer_temp_1.write)(data), query && (typeof query === 'string' ? query : (0, n3Writer_temp_1.write)(query)), options);
+    if (err.length > 0) {
+        throw new Error(`Error while executing query: ${err.join('\n')}`);
+    }
+    console.log('-'.repeat(10), 'output')
+    console.log(res)
+    return (outputType === 'quads' || (typeof data !== 'string' && outputType !== 'string'))
+        ? parse(res)
+        : res;
+}
+
+--------
+
+sudo npm install -g eyereasoner
+
+--------
+
+pushd ~/github.com/eyereasoner/eye-js
+git pull
+npm run eye:update
+npm i # To clone the updated version of eye
+npm run build
+#npx jest __tests__/all-test.ts
+ts-node __tests__/no-jest.ts
+
+--------
+
+npx jest __tests__/node-test.ts
+
+--------
+
+versions:
+    https://github.com/eyereasoner/eye-js/blob/main/package.json#L140-L149
+        https://raw.githubusercontent.com/eyereasoner/eye-js/v12.13.0/package.json
+    https://github.com/SWI-Prolog/npm-swipl-wasm/blob/master/package.json#L76-L95
+        https://raw.githubusercontent.com/swi-prolog/npm-swipl-wasm/v3.7.3/package.json
