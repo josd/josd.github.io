@@ -2,11 +2,11 @@
 Euler triptych
 --------------
 
-             observership
-              /        \
-             /          \
-        origin ------- evolution
+         observership
+          /        \
+         /          \
+    origin ------- evolution
 
-- origin: Euler who lost both eyes
+- origin: Euler lost both eyes
 - evolution: Eulerian mathematics
-- observership: EYE and SEE reasoner
+- observership: EYE and SEE reasoners
