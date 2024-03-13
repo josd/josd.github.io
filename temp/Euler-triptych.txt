@@ -1,6 +1,6 @@
---------------------
-eyereasoner triptych
---------------------
+--------------
+Euler triptych
+--------------
 
              observership
               /        \
