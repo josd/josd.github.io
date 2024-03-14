@@ -14,7 +14,7 @@
 
 (_:A _:B _:S) log:onNegativeSurface _:subclass_surface1.
 
-_:subclass_surface {
+_:subclass_surface1 {
     _:A rdfs:subClassOf _:B.
     _:S a _:A.
     () log:onNegativeSurface _:subclass_surface2.
