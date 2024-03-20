@@ -48,11 +48,9 @@ npm run eye:update
 npm i # To clone the updated version of eye
 npm run build
 #npx jest __tests__/all-test.ts
-ts-node __tests__/no-jest.ts
-
---------
-
+#ts-node __tests__/no-jest.ts
 npx jest __tests__/node-test.ts
+npm run test:unit __tests__/node-test.ts
 
 --------
 
