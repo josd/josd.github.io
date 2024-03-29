@@ -59,9 +59,3 @@ sudo ./install.sh
 ./test
 popd > /dev/null
 echo ""
-
-pushd ~/github.com/eyereasoner/see-lingua > /dev/null
-swipl -q -f see.pl -g "qsave_program('see.pvm', [goal(main)]), halt."
-./test
-popd > /dev/null
-echo ""
