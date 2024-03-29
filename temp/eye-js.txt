@@ -59,3 +59,8 @@ versions:
         https://raw.githubusercontent.com/eyereasoner/eye-js/v12.13.0/package.json
     https://github.com/SWI-Prolog/npm-swipl-wasm/blob/master/package.json#L76-L95
         https://raw.githubusercontent.com/swi-prolog/npm-swipl-wasm/v3.7.3/package.json
+
+--------
+
+For a "BREAKING CHANGE":
+One needs to squash and merge with "BREAKING CHANGE" in the commit message and body
