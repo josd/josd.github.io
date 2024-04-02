@@ -1,4 +1,4 @@
 #!/bin/bash
-pushd ~/github.com/KNowledgeOnWebScale/see-lingua > /dev/null
-swipl -q -f see.pl -g "qsave_program('see.pvm', [goal(main)]), halt."
+pushd ~/github.com/eyereasoner/lingua > /dev/null
+swipl -q -f lingua.pl -g "qsave_program('lingua.pvm', [goal(main)]), halt."
 popd > /dev/null

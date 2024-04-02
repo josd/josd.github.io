@@ -1,4 +1,0 @@
-#!/bin/bash
-pushd ~/github.com/KNowledgeOnWebScale/see-lingua > /dev/null
-./test
-popd > /dev/null
