@@ -1,4 +1,4 @@
 #!/bin/bash
 pushd ~/github.com/eyereasoner/lingua > /dev/null
-swipl -q -f lingua.pl -g "qsave_program('lingua.pvm', [goal(main)]), halt."
+./install
 popd > /dev/null
