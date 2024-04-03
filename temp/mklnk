@@ -18,12 +18,9 @@ sudo ln -sf ~/github.com/josd/josd.github.io/temp/j /usr/local/bin
 sudo ln -sf ~/github.com/josd/josd.github.io/temp/latar /usr/local/bin
 sudo ln -sf ~/github.com/josd/josd.github.io/temp/mkcard /usr/local/bin
 sudo ln -sf ~/github.com/josd/josd.github.io/temp/mkeye-js /usr/local/bin
-sudo ln -sf ~/github.com/josd/josd.github.io/temp/mkjs /usr/local/bin
 sudo ln -sf ~/github.com/josd/josd.github.io/temp/mkjulia /usr/local/bin
 sudo ln -sf ~/github.com/josd/josd.github.io/temp/mklnk /usr/local/bin
-sudo ln -sf ~/github.com/josd/josd.github.io/temp/mkn3 /usr/local/bin
 sudo ln -sf ~/github.com/josd/josd.github.io/temp/mkpython /usr/local/bin
-sudo ln -sf ~/github.com/josd/josd.github.io/temp/mksurfaces /usr/local/bin
 sudo ln -sf ~/github.com/josd/josd.github.io/temp/mkswipl /usr/local/bin
 sudo ln -sf ~/github.com/josd/josd.github.io/temp/mkswipl-wasm /usr/local/bin
 sudo ln -sf ~/github.com/josd/josd.github.io/temp/nh /usr/local/bin
@@ -37,6 +34,11 @@ sudo ln -sf ~/github.com/josd/josd.github.io/temp/o /usr/local/bin
 sudo ln -sf ~/github.com/josd/josd.github.io/temp/si /usr/local/bin
 sudo ln -sf ~/github.com/josd/josd.github.io/temp/swipljs /usr/local/bin
 sudo ln -sf ~/github.com/josd/josd.github.io/temp/taupl /usr/local/bin
+sudo ln -sf ~/github.com/josd/josd.github.io/temp/testeye /usr/local/bin
+sudo ln -sf ~/github.com/josd/josd.github.io/temp/testjs /usr/local/bin
+sudo ln -sf ~/github.com/josd/josd.github.io/temp/testlingua /usr/local/bin
+sudo ln -sf ~/github.com/josd/josd.github.io/temp/testn3 /usr/local/bin
+sudo ln -sf ~/github.com/josd/josd.github.io/temp/testsurfaces /usr/local/bin
 sudo ln -sf ~/github.com/josd/josd.github.io/temp/u /usr/local/bin
 sudo ln -sf ~/github.com/mthom/scryer-prolog/target/release/scryer-prolog /usr/local/bin
 sudo ln -sf ~/github.com/pbonte/roxi/target/release/server /usr/local/bin/roxi
