@@ -1,5 +1,5 @@
 #!/bin/bash
 pushd ~/github.com/eyereasoner/eye > /dev/null
 gr
-sudo ./install.sh
+i
 popd > /dev/null

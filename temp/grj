@@ -1,0 +1,5 @@
+#!/bin/bash
+pushd ~/github.com/eyereasoner/lingua > /dev/null
+gr
+j
+popd > /dev/null

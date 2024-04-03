@@ -12,6 +12,7 @@ sudo ln -sf ~/github.com/josd/josd.github.io/temp/f /usr/local/bin
 sudo ln -sf ~/github.com/josd/josd.github.io/temp/g /usr/local/bin
 sudo ln -sf ~/github.com/josd/josd.github.io/temp/gr /usr/local/bin
 sudo ln -sf ~/github.com/josd/josd.github.io/temp/gri /usr/local/bin
+sudo ln -sf ~/github.com/josd/josd.github.io/temp/grj /usr/local/bin
 sudo ln -sf ~/github.com/josd/josd.github.io/temp/i /usr/local/bin
 sudo ln -sf ~/github.com/josd/josd.github.io/temp/j /usr/local/bin
 sudo ln -sf ~/github.com/josd/josd.github.io/temp/latar /usr/local/bin
