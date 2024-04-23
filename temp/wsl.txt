@@ -4,8 +4,11 @@ sudo apt install gnome-icon-theme
 
 Windows-Shift-S
 
-\\wsl$
-file://wsl%24/Ubuntu-20.04/
+\\wsl$\Ubuntu-22.04
+file://wsl$/Ubuntu-22.04/
+
+\\G:
+file:///G:/
 
 Command prompt
 wsl --list --verbose
