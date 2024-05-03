@@ -9,4 +9,4 @@ Euler triptych
 
 - origin: Euler lost both eyes
 - evolution: Eulerian mathematics
-- observership: EYE and SEE reasoners
+- observership: Euler Yet another proof Engine - EYE

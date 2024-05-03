@@ -1,0 +1,7 @@
+A proof script is a sequence of instructions that guides the theorem  
+prover through the proof process.
+Skolem Machines [1] use them in [2] to prove Hessenberg's theorem [3].
+
+[1] https://skolemmachines.org/reports/SkolemMachines.pdf
+[2] https://www.ii.uib.no/~bezem/GL/pd_hes.in
+[3] https://argo.matf.bg.ac.rs/downloads/HessenbergsTheorem/10.1.1.544.3402.pdf
