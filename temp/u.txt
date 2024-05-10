@@ -518,3 +518,16 @@ WASI=1 NOFFI=1 NOSSL=1 CC=/opt/wasi-sdk/bin/clang make
 cd ~/github.com/KNowledgeOnWebScale/retina/
 time wasmer run --dir . ~/github.com/trealla-prolog/trealla/tpl -- -g run,halt gps.pl
 
+### network interface
+sudo apt install ethtool
+ip link show
+ethtool -i eth0
+sudo apt install lshw
+sudo lshw -C network
+lspci -v | grep -EiA 12 'eth|enp|network|ethernet|wireless|wifi'
+sudo apt install inxi
+inxi -n
+sudo apt install hwinfo
+hwinfo --netcard
+sudo apt install kmod
+modinfo igc
