@@ -531,3 +531,6 @@ sudo apt install hwinfo
 hwinfo --netcard
 sudo apt install kmod
 modinfo igc
+
+# bikeshed
+bikeshed -f spec index.bs
