@@ -1,0 +1,3 @@
+@prefix : <http://example.org/#>.
+
+[ = :my-id; a :Cat ; :eats :Pizza ].
