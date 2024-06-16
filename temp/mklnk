@@ -36,7 +36,7 @@ sudo ln -sf ~/github.com/josd/josd.github.io/temp/n3s2s /usr/local/bin
 sudo ln -sf ~/github.com/josd/josd.github.io/temp/nh /usr/local/bin
 sudo ln -sf ~/github.com/josd/josd.github.io/temp/o /usr/local/bin
 sudo ln -sf ~/github.com/josd/josd.github.io/temp/pn /usr/local/bin
-sudo ln -sf ~/github.com/josd/josd.github.io/temp/rdfn32s /usr/local/bin
+sudo ln -sf ~/github.com/josd/josd.github.io/temp/rdfn3s2s /usr/local/bin
 sudo ln -sf ~/github.com/josd/josd.github.io/temp/rsa /usr/local/bin
 sudo ln -sf ~/github.com/josd/josd.github.io/temp/si /usr/local/bin
 sudo ln -sf ~/github.com/josd/josd.github.io/temp/swipljs /usr/local/bin
