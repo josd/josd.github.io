@@ -1,0 +1,4 @@
+@prefix : <urn:example:>.
+
+:a :b :c.
+_:d :e 6.
