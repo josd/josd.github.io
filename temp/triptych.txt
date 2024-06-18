@@ -2,3 +2,9 @@
       /        \
      /          \
 origin ------- evolution
+
+
+     |>
+   (query)
+ <=      =>
+(if)   (then)
