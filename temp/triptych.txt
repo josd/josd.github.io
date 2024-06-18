@@ -4,7 +4,7 @@
 origin ------- evolution
 
 
-     |>
-   (query)
- <=      =>
-(if)   (then)
+          ⇑
+       (query)
+     <=      =>
+    (if)   (then)
