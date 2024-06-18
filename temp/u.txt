@@ -534,3 +534,5 @@ modinfo igc
 
 # bikeshed
 bikeshed -f spec index.bs
+
+# unicode ⇑ € © ∀ ∃ ⊥
