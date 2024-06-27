@@ -8,6 +8,7 @@ sudo ln -sf ~/github.com/eyereasoner/eye/mkeye /usr/local/bin
 sudo ln -sf ~/github.com/eyereasoner/eye/proofcheck /usr/local/bin
 sudo ln -sf ~/github.com/eyereasoner/lingua/lingua /usr/local/bin
 sudo ln -sf ~/github.com/eyereasoner/lingua/mklingua /usr/local/bin
+sudo ln -sf ~/github.com/eyereasoner/rdfsurfaces-tests/script/rs2fol.sh /usr/local/bin/rs2fol
 sudo ln -sf ~/github.com/josd/josd.github.io/temp/cwm /usr/local/bin
 sudo ln -sf ~/github.com/josd/josd.github.io/temp/f /usr/local/bin
 sudo ln -sf ~/github.com/josd/josd.github.io/temp/g /usr/local/bin
@@ -45,7 +46,6 @@ sudo ln -sf ~/github.com/josd/josd.github.io/temp/tension /usr/local/bin
 sudo ln -sf ~/github.com/josd/josd.github.io/temp/u /usr/local/bin
 sudo ln -sf ~/github.com/mthom/scryer-prolog/target/release/scryer-prolog /usr/local/bin
 sudo ln -sf ~/github.com/pbonte/roxi/target/release/server /usr/local/bin/roxi
-sudo ln -sf ~/github.com/RebekkaMa/rs2fol/bin/rs2fol /usr/local/bin
 sudo ln -sf ~/github.com/trealla-prolog/trealla/tpl /usr/local/bin
 sudo ln -sf ~/github.com/vprover/vampire/build/bin/vampire_rel_master_7636 /usr/local/bin/vampire
 sudo ln -sf ~/temp/apache-jena-5.0.0-rc1/bin/riot /usr/local/bin
