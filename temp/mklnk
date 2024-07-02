@@ -2,6 +2,7 @@
 sudo ln -sf /opt/eye/bin/eye /usr/local/bin
 sudo ln -sf ~/eyesvn/2006/02swap/mksf /usr/local/bin
 sudo ln -sf ~/github.com/KNowledgeOnWebScale/brow/brow /usr/local/bin
+sudo ln -sf ~/github.com/KNowledgeOnWebScale/Latar/latar /usr/local/bin
 sudo ln -sf ~/github.com/KNowledgeOnWebScale/retina/mkretina /usr/local/bin
 sudo ln -sf ~/github.com/KNowledgeOnWebScale/retina/retina /usr/local/bin
 sudo ln -sf ~/github.com/eyereasoner/eye/mkeye /usr/local/bin
@@ -17,7 +18,6 @@ sudo ln -sf ~/github.com/josd/josd.github.io/temp/gri /usr/local/bin
 sudo ln -sf ~/github.com/josd/josd.github.io/temp/grj /usr/local/bin
 sudo ln -sf ~/github.com/josd/josd.github.io/temp/i /usr/local/bin
 sudo ln -sf ~/github.com/josd/josd.github.io/temp/j /usr/local/bin
-sudo ln -sf ~/github.com/josd/josd.github.io/temp/latar /usr/local/bin
 sudo ln -sf ~/github.com/josd/josd.github.io/temp/mkcard /usr/local/bin
 sudo ln -sf ~/github.com/josd/josd.github.io/temp/mkeye-js /usr/local/bin
 sudo ln -sf ~/github.com/josd/josd.github.io/temp/mkjs /usr/local/bin
