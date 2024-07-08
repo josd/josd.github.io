@@ -4,7 +4,7 @@
 origin ------- evolution
 
 
-          ⇑
-       (query)
-     <=      =>
-    (if)   (then)
+        eye
+         u
+        |^|
+   l <= eye => r
