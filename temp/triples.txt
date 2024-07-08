@@ -1,0 +1,11 @@
+To serve a more abstract layer of wiring, just like
+- the nuts and bolts do for mechanics
+- the copper wires do for electronics
+- the silicon gates do for digital hardware
+- the program lines do for software
+so do the triples for symbolic ai and algorithms
+
+It does not pay off immediately, costs a lot of misery
+but is the future (just like you raise children).
+
+The point is not to be better but to have inherent potential.
