@@ -1,4 +1,4 @@
-        eye                  observership
-         u                    /        \
-        =^                   /          \
-   l <= eye => r        origin ------- evolution
+            eye                      observership
+             u                        /        \
+            =^                       /          \
+       l <= eye => r            origin ------- evolution
