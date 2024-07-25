@@ -1,4 +1,4 @@
 #!/bin/bash
-pushd ~/github.com/josd/cigol > /dev/null
+pushd ~/github.com/eyereasoner/cigol/cases > /dev/null
 ./test
 popd > /dev/null

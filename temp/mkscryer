@@ -5,6 +5,6 @@ cargo build --release
 #cargo test --release
 echo ""
 popd > /dev/null
-pushd ~/github.com/josd/cigol/cases > /dev/null
+pushd ~/github.com/eyereasoner/cigol/cases > /dev/null
 ./test
 popd > /dev/null
