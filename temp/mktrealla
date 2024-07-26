@@ -5,6 +5,6 @@ make
 #make test
 echo ""
 popd > /dev/null
-pushd ~/github.com/eyereasoner/cigol/cases > /dev/null
+pushd ~/github.com/eyereasoner/see/cases > /dev/null
 ./test
 popd > /dev/null

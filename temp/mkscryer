@@ -5,6 +5,6 @@ cargo build --release
 #cargo test --release
 echo ""
 popd > /dev/null
-pushd ~/github.com/eyereasoner/cigol/cases > /dev/null
+pushd ~/github.com/eyereasoner/see/cases > /dev/null
 ./test scryer-prolog
 popd > /dev/null
