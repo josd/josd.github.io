@@ -439,6 +439,8 @@ cat test_answer.ttl | grep -Po "(?<=:predicted )[01]"
 qpdf --empty --pages infile.pdf z-1 -- outfile.pdf
 for file in *.n3; do git mv "$file" "${file%.n3}.n3s"; done
 for file in *.n3.out; do git mv "$file" "${file%.n3.out}.n3s.out"; done
+set TIMEFORMAT=%Rs
+unset TIMEFORMAT
 
 ### docker
 wget -qO- https://get.docker.io/ | sh
