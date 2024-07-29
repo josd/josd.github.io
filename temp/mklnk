@@ -32,6 +32,7 @@ sudo ln -sf ~/github.com/josd/josd.github.io/temp/mksee /usr/local/bin
 sudo ln -sf ~/github.com/josd/josd.github.io/temp/mkscryer /usr/local/bin
 sudo ln -sf ~/github.com/josd/josd.github.io/temp/mksurfaces /usr/local/bin
 sudo ln -sf ~/github.com/josd/josd.github.io/temp/mkswipl /usr/local/bin
+sudo ln -sf ~/github.com/josd/josd.github.io/temp/mkswipls /usr/local/bin
 sudo ln -sf ~/github.com/josd/josd.github.io/temp/mkswipl-wasm /usr/local/bin
 sudo ln -sf ~/github.com/josd/josd.github.io/temp/mktau /usr/local/bin
 sudo ln -sf ~/github.com/josd/josd.github.io/temp/mktrealla /usr/local/bin

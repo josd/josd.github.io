@@ -1,2 +1,2 @@
 #!/bin/bash
-node ~/github.com/joachimvh/tension.js/bin/tension.js "$@"
+node ~/github.com/joachimvh/tension.js/bin/tension.js -f "$@"
