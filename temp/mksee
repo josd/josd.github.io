@@ -1,4 +1,0 @@
-#!/bin/bash
-pushd ~/github.com/eyereasoner/eye/see > /dev/null
-./test "$@"
-popd > /dev/null
