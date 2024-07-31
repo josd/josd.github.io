@@ -1,0 +1,61 @@
+#!/bin/bash
+: '
+pushd ~/github.com/SWI-Prolog > /dev/null
+git clone https://github.com/SWI-Prolog/swipl
+pushd swipl > /dev/null
+git submodule update --init
+sudo apt install \
+    build-essential \
+    cmake \
+    ninja-build \
+    pkg-config \
+    ncurses-dev \
+    libedit-dev \
+    libgoogle-perftools-dev \
+    libgmp-dev \
+    libssl-dev \
+    unixodbc-dev \
+    zlib1g-dev \
+    libarchive-dev \
+    libossp-uuid-dev \
+    libxext-dev \
+    libice-dev \
+    libjpeg-dev \
+    libxinerama-dev \
+    libxft-dev \
+    libxpm-dev \
+    libxt-dev \
+    libdb-dev \
+    libpcre2-dev \
+    libyaml-dev \
+    default-jdk \
+    junit \
+    texlive-latex-extra \
+    texlive-font-utils \
+    texlive-fonts-extra \
+    texlive-fonts-extra-doc \
+    texlive-fonts-recommended \
+    texlive-fonts-recommended-doc
+popd > /dev/null
+popd > /dev/null
+'
+
+export CTEST_OUTPUT_ON_FAILURE=y
+pushd ~/github.com/SWI-Prolog/swipl > /dev/null
+git pull
+git submodule update --init
+mkdir -p build
+pushd build > /dev/null
+cmake -G Ninja ..
+ninja
+ctest -j 8
+sudo ninja install
+popd > /dev/null
+popd > /dev/null
+echo ""
+
+pushd ~/github.com/eyereasoner/eye > /dev/null
+sudo ./install.sh
+./test
+popd > /dev/null
+echo ""
