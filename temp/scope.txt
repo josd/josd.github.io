@@ -1,9 +1,0 @@
-Talking about Plato, more specifically the Socratic dialogs, it reminds 
-me that we can tackle the complexity of a client asking a question to a 
-decentralized knowledge graph by simply carrying on a dialog like "I 
-don't know, but he knows" so the client interface can ask him. It is 
-also called Socratic completeness and I believe it is scalable because 
-the dialogue is typically limited in space and time.
-
-One small stepping stone might be the use of reasoning to derive the
-right questions.
