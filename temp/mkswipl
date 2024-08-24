@@ -59,3 +59,9 @@ sudo ./install.sh
 ./test
 popd > /dev/null
 echo ""
+
+pushd ~/github.com/eyereasoner/lingua > /dev/null
+./install
+./test
+popd > /dev/null
+echo ""
