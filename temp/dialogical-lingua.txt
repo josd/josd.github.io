@@ -1,0 +1,13 @@
+Literally speaking it is a language that is used for dialogs on the 
+web. More specifically it is meant to achieve socratic completeness. 
+The socratic completeness idea guarantees that for any fact which is a 
+logical consequence of the assumed theories, there is a series of 
+preliminary queries and assumptions after which a query of the fact 
+will succeed.
+
+We can tackle the complexity of a client asking a question to a 
+decentralized knowledge graph by simply carrying on a dialog like "I 
+don't know, but he knows" so the client interface can ask him. I 
+believe it is scalable because the dialog is typically limited in space 
+and time. One small stepping stone might be the use of reasoning to 
+derive the right questions.

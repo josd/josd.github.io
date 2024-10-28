@@ -482,3 +482,7 @@ Sometimes we desperately want something to be true, and it isn’t.
 We can’t avoid the consequences of logic, I suppose.
 -- Sarah Hart
 
+
+We have to remember that what we observe is not nature in itself
+but nature exposed to our method of questioning.
+-- Werner Heisenberg
