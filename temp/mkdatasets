@@ -1,4 +1,0 @@
-#!/bin/bash
-pushd ~/github.com/eyereasoner/rdfdatasets-tests > /dev/null
-./test
-popd > /dev/null
