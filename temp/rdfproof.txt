@@ -1,0 +1,23 @@
+To me it is still the case that trust is partially supported by proof 
+just like TimBL was drawing it a generation ago.
+
+Proofs are fully supported by logic and we revamp that idea in 
+https://github.com/eyereasoner/rdfproof/blob/main/README
+
+So the idea is to have a standard syntax (RDF 1.1 TriG) and a specified 
+semantics
+
+The tests in https://github.com/eyereasoner/rdfproof/tree/main produce 
+https://github.com/eyereasoner/rdfproof/tree/main/rdfproof
+
+ChatGPT:
+In the Semantic Web Layer Cake, logic enables machines to apply formal 
+reasoning rules to data, allowing them to draw inferences and generate 
+structured proofs—logical sequences that connect data points to valid 
+conclusions. These proofs demonstrate how conclusions are derived, 
+making the reasoning process transparent. This transparency is crucial 
+for establishing trust because it allows users (or systems) to verify 
+the path from data to conclusion, ensuring that information is not only 
+consistent but also traceable. Thus, logic underpins proof, and proof, 
+in turn, establishes the foundation for trust, which is essential for a 
+reliable, verifiable web.
