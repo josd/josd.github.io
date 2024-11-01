@@ -1,4 +1,0 @@
-#!/bin/bash
-pushd ~/github.com/eyereasoner/rdfproof > /dev/null
-./test
-popd > /dev/null
