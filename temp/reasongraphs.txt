@@ -1,14 +1,15 @@
 To me it is still the case that trust is partially supported by proof 
 just like TimBL was drawing it a generation ago.
 
-Proofs are fully supported by logic and we revamp that idea in 
-https://github.com/eyereasoner/rdfproof/blob/main/README
+Proofs are fully supported by logic and we revamp that idea in
+https://github.com/eyereasoner/reasongraphs/blob/main/README.md 
 
-So the idea is to have a standard syntax (RDF 1.1 TriG) and a specified 
-semantics
+So the idea is to have a standard syntax (RDF 1.1 TriG) and a specified
+semantics (N3 spec).
 
-The tests in https://github.com/eyereasoner/rdfproof/tree/main produce 
-https://github.com/eyereasoner/rdfproof/tree/main/rdfproof
+The tests in https://github.com/eyereasoner/reasongraphs/tree/main
+produce https://github.com/eyereasoner/reasongraphs/tree/main/reasongraphs
+
 
 ChatGPT:
 In the Semantic Web Layer Cake, logic enables machines to apply formal 
