@@ -7,8 +7,8 @@ https://github.com/eyereasoner/reasongraphs/blob/main/README.md
 So the idea is to have a standard syntax (RDF 1.1 TriG) and a specified
 semantics (N3 spec).
 
-The tests in https://github.com/eyereasoner/reasongraphs/tree/main
-produce https://github.com/eyereasoner/reasongraphs/tree/main/reasongraphs
+The tests in https://github.com/eyereasoner/rdfproofs/tree/main
+produce https://github.com/eyereasoner/rdfproofs/tree/main/rdfproofs
 
 
 ChatGPT:
