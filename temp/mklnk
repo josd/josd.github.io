@@ -28,7 +28,7 @@ sudo ln -sf ~/github.com/josd/josd.github.io/temp/mkjs /usr/local/bin
 sudo ln -sf ~/github.com/josd/josd.github.io/temp/mkjulia /usr/local/bin
 sudo ln -sf ~/github.com/josd/josd.github.io/temp/mklnk /usr/local/bin
 sudo ln -sf ~/github.com/josd/josd.github.io/temp/mkn3 /usr/local/bin
-sudo ln -sf ~/github.com/josd/josd.github.io/temp/mkproofs /usr/local/bin
+sudo ln -sf ~/github.com/josd/josd.github.io/temp/mkpackages /usr/local/bin
 sudo ln -sf ~/github.com/josd/josd.github.io/temp/mkpython /usr/local/bin
 sudo ln -sf ~/github.com/josd/josd.github.io/temp/mkreasoning /usr/local/bin
 sudo ln -sf ~/github.com/josd/josd.github.io/temp/mkeuler /usr/local/bin
