@@ -1,0 +1,13 @@
+Background
+- Master of Science (ir.) at KU Leuven and doctoral study on image computing leading to ICOS startup
+- Worked at Agfa Healthcare as R&D engineer in digital hardcopy, medical gateways and clinical reasoning
+- Developing the EYE reasoner and researcher in the KNoWS office of IDLab at Ghent University - imec
+
+Know-how on what reasoning topics
+- Bayesian networks and neural networks (fuzzy cognitive maps)
+- Workflow composers (gps4integratedcare and OSLO steps)
+- Mathematical reasoning and logic programming (Prolog and N3)
+
+Current focus
+- The EYE reasoner
+- rdfpackages can contain data, logic and proofs described in RDF

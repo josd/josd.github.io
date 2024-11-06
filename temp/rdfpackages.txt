@@ -1,14 +1,14 @@
-To me it is still the case that trust is partially supported by proof 
+To me it is still the case that trust is partially supported by proof
 just like TimBL was drawing it a generation ago.
 
 Proofs are fully supported by logic and we revamp that idea in
-https://github.com/eyereasoner/reasongraphs/blob/main/README.md 
+https://github.com/eyereasoner/rdfpackages/blob/main/README.md
 
 So the idea is to have a standard syntax (RDF 1.1 TriG) and a specified
 semantics (N3 spec).
 
-The tests in https://github.com/eyereasoner/rdfproofs/tree/main
-produce https://github.com/eyereasoner/rdfproofs/tree/main/rdfproofs
+The tests in https://github.com/eyereasoner/rdfpackages/tree/main
+produce https://github.com/eyereasoner/rdfpackages/tree/main/output
 
 
 ChatGPT:
