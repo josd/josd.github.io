@@ -5,7 +5,7 @@
 | eye | swipl/C | [https://github.com/eyereasoner/eye](https://github.com/eyereasoner/eye) |
 | eye-js | swipl-wasm | [https://github.com/eyereasoner/eyebrow](https://github.com/eyereasoner/eyebrow) |
 | jen3 | Java | [https://github.com/william-vw/jen3](https://github.com/william-vw/jen3) |
-| latar | swipl/C | [https://github.com/KNowledgeOnWebScale/retina](https://github.com/KNowledgeOnWebScale/retina) |
+| Latar | swipl/C | [https://github.com/KNowledgeOnWebScale/Latar](https://github.com/KNowledgeOnWebScale/Latar) |
 | lingua | swipl/C | [https://github.com/eyereasoner/lingua](https://github.com/eyereasoner/lingua) |
 | nemo | Rust | [https://github.com/knowsys/nemo](https://github.com/knowsys/nemo) |
 | NO3 | JavaScript | [https://github.com/KNowledgeOnWebScale/NO3](https://github.com/KNowledgeOnWebScale/NO3) |
