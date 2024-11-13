@@ -2,9 +2,10 @@
 pushd ~/github.com/trealla-prolog/trealla > /dev/null
 git pull --all
 make
-#make test
+make test
 echo ""
 popd > /dev/null
-pushd ~/github.com/eyereasoner/euler/cases > /dev/null
-./test tpl
+pushd ~/github.com/eyereasoner/color > /dev/null
+./test
+git diff
 popd > /dev/null
