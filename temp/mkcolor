@@ -1,4 +1,5 @@
 #!/bin/bash
-pushd ~/github.com/eyereasoner/eye > /dev/null
+pushd ~/github.com/eyereasoner/color > /dev/null
 ./test
+git diff
 popd > /dev/null
