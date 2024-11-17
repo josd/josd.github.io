@@ -5,7 +5,7 @@ make
 make test
 echo ""
 popd > /dev/null
-pushd ~/github.com/eyereasoner/eye3 > /dev/null
+pushd ~/github.com/eyereasoner/eye3/etc > /dev/null
 ./test
 git diff
 popd > /dev/null
