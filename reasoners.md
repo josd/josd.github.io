@@ -1,10 +1,10 @@
 | reasoner | implemented in | website |
 | --------- | ---------- | ----------- |
 | brow | Tau Prolog/JavaScript | [https://github.com/KNowledgeOnWebScale/brow](https://github.com/KNowledgeOnWebScale/brow) |
-| color | Trealla Prolog/C | [https://github.com/eyereasoner/color](https://github.com/eyereasoner/color) |
 | Cwm | Python | [https://github.com/linkeddata/swap](https://github.com/linkeddata/swap) |
 | eye | SWI-Prolog/C | [https://github.com/eyereasoner/eye](https://github.com/eyereasoner/eye) |
 | eye-js | SWI-Prolog/Wasm | [https://github.com/eyereasoner/eye-js](https://github.com/eyereasoner/eye-js) |
+| eye3 | Trealla Prolog/C | [https://github.com/eyereasoner/eye3](https://github.com/eyereasoner/eye3) |
 | jen3 | Java | [https://github.com/william-vw/jen3](https://github.com/william-vw/jen3) |
 | Latar | SWI-Prolog/C | [https://github.com/KNowledgeOnWebScale/Latar](https://github.com/KNowledgeOnWebScale/Latar) |
 | lingua | SWI-Prolog/C | [https://github.com/eyereasoner/lingua](https://github.com/eyereasoner/lingua) |
