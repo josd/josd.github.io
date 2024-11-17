@@ -1,5 +1,0 @@
-#!/bin/bash
-pushd ~/github.com/eyereasoner/color > /dev/null
-./test
-git diff
-popd > /dev/null
