@@ -1,0 +1,4 @@
+#!/bin/bash
+pushd ~/github.com/KNowledgeOnWebScale/retina > /dev/null
+./test "$@"
+popd > /dev/null
