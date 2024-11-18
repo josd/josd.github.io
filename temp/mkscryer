@@ -3,8 +3,9 @@ pushd ~/github.com/mthom/scryer-prolog > /dev/null
 git pull
 cargo build --release
 #cargo test --release
-echo ""
 popd > /dev/null
-pushd ~/github.com/eyereasoner/euler/cases > /dev/null
+echo ""
+
+pushd ~/github.com/eyereasoner/eye3/etc > /dev/null
 ./test scryer-prolog
 popd > /dev/null
