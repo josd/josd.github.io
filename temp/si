@@ -1,25 +1,2 @@
 #!/bin/bash
-echo ======== OS ========
-echo
-uname -srmo
-echo
-
-echo ======== CPU ========
-echo
-grep 'processor\|name' /proc/cpuinfo
-echo
-
-echo ======== RAM ========
-echo
-grep 'MemTotal' /proc/meminfo
-echo
-
-echo ======== DISK ========
-echo
-df -h
-echo
-
-echo ======== NETWORK ========
-echo
-netstat -s
-echo
+echo "OS: $(lsb_release -d | cut -f2-), CPU: $(lscpu | grep 'Model name:' | sed 's/Model name: *//'), RAM: $(grep 'MemTotal' /proc/meminfo | sed 's/MemTotal: *//')"
