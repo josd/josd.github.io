@@ -6,6 +6,8 @@ sudo ln -sf ~/github.com/KNowledgeOnWebScale/retina/mkretina /usr/local/bin
 sudo ln -sf ~/github.com/KNowledgeOnWebScale/retina/retina /usr/local/bin
 sudo ln -sf ~/github.com/KNowledgeOnWebScale/retina/retinae /usr/local/bin
 sudo ln -sf ~/github.com/eyereasoner/eye/mkeye /usr/local/bin
+sudo ln -sf ~/github.com/eyereasoner/eye2/eye2 /usr/local/bin
+sudo ln -sf ~/github.com/eyereasoner/eye2/mkeye2 /usr/local/bin
 sudo ln -sf ~/github.com/eyereasoner/eye3/eye3 /usr/local/bin
 sudo ln -sf ~/github.com/eyereasoner/eye3/mkeye3 /usr/local/bin
 sudo ln -sf ~/github.com/eyereasoner/eye/proofcheck /usr/local/bin
@@ -27,8 +29,9 @@ sudo ln -sf ~/github.com/josd/josd.github.io/temp/mkcard /usr/local/bin
 sudo ln -sf ~/github.com/josd/josd.github.io/temp/mkcases /usr/local/bin
 sudo ln -sf ~/github.com/josd/josd.github.io/temp/mkeuler /usr/local/bin
 sudo ln -sf ~/github.com/josd/josd.github.io/temp/mkeye-js /usr/local/bin
-sudo ln -sf ~/github.com/josd/josd.github.io/temp/mketc /usr/local/bin
-sudo ln -sf ~/github.com/josd/josd.github.io/temp/mketcs /usr/local/bin
+sudo ln -sf ~/github.com/josd/josd.github.io/temp/mketc2 /usr/local/bin
+sudo ln -sf ~/github.com/josd/josd.github.io/temp/mketc3 /usr/local/bin
+sudo ln -sf ~/github.com/josd/josd.github.io/temp/mketc3s /usr/local/bin
 sudo ln -sf ~/github.com/josd/josd.github.io/temp/mkjs /usr/local/bin
 sudo ln -sf ~/github.com/josd/josd.github.io/temp/mkjulia /usr/local/bin
 sudo ln -sf ~/github.com/josd/josd.github.io/temp/mklnk /usr/local/bin
