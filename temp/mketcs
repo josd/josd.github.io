@@ -1,0 +1,12 @@
+#!/bin/bash
+pushd ~/github.com/eyereasoner/eye3/etc > /dev/null
+cat ../eye3 | sed -e "s/tpl/scryer-prolog/" > eye3.tmp
+mv eye3.tmp ../eye3
+chmod +x ../eye3
+cat test | sed -e "s/trealla/scryer/" > test.tmp
+mv test.tmp test
+cat test | sed -e "s/tpl/scryer-prolog/" > test.tmp
+mv test.tmp test
+chmod +x test
+./test
+popd > /dev/null

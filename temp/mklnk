@@ -28,6 +28,7 @@ sudo ln -sf ~/github.com/josd/josd.github.io/temp/mkcases /usr/local/bin
 sudo ln -sf ~/github.com/josd/josd.github.io/temp/mkeuler /usr/local/bin
 sudo ln -sf ~/github.com/josd/josd.github.io/temp/mkeye-js /usr/local/bin
 sudo ln -sf ~/github.com/josd/josd.github.io/temp/mketc /usr/local/bin
+sudo ln -sf ~/github.com/josd/josd.github.io/temp/mketcs /usr/local/bin
 sudo ln -sf ~/github.com/josd/josd.github.io/temp/mkjs /usr/local/bin
 sudo ln -sf ~/github.com/josd/josd.github.io/temp/mkjulia /usr/local/bin
 sudo ln -sf ~/github.com/josd/josd.github.io/temp/mklnk /usr/local/bin

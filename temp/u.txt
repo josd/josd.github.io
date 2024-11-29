@@ -540,4 +540,4 @@ modinfo igc
 bikeshed -f spec index.bs
 
 # unicode ⇑ € © ∀ ∃ ⊥
-# https://en.wikipedia.org/wiki/Emoji#In_Unicode ✍️ 👍 😊 😉 😎 😂 😆 😇 😛 😱 🤷 🚴 🙈 🙉 🙊
+# https://en.wikipedia.org/wiki/Emoji#In_Unicode ✍️ 👍 😊 😉 😎 😂 😆 😇 😛 😱 🤷 🙏 🚴 🙈 🙉 🙊
