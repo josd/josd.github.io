@@ -6,6 +6,11 @@ make
 popd > /dev/null
 echo ""
 
-pushd ~/github.com/eyereasoner/eye3/etc > /dev/null
+pushd ~/github.com/eyereasoner/euler/cases > /dev/null
+./test tpl
+popd > /dev/null
+echo ""
+
+pushd ~/github.com/eyereasoner/eye2-trealla/etc > /dev/null
 ./test
 popd > /dev/null
