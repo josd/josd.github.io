@@ -6,10 +6,10 @@ sudo ln -sf ~/github.com/KNowledgeOnWebScale/retina/mkretina /usr/local/bin
 sudo ln -sf ~/github.com/KNowledgeOnWebScale/retina/retina /usr/local/bin
 sudo ln -sf ~/github.com/KNowledgeOnWebScale/retina/retinae /usr/local/bin
 sudo ln -sf ~/github.com/eyereasoner/eye/mkeye /usr/local/bin
-sudo ln -sf ~/github.com/eyereasoner/eye2/eye2 /usr/local/bin
-sudo ln -sf ~/github.com/eyereasoner/eye2/mkeye2 /usr/local/bin
 sudo ln -sf ~/github.com/eyereasoner/eye2-scryer/eye2-scryer /usr/local/bin
 sudo ln -sf ~/github.com/eyereasoner/eye2-scryer/mkeye2-scryer /usr/local/bin
+sudo ln -sf ~/github.com/eyereasoner/eye2-swipl/eye2-swipl /usr/local/bin
+sudo ln -sf ~/github.com/eyereasoner/eye2-swipl/mkeye2-swipl /usr/local/bin
 sudo ln -sf ~/github.com/eyereasoner/eye2-trealla/eye2-trealla /usr/local/bin
 sudo ln -sf ~/github.com/eyereasoner/eye2-trealla/mkeye2-trealla /usr/local/bin
 sudo ln -sf ~/github.com/eyereasoner/eye/proofcheck /usr/local/bin
@@ -31,8 +31,8 @@ sudo ln -sf ~/github.com/josd/josd.github.io/temp/mkcard /usr/local/bin
 sudo ln -sf ~/github.com/josd/josd.github.io/temp/mkcases /usr/local/bin
 sudo ln -sf ~/github.com/josd/josd.github.io/temp/mkeuler /usr/local/bin
 sudo ln -sf ~/github.com/josd/josd.github.io/temp/mkeye-js /usr/local/bin
-sudo ln -sf ~/github.com/josd/josd.github.io/temp/mketc2 /usr/local/bin
 sudo ln -sf ~/github.com/josd/josd.github.io/temp/mketc2-scryer /usr/local/bin
+sudo ln -sf ~/github.com/josd/josd.github.io/temp/mketc2-swipl /usr/local/bin
 sudo ln -sf ~/github.com/josd/josd.github.io/temp/mketc2-trealla /usr/local/bin
 sudo ln -sf ~/github.com/josd/josd.github.io/temp/mkjs /usr/local/bin
 sudo ln -sf ~/github.com/josd/josd.github.io/temp/mkjulia /usr/local/bin
