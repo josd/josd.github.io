@@ -29,7 +29,7 @@ sudo ln -sf ~/github.com/josd/josd.github.io/temp/j /usr/local/bin
 sudo ln -sf ~/github.com/josd/josd.github.io/temp/latar /usr/local/bin
 sudo ln -sf ~/github.com/josd/josd.github.io/temp/mkcard /usr/local/bin
 sudo ln -sf ~/github.com/josd/josd.github.io/temp/mkcases /usr/local/bin
-sudo ln -sf ~/github.com/josd/josd.github.io/temp/mkeuler /usr/local/bin
+sudo ln -sf ~/github.com/josd/josd.github.io/temp/mkeye3 /usr/local/bin
 sudo ln -sf ~/github.com/josd/josd.github.io/temp/mkeye-js /usr/local/bin
 sudo ln -sf ~/github.com/josd/josd.github.io/temp/mketc2-scryer /usr/local/bin
 sudo ln -sf ~/github.com/josd/josd.github.io/temp/mketc2-swipl /usr/local/bin
@@ -65,7 +65,6 @@ sudo ln -sf ~/github.com/josd/josd.github.io/temp/u /usr/local/bin
 sudo ln -sf ~/github.com/knowsys/nemo/target/release/nmo /usr/local/bin
 sudo ln -sf ~/github.com/mthom/scryer-prolog/target/release/scryer-prolog /usr/local/bin
 sudo ln -sf ~/github.com/pbonte/roxi/target/release/server /usr/local/bin/roxi
-sudo ln -sf ~/github.com/sasagawa888/nprolog/npl /usr/local/bin
 sudo ln -sf ~/github.com/trealla-prolog/trealla/tpl /usr/local/bin
 sudo ln -sf ~/github.com/vprover/vampire/build/bin/vampire_rel_master_7636 /usr/local/bin/vampire
 sudo ln -sf ~/temp/apache-jena-5.0.0-rc1/bin/riot /usr/local/bin
