@@ -6,11 +6,7 @@ cargo build --release
 popd > /dev/null
 echo ""
 
-pushd ~/github.com/eyereasoner/euler/cases > /dev/null
-./test scryer-prolog
-popd > /dev/null
-echo ""
-
-pushd ~/github.com/eyereasoner/eye2-scryer/etc > /dev/null
+pushd ~/github.com/eyereasoner/eye3 > /dev/null
 ./test
 popd > /dev/null
+echo ""
