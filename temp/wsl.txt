@@ -17,7 +17,9 @@ Font NSimSun
 
 ALT + 0128
 
+sudo mkdir /mnt/g
 sudo mount -t drvfs G: /mnt/g
+ln -s '/mnt/g/Mijn Drive/' 'Google Drive'
 
 sudo crontab -e
 */5 * * * * /usr/sbin/hwclock -s
