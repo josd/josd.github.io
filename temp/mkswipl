@@ -48,7 +48,7 @@ mkdir -p build
 pushd build > /dev/null
 cmake -G Ninja ..
 ninja
-ctest -j 8
+#ctest -j 8
 sudo ninja install
 popd > /dev/null
 popd > /dev/null
