@@ -1,2 +1,8 @@
 #!/bin/bash
+# check the command line
+if [ $# -lt 2 ] ; then
+  echo "Usage: $(basename $0) <pl-file>"
+  exit 1
+fi
+
 eye --quiet --logic-program "$@"
