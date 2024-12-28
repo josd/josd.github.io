@@ -1,2 +1,2 @@
 #!/bin/bash
-eye --quiet --nope --no-bnode-relabeling "$@"
+eye --quiet --logic-program "$@"
