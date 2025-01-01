@@ -1,4 +1,4 @@
 #!/bin/bash
-pushd ~/github.com/eyereasoner/eye/logicizing > /dev/null
+pushd ~/github.com/eyereasoner/eye/logic-programming > /dev/null
 ./test
 popd > /dev/null
