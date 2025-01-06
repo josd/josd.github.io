@@ -30,7 +30,6 @@ sudo ln -sf ~/github.com/josd/josd.github.io/temp/mklnk /usr/local/bin
 sudo ln -sf ~/github.com/josd/josd.github.io/temp/mkmacula /usr/local/bin
 sudo ln -sf ~/github.com/josd/josd.github.io/temp/mkn3 /usr/local/bin
 sudo ln -sf ~/github.com/josd/josd.github.io/temp/mkpackages /usr/local/bin
-sudo ln -sf ~/github.com/josd/josd.github.io/temp/mkplus /usr/local/bin
 sudo ln -sf ~/github.com/josd/josd.github.io/temp/mkpython /usr/local/bin
 sudo ln -sf ~/github.com/josd/josd.github.io/temp/mkreasoning /usr/local/bin
 sudo ln -sf ~/github.com/josd/josd.github.io/temp/mkscryer /usr/local/bin
