@@ -5,3 +5,6 @@ cargo build --release
 #cargo test --release
 popd > /dev/null
 echo ""
+pushd ~/github.com/eyereasoner/eye2 > /dev/null
+./test
+popd > /dev/null
