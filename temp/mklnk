@@ -7,8 +7,8 @@ sudo ln -sf ~/github.com/KNowledgeOnWebScale/retina/retina /usr/local/bin
 sudo ln -sf ~/github.com/KNowledgeOnWebScale/retina/retinae /usr/local/bin
 sudo ln -sf ~/github.com/eyereasoner/eye/mkeye /usr/local/bin
 sudo ln -sf ~/github.com/eyereasoner/eye/proofcheck /usr/local/bin
-sudo ln -sf ~/github.com/eyereasoner/eyerun/eyerun /usr/local/bin
-sudo ln -sf ~/github.com/eyereasoner/eyerun/mkeyerun /usr/local/bin
+sudo ln -sf ~/github.com/eyereasoner/eyezero/eyezero /usr/local/bin
+sudo ln -sf ~/github.com/eyereasoner/eyezero/mkeyezero /usr/local/bin
 sudo ln -sf ~/github.com/eyereasoner/lingua/lingua /usr/local/bin
 sudo ln -sf ~/github.com/eyereasoner/lingua/mklingua /usr/local/bin
 sudo ln -sf ~/github.com/eyereasoner/rdfsurfaces-tests/script/rs2fol.sh /usr/local/bin/rs2fol
@@ -33,7 +33,7 @@ sudo ln -sf ~/github.com/josd/josd.github.io/temp/mkn3 /usr/local/bin
 sudo ln -sf ~/github.com/josd/josd.github.io/temp/mkpackages /usr/local/bin
 sudo ln -sf ~/github.com/josd/josd.github.io/temp/mkpython /usr/local/bin
 sudo ln -sf ~/github.com/josd/josd.github.io/temp/mkreasoning /usr/local/bin
-sudo ln -sf ~/github.com/josd/josd.github.io/temp/mkruns /usr/local/bin
+sudo ln -sf ~/github.com/josd/josd.github.io/temp/mkzero /usr/local/bin
 sudo ln -sf ~/github.com/josd/josd.github.io/temp/mkscryer /usr/local/bin
 sudo ln -sf ~/github.com/josd/josd.github.io/temp/mksurfaces /usr/local/bin
 sudo ln -sf ~/github.com/josd/josd.github.io/temp/mkswipl /usr/local/bin
