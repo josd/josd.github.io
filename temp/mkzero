@@ -1,4 +1,0 @@
-#!/bin/bash
-pushd ~/github.com/eyereasoner/eyezero/cases > /dev/null
-./test
-popd > /dev/null
