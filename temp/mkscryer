@@ -4,3 +4,8 @@ git pull
 cargo build --release
 #cargo test --release
 popd > /dev/null
+echo ""
+
+pushd ~/github.com/eyereasoner/eyelog/etc > /dev/null
+./test-scryer-prolog
+popd > /dev/null

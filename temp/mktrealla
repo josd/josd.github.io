@@ -4,3 +4,8 @@ git pull --all
 make
 #make test
 popd > /dev/null
+echo ""
+
+pushd ~/github.com/eyereasoner/eyelog/etc > /dev/null
+./test-tpl
+popd > /dev/null
