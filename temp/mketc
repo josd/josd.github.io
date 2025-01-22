@@ -1,4 +1,4 @@
 #!/bin/bash
-pushd ~/github.com/eyereasoner/eye2/etc > /dev/null
+pushd ~/github.com/eyereasoner/eyelog/etc > /dev/null
 ./test
 popd > /dev/null

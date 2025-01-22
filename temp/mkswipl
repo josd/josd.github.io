@@ -60,6 +60,6 @@ sudo ./install.sh
 popd > /dev/null
 echo ""
 
-pushd ~/github.com/eyereasoner/eye2 > /dev/null
+pushd ~/github.com/eyereasoner/eyelog > /dev/null
 ./test
 popd > /dev/null
