@@ -7,5 +7,5 @@ popd > /dev/null
 echo ""
 
 pushd ~/github.com/eyereasoner/eyelog/etc > /dev/null
-./test-scryer-prolog
+./test-scryer
 popd > /dev/null
