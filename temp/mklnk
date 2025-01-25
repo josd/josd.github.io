@@ -1,5 +1,6 @@
 #!/bin/bash
 sudo ln -sf /opt/eye/bin/eye /usr/local/bin
+sudo ln -sf /usr/local/sicstus4.9.0/bin/sicstus /usr/local/bin
 sudo ln -sf ~/eyesvn/2006/02swap/mksf /usr/local/bin
 sudo ln -sf ~/github.com/KNowledgeOnWebScale/brow/brow /usr/local/bin
 sudo ln -sf ~/github.com/KNowledgeOnWebScale/retina/mkretina /usr/local/bin
@@ -63,4 +64,3 @@ sudo ln -sf ~/github.com/pbonte/roxi/target/release/server /usr/local/bin/roxi
 sudo ln -sf ~/github.com/trealla-prolog/trealla/tpl /usr/local/bin
 sudo ln -sf ~/github.com/vprover/vampire/build/bin/vampire_rel_master_7636 /usr/local/bin/vampire
 sudo ln -sf ~/temp/apache-jena-5.0.0-rc1/bin/riot /usr/local/bin
-sudo ln -sf ~/.ciaoroot/v1.24.0-m1/build/bin/ciao /usr/local/bin
