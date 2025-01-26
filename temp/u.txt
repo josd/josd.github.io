@@ -419,6 +419,8 @@ history -c && history -w
 find . -type f -exec sed -i 's|/etc|/fluid|g' {} +
 find . -type f -exec sed -i 's|^PREFIX|@prefix|g; /@prefix/ s|>$|>.|g' {} +
 find . -type f -exec sed -i 's|^@prefix|PREFIX|g; /PREFIX/ s|>.$|>|g' {} +
+find . -type f -exec sed -i "s/'http\([^']*\)'/'<http\1>'/g" {} +
+find . -type f -exec sed -i "s/'urn\([^']*\)'/'<urn\1>'/g" {} +
 find . -type f -exec sed -i '/{/ s|^|GRAPH |g' {} +
 find . -type f -exec sed -i 's|) log:on| $) log:on|g; /\$) log:on/ s|(|($ |' {} +
 find . -type f -exec perl -0777 -pi -e 's/\n    log:closedBy/ log:closedBy/igs' {} +
