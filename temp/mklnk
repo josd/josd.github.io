@@ -11,6 +11,7 @@ sudo ln -sf ~/github.com/eyereasoner/eye/proofcheck /usr/local/bin
 sudo ln -sf ~/github.com/eyereasoner/eyelog/eyelog-scryer /usr/local/bin
 sudo ln -sf ~/github.com/eyereasoner/eyelog/eyelog-sicstus /usr/local/bin
 sudo ln -sf ~/github.com/eyereasoner/eyelog/eyelog-swipl /usr/local/bin
+sudo ln -sf ~/github.com/eyereasoner/eyelog/eyelog-swipl /usr/local/bin/eyelog
 sudo ln -sf ~/github.com/eyereasoner/eyelog/eyelog-trealla /usr/local/bin
 sudo ln -sf ~/github.com/eyereasoner/eyelog/mkeyelog /usr/local/bin
 sudo ln -sf ~/github.com/eyereasoner/lingua/lingua /usr/local/bin
