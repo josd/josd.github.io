@@ -24,4 +24,4 @@ git diff
 
 # etc
 pkg install silversearcher-ag
-
+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_1913
