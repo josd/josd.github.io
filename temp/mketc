@@ -1,4 +1,4 @@
 #!/bin/bash
-pushd ~/github.com/eyereasoner/rebus/etc > /dev/null
+pushd ~/github.com/eyereasoner/bus/etc > /dev/null
 ./test-swipl
 popd > /dev/null
