@@ -1,4 +1,10 @@
 #!/bin/bash
 pushd ~/github.com/eyereasoner/eyelog/etc > /dev/null
 ./test-swipl
+echo ""
+
+./test-trealla
+echo ""
+
+./test-scryer
 popd > /dev/null
