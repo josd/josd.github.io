@@ -20,6 +20,8 @@ echo -e '#!/bin/bash\nswipl -q -f ~/eye/eye.pl -g main -- --image ~/eye/eye.pvm'
 chmod +x ~/../usr/bin/i
 echo -e '#!/bin/bash\nswipl -x ~/eye/eye.pvm -- "$@"' > ~/../usr/bin/eye
 chmod +x ~/../usr/bin/eye
+echo -e '#!/bin/bash\ngit reset --hard HEAD\ngit reset --hard origin/$(git rev-parse --abbrev-ref HEAD)' > ~/../usr/bin/gr
+chmod +x ~/../usr/bin/gr
 cd reasoning
 ./test
 git diff
