@@ -12,6 +12,14 @@ gh auth login
 # swipl
 pkg install swi-prolog
 
+# trealla
+cd ~
+git clone https://github.com/trealla-prolog/trealla
+cd trealla
+pkg install xxd
+make
+ln -sf ~/trealla/tpl ~/../usr/bin
+
 # eye
 cd ~
 git clone https://github.com/eyereasoner/eye
