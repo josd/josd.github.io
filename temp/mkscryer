@@ -4,8 +4,3 @@ git pull
 cargo build --release
 #cargo test --release
 popd > /dev/null
-echo ""
-
-pushd ~/github.com/eyereasoner/eyeprover/etc > /dev/null
-./test-scryer
-popd > /dev/null
