@@ -1,0 +1,14 @@
+#!/bin/bash
+pushd ~/github.com/eyereasoner/arvol/plexus > /dev/null
+./test
+popd > /dev/null
+echo ""
+
+pushd ~/github.com/eyereasoner/arvol/plexus/etc > /dev/null
+./test
+popd > /dev/null
+echo ""
+
+pushd ~/github.com/eyereasoner/arvol/nexus > /dev/null
+./test
+popd > /dev/null

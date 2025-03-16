@@ -1,9 +1,0 @@
-#!/bin/bash
-pushd ~/github.com/eyereasoner/arvol/etc > /dev/null
-./test
-popd > /dev/null
-echo ""
-
-pushd ~/github.com/eyereasoner/arvol/alt > /dev/null
-./test
-popd > /dev/null
