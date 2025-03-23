@@ -32,7 +32,6 @@ sudo ln -sf ~/github.com/josd/josd.github.io/temp/mklnk /usr/local/bin
 sudo ln -sf ~/github.com/josd/josd.github.io/temp/mkmacula /usr/local/bin
 sudo ln -sf ~/github.com/josd/josd.github.io/temp/mkn3 /usr/local/bin
 sudo ln -sf ~/github.com/josd/josd.github.io/temp/mknexus /usr/local/bin
-sudo ln -sf ~/github.com/josd/josd.github.io/temp/mkpackages /usr/local/bin
 sudo ln -sf ~/github.com/josd/josd.github.io/temp/mkpython /usr/local/bin
 sudo ln -sf ~/github.com/josd/josd.github.io/temp/mkreasoning /usr/local/bin
 sudo ln -sf ~/github.com/josd/josd.github.io/temp/mkscryer /usr/local/bin
@@ -55,9 +54,7 @@ sudo ln -sf ~/github.com/josd/josd.github.io/temp/swipljs /usr/local/bin
 sudo ln -sf ~/github.com/josd/josd.github.io/temp/taupl /usr/local/bin
 sudo ln -sf ~/github.com/josd/josd.github.io/temp/tension /usr/local/bin
 sudo ln -sf ~/github.com/josd/josd.github.io/temp/u /usr/local/bin
-sudo ln -sf ~/github.com/knowsys/nemo/target/release/nmo /usr/local/bin
 sudo ln -sf ~/github.com/mthom/scryer-prolog/target/release/scryer-prolog /usr/local/bin
 sudo ln -sf ~/github.com/pbonte/roxi/target/release/server /usr/local/bin/roxi
 sudo ln -sf ~/github.com/trealla-prolog/trealla/tpl /usr/local/bin
-sudo ln -sf ~/github.com/vprover/vampire/build/bin/vampire_rel_master_7636 /usr/local/bin/vampire
 sudo ln -sf ~/temp/apache-jena-5.0.0-rc1/bin/riot /usr/local/bin
