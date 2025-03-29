@@ -6,8 +6,6 @@ sudo ln -sf ~/github.com/KNowledgeOnWebScale/brow/brow /usr/local/bin
 sudo ln -sf ~/github.com/KNowledgeOnWebScale/retina/mkretina /usr/local/bin
 sudo ln -sf ~/github.com/KNowledgeOnWebScale/retina/retina /usr/local/bin
 sudo ln -sf ~/github.com/KNowledgeOnWebScale/retina/retinae /usr/local/bin
-sudo ln -sf ~/github.com/eyereasoner/arvol/mkarvol /usr/local/bin
-sudo ln -sf ~/github.com/eyereasoner/arvol/arvol /usr/local/bin
 sudo ln -sf ~/github.com/eyereasoner/eye/mkeye /usr/local/bin
 sudo ln -sf ~/github.com/eyereasoner/eye/proofcheck /usr/local/bin
 sudo ln -sf ~/github.com/eyereasoner/lingua/lingua /usr/local/bin
@@ -31,7 +29,6 @@ sudo ln -sf ~/github.com/josd/josd.github.io/temp/mkjulia /usr/local/bin
 sudo ln -sf ~/github.com/josd/josd.github.io/temp/mklnk /usr/local/bin
 sudo ln -sf ~/github.com/josd/josd.github.io/temp/mkmacula /usr/local/bin
 sudo ln -sf ~/github.com/josd/josd.github.io/temp/mkn3 /usr/local/bin
-sudo ln -sf ~/github.com/josd/josd.github.io/temp/mknexus /usr/local/bin
 sudo ln -sf ~/github.com/josd/josd.github.io/temp/mkpython /usr/local/bin
 sudo ln -sf ~/github.com/josd/josd.github.io/temp/mkreasoning /usr/local/bin
 sudo ln -sf ~/github.com/josd/josd.github.io/temp/mkscryer /usr/local/bin
@@ -54,6 +51,8 @@ sudo ln -sf ~/github.com/josd/josd.github.io/temp/swipljs /usr/local/bin
 sudo ln -sf ~/github.com/josd/josd.github.io/temp/taupl /usr/local/bin
 sudo ln -sf ~/github.com/josd/josd.github.io/temp/tension /usr/local/bin
 sudo ln -sf ~/github.com/josd/josd.github.io/temp/u /usr/local/bin
+sudo ln -sf ~/github.com/josd/setarcos/mksetarcos /usr/local/bin
+sudo ln -sf ~/github.com/josd/setarcos/setarcos /usr/local/bin
 sudo ln -sf ~/github.com/mthom/scryer-prolog/target/release/scryer-prolog /usr/local/bin
 sudo ln -sf ~/github.com/pbonte/roxi/target/release/server /usr/local/bin/roxi
 sudo ln -sf ~/github.com/trealla-prolog/trealla/tpl /usr/local/bin
