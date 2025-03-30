@@ -51,8 +51,6 @@ sudo ln -sf ~/github.com/josd/josd.github.io/temp/swipljs /usr/local/bin
 sudo ln -sf ~/github.com/josd/josd.github.io/temp/taupl /usr/local/bin
 sudo ln -sf ~/github.com/josd/josd.github.io/temp/tension /usr/local/bin
 sudo ln -sf ~/github.com/josd/josd.github.io/temp/u /usr/local/bin
-sudo ln -sf ~/github.com/josd/setarcos/mksetarcos /usr/local/bin
-sudo ln -sf ~/github.com/josd/setarcos/setarcos /usr/local/bin
 sudo ln -sf ~/github.com/mthom/scryer-prolog/target/release/scryer-prolog /usr/local/bin
 sudo ln -sf ~/github.com/pbonte/roxi/target/release/server /usr/local/bin/roxi
 sudo ln -sf ~/github.com/trealla-prolog/trealla/tpl /usr/local/bin
