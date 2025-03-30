@@ -6,6 +6,6 @@ make
 popd > /dev/null
 echo ""
 
-pushd ~/github.com/eyereasoner/eye/reasoning/setarcos > /dev/null
-./test
+pushd ~/github.com/eyereasoner/eye/reasoning/arcus > /dev/null
+./test-trealla
 popd > /dev/null
