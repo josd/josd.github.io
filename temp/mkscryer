@@ -6,6 +6,6 @@ cargo build --release
 popd > /dev/null
 echo ""
 
-pushd ~/github.com/eyereasoner/arvol > /dev/null
+pushd ~/github.com/eyereasoner/eyeneo > /dev/null
 ./test-scryer
 popd > /dev/null
