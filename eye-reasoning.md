@@ -4,4 +4,4 @@
 | blogic | RDF Surfaces | [https://github.com/eyereasoner/eye/tree/master/reasoning/blogic](https://github.com/eyereasoner/eye/tree/master/reasoning/blogic) |
 | lingua | logic described in RDF 1.1 | [https://github.com/eyereasoner/eye/tree/master/reasoning/lingua](https://github.com/eyereasoner/eye/tree/master/reasoning/lingua) |
 | nexus | logic described in RDF 1.0 | [https://github.com/eyereasoner/eye/tree/master/reasoning/nexus](https://github.com/eyereasoner/eye/tree/master/reasoning/nexus) |
-| logos | webized prolog | [https://github.com/eyereasoner/eye/tree/master/logos](https://github.com/eyereasoner/eye/tree/master/logos) |
+| logos | logic expressed in SPARQL | [https://github.com/eyereasoner/eye/tree/master/logos](https://github.com/eyereasoner/eye/tree/master/logos) |
