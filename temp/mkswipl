@@ -58,3 +58,7 @@ pushd ~/github.com/eyereasoner/eye > /dev/null
 sudo ./install.sh
 ./test
 popd > /dev/null
+
+pushd ~/github.com/eyereasoner/arvol > /dev/null
+./test-swipl
+popd > /dev/null
