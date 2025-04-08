@@ -23,3 +23,6 @@ ln -s '/mnt/g/Mijn Drive/' 'Google Drive'
 
 sudo crontab -e
 */5 * * * * /usr/sbin/hwclock -s
+
+netsh wlan show profiles
+netsh wlan show profile name="deroo" key=clear

@@ -56,5 +56,5 @@ sudo ln -sf ~/github.com/josd/josd.github.io/temp/u /usr/local/bin
 sudo ln -sf ~/github.com/mthom/scryer-prolog/target/release/scryer-prolog /usr/local/bin
 sudo ln -sf ~/github.com/pbonte/roxi/target/release/server /usr/local/bin/roxi
 sudo ln -sf ~/github.com/trealla-prolog/trealla/tpl /usr/local/bin
-sudo ln -sf ~/temp/apache-jena-5.0.0-rc1/bin/arq /usr/local/bin
-sudo ln -sf ~/temp/apache-jena-5.0.0-rc1/bin/riot /usr/local/bin
+sudo ln -sf ~/temp/apache-jena-5.3.0/bin/arq /usr/local/bin
+sudo ln -sf ~/temp/apache-jena-5.3.0/bin/riot /usr/local/bin
