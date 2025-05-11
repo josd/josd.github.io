@@ -8,8 +8,8 @@ sudo ln -sf ~/github.com/KNowledgeOnWebScale/retina/retina /usr/local/bin
 sudo ln -sf ~/github.com/KNowledgeOnWebScale/retina/retinae /usr/local/bin
 sudo ln -sf ~/github.com/eyereasoner/eye/mkeye /usr/local/bin
 sudo ln -sf ~/github.com/eyereasoner/eye/proofcheck /usr/local/bin
-sudo ln -sf ~/github.com/eyereasoner/eyelet/eyelet /usr/local/bin
-sudo ln -sf ~/github.com/eyereasoner/eyelet/mkeyelet /usr/local/bin
+sudo ln -sf ~/github.com/eyereasoner/eyewip/eyewip /usr/local/bin
+sudo ln -sf ~/github.com/eyereasoner/eyewip/mkeyewip /usr/local/bin
 sudo ln -sf ~/github.com/eyereasoner/lingua/lingua /usr/local/bin
 sudo ln -sf ~/github.com/eyereasoner/lingua/mklingua /usr/local/bin
 sudo ln -sf ~/github.com/eyereasoner/rdfsurfaces-tests/script/rs2fol.sh /usr/local/bin/rs2fol
