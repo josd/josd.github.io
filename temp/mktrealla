@@ -6,6 +6,6 @@ make
 popd > /dev/null
 echo ""
 
-pushd ~/github.com/eyereasoner/eyewip > /dev/null
+pushd ~/github.com/eyereasoner/eyelet > /dev/null
 ./test
 popd > /dev/null
