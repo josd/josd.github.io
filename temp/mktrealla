@@ -7,5 +7,5 @@ popd > /dev/null
 echo ""
 
 pushd ~/github.com/eyereasoner/eyelet > /dev/null
-./test
+./testtrealla
 popd > /dev/null
