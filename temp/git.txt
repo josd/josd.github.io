@@ -126,7 +126,15 @@ git checkout tags/v1.0.6
 
 curl -H "Accept: application/vnd.github.v3+json" https://api.github.com/repos/josd/treadle/stargazers
 
-
+cd ~/github.com/josd/euler
+git remote add upstream https://github.com/fatho/logru.git
+git remote -v
+git pull upstream main
+    git fetch upstream
+    git merge upstream/main
+git push origin main
+ 
+ 
 -- http://ndpsoftware.com/git-cheatsheet.html
 -- ~/.git-credentials
 -- https://docs.travis-ci.com/user/tutorial/
