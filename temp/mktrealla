@@ -6,6 +6,6 @@ make
 popd > /dev/null
 echo ""
 
-pushd ~/github.com/KNowledgeOnWebScale/eyelet > /dev/null
+pushd ~/github.com/eyereasoner/eyelet-prolog > /dev/null
 ./test-trealla
 popd > /dev/null
