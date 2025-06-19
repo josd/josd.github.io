@@ -424,6 +424,7 @@ find . -type f -exec sed -i "s/'urn\([^']*\)'/'<urn\1>'/g" {} +
 find . -type f -exec sed -i '/{/ s|^|GRAPH |g' {} +
 find . -type f -exec sed -i 's|) log:on| $) log:on|g; /\$) log:on/ s|(|($ |' {} +
 find . -type f -exec perl -0777 -pi -e 's/\n    log:closedBy/ log:closedBy/igs' {} +
+for f in **/*; do [ -f "$f" ] && [ -z "$(tail -n 1 "$f" | tr -d '[:space:]')" ] && echo "$f ends with empty or whitespace"; done
 printf Aladdin:OpenSesame | base64
 printf QWxhZGRpbjpPcGVuU2VzYW1l | base64 --decode
 sed -i '1 s/^\xef\xbb\xbf//' *.n3
