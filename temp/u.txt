@@ -549,5 +549,10 @@ modinfo igc
 # bikeshed
 bikeshed -f spec index.bs
 
+# gcc
+sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-11 20
+sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/clang 10
+sudo update-alternatives --config gcc
+
 # unicode ⇑ € © ∀ ∃ ⊥
 # https://en.wikipedia.org/wiki/Emoji#In_Unicode ✍️ 👍 😊 😉 😎 😂 😆 😇 😛 😱 🤷 🙏 🚴 🙈 🙉 🙊
