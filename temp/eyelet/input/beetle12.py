@@ -1,70 +1,110 @@
 """
-beetle12.py – Encoding the Beetle‑12 example in **ProbLog**
-=========================================================
+beetle12.py
+===========
+Facts
+-----
+    car(beetle).
 
-ProbLog supports *annotated disjunctions*, which map neatly onto the
-N3 “($ {...} {...} $)” choice constructs.  By giving each branch a
-probability of 0.5 we capture the idea that *exactly one* of the options
-holds in any particular possible world, while being able to compute the
-**skeptical probability** (the probability that a query is true across
-all possible choices).  In this deterministic example that probability
-will turn out to be 1.
+Annotated disjunctions  (all branches weight ½, and are exclusive)
+------------------------------------------------------------------
+    green ∨ blue                       (root)
+    nice ∨ pretty                      (under green)
+    nice1 ∨ nice2 ,  pretty1 ∨ pretty2
+    nice11 ∨ nice12, nice21 ∨ nice22,
+    pretty11 ∨ pretty12, pretty21 ∨ pretty22
 
-Install ProbLog with:
+Deterministic rules
+-------------------
+    beautiful ← blue
+    beautiful ← any of {pretty11, pretty12, pretty21, pretty22,
+                        nice11, nice12, nice21, nice22}
 
-```bash
-pip install problog
-```
-
-Run the script:
-
-```bash
-python beetle12.py
-```
-
-You should see that `beetle` is **beautiful** with probability **1.0**
-and none of the intermediate colours/qualities are certain.
-"""
-from problog.program import PrologString
-from problog import get_evaluatable
-
-problog_code = """
-% -------- facts -----------------------------------------------------------
-car(beetle).
-
-% -------- annotated disjunctions -----------------------------------------
-1/2::prop(green,A); 1/2::prop(blue,A)  :- car(A).
-
-1/2::prop(nice,A);  1/2::prop(pretty,A)  :- prop(green,A).
-
-1/2::prop(pretty1,A); 1/2::prop(pretty2,A) :- prop(pretty,A).
-1/2::prop(nice1,A);   1/2::prop(nice2,A)   :- prop(nice,A).
-
-1/2::prop(pretty11,A); 1/2::prop(pretty12,A) :- prop(pretty1,A).
-1/2::prop(pretty21,A); 1/2::prop(pretty22,A) :- prop(pretty2,A).
-
-1/2::prop(nice11,A); 1/2::prop(nice12,A) :- prop(nice1,A).
-1/2::prop(nice21,A); 1/2::prop(nice22,A) :- prop(nice2,A).
-
-% -------- deterministic beauty rules -------------------------------------
-prop(beautiful,A) :- prop(blue,A).
-prop(beautiful,A) :- prop(pretty11,A).
-prop(beautiful,A) :- prop(pretty12,A).
-prop(beautiful,A) :- prop(pretty21,A).
-prop(beautiful,A) :- prop(pretty22,A).
-prop(beautiful,A) :- prop(nice11,A).
-prop(beautiful,A) :- prop(nice12,A).
-prop(beautiful,A) :- prop(nice21,A).
-prop(beautiful,A) :- prop(nice22,A).
-
-% -------- queries ---------------------------------------------------------
-query(prop(beautiful,beetle)).
-query(prop(green,beetle)).
-query(prop(blue,beetle)).
+Queries
+-------
+    prop(beautiful,beetle)
+    prop(green,beetle)
+    prop(blue,beetle)
 """
 
-model = PrologString(problog_code)
-result = get_evaluatable().create_from(model).evaluate()
+from typing import Dict, List, Tuple
 
-for query, prob in result.items():
-    print(f"{query}: {prob}")
+# ───────────────────────────────────────────────────────────────
+# 1 ▸  Enumerate all possible worlds for “beetle”
+#      Each world is represented by its final leaf atom and a weight.
+# ───────────────────────────────────────────────────────────────
+World = Tuple[str, float]          # (true leaf atom, probability weight)
+
+def generate_worlds() -> List[World]:
+    worlds: List[World] = []
+
+    # Root choice: colour
+    for colour in ("green", "blue"):
+        p_colour = 0.5
+
+        if colour == "blue":
+            worlds.append((colour, p_colour))
+            continue
+
+        # Under 'green' we branch to 'nice' or 'pretty'
+        for quality in ("nice", "pretty"):
+            p_quality = p_colour * 0.5
+
+            # quality1 vs quality2
+            for idx1 in ("1", "2"):
+                p_lvl3 = p_quality * 0.5
+                prefix = f"{quality}{idx1}"
+
+                # Each prefix expands to “…1” or “…2”
+                for idx2 in ("1", "2"):
+                    leaf = f"{prefix}{idx2}"
+                    p_leaf = p_lvl3 * 0.5
+                    worlds.append((leaf, p_leaf))
+
+    return worlds
+
+
+# ───────────────────────────────────────────────────────────────
+# 2 ▸  Accumulate probabilities for the three queries
+# ───────────────────────────────────────────────────────────────
+def evaluate_queries(worlds: List[World]) -> Dict[str, float]:
+    probs = {
+        "prop(beautiful,beetle)": 0.0,
+        "prop(green,beetle)":     0.0,
+        "prop(blue,beetle)":      0.0,
+    }
+
+    for atom, weight in worlds:
+        # World always contains its leaf atom
+        if atom.startswith("green"):
+            # The root choice is ‘green’
+            probs["prop(green,beetle)"] += weight
+        elif atom == "blue":
+            probs["prop(blue,beetle)"] += weight
+
+        # Beauty rules:
+        if (
+            atom == "blue" or
+            atom.startswith(("pretty1", "pretty2", "nice1", "nice2"))
+        ):
+            probs["prop(beautiful,beetle)"] += weight
+
+    return probs
+
+
+# ───────────────────────────────────────────────────────────────
+# 3 ▸  Main
+# ───────────────────────────────────────────────────────────────
+def main() -> None:
+    worlds = generate_worlds()
+    results = evaluate_queries(worlds)
+
+    for q in (
+        "prop(beautiful,beetle)",
+        "prop(green,beetle)",
+        "prop(blue,beetle)",
+    ):
+        print(f"{q}: {results[q]}")
+
+if __name__ == "__main__":
+    main()
+
