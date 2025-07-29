@@ -56,6 +56,10 @@ echo ""
 
 pushd ~/github.com/eyereasoner/eye > /dev/null
 sudo ./install.sh
+popd > /dev/null
+echo ""
+
+pushd ~/github.com/eyereasoner/eye/reasoning > /dev/null
 ./test
 popd > /dev/null
 echo ""
