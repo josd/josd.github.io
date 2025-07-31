@@ -1,2 +1,2 @@
 #!/bin/bash
-echo -e "OS:  $(lsb_release -d | cut -f2-)\nCPU: $(lscpu | grep 'Model name:' | sed 's/Model name: *//')\nRAM: $(grep 'MemTotal' /proc/meminfo | sed 's/MemTotal: *//')"
+echo -e "CPU: $(lscpu | grep 'Model name:' | sed 's/Model name: *//')\nRAM: $(grep 'MemTotal' /proc/meminfo | sed 's/MemTotal: *//')\nOS:  $(lsb_release -d | cut -f2-)"
