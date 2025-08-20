@@ -64,6 +64,6 @@ pushd ~/github.com/eyereasoner/eye/reasoning > /dev/null
 popd > /dev/null
 echo ""
 
-pushd ~/github.com/eyereasoner/arvol > /dev/null
+pushd ~/github.com/eyereasoner/eyelet > /dev/null
 ./test-swipl
 popd > /dev/null
