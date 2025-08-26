@@ -1,12 +1,10 @@
 #!/bin/bash
-#pushd ~/github.com/mthom/scryer-prolog > /dev/null
-#git pull
-#cargo build --release
+pushd ~/github.com/mthom/scryer-prolog > /dev/null
+git pull
+cargo build --release
 #cargo test --release
-#popd > /dev/null
-#echo ""
-
-cargo install scryer-prolog
+popd > /dev/null
+echo ""
 
 pushd ~/github.com/eyereasoner/eyelet > /dev/null
 ./test-scryer
