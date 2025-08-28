@@ -563,9 +563,11 @@ sudo add-apt-repository ppa:deadsnakes/ppa
 sudo apt update
 sudo apt install -y python3.12
 sudo apt install -y python3.13
+sudo apt install -y python3.14
 sudo update-alternatives --install /usr/bin/python python /usr/bin/python3.10 1
 sudo update-alternatives --install /usr/bin/python python /usr/bin/python3.12 2
 sudo update-alternatives --install /usr/bin/python python /usr/bin/python3.13 3
+sudo update-alternatives --install /usr/bin/python python /usr/bin/python3.14 4
 sudo update-alternatives --config python
 ----
 curl -sS https://bootstrap.pypa.io/get-pip.py | sudo python
