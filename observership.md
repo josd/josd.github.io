@@ -27,7 +27,7 @@ The hinge between the two pictures is a single idea taken in the **broadest** se
 
 ## The ladder of observership
 
-<img src="./images/ladder-of-observership.png" alt="The Ladder of Observership" width="70%">
+<img src="./images/ladder-of-observership.png" alt="The Ladder of Observership" width="50%">
 
 Start at the bottom rung: **quantum interactions**. When systems interact with their environments, they leave **records**—correlations that spread outward (decoherence). Only certain states are robust enough to be copied redundantly into the world around them; those are the states many observers can later agree on. This is the physics behind the appearance of an objective, classical reality.
 
