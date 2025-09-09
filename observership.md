@@ -27,6 +27,8 @@ The hinge between the two pictures is a single idea taken in the **broadest** se
 
 ## The ladder of observership
 
+![The Ladder of Observership](https://raw.githubusercontent.com/josd/josd.github.io/master/images/ladder-of-observership.png){ width=70% }
+
 Start at the bottom rung: **quantum interactions**. When systems interact with their environments, they leave **records**—correlations that spread outward (decoherence). Only certain states are robust enough to be copied redundantly into the world around them; those are the states many observers can later agree on. This is the physics behind the appearance of an objective, classical reality.
 
 Climb a rung to **life**. Organisms evolve sensors that **harvest those records**—retinas for photons, antennae for chemicals, receptive fields for edges and motion. They compress the torrent of data into **useful regularities** that guide action.
