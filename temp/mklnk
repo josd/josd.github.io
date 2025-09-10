@@ -29,6 +29,7 @@ sudo ln -sf ~/github.com/josd/josd.github.io/temp/latar /usr/local/bin
 sudo ln -sf ~/github.com/josd/josd.github.io/temp/mkcard /usr/local/bin
 sudo ln -sf ~/github.com/josd/josd.github.io/temp/mkcases /usr/local/bin
 sudo ln -sf ~/github.com/josd/josd.github.io/temp/mkeye-js /usr/local/bin
+sudo ln -sf ~/github.com/josd/josd.github.io/temp/mkfun3 /usr/local/bin
 sudo ln -sf ~/github.com/josd/josd.github.io/temp/mkinsights /usr/local/bin
 sudo ln -sf ~/github.com/josd/josd.github.io/temp/mkjs /usr/local/bin
 sudo ln -sf ~/github.com/josd/josd.github.io/temp/mkjulia /usr/local/bin

@@ -1,0 +1,4 @@
+#!/bin/bash
+pushd ~/github.com/william-vw/fun3/python > /dev/null
+python run_manifest.py --system fun3 --what generate --manifest tests-manifest/manifest.ttl
+popd > /dev/null
