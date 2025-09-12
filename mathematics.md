@@ -1,4 +1,4 @@
-# Mathematics, Universe and Observers
+# Mathematics, Physical world and Observership
 
 ## 1. The Stance: Gödelian Platonism
 
