@@ -1,4 +1,4 @@
-# Mathematics, Physics, Observership - The Library and the Path
+# Mathematics, Physics, Observership: the Library and the Path
 
 Think of two big ideas meeting. The first comes from Thomas Hertog and Stephen Hawking. Their picture of the early universe says: at the very beginning, there isn’t a sharp “first moment” with fixed rules. There’s a kind of quantum fog—many possible ways the cosmos could unfold. As the universe grows, some patterns become stable and copyable, and we get the familiar, steady laws of physics we measure today. In other words, the rules we use in labs look fixed now, but they “hardened” only as the world cooled and settled.
 
