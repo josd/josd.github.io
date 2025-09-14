@@ -28,7 +28,5 @@ This also softens the old fight about time. At the library level, nothing flows;
 
 Put together, the story runs like this. The basic furniture of reality is mathematical and inexhaustible. Our universe is one realized path through that furniture. Early on, the path runs through a region where anything that can happen, does—fuzzily. As patterns settle and can be copied, the world turns classical and the laws we know “lock in.” Observers arise inside this stabilized world. They read records, build models, and, with science and math, manage to say an astonishing amount about their corner of the library, even while a final, complete encyclopedia remains out of reach.
 
-The payoffs are practical and philosophical. Practically, it explains why physics works so well and why it sometimes needs to change at the edges: we’re mapping a stable province of a bigger landscape. Philosophically, it lets us honor Gödel’s timeless mathematics without denying the lived reality of time. It also gives a natural place for us: not as cosmic outsiders peering in, but as late-blooming participants whose recording, modeling, and sharing of information help fix which patterns matter in our branch.
-
 So the picture is simple, if large. A timeless library of possibilities; a path that becomes our world; laws that harden as patterns settle; observers who climb from raw records to science; and a reminder from Gödel that there will always be more shelves left to explore.
 
