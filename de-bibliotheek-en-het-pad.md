@@ -2,7 +2,7 @@
 
 ## Observerschap en het oneindige spel van wiskunde
 
-Deze verkenning weeft twee diepgaande ideeën samen. Het eerste komt uit de vroege-universum-kosmologie: in het begin was er geen enkel, scherp “eerste moment” met vaste regels, maar een kwantumnevel van mogelijkheden. Naarmate het heelal zich ontvouwde, werden bepaalde patronen stabiel en zelfreplicerend, wat leidde tot de effectieve natuurwetten die we vandaag meten. Het tweede idee komt van Gödel’s onvolledigheidsstellingen: **als territorium** is wiskunde een onuitputtelijk landschap van waarheid, zo uitgestrekt dat geen eindige verzameling axioma’s het ooit volledig kan omvatten.
+Deze verkenning weeft twee diepgaande ideeën samen. Het eerste komt uit Thomas Hertog and Stephen Hawking's vroege-universum-kosmologie: in het begin was er geen enkel, scherp “eerste moment” met vaste regels, maar een kwantumnevel van mogelijkheden. Naarmate het heelal zich ontvouwde, werden bepaalde patronen stabiel en zelfreplicerend, wat leidde tot de effectieve natuurwetten die we vandaag meten. Het tweede idee komt van Gödel’s onvolledigheidsstellingen: **als territorium** is wiskunde een onuitputtelijk landschap van waarheid, zo uitgestrekt dat geen eindige verzameling axioma’s het ooit volledig kan omvatten.
 
 Een centrale metafoor verheldert deze verbinding. Stel je een tijdloze **Bibliotheek** voor die elk consistent wiskundig bouwplan voor een universum bevat—alle mogelijke geometrieën, interactieregels en zelfs volledige kosmische geschiedenissen. Deze bibliotheek is statisch. Stel je nu een enkel **Pad** voor dat door haar schappen wordt getrokken. Dat pad is onze wereld.
 
