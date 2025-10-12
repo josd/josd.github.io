@@ -1,6 +1,6 @@
 # De Bibliotheek en het Pad
 
-## Observerschap en wiskunde als oneindig spel
+## Observerschap en het oneindige spel van wiskunde
 
 Deze verkenning weeft twee diepgaande ideeën samen. Het eerste komt uit de vroege-universum-kosmologie: in het begin was er geen enkel, scherp “eerste moment” met vaste regels, maar een kwantumnevel van mogelijkheden. Naarmate het heelal zich ontvouwde, werden bepaalde patronen stabiel en zelfreplicerend, wat leidde tot de effectieve natuurwetten die we vandaag meten. Het tweede idee komt van Gödel’s onvolledigheidsstellingen: **als territorium** is wiskunde een onuitputtelijk landschap van waarheid, zo uitgestrekt dat geen eindige verzameling axioma’s het ooit volledig kan omvatten.
 

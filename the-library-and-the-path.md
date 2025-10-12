@@ -1,6 +1,6 @@
 # The Library and the Path
 
-## Observership and Mathematics as an Infinite Game
+## Observership and the Infinite Game of Mathematics
 
 This exploration weaves together two profound ideas. One comes from early-universe cosmology: in the beginning, there was no single, sharp "first moment" with fixed rules, but a quantum haze of possibilities. As the universe unfolded, certain patterns became stable and self-replicating, leading to the effective laws of nature we observe today. The other idea comes from Gödel’s incompleteness theorems: **as territory**, mathematics is an inexhaustible landscape of truth, a realm so vast that no finite set of axioms can ever capture it all.
 
