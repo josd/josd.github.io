@@ -66,7 +66,7 @@ Time belongs to the Path: memories accrue, entropy grows, and causes precede eff
 * **The Library**: The timeless, abstract space of all possible mathematical structures.
 * **The Path**: A single, realized history unfolding through that space.
 * **Observers**: Modeling systems that emerge on the Path and render a branch of the Library legible.
-* **Mathematics (two senses: the Library and the Path)**:
+* **Mathematics (two senses)**:
 
   * **Territory** — an inexhaustible landscape of truths (Gödel).
   * **Practice** — the observer’s infinite game of pruning noise, compressing pattern, and extending coherence.
