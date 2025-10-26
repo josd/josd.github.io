@@ -131,3 +131,8 @@ curl -H "Accept: application/vnd.github.v3+json" https://api.github.com/repos/jo
 -- ~/.git-credentials
 -- https://docs.travis-ci.com/user/tutorial/
 -- https://timonweb.com/misc/how-to-update-a-forked-repo-from-an-upstream-with-git-rebase-or-merge/
+
+-- https://github.com/eyereasoner/eye/blob/896788188c199c772cb252621f5ccbf6c8eece8e/arc/etc/delfour.html
+-- https://raw.githubusercontent.com/eyereasoner/eye/896788188c199c772cb252621f5ccbf6c8eece8e/arc/etc/delfour.html
+-- https://rawcdn.githack.com/eyereasoner/eye/896788188c199c772cb252621f5ccbf6c8eece8e/arc/etc/delfour.html
+
