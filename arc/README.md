@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="arc.svg" alt="The ARC Book logo" />
+  <img src="arc.svg" alt="The ARC Book logo" width=256 />
 </p>
 
 # The ARC Book
