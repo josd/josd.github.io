@@ -8,8 +8,8 @@
 a question-first view of computation. Start with Data, add Logic, and pose
 a precise Question; the result is a self-contained program that does three
 things every time it runs: it produces an answer, it explains why that answer
-follows, and it checks itself. The method behind ARC is deliberately simple
-to remember—[P3](https://josd.github.io/arc/p3/): Prompt → Program → Proof.
+follows, and it checks itself. The method behind ARC is deliberately simple to
+remember—[P3](https://josd.github.io/arc/p3/)—short for Prompt → Program → Proof.
 In practice, the “proof” is not a theorem in a textbook sense but an obligation
 the program carries with it: Proof = Reason Why + Check. The aim is to make
 every run auditable, reproducible, and friendly to continuous integration.
