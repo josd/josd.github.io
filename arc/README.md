@@ -1,8 +1,8 @@
+# The ARC Book
+
 <p align="center">
   <img src="arc.svg" alt="The ARC Book logo" width=512 />
 </p>
-
-# The ARC Book
 
 **Answer • Reason • Check.** ARC is a simple way to write small, trustworthy programs. Each case in this book is more than a black box that spits out a result: it is a short story with three parts. First comes the **answer** to a clear question. Next comes the **reason why** that answer follows—written in everyday language and supported by the relevant identities, rules, or ideas. Finally comes a **check**, a concrete test that can fail loudly if an assumption does not hold or an edge case bites. The result is computation with an auditable trail: you can see what was done, why it was valid, and how the page verifies itself.
 
