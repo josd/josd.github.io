@@ -1,5 +1,4 @@
 # The ARC Book
-by [Jos De Roo](https://josd.github.io/)
 
 <p align="center">
   <img src="./arc.svg" alt="" width="960">
@@ -28,6 +27,7 @@ pick a case, run it, read the Reason Why, and then study the Check. That
 rhythm—the ARC triad—is the point.
 
 ### Examples and Test Cases
+
 - [A₂ (Ackermann via hyper-operations)](https://josd.github.io/arc/etc/ackermann.html) — Compute A₂ with exact hyper-ops; print small, expand huge safely.
 - [Apollonian gasket](https://josd.github.io/arc/etc/apollonian_gasket.html) — Exact tangent-circle packing via Descartes’ theorem and complex centers.
 - [Barbara](https://josd.github.io/arc/etc/barbara.html) — Barbara Term Logic example proved using Resolution.
