@@ -74,7 +74,8 @@ The collection ranges from mathematics and formal logic to routing, clinical pol
 - [**Kaprekar’s Constant**](https://josd.github.io/arc/kaprekar-constant.html) — Exhaustive sweep of every 4‑digit state in Kaprekar’s routine.
 - [**KenKen**](https://josd.github.io/arc/kenken.html) — Latin‑square + cage arithmetic solved with explainable deductions.
 - [**Lee**](https://josd.github.io/arc/lee.html) — Maze routing with Lee’s algorithm; trace optimal wavefront paths.
-- [**Leg Length Discrepancy Measurement**](https://josd.github.io/arc/lldm.html) — From four landmarks.
+- [**Leg Length Discrepancy Measurement**](https://josd.github.io/arc/lldm.html) — Leg Length Discrepancy Measurement from four landmarks.
+- [**Leonhard Euler**](https://josd.github.io/arc/leonhard-euler.html) — A self‑contained research brief for *Leonhard Euler*..
 - [**Library & Path**](https://josd.github.io/arc/library-and-path.html) — Toggle “laws,” search a minimal path to a target observation set.
 - [**Light Eaters**](https://josd.github.io/arc/light-eaters.html) — A self‑contained book brief for *The Light Eaters*.
 - [**Linked Lists**](https://josd.github.io/arc/linked-lists.html) — Term logic example proved using Resolution.
