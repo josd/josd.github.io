@@ -1,0 +1,366 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Eloquent JavaScript (4e) — Book Brief</title>
+<meta name="description" content="A self-contained P3 (Prompt → Program → Proof) brief for Marijn Haverbeke’s Eloquent JavaScript, Fourth Edition — with a developer-focused track." />
+<meta name="author" content="Book: Marijn Haverbeke · Page: you" />
+<style>
+  :root{
+    --bg:#f7f7fb;
+    --card:#ffffff;
+    --ink:#101418;
+    --ink-sub:#4b5563;
+    --muted:#9aa3af;
+    --accent:#b58900;      /* warm yellow accent to nod to the cover */
+    --accent-2:#ffd166;
+    --border:#e8e8ef;
+    --shadow: 0 1px 2px rgba(0,0,0,.05), 0 6px 20px rgba(0,0,0,.06);
+    --radius: 16px;
+    --radius-lg: 22px;
+    --max: 900px;
+  }
+  *{box-sizing:border-box}
+  html,body{background:var(--bg); color:var(--ink); margin:0; font:16px/1.65 system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,Apple Color Emoji,Segoe UI Emoji}
+  a{color:var(--accent); text-decoration:none}
+  a:hover{text-decoration:underline}
+  .wrap{max-width:var(--max); margin:32px auto; padding:0 16px}
+  header.hero{
+    background:linear-gradient(160deg,#fffbea,#ffffff);
+    border:1px solid var(--border);
+    padding:24px;
+    border-radius:var(--radius-lg);
+    box-shadow:var(--shadow);
+  }
+  .title{display:flex; gap:18px; align-items:center; flex-wrap:wrap}
+  .cover{
+    width:110px; height:160px; border-radius:10px; box-shadow:var(--shadow);
+    background:#fff3bf; display:grid; place-items:center; border:1px solid var(--border); overflow:hidden;
+  }
+  .cover svg{width:100%; height:100%}
+  .title h1{font-size:1.65rem; margin:0}
+  .subtitle{color:var(--ink-sub); margin:.25rem 0 0}
+  .badges{display:flex; gap:8px; flex-wrap:wrap; margin-top:8px}
+  .badge{padding:4px 10px; border-radius:999px; background:#fff6cf; color:#6b5300; font-weight:600; font-size:.8rem; border:1px solid #ffec9c}
+  nav.toc{margin-top:14px; padding-top:10px; border-top:1px dashed var(--border); color:var(--ink-sub); display:flex; flex-wrap:wrap; gap:10px}
+  nav.toc a{font-size:.92rem; background:#fff9da; border:1px solid #ffeaa6; padding:6px 10px; border-radius:999px}
+  .cards{display:flex; flex-direction:column; gap:16px; margin-top:18px}
+  .card{background:var(--card); border:1px solid var(--border); border-radius:var(--radius); box-shadow:var(--shadow); padding:18px}
+  .card h2{margin:0 0 .35rem 0; font-size:1.15rem}
+  .card h3{margin:.75rem 0 .25rem; font-size:1rem}
+  .subcard{background:var(--card); border:1px solid var(--border); border-radius:12px; padding:14px; box-shadow:var(--shadow); margin-top:12px}
+  .meta{color:var(--ink-sub); font-size:.95rem}
+  .muted{color:var(--muted)}
+  .list-tight li{margin:.25rem 0}
+  .pill{display:inline-flex; align-items:center; gap:.45rem; padding:4px 9px; border-radius:999px; background:#fff4c2; border:1px solid #ffeaa6; color:#6b5300; font-weight:600}
+  .status-pass{color:#106941}
+  .status-fail{color:#8a2222}
+  .kicker{letter-spacing:.06em; text-transform:uppercase; color:var(--muted); font-size:.78rem; font-weight:700}
+  .quote{border-left:3px solid var(--accent-2); padding-left:10px; color:#213; background:#fffdf3; border-radius:8px; border:1px solid #ffe7a3}
+  .callout{background:#fffdf3; border:1px solid #ffe7a3; padding:12px; border-radius:12px}
+  .small{font-size:.94rem}
+  footer{color:var(--muted); font-size:.9rem; margin-top:22px}
+  code, pre{background:#f3f5f7; border:1px solid #e7e9ee; padding:.25rem .45rem; border-radius:8px; font-size:.95rem}
+  pre{padding:12px; overflow:auto}
+</style>
+
+<!-- Structured data -->
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"Book",
+  "name":"Eloquent JavaScript, 4th Edition: A Modern Introduction to Programming",
+  "author":{"@type":"Person","name":"Marijn Haverbeke"},
+  "publisher":{"@type":"Organization","name":"No Starch Press"},
+  "datePublished":"2024-11-05",
+  "isbn":"9781718504103",
+  "workExample":[
+    {"@type":"Book","bookFormat":"EBook","isbn":"9781718504110"}
+  ],
+  "numberOfPages":"456",
+  "inLanguage":"en",
+  "sameAs":[
+    "https://nostarch.com/eloquent-javascript-4th-edition",
+    "https://eloquentjavascript.net/",
+    "https://www.amazon.com/Eloquent-JavaScript-4th-Marijn-Haverbeke/dp/1718504101",
+    "https://www.oreilly.com/library/view/eloquent-javascript-4th/9781098182502/"
+  ]
+}
+</script>
+</head>
+<body>
+<div class="wrap">
+  <header class="hero" id="top">
+    <div class="title">
+      <div class="cover" aria-hidden="true">
+        <!-- Self-contained SVG “cover” (yellow theme) -->
+        <svg viewBox="0 0 210 300" xmlns="http://www.w3.org/2000/svg">
+          <defs><linearGradient id="g" x1="0" x2="1" y1="0" y2="1">
+            <stop offset="0" stop-color="#fff3bf"/><stop offset="1" stop-color="#ffe082"/>
+          </linearGradient></defs>
+          <rect width="210" height="300" fill="url(#g)"/>
+          <g fill="#6b5300" font-family="Georgia, serif">
+            <text x="20" y="92" font-size="16" font-weight="700">ELOQUENT</text>
+            <text x="20" y="118" font-size="22" font-weight="700">JAVASCRIPT</text>
+            <text x="20" y="142" font-size="12">Fourth Edition — Marijn Haverbeke</text>
+            <text x="20" y="225" font-size="13" font-weight="700">No Starch Press</text>
+          </g>
+          <g stroke="#b58900" stroke-width="2" fill="none" opacity=".7">
+            <path d="M20,250 C80,210 130,270 190,230" />
+            <circle cx="40" cy="240" r="3" fill="#b58900"/>
+            <circle cx="170" cy="240" r="3" fill="#b58900"/>
+          </g>
+        </svg>
+      </div>
+      <div>
+        <div class="kicker">Book Brief · P3 (Prompt → Program → Proof)</div>
+        <h1>Eloquent JavaScript — Fourth Edition</h1>
+        <p class="subtitle">Marijn Haverbeke · No Starch Press · 456 pp · 2024</p>
+        <div class="badges" role="list">
+          <span class="badge" role="listitem">JavaScript</span>
+          <span class="badge" role="listitem">Web + Node</span>
+          <span class="badge" role="listitem">Projects</span>
+          <span class="badge" role="listitem">Open Web Book</span>
+        </div>
+        <nav class="toc" aria-label="On this page">
+          <a href="#p3">P3 Summary</a>
+          <a href="#answer">Answer (TL;DR)</a>
+          <a href="#reasons">Reason Why</a>
+          <a href="#check">Check</a>
+          <a href="#math">Dev Track</a>
+          <a href="#themes">Themes</a>
+          <a href="#studies">Studies & Context</a>
+          <a href="#glossary">Glossary</a>
+          <a href="#meta">Book Metadata</a>
+          <a href="#sources">Citations</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <main class="cards">
+
+    <!-- P3 -->
+    <section class="card" id="p3" aria-labelledby="p3h2">
+      <h2 id="p3h2">P3 Summary: Prompt → Program → Proof</h2>
+
+      <article class="subcard">
+        <h3>Prompt &amp; Question</h3>
+        <p><strong>Prompt:</strong> Create a concise, self-contained brief of <em>Eloquent JavaScript (4e)</em> for developers deciding whether to use it for learning or teaching.</p>
+        <p><strong>Question:</strong> What is covered, what’s new/modernized in the 4th edition, how is it structured (language → browser/Node → projects), and where can you read it online?</p>
+      </article>
+
+      <article class="subcard">
+        <h3>Data (Sources)</h3>
+        <ul class="list-tight small">
+          <li>No Starch Press product page (edition, pages, ISBN, description).<sup><a href="#fn-nostarch">[1]</a></sup></li>
+          <li>Official online book (4th ed., 2024) + license/code sandbox pages.<sup><a href="#fn-site">[2]</a>, <a href="#fn-code">[3]</a></sup></li>
+          <li>Retailer bibliographic details (publication date Nov 5, 2024; pages; ISBN).<sup><a href="#fn-amz">[4]</a>, <a href="#fn-warwicks">[5]</a></sup></li>
+          <li>O’Reilly listing with detailed contents and framing (Language → Browser/Node, projects).<sup><a href="#fn-oreilly">[6]</a>, <a href="#fn-oreilly-toc">[7]</a></sup></li>
+          <li>Booksellers with quick summaries of revised chapters (async, modules, objects).<sup><a href="#fn-bookswagon">[8]</a></sup></li>
+        </ul>
+      </article>
+
+      <article class="subcard">
+        <h3>Logic (How we evaluate)</h3>
+        <ol class="small">
+          <li>Use publisher and official site for canonical facts and online access/licensing.</li>
+          <li>Cross-check pages/ISBN/date with multiple retailers.</li>
+          <li>Use O’Reilly/B&N for Table-of-Contents structure and project chapters.</li>
+        </ol>
+      </article>
+
+      <article class="subcard">
+        <h3>Program (Driver)</h3>
+        <p class="muted small">A tiny “check” harness ensures every <code>data-claim</code> has at least one footnote in <em>Citations</em>.</p>
+<pre><code>// Pseudocode
+const claims=[...document.querySelectorAll('[data-claim]')];
+for (const c of claims) assert(c.querySelector('sup a[href^="#fn-"]'));</code></pre>
+        <div class="callout small">
+          <strong>Proof = Reason Why + Check.</strong> “Reason Why” summarizes evidence; “Check” verifies structure.
+        </div>
+      </article>
+    </section>
+
+    <!-- Answer -->
+    <section class="card" id="answer">
+      <h2>Answer (TL;DR)</h2>
+      <p data-claim="answer">
+        The 4th edition is a modernized, project-driven introduction to JavaScript that teaches the language first, then applies it in the browser and in Node.js, with five guided projects; you can also read it free online under a Creative Commons license (book text) with code under MIT.<sup><a href="#fn-oreilly">[6]</a>, <a href="#fn-oreilly-toc">[7]</a>, <a href="#fn-site">[2]</a></sup>
+      </p>
+    </section>
+
+    <!-- Reason Why -->
+    <section class="card" id="reasons">
+      <h2>Reason Why (Evidence)</h2>
+      <div class="quote small" data-claim="rw-1">
+        The No Starch page lists the 4th edition’s specs (456 pp; ISBN 9781718504103) and positions it as a practical, example-rich introduction; it also provides purchase and sample materials.<sup><a href="#fn-nostarch">[1]</a></sup>
+      </div>
+      <p class="small" data-claim="rw-2">
+        The official site clearly labels the book “4th edition (2024)” and states the text’s Creative Commons BY-NC license and that “all code … may also be considered licensed under an MIT license.”<sup><a href="#fn-site">[2]</a></sup>
+      </p>
+      <p class="small" data-claim="rw-3">
+        Retailer records place the print publication on November 5, 2024, with 456 pages and the listed ISBNs, matching the publisher data.<sup><a href="#fn-amz">[4]</a>, <a href="#fn-warwicks">[5]</a></sup>
+      </p>
+    </section>
+
+    <!-- Check -->
+    <section class="card" id="check">
+      <h2>Check (Self-test)</h2>
+      <p class="small">Automated checks: (1) every claim cites a source; (2) required sections exist; (3) core metadata parses.</p>
+      <ul id="checklist" class="list-tight small"></ul>
+      <p id="status" class="pill" aria-live="polite">Running checks…</p>
+    </section>
+
+    <!-- Dev Track (kept id 'math' for compatibility) -->
+    <section class="card" id="math">
+      <h2>Dev Track: What You’ll Learn in the 4th Edition</h2>
+      <ol>
+        <li data-claim="m1"><strong>Language first.</strong> Part I covers core JavaScript: values & types, program structure, functions, objects & arrays, higher-order functions, object-oriented patterns, errors, regex, modules, and async programming.<sup><a href="#fn-bn-toc">[9]</a>, <a href="#fn-oreilly-toc">[7]</a></sup></li>
+        <li data-claim="m2"><strong>Two environments.</strong> The second half shows how to apply JS in the browser and in Node.js, with practical APIs and patterns.<sup><a href="#fn-oreilly">[6]</a></sup></li>
+        <li data-claim="m3"><strong>Five projects.</strong> Full-chapter projects (e.g., robot, a tiny programming language) develop larger programs step by step.<sup><a href="#fn-bn-toc">[9]</a>, <a href="#fn-oreilly-toc">[7]</a></sup></li>
+        <li data-claim="m4"><strong>Modernized chapters.</strong> Descriptions highlight overhauls to asynchronous programming, modules, and objects to reflect current JavaScript style.<sup><a href="#fn-bookswagon">[8]</a></sup></li>
+        <li data-claim="m5"><strong>Open web version + code sandbox.</strong> The whole book is readable online, with downloadable source and an in-browser runner for chapter code and solutions.<sup><a href="#fn-site">[2]</a>, <a href="#fn-code">[3]</a></sup></li>
+      </ol>
+      <div class="callout small">
+        <strong>Takeaway:</strong> Use it as a beginner-to-intermediate ramp that blends fundamentals, idiomatic modern JS, and hands-on projects across browser and Node.
+      </div>
+    </section>
+
+    <!-- Themes -->
+    <section class="card" id="themes">
+      <h2>Themes</h2>
+      <ol>
+        <li data-claim="t1"><strong>Project-based learning.</strong> Chapters interleave concepts with cumulative projects that force real program structure.<sup><a href="#fn-oreilly-toc">[7]</a></sup></li>
+        <li data-claim="t2"><strong>Idiomatic modern JavaScript.</strong> Emphasis on modules and async patterns updated for today’s ecosystem.<sup><a href="#fn-bookswagon">[8]</a></sup></li>
+        <li data-claim="t3"><strong>Accessible & open.</strong> Free online reading under Creative Commons; code MIT-licensed encourages tinkering and teaching.<sup><a href="#fn-site">[2]</a></sup></li>
+      </ol>
+    </section>
+
+    <!-- Studies & Context -->
+    <section class="card" id="studies">
+      <h2>Studies & Context</h2>
+      <ul class="list-tight">
+        <li data-claim="s1"><strong>Edition & release.</strong> No Starch lists the 4e; retailers confirm a Nov 5, 2024 ship date and 456 pages.<sup><a href="#fn-nostarch">[1]</a>, <a href="#fn-amz">[4]</a>, <a href="#fn-warwicks">[5]</a></sup></li>
+        <li data-claim="s2"><strong>Contents detail.</strong> O’Reilly/B&N entries reflect the two-part structure and project chapters used in the course-style progression.<sup><a href="#fn-oreilly-toc">[7]</a>, <a href="#fn-bn-toc">[9]</a></sup></li>
+      </ul>
+    </section>
+
+    <!-- Glossary -->
+    <section class="card" id="glossary">
+      <h2>Glossary (quick reference)</h2>
+      <dl class="small">
+        <dt><strong>Module</strong></dt>
+        <dd>A file or package that exports values for import elsewhere; the 4e treats modern module patterns in depth.<sup><a href="#fn-bn-toc">[9]</a></sup></dd>
+
+        <dt><strong>Asynchronous programming</strong></dt>
+        <dd>Managing tasks that complete later (events, promises, async/await); extensively revised in this edition.<sup><a href="#fn-bookswagon">[8]</a>, <a href="#fn-bn-toc">[9]</a></sup></dd>
+
+        <dt><strong>Node.js</strong></dt>
+        <dd>JavaScript runtime for servers and tooling; the book’s second half applies JS beyond the browser.<sup><a href="#fn-oreilly">[6]</a></sup></dd>
+      </dl>
+    </section>
+
+    <!-- Metadata -->
+    <section class="card" id="meta">
+      <h2>Book Metadata</h2>
+      <ul class="list-tight small">
+        <li data-claim="md1"><strong>Title:</strong> <em>Eloquent JavaScript, 4th Edition: A Modern Introduction to Programming</em>.<sup><a href="#fn-nostarch">[1]</a></sup></li>
+        <li data-claim="md2"><strong>Author:</strong> Marijn Haverbeke.<sup><a href="#fn-nostarch">[1]</a></sup></li>
+        <li data-claim="md3"><strong>Publisher:</strong> No Starch Press.<sup><a href="#fn-nostarch">[1]</a></sup></li>
+        <li data-claim="md4"><strong>Pages:</strong> 456; <strong>ISBN (paperback):</strong> 978-1718504103; <strong>eBook ISBN:</strong> 978-1718504110.<sup><a href="#fn-nostarch">[1]</a>, <a href="#fn-amz">[4]</a></sup></li>
+        <li data-claim="md5"><strong>Publication:</strong> Publisher lists 2024; retailers show print date Nov 5, 2024.<sup><a href="#fn-nostarch">[1]</a>, <a href="#fn-warwicks">[5]</a></sup></li>
+        <li data-claim="md6"><strong>Official site:</strong> <em>EloquentJavaScript.net</em> hosts the full 4e online and code downloads/sandbox.<sup><a href="#fn-site">[2]</a>, <a href="#fn-code">[3]</a></sup></li>
+      </ul>
+    </section>
+
+    <!-- Citations -->
+    <section class="card footnotes" id="sources" aria-labelledby="sourcesh2">
+      <h2 id="sourcesh2">Citations (for this page)</h2>
+      <ol>
+        <li id="fn-nostarch"><a href="https://nostarch.com/eloquent-javascript-4th-edition">No Starch Press — product page (edition, pages, ISBN, description)</a>. :contentReference[oaicite:0]{index=0}</li>
+        <li id="fn-site"><a href="https://eloquentjavascript.net/">Official site — “4th edition (2024)”, CC BY-NC text & MIT-licensed code</a>. :contentReference[oaicite:1]{index=1}</li>
+        <li id="fn-code"><a href="https://eloquentjavascript.net/code/">Official code & solutions sandbox/downloads</a>. :contentReference[oaicite:2]{index=2}</li>
+        <li id="fn-amz"><a href="https://www.amazon.com/Eloquent-JavaScript-4th-Marijn-Haverbeke/dp/1718504101">Amazon — publication date Nov 5, 2024; ISBN 1718504101 / 9781718504103</a>. :contentReference[oaicite:3]{index=3}</li>
+        <li id="fn-warwicks"><a href="https://www.warwicks.com/book/9781718504103">Warwick’s — paperback details: Nov 5, 2024; 456 pages</a>. :contentReference[oaicite:4]{index=4}</li>
+        <li id="fn-oreilly"><a href="https://www.oreilly.com/library/view/eloquent-javascript-4th/9781098182502/">O’Reilly — book page describing two environments (browser & Node.js)</a>. :contentReference[oaicite:5]{index=5}</li>
+        <li id="fn-oreilly-toc"><a href="https://www.oreilly.com/library/view/eloquent-javascript-4th/9781098182502/xhtml/toc01.xhtml">O’Reilly — detailed contents</a>. :contentReference[oaicite:6]{index=6}</li>
+        <li id="fn-bookswagon"><a href="https://www.bookswagon.com/book/eloquent-javascript-4th-edition-marijn/9781718504103">Bookswagon — summary of revised chapters (async, modules, objects)</a>. :contentReference[oaicite:7]{index=7}</li>
+        <li id="fn-bn-toc"><a href="https://www.barnesandnoble.com/w/eloquent-javascript-4th-edition-marijn-haverbeke/1146152000">Barnes & Noble — table of contents</a>. :contentReference[oaicite:8]{index=8}</li>
+      </ol>
+      <p class="muted small">This brief paraphrases public information; it does not reproduce the book’s text.</p>
+    </section>
+
+    <footer class="muted">
+      <p>Light background · vertical cards · P3 pattern. © You, for personal use.</p>
+    </footer>
+  </main>
+</div>
+
+<!-- Robust self-test script -->
+<script>
+(function () {
+  function runChecks () {
+    var statusEl = document.getElementById('status');
+    var listEl = document.getElementById('checklist');
+
+    function add(name, ok){
+      var li = document.createElement('li');
+      li.textContent = (ok ? '✔︎ ' : '✘ ') + name;
+      li.style.color = ok ? '#106941' : '#8a2222';
+      listEl.appendChild(li);
+      return ok;
+    }
+
+    var allOk = true;
+    try {
+      // 1) Required sections
+      var req = ['p3','answer','reasons','check','math','themes','studies','glossary','meta','sources'];
+      for (var i = 0; i < req.length; i++) {
+        var ok = !!document.getElementById(req[i]);
+        allOk = add('Section #' + req[i] + ' present', ok) && allOk;
+      }
+
+      // 2) Every claim has a citation
+      var claims = document.querySelectorAll('[data-claim]');
+      for (var j = 0; j < claims.length; j++) {
+        var cited = false;
+        var anchors = claims[j].querySelectorAll('sup a[href^="#fn-"]');
+        if (anchors && anchors.length) cited = true;
+        allOk = add('Claim ' + (j + 1) + ' cites a source', cited) && allOk;
+      }
+
+      // 3) Structured data sanity
+      var metaOk = false;
+      try {
+        var ld = document.querySelector('script[type="application/ld+json"]');
+        if (ld) {
+          var data = JSON.parse(ld.textContent || ld.innerText || '{}');
+          metaOk = !!(data && data.name && data.author && data.publisher && data.isbn && data.numberOfPages);
+        }
+      } catch (e) { metaOk = false; }
+      allOk = add('Structured data looks valid', metaOk) && allOk;
+
+      // Status pill
+      statusEl.textContent = allOk ? '✔︎ Check passed' : '✘ Check failed — see list above';
+      statusEl.className = 'pill ' + (allOk ? 'status-pass' : 'status-fail');
+    } catch (err) {
+      statusEl.textContent = '✘ Check error — ' + (err && err.message ? err.message : 'script blocked or runtime error');
+      statusEl.className = 'pill status-fail';
+    }
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', runChecks);
+  } else {
+    runChecks();
+  }
+})();
+</script>
+<noscript>
+  <p class="pill status-fail">✘ JavaScript is disabled — checks cannot run.</p>
+</noscript>
+</body>
+</html>
+

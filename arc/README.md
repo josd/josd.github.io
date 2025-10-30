@@ -48,6 +48,7 @@ The collection ranges from mathematics and formal logic to routing, clinical pol
 - [**Descartes’ circle theorem**](https://josd.github.io/arc/descartes-circles.html) — Compute the fourth tangent circle from three using curvature relations.
 - [**Easter (Computus)**](https://josd.github.io/arc/easter.html) — Derive Easter dates from calendrical rules with verifiable steps.
 - [**Eco-Route**](https://josd.github.io/arc/eco-route.html) — Pick lower-emission routes by fusing traffic, grade, and policy goals.
+- [**Eloquent JavaScript**](https://josd.github.io/arc/eloquent-javascript.html) — A self‑contained research brief for *Eloquent JavaScript*.
 - [**Euclid’s Infinitude of Primes**](https://josd.github.io/arc/euclid-infinitude.html) — Restate the theorem, explain Euclid’s one‑line proof, and run computational checks.
 - [**Euler’s characteristic**](https://josd.github.io/arc/euler-characteristic.html) — Compute χ = V−E+F for meshes; sanity-check against topology rules.
 - [**Euler’s identity**](https://josd.github.io/arc/euler-identity.html) — The most beautiful equation in mathematics.
