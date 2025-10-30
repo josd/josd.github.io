@@ -91,6 +91,7 @@ The collection ranges from mathematics and formal logic to routing, clinical pol
 - [**Poincaré rotation on the circle**](https://josd.github.io/arc/poincare.html) — An irrational circle rotation is non‑repeating and uniform.
 - [**Polynomial roots (Durand–Kerner)**](https://josd.github.io/arc/polynomial.html) — Find all roots simultaneously; prove convergence on typical cases.
 - [**Primes**](https://josd.github.io/arc/prime.html) — Generate/test primes; log certs (trial factors or proofs) as checks.
+- [**Proofs from THE BOOK**](https://josd.github.io/arc/proofs-from-the-book.html) — A self‑contained book brief for *Proofs from THE BOOK*.
 - [**Pythagorean Theorem**](https://josd.github.io/arc/pythagorean-theorem.html) — Compute legs/hypotenuse and confirm with algebraic or area proofs.
 - [**REST‑path**](https://josd.github.io/arc/rest-path.html) — Explain link‑following over REST resources; verify pre/post conditions.
 - [**Roots of Unity**](https://josd.github.io/arc/roots-of-unity.html) — Place complex n‑th roots on the unit circle; check spacing and sums/products.

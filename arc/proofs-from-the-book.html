@@ -1,0 +1,362 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Proofs from THE BOOK (6e) — Book Brief</title>
+<meta name="description" content="A self-contained P3 (Prompt → Program → Proof) brief for Aigner & Ziegler’s Proofs from THE BOOK (Sixth Edition), with examples of topics and sources." />
+<meta name="author" content="Book: Aigner & Ziegler · Page: you" />
+<style>
+  :root{
+    --bg:#f7f7fb;
+    --card:#ffffff;
+    --ink:#101418;
+    --ink-sub:#4b5563;
+    --muted:#9aa3af;
+    --accent:#a64500;      /* warm springer-ish orange */
+    --accent-2:#f5a35a;
+    --border:#e8e8ef;
+    --shadow: 0 1px 2px rgba(0,0,0,.05), 0 6px 20px rgba(0,0,0,.06);
+    --radius: 16px;
+    --radius-lg: 22px;
+    --max: 900px;
+  }
+  *{box-sizing:border-box}
+  html,body{background:var(--bg); color:var(--ink); margin:0; font:16px/1.65 system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,Apple Color Emoji,Segoe UI Emoji}
+  a{color:var(--accent); text-decoration:none}
+  a:hover{text-decoration:underline}
+  .wrap{max-width:var(--max); margin:32px auto; padding:0 16px}
+  header.hero{
+    background:linear-gradient(160deg,#fff7f0,#ffffff);
+    border:1px solid var(--border);
+    padding:24px;
+    border-radius:var(--radius-lg);
+    box-shadow:var(--shadow);
+  }
+  .title{display:flex; gap:18px; align-items:center; flex-wrap:wrap}
+  .cover{
+    width:110px; height:160px; border-radius:10px; box-shadow:var(--shadow);
+    background:#fff0e5; display:grid; place-items:center; border:1px solid var(--border); overflow:hidden;
+  }
+  .cover svg{width:100%; height:100%}
+  .title h1{font-size:1.65rem; margin:0}
+  .subtitle{color:var(--ink-sub); margin:.25rem 0 0}
+  .badges{display:flex; gap:8px; flex-wrap:wrap; margin-top:8px}
+  .badge{padding:4px 10px; border-radius:999px; background:#fff2e8; color:#8a3b00; font-weight:600; font-size:.8rem; border:1px solid #ffe1c9}
+  nav.toc{margin-top:14px; padding-top:10px; border-top:1px dashed var(--border); color:var(--ink-sub); display:flex; flex-wrap:wrap; gap:10px}
+  nav.toc a{font-size:.92rem; background:#fff6ef; border:1px solid #ffeadb; padding:6px 10px; border-radius:999px}
+  .cards{display:flex; flex-direction:column; gap:16px; margin-top:18px}
+  .card{background:var(--card); border:1px solid var(--border); border-radius:var(--radius); box-shadow:var(--shadow); padding:18px}
+  .card h2{margin:0 0 .35rem 0; font-size:1.15rem}
+  .card h3{margin:.75rem 0 .25rem; font-size:1rem}
+  .subcard{background:var(--card); border:1px solid var(--border); border-radius:12px; padding:14px; box-shadow:var(--shadow); margin-top:12px}
+  .meta{color:var(--ink-sub); font-size:.95rem}
+  .muted{color:var(--muted)}
+  .list-tight li{margin:.25rem 0}
+  .pill{display:inline-flex; align-items:center; gap:.45rem; padding:4px 9px; border-radius:999px; background:#fff1e5; border:1px solid #ffe1c9; color:#8a3b00; font-weight:600}
+  .status-pass{color:#106941}
+  .status-fail{color:#8a2222}
+  .kicker{letter-spacing:.06em; text-transform:uppercase; color:var(--muted); font-size:.78rem; font-weight:700}
+  .quote{border-left:3px solid var(--accent-2); padding-left:10px; color:#213; background:#fffaf5; border-radius:8px; border:1px solid #ffe7d2}
+  .callout{background:#fff9f3; border:1px solid #ffe5cf; padding:12px; border-radius:12px}
+  .small{font-size:.94rem}
+  footer{color:var(--muted); font-size:.9rem; margin-top:22px}
+  code, pre{background:#f3f5f7; border:1px solid #e7e9ee; padding:.25rem .45rem; border-radius:8px; font-size:.95rem}
+  pre{padding:12px; overflow:auto}
+</style>
+
+<!-- Structured data -->
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"Book",
+  "name":"Proofs from THE BOOK",
+  "bookEdition":"6",
+  "author":[{"@type":"Person","name":"Martin Aigner"},{"@type":"Person","name":"Günter M. Ziegler"}],
+  "publisher":{"@type":"Organization","name":"Springer Berlin, Heidelberg"},
+  "datePublished":"2018-07-06",
+  "isbn":"9783662572641",
+  "workExample":[
+    {"@type":"Book","bookFormat":"EBook","isbn":"9783662572658"},
+    {"@type":"Book","bookFormat":"Hardcover","isbn":"9783662572641"}
+  ],
+  "numberOfPages":"326",
+  "sameAs":[
+    "https://link.springer.com/book/10.1007/978-3-662-57265-8",
+    "https://en.wikipedia.org/wiki/Proofs_from_THE_BOOK"
+  ]
+}
+</script>
+</head>
+<body>
+<div class="wrap">
+  <header class="hero" id="top">
+    <div class="title">
+      <div class="cover" aria-hidden="true">
+        <!-- Self-contained SVG “cover” (warm orange) -->
+        <svg viewBox="0 0 210 300" xmlns="http://www.w3.org/2000/svg">
+          <defs><linearGradient id="g" x1="0" x2="1" y1="0" y2="1">
+            <stop offset="0" stop-color="#fff0dc"/><stop offset="1" stop-color="#ffd2a6"/>
+          </linearGradient></defs>
+          <rect width="210" height="300" fill="url(#g)"/>
+          <g fill="#8a3b00" font-family="Georgia, serif">
+            <text x="20" y="92" font-size="16" font-weight="700">PROOFS FROM</text>
+            <text x="20" y="118" font-size="22" font-weight="700">THE BOOK</text>
+            <text x="20" y="142" font-size="12">Sixth Edition — Aigner · Ziegler</text>
+            <text x="20" y="225" font-size="13" font-weight="700">Springer</text>
+          </g>
+          <g stroke="#f2994a" stroke-width="2" fill="none" opacity=".6">
+            <path d="M20,250 C80,210 130,270 190,230" />
+            <circle cx="40" cy="240" r="3" fill="#f2994a"/>
+            <circle cx="170" cy="240" r="3" fill="#f2994a"/>
+          </g>
+        </svg>
+      </div>
+      <div>
+        <div class="kicker">Book Brief · P3 (Prompt → Program → Proof)</div>
+        <h1>Proofs from THE BOOK — Sixth Edition</h1>
+        <p class="subtitle">Martin Aigner &amp; Günter M. Ziegler · Springer · 326 pp</p>
+        <div class="badges" role="list">
+          <span class="badge" role="listitem">Elegant Proofs</span>
+          <span class="badge" role="listitem">Number Theory</span>
+          <span class="badge" role="listitem">Geometry</span>
+          <span class="badge" role="listitem">Combinatorics</span>
+        </div>
+        <nav class="toc" aria-label="On this page">
+          <a href="#p3">P3 Summary</a>
+          <a href="#answer">Answer (TL;DR)</a>
+          <a href="#reasons">Reason Why</a>
+          <a href="#check">Check</a>
+          <a href="#math">Math Track</a>
+          <a href="#themes">Themes</a>
+          <a href="#studies">Studies & Context</a>
+          <a href="#glossary">Glossary</a>
+          <a href="#meta">Book Metadata</a>
+          <a href="#sources">Citations</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <main class="cards">
+
+    <!-- P3 -->
+    <section class="card" id="p3" aria-labelledby="p3h2">
+      <h2 id="p3h2">P3 Summary: Prompt → Program → Proof</h2>
+
+      <article class="subcard">
+        <h3>Prompt &amp; Question</h3>
+        <p><strong>Prompt:</strong> Create a concise, self-contained brief of <em>Proofs from THE BOOK (6e)</em> with examples of topics and the aesthetic idea behind “The Book”.</p>
+        <p><strong>Question:</strong> What is “The Book” idea attributed to Erdős, what’s new in the sixth edition, and what range of theorems does the book cover?</p>
+      </article>
+
+      <article class="subcard">
+        <h3>Data (Sources)</h3>
+        <ul class="list-tight small">
+          <li>SpringerLink product page (official metadata, ToC with 45 chapters, new material notes).<sup><a href="#fn-springer">[1]</a></sup></li>
+          <li>Overview of the Erdős “Book” idea, editions, languages, examples, and Steele Prize note.<sup><a href="#fn-wiki">[2]</a></sup></li>
+          <li>AMS announcement of the 2018 Leroy P. Steele Prize for Mathematical Exposition awarded for this book.<sup><a href="#fn-ams-steele">[3]</a></sup></li>
+        </ul>
+      </article>
+
+      <article class="subcard">
+        <h3>Logic (How we evaluate)</h3>
+        <ol class="small">
+          <li>Use the Springer page for bibliographic facts, pages, ISBNs, ToC, and “what’s new”.</li>
+          <li>Use the AMS notice and Wikipedia for context: Erdős’s concept and the prize.</li>
+          <li>When citing particular chapter topics, reference the ToC entries on Springer.</li>
+        </ol>
+      </article>
+
+      <article class="subcard">
+        <h3>Program (Driver)</h3>
+        <p class="muted small">A tiny “check” harness ensures every <code>data-claim</code> has at least one footnote in <em>Citations</em>.</p>
+<pre><code>// Pseudocode
+const claims=[...document.querySelectorAll('[data-claim]')];
+for (const c of claims) assert(c.querySelector('sup a[href^="#fn-"]'));</code></pre>
+        <div class="callout small">
+          <strong>Proof = Reason Why + Check.</strong> “Reason Why” summarizes evidence; “Check” verifies structure.
+        </div>
+      </article>
+    </section>
+
+    <!-- Answer -->
+    <section class="card" id="answer">
+      <h2>Answer (TL;DR)</h2>
+      <p data-claim="answer">
+        Aigner and Ziegler curate elegant, insight-driven proofs—the kind Erdős imagined living in “The Book”—across number theory, geometry, analysis, combinatorics, and graph theory; the sixth edition adds a new chapter on van der Waerden’s permanent conjecture, new sections (for example on Latin squares), and a new proof of the Basel problem.<sup><a href="#fn-springer">[1]</a>, <a href="#fn-wiki">[2]</a></sup>
+      </p>
+    </section>
+
+    <!-- Reason Why -->
+    <section class="card" id="reasons">
+      <h2>Reason Why (Evidence)</h2>
+      <div class="quote small" data-claim="rw-1">
+        Springer lists it as the revised and enlarged sixth edition with the new permanent-conjecture chapter, new sections on the asymptotics of Latin squares, and a new Basel-problem proof; the ToC shows 45 chapters.<sup><a href="#fn-springer">[1]</a></sup>
+      </div>
+      <p class="small" data-claim="rw-2">
+        The “Book” idea—God’s collection of the most beautiful proofs—is widely attributed to Paul Erdős; the book’s title is an homage to that concept and the authors received the AMS Steele Prize (2018) for exposition for this work.<sup><a href="#fn-wiki">[2]</a>, <a href="#fn-ams-steele">[3]</a></sup>
+      </p>
+    </section>
+
+    <!-- Check -->
+    <section class="card" id="check">
+      <h2>Check (Self-test)</h2>
+      <p class="small">Automated checks: (1) every claim cites a source; (2) required sections exist; (3) core metadata parses.</p>
+      <ul id="checklist" class="list-tight small"></ul>
+      <p id="status" class="pill" aria-live="polite">Running checks…</p>
+    </section>
+
+    <!-- Math Track -->
+    <section class="card" id="math">
+      <h2>Math Track: Representative Gems in the Sixth Edition</h2>
+      <ol>
+        <li data-claim="m1"><strong>Six proofs of the infinitude of primes.</strong> A tour from Euclid-style arguments to topological and analytic twists (chapter listed in ToC).<sup><a href="#fn-springer">[1]</a></sup></li>
+        <li data-claim="m2"><strong>Quadratic reciprocity.</strong> Several clean proofs illuminate the law’s symmetry for odd primes.<sup><a href="#fn-springer">[1]</a>, <a href="#fn-qr">[4]</a></sup></li>
+        <li data-claim="m3"><strong>Wedderburn’s little theorem.</strong> Every finite division ring is a field—an algebraic highlight with short proofs.<sup><a href="#fn-springer">[1]</a>, <a href="#fn-wedderburn">[5]</a></sup></li>
+        <li data-claim="m4"><strong>Basel problem, new proof.</strong> The classic sum of inverse squares gets a fresh treatment in this edition.<sup><a href="#fn-springer">[1]</a>, <a href="#fn-basel">[6]</a></sup></li>
+        <li data-claim="m5"><strong>Hilbert’s third problem.</strong> Decomposing polyhedra—an elegant geometric chapter.<sup><a href="#fn-springer">[1]</a></sup></li>
+        <li data-claim="m6"><strong>Spectral theorem & Hadamard’s determinant problem.</strong> Linear-algebraic vistas with crisp arguments.<sup><a href="#fn-springer">[1]</a></sup></li>
+        <li data-claim="m7"><strong>New chapter: van der Waerden’s permanent conjecture.</strong> A modern jewel added in the sixth edition.<sup><a href="#fn-springer">[1]</a></sup></li>
+      </ol>
+      <div class="callout small">
+        <strong>Takeaway:</strong> The book emphasizes short, surprising arguments and multiple proofs, illustrating mathematical beauty via contrast and economy.<sup><a href="#fn-springer">[1]</a>, <a href="#fn-wiki">[2]</a></sup>
+      </div>
+    </section>
+
+    <!-- Themes -->
+    <section class="card" id="themes">
+      <h2>Themes</h2>
+      <ol>
+        <li data-claim="t1"><strong>Beauty and brevity.</strong> The curatorial lens is elegance first—proofs selected for insight and simplicity.<sup><a href="#fn-springer">[1]</a></sup></li>
+        <li data-claim="t2"><strong>Many roads to truth.</strong> Multiple independent proofs of the same theorem highlight structure and intuition.<sup><a href="#fn-springer">[1]</a>, <a href="#fn-wiki">[2]</a></sup></li>
+        <li data-claim="t3"><strong>Cross-field unity.</strong> Number theory, geometry, analysis, combinatorics, and graph theory sit side by side, reinforcing shared ideas.<sup><a href="#fn-springer">[1]</a></sup></li>
+      </ol>
+    </section>
+
+    <!-- Studies & Context -->
+    <section class="card" id="studies">
+      <h2>Studies & Context</h2>
+      <ul class="list-tight">
+        <li data-claim="s1"><strong>Editions and scope.</strong> From the first edition to the sixth (45 chapters), with translations into many languages.<sup><a href="#fn-wiki">[2]</a>, <a href="#fn-springer">[1]</a></sup></li>
+        <li data-claim="s2"><strong>Recognition.</strong> AMS Steele Prize for Mathematical Exposition awarded to Aigner and Ziegler for this book (2018).<sup><a href="#fn-ams-steele">[3]</a></sup></li>
+      </ul>
+    </section>
+
+    <!-- Glossary -->
+    <section class="card" id="glossary">
+      <h2>Glossary (quick reference)</h2>
+      <dl class="small">
+        <dt><strong>The Book (Erdős)</strong></dt>
+        <dd>The imagined compendium of the most beautiful proofs; the book’s title is an homage to this idea.<sup><a href="#fn-wiki">[2]</a></sup></dd>
+
+        <dt><strong>Quadratic reciprocity</strong></dt>
+        <dd>Symmetry law describing when one prime is a quadratic residue modulo another; a central result in elementary number theory.<sup><a href="#fn-qr">[4]</a></sup></dd>
+
+        <dt><strong>Basel problem</strong></dt>
+        <dd>Evaluation of the series 1 + 1/2² + 1/3² + … = π²/6; featured with a new proof in this edition.<sup><a href="#fn-springer">[1]</a>, <a href="#fn-basel">[6]</a></sup></dd>
+
+        <dt><strong>Wedderburn’s little theorem</strong></dt>
+        <dd>Every finite division ring is a field; appears among the algebraic highlights.<sup><a href="#fn-wedderburn">[5]</a>, <a href="#fn-springer">[1]</a></sup></dd>
+      </dl>
+    </section>
+
+    <!-- Metadata -->
+    <section class="card" id="meta">
+      <h2>Book Metadata</h2>
+      <ul class="list-tight small">
+        <li data-claim="md1"><strong>Title:</strong> <em>Proofs from THE BOOK</em> (Sixth Edition).<sup><a href="#fn-springer">[1]</a></sup></li>
+        <li data-claim="md2"><strong>Authors:</strong> Martin Aigner; Günter M. Ziegler.<sup><a href="#fn-springer">[1]</a></sup></li>
+        <li data-claim="md3"><strong>Publisher:</strong> Springer Berlin, Heidelberg.<sup><a href="#fn-springer">[1]</a></sup></li>
+        <li data-claim="md4"><strong>Publication:</strong> eBook 2018-06-14; hardcover 2018-07-06.<sup><a href="#fn-springer">[1]</a></sup></li>
+        <li data-claim="md5"><strong>Pages:</strong> 326 (VIII + 326); <strong>ISBN (HC):</strong> 978-3-662-57264-1; <strong>ISBN (eBook):</strong> 978-3-662-57265-8.<sup><a href="#fn-springer">[1]</a></sup></li>
+        <li data-claim="md6"><strong>Scope:</strong> 45 chapters across number theory, geometry, analysis, combinatorics, graph theory.<sup><a href="#fn-springer">[1]</a></sup></li>
+      </ul>
+    </section>
+
+    <!-- Citations -->
+    <section class="card footnotes" id="sources" aria-labelledby="sourcesh2">
+      <h2 id="sourcesh2">Citations (for this page)</h2>
+      <ol>
+        <li id="fn-springer"><a href="https://link.springer.com/book/10.1007/978-3-662-57265-8">SpringerLink — Proofs from THE BOOK (6th ed.) — metadata, ToC (45 chapters), new material notes</a>.</li>
+        <li id="fn-wiki"><a href="https://en.wikipedia.org/wiki/Proofs_from_THE_BOOK">Wikipedia — background on the title’s Erdős theme; examples; editions and translations</a>.</li>
+        <li id="fn-ams-steele"><a href="https://www.ams.org/journals/notices/201804/rnoti-p455.pdf">AMS Notices — 2018 Leroy P. Steele Prizes (Exposition prize to Aigner &amp; Ziegler for this book)</a>.</li>
+        <li id="fn-qr"><a href="https://en.wikipedia.org/wiki/Quadratic_reciprocity">Wikipedia — Quadratic reciprocity (overview)</a>.</li>
+        <li id="fn-wedderburn"><a href="https://en.wikipedia.org/wiki/Wedderburn%27s_little_theorem">Wikipedia — Wedderburn’s little theorem (overview)</a>.</li>
+        <li id="fn-basel"><a href="https://en.wikipedia.org/wiki/Basel_problem">Wikipedia — Basel problem (overview)</a>.</li>
+      </ol>
+      <p class="muted small">This brief paraphrases public information; it does not reproduce the book’s text.</p>
+    </section>
+
+    <footer class="muted">
+      <p>Light background · vertical cards · P3 pattern. © You, for personal use.</p>
+    </footer>
+  </main>
+</div>
+
+<!-- Robust self-test script -->
+<script>
+(function () {
+  function runChecks () {
+    var statusEl = document.getElementById('status');
+    var listEl = document.getElementById('checklist');
+
+    function add(name, ok){
+      var li = document.createElement('li');
+      li.textContent = (ok ? '✔︎ ' : '✘ ') + name;
+      li.style.color = ok ? '#106941' : '#8a2222';
+      listEl.appendChild(li);
+      return ok;
+    }
+
+    var allOk = true;
+    try {
+      // 1) Required sections
+      var req = ['p3','answer','reasons','check','math','themes','studies','glossary','meta','sources'];
+      for (var i = 0; i < req.length; i++) {
+        var ok = !!document.getElementById(req[i]);
+        allOk = add('Section #' + req[i] + ' present', ok) && allOk;
+      }
+
+      // 2) Every claim has a citation
+      var claims = document.querySelectorAll('[data-claim]');
+      for (var j = 0; j < claims.length; j++) {
+        var cited = false;
+        var anchors = claims[j].querySelectorAll('sup a[href^="#fn-"]');
+        if (anchors && anchors.length) cited = true;
+        allOk = add('Claim ' + (j + 1) + ' cites a source', cited) && allOk;
+      }
+
+      // 3) Structured data sanity
+      var metaOk = false;
+      try {
+        var ld = document.querySelector('script[type="application/ld+json"]');
+        if (ld) {
+          var data = JSON.parse(ld.textContent || ld.innerText || '{}');
+          metaOk = !!(data && data.name && data.author && data.publisher && data.isbn && data.numberOfPages);
+        }
+      } catch (e) { metaOk = false; }
+      allOk = add('Structured data looks valid', metaOk) && allOk;
+
+      // Status pill
+      statusEl.textContent = allOk ? '✔︎ Check passed' : '✘ Check failed — see list above';
+      statusEl.className = 'pill ' + (allOk ? 'status-pass' : 'status-fail');
+    } catch (err) {
+      statusEl.textContent = '✘ Check error — ' + (err && err.message ? err.message : 'script blocked or runtime error');
+      statusEl.className = 'pill status-fail';
+    }
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', runChecks);
+  } else {
+    runChecks();
+  }
+})();
+</script>
+<noscript>
+  <p class="pill status-fail">✘ JavaScript is disabled — checks cannot run.</p>
+</noscript>
+</body>
+</html>
+
