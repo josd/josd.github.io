@@ -1,0 +1,334 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Introduction to Logic (3e) — Book Brief</title>
+<meta name="description" content="A self-contained P3 (Prompt → Program → Proof) brief for Michael Genesereth & Eric J. Kao’s Introduction to Logic, Third Edition — with a logic/CS focus." />
+<meta name="author" content="Book: Genesereth & Kao · Page: you" />
+<style>
+  :root{
+    --bg:#f7f7fb;
+    --card:#ffffff;
+    --ink:#101418;
+    --ink-sub:#4b5563;
+    --muted:#9aa3af;
+    --accent:#2d5d9f;      /* calm blue */
+    --accent-2:#7ea6db;
+    --border:#e8e8ef;
+    --shadow: 0 1px 2px rgba(0,0,0,.05), 0 6px 20px rgba(0,0,0,.06);
+    --radius: 16px;
+    --radius-lg: 22px;
+    --max: 900px;
+  }
+  *{box-sizing:border-box}
+  html,body{background:var(--bg); color:var(--ink); margin:0; font:16px/1.65 system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,Apple Color Emoji,Segoe UI Emoji}
+  a{color:var(--accent); text-decoration:none}
+  a:hover{text-decoration:underline}
+  .wrap{max-width:var(--max); margin:32px auto; padding:0 16px}
+  header.hero{
+    background:linear-gradient(160deg,#f5f8fe,#ffffff);
+    border:1px solid var(--border);
+    padding:24px;
+    border-radius:var(--radius-lg);
+    box-shadow:var(--shadow);
+  }
+  .title{display:flex; gap:18px; align-items:center; flex-wrap:wrap}
+  .cover{
+    width:110px; height:160px; border-radius:10px; box-shadow:var(--shadow);
+    background:#eef3fb; display:grid; place-items:center; border:1px solid var(--border); overflow:hidden;
+  }
+  .cover svg{width:100%; height:100%}
+  .title h1{font-size:1.65rem; margin:0}
+  .subtitle{color:var(--ink-sub); margin:.25rem 0 0}
+  .badges{display:flex; gap:8px; flex-wrap:wrap; margin-top:8px}
+  .badge{padding:4px 10px; border-radius:999px; background:#edf2fb; color:#254d85; font-weight:600; font-size:.8rem; border:1px solid #dfe6f6}
+  nav.toc{margin-top:14px; padding-top:10px; border-top:1px dashed var(--border); color:var(--ink-sub); display:flex; flex-wrap:wrap; gap:10px}
+  nav.toc a{font-size:.92rem; background:#f3f6fc; border:1px solid #e3eaf7; padding:6px 10px; border-radius:999px}
+  .cards{display:flex; flex-direction:column; gap:16px; margin-top:18px}
+  .card{background:var(--card); border:1px solid var(--border); border-radius:var(--radius); box-shadow:var(--shadow); padding:18px}
+  .card h2{margin:0 0 .35rem 0; font-size:1.15rem}
+  .card h3{margin:.75rem 0 .25rem; font-size:1rem}
+  .subcard{background:var(--card); border:1px solid var(--border); border-radius:12px; padding:14px; box-shadow:var(--shadow); margin-top:12px}
+  .meta{color:var(--ink-sub); font-size:.95rem}
+  .muted{color:var(--muted)}
+  .list-tight li{margin:.25rem 0}
+  .pill{display:inline-flex; align-items:center; gap:.45rem; padding:4px 9px; border-radius:999px; background:#f1f6ff; border:1px solid #e3ebff; color:#234c88; font-weight:600}
+  .status-pass{color:#106941}
+  .status-fail{color:#8a2222}
+  .kicker{letter-spacing:.06em; text-transform:uppercase; color:var(--muted); font-size:.78rem; font-weight:700}
+  .quote{border-left:3px solid var(--accent-2); padding-left:10px; color:#213; background:#f9fbfe; border-radius:8px; border:1px solid #e9eefb}
+  .callout{background:#f6f9fe; border:1px solid #e2e8f6; padding:12px; border-radius:12px}
+  .small{font-size:.94rem}
+  footer{color:var(--muted); font-size:.9rem; margin-top:22px}
+  code, pre{background:#f3f5f7; border:1px solid #e7e9ee; padding:.25rem .45rem; border-radius:8px; font-size:.95rem}
+  pre{padding:12px; overflow:auto}
+</style>
+
+<!-- Structured data (lean: avoid overclaiming) -->
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"Book",
+  "name":"Introduction to Logic, Third Edition",
+  "author":[{"@type":"Person","name":"Michael Genesereth"},{"@type":"Person","name":"Eric J. Kao"}],
+  "publisher":{"@type":"Organization","name":"Springer Cham"},
+  "isbn":"9783031006739",
+  "datePublished":"2016-11-07",
+  "bookEdition":"3",
+  "inLanguage":"en",
+  "numberOfPages":"163",
+  "isPartOf":{"@type":"BookSeries","name":"Synthesis Lectures on Computer Science"},
+  "sameAs":[
+    "https://link.springer.com/book/10.1007/978-3-031-01801-5",
+    "https://intrologic.stanford.edu/"
+  ]
+}
+</script>
+</head>
+<body>
+<div class="wrap">
+  <header class="hero" id="top">
+    <div class="title">
+      <div class="cover" aria-hidden="true">
+        <!-- Self-contained SVG “cover” (neutral look) -->
+        <svg viewBox="0 0 210 300" xmlns="http://www.w3.org/2000/svg">
+          <defs><linearGradient id="g" x1="0" x2="1" y1="0" y2="1">
+            <stop offset="0" stop-color="#eef3fb"/><stop offset="1" stop-color="#dfe9ff"/>
+          </linearGradient></defs>
+          <rect width="210" height="300" fill="url(#g)"/>
+          <g fill="#234c88" font-family="Georgia, serif">
+            <text x="20" y="92" font-size="16" font-weight="700">INTRODUCTION</text>
+            <text x="20" y="118" font-size="22" font-weight="700">TO LOGIC</text>
+            <text x="20" y="142" font-size="12">Third Edition · Genesereth &amp; Kao</text>
+            <text x="20" y="225" font-size="13" font-weight="700">Synthesis Lectures</text>
+          </g>
+          <g stroke="#2d5d9f" stroke-width="2" fill="none" opacity=".6">
+            <path d="M20,250 C80,210 130,270 190,230" />
+            <circle cx="40" cy="240" r="3" fill="#2d5d9f"/>
+            <circle cx="170" cy="240" r="3" fill="#2d5d9f"/>
+          </g>
+        </svg>
+      </div>
+      <div>
+        <div class="kicker">Book Brief · P3 (Prompt → Program → Proof)</div>
+        <h1>Introduction to Logic (Third Edition)</h1>
+        <p class="subtitle">Michael Genesereth &amp; Eric J. Kao · Synthesis Lectures on Computer Science</p>
+        <div class="badges" role="list">
+          <span class="badge" role="listitem">Logic</span>
+          <span class="badge" role="listitem">Computer Science</span>
+          <span class="badge" role="listitem">Herbrand-first</span>
+          <span class="badge" role="listitem">Online resources</span>
+        </div>
+        <nav class="toc" aria-label="On this page">
+          <a href="#p3">P3 Summary</a>
+          <a href="#answer">Answer (TL;DR)</a>
+          <a href="#reasons">Reason Why</a>
+          <a href="#check">Check</a>
+          <a href="#math">Logic Track</a>
+          <a href="#themes">Themes</a>
+          <a href="#studies">Studies & Context</a>
+          <a href="#glossary">Glossary</a>
+          <a href="#meta">Book Metadata</a>
+          <a href="#sources">Citations</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <main class="cards">
+
+    <!-- P3 -->
+    <section class="card" id="p3" aria-labelledby="p3h2">
+      <h2 id="p3h2">P3 Summary: Prompt → Program → Proof</h2>
+
+      <article class="subcard">
+        <h3>Prompt &amp; Question</h3>
+        <p><strong>Prompt:</strong> Create a concise, self-contained brief of <em>Introduction to Logic (3e)</em> for readers in CS and math, highlighting the book’s distinctive pedagogy and resources.</p>
+        <p><strong>Question:</strong> What makes this edition different (content and form), what topics are covered, and how do the online tools integrate with the text?</p>
+      </article>
+
+      <article class="subcard">
+        <h3>Data (Sources)</h3>
+        <ul class="list-tight small">
+          <li>SpringerLink product page with description, ToC, ISBNs, and dates.<sup><a href="#fn-springer">[1]</a></sup></li>
+          <li>Stanford online companion (chapters, lessons, exercises, tools, videos).<sup><a href="#fn-intrologic">[2]</a>, <a href="#fn-lessons">[3]</a>, <a href="#fn-ch1">[4]</a></sup></li>
+          <li>Background on Herbrand vs. Tarskian semantics.<sup><a href="#fn-herbrand-wiki">[5]</a>, <a href="#fn-tarski-sep">[6]</a></sup></li>
+        </ul>
+      </article>
+
+      <article class="subcard">
+        <h3>Logic (How we evaluate)</h3>
+        <ol class="small">
+          <li>Use the publisher page for bibliographic facts, topic coverage, and claims about pedagogy.</li>
+          <li>Use the Stanford site to support statements about exercises/videos/tools.</li>
+          <li>Use neutral references for short glossary notes on semantics.</li>
+        </ol>
+      </article>
+
+      <article class="subcard">
+        <h3>Program (Driver)</h3>
+        <p class="muted small">A tiny “check” harness ensures every <code>data-claim</code> element has at least one citation in <em>Citations</em>.</p>
+<pre><code>// Pseudocode
+const claims=[...document.querySelectorAll('[data-claim]')];
+for (const c of claims) assert(c.querySelector('sup a[href^="#fn-"]'));</code></pre>
+        <div class="callout small">
+          <strong>Proof = Reason Why + Check.</strong> “Reason Why” summarizes evidence; “Check” verifies structure.
+        </div>
+      </article>
+    </section>
+
+    <!-- Answer -->
+    <section class="card" id="answer">
+      <h2>Answer (TL;DR)</h2>
+      <p data-claim="answer">
+        Genesereth &amp; Kao’s third edition teaches modern formal logic for computer science with a distinctive <strong>Herbrand-first</strong> approach (rather than starting with standard Tarskian semantics), tightly integrated with <strong>online chapters, exercises, tools, and videos</strong> hosted by Stanford.<sup><a href="#fn-springer">[1]</a>, <a href="#fn-intrologic">[2]</a></sup>
+      </p>
+    </section>
+
+    <!-- Reason Why -->
+    <section class="card" id="reasons">
+      <h2>Reason Why (Evidence)</h2>
+      <div class="quote small" data-claim="rw-1">
+        The publisher page explicitly notes the Herbrand-first pedagogy and the availability of online exercises, tools, videos, and forum, and provides a detailed table of contents.<sup><a href="#fn-springer">[1]</a></sup>
+      </div>
+      <p class="small" data-claim="rw-2">
+        The Stanford companion site lists lessons, chapters, and practice exercises that align with the book’s structure (e.g., propositional logic, relational logic, Herbrand logic, induction, resolution).<sup><a href="#fn-lessons">[3]</a>, <a href="#fn-ch1">[4]</a></sup>
+      </p>
+    </section>
+
+    <!-- Check -->
+    <section class="card" id="check">
+      <h2>Check (Self-test)</h2>
+      <p class="small">Automated checks verify: (1) every claim has a citation; (2) required sections exist; (3) core metadata parses.</p>
+      <ul id="checklist" class="list-tight small"></ul>
+      <p id="status" class="pill" aria-live="polite">Running checks…</p>
+    </section>
+
+    <!-- Logic Track -->
+    <section class="card" id="math">
+      <h2>Logic Track: What the Book Covers & Why It’s Different</h2>
+      <ol>
+        <li data-claim="m1"><strong>Scope and order.</strong> Topics include propositional logic and proofs, relational logic and analysis, Herbrand logic and proofs, induction, and resolution — with a sequence visible in the ToC.<sup><a href="#fn-springer">[1]</a></sup></li>
+        <li data-claim="m2"><strong>Herbrand-first pedagogy.</strong> The text begins with Herbrand semantics to simplify early reasoning and connect to computation, instead of introducing truth in arbitrary structures first.<sup><a href="#fn-springer">[1]</a></sup></li>
+        <li data-claim="m3"><strong>Online ecosystem.</strong> Exercises with auto-grading, interactive tools, and videos are available on the Stanford site, designed to be used alongside the text.<sup><a href="#fn-springer">[1]</a>, <a href="#fn-intrologic">[2]</a>, <a href="#fn-lessons">[3]</a></sup></li>
+        <li data-claim="m4"><strong>CS orientation.</strong> The series (Synthesis Lectures on Computer Science) frames logic for applications in computing while retaining mathematical rigor.<sup><a href="#fn-springer">[1]</a></sup></li>
+        <li data-claim="m5"><strong>Semantics context.</strong> “Herbrand vs. Tarski” is a genuine contrast: Herbrand uses term-based structures; Tarski is the standard set-theoretic semantics of first-order logic.<sup><a href="#fn-herbrand-wiki">[5]</a>, <a href="#fn-tarski-sep">[6]</a></sup></li>
+      </ol>
+      <div class="callout small">
+        <strong>Takeaway:</strong> Start with computable, ground-term semantics to build intuition and tooling; then connect to classical semantics and proof systems.
+      </div>
+    </section>
+
+    <!-- Themes -->
+    <section class="card" id="themes">
+      <h2>Themes</h2>
+      <ol>
+        <li data-claim="t1"><strong>Computation-friendly logic.</strong> Emphasis on models and methods that mirror automated reasoning workflows.<sup><a href="#fn-springer">[1]</a></sup></li>
+        <li data-claim="t2"><strong>Blended learning.</strong> Textbook plus online chapters, exercises, and videos to reinforce practice.<sup><a href="#fn-intrologic">[2]</a>, <a href="#fn-lessons">[3]</a></sup></li>
+        <li data-claim="t3"><strong>Bridging semantics and proof.</strong> The Herbrand-first route connects semantics to proof search and resolution earlier than traditional courses.<sup><a href="#fn-springer">[1]</a></sup></li>
+      </ol>
+    </section>
+
+    <!-- Studies & Context -->
+    <section class="card" id="studies">
+      <h2>Studies & Context</h2>
+      <ul class="list-tight">
+        <li data-claim="s1"><strong>Publisher details.</strong> Edition number, ISBNs (softcover and eBook), dates, and series information are listed on SpringerLink.<sup><a href="#fn-springer">[1]</a></sup></li>
+        <li data-claim="s2"><strong>Companion site.</strong> Lessons, chapters, and exercises illustrate the integrated learning model.<sup><a href="#fn-intrologic">[2]</a>, <a href="#fn-lessons">[3]</a>, <a href="#fn-ch1">[4]</a></sup></li>
+      </ul>
+    </section>
+
+    <!-- Glossary -->
+    <section class="card" id="glossary">
+      <h2>Glossary (quick reference)</h2>
+      <dl class="small">
+        <dt><strong>Herbrand semantics</strong></dt>
+        <dd>Term-based semantics: the universe is built from ground terms; models assign truth values to ground atoms (Herbrand structures/models).<sup><a href="#fn-herbrand-wiki">[5]</a></sup></dd>
+
+        <dt><strong>Tarskian (standard) semantics</strong></dt>
+        <dd>Classical set-theoretic semantics for first-order logic, used to define truth in an arbitrary structure.<sup><a href="#fn-tarski-sep">[6]</a></sup></dd>
+
+        <dt><strong>Resolution</strong></dt>
+        <dd>A refutation-complete proof method for clauses; covered after induction in the book’s sequence.<sup><a href="#fn-springer">[1]</a></sup></dd>
+      </dl>
+    </section>
+
+    <!-- Metadata -->
+    <section class="card" id="meta">
+      <h2>Book Metadata</h2>
+      <ul class="list-tight small">
+        <li data-claim="md1"><strong>Title:</strong> <em>Introduction to Logic, Third Edition</em>.<sup><a href="#fn-springer">[1]</a></sup></li>
+        <li data-claim="md2"><strong>Authors:</strong> Michael Genesereth; Eric J. Kao.<sup><a href="#fn-springer">[1]</a></sup></li>
+        <li data-claim="md3"><strong>Series:</strong> Synthesis Lectures on Computer Science.<sup><a href="#fn-springer">[1]</a></sup></li>
+        <li data-claim="md4"><strong>Publisher:</strong> Springer Cham (Synthesis collection).<sup><a href="#fn-springer">[1]</a></sup></li>
+        <li data-claim="md5"><strong>Edition:</strong> 3; <strong>Softcover ISBN:</strong> 978-3-031-00673-9 (first published 7 Nov 2016); <strong>eBook ISBN:</strong> 978-3-031-01801-5 (published 31 May 2022); <strong>Pages:</strong> XIII + 163.<sup><a href="#fn-springer">[1]</a></sup></li>
+        <li data-claim="md6"><strong>Companion site:</strong> chapters, tools, exercises, videos at Stanford.<sup><a href="#fn-intrologic">[2]</a>, <a href="#fn-lessons">[3]</a></sup></li>
+      </ul>
+    </section>
+
+    <!-- Citations -->
+    <section class="card footnotes" id="sources" aria-labelledby="sourcesh2">
+      <h2 id="sourcesh2">Citations (for this page)</h2>
+      <ol>
+        <li id="fn-springer"><a href="https://link.springer.com/book/10.1007/978-3-031-01801-5">SpringerLink — Introduction to Logic, Third Edition (ToC, Herbrand-first description, ISBNs, dates, pages)</a>.</li>
+        <li id="fn-intrologic"><a href="https://intrologic.stanford.edu/">Stanford Introduction to Logic — companion site (chapters, tools, videos, forum)</a>.</li>
+        <li id="fn-lessons"><a href="https://intrologic.stanford.edu/public/lessons.php">Stanford — Lessons index (course structure & exercises)</a>.</li>
+        <li id="fn-ch1"><a href="https://intrologic.stanford.edu/chapters/chapter_01.html">Stanford — Chapter 1 (sample online chapter)</a>.</li>
+        <li id="fn-herbrand-wiki"><a href="https://en.wikipedia.org/wiki/Herbrand_structure">Wikipedia — Herbrand structure/semantics (overview)</a>.</li>
+        <li id="fn-tarski-sep"><a href="https://plato.stanford.edu/entries/tarski-truth/">Stanford Encyclopedia of Philosophy — Tarski’s truth definitions (standard semantics)</a>.</li>
+      </ol>
+      <p class="muted small">This brief paraphrases public information and the publisher description; it does not reproduce the book’s text.</p>
+    </section>
+
+    <footer class="muted">
+      <p>Light background · vertical cards · P3 pattern. © You, for personal use.</p>
+    </footer>
+  </main>
+</div>
+
+<script>
+// --- Minimal “Check” harness for this page ---
+(function(){
+  const checks = [];
+  const req = ["p3","answer","reasons","check","math","themes","studies","glossary","meta","sources"];
+  const claims = [...document.querySelectorAll('[data-claim]')];
+
+  // sections present
+  req.forEach(id=>{
+    const ok = !!document.getElementById(id);
+    checks.push({name:`Section #${id} present`, ok});
+  });
+
+  // each claim cites a footnote
+  claims.forEach((el,i)=>{
+    const has = el.querySelector('sup a[href^="#fn-"]');
+    checks.push({name:`Claim ${i+1} cites a source`, ok: !!has});
+  });
+
+  // structured data sanity (lenient: name/author/publisher)
+  let metaOk=true;
+  try{
+    const j = JSON.parse(document.querySelector('script[type="application/ld+json"]').textContent);
+    metaOk = !!(j.name && j.author && j.publisher);
+  }catch(e){ metaOk=false; }
+  checks.push({name:'Structured data looks valid', ok: metaOk});
+
+  // render
+  const ul = document.getElementById('checklist');
+  let allOk = true;
+  checks.forEach(c=>{
+    const li = document.createElement('li');
+    li.textContent = (c.ok ? '✔︎ ' : '✘ ') + c.name;
+    li.style.color = c.ok ? '#106941' : '#8a2222';
+    ul.appendChild(li);
+    allOk = allOk && c.ok;
+  });
+  const status = document.getElementById('status');
+  status.textContent = allOk ? '✔︎ Check passed' : '✘ Check failed — see list above';
+  status.className = 'pill ' + (allOk ? 'status-pass' : 'status-fail');
+})();
+</script>
+</body>
+</html>
+

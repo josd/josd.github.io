@@ -58,15 +58,16 @@ The collection ranges from mathematics and formal logic to routing, clinical pol
 - [**Ford circles**](https://josd.github.io/arc/ford_circles.html) — Place circles at rationals; verify tangency and Farey‑sequence links.
 - [**Fundamental Theorem of Arithmetic**](https://josd.github.io/arc/fundamental_theorem_arithmetic.html) — Every integer factors as a product of primes.
 - [**Gödel Numbering**](https://josd.github.io/arc/godel_numbering.html) — A classic Gödel numbering demonstrator.
-- [**Gödel Undecidable**](https://josd.github.io/arc/godel_undecidable.html) — On Formally Undecidable Propositions.
-- [**GPS Bike**](https://josd.github.io/arc/gps_bike.html) — Gent → Maasmechelen.
+- [**Gödel Undecidable**](https://josd.github.io/arc/godel_undecidable.html) — A self‑contained research brief for *On Formally Undecidable Propositions*.
+- [**GPS Bike**](https://josd.github.io/arc/gps_bike.html) — GPS for bike trip Gent → Maasmechelen.
 - [**GPS Clinical Bench**](https://josd.github.io/arc/gps_clinical_bench.html) — Benchmark clinical decisions with transparent rules and audit trails.
 - [**Graph — French cities**](https://josd.github.io/arc/graph_french.html) — Shortest paths and connectivity over a city graph with proofs.
 - [**Grass seed — molecular germination**](https://josd.github.io/arc/grass_molecular.html) — Model germination states and transitions with rule checks.
 - [**Group Theory**](https://josd.github.io/arc/group_theory.html) — Verify closure, identity, inverses, and associativity on examples.
 - [**Health Information Processing**](https://josd.github.io/arc/health_info.html) — Transform clinical payloads with typed rules and validation.
-- [**Hertog Hawking**](https://josd.github.io/arc/hertog_hawking.html) — *On the Origin of Time*.
+- [**Hertog Hawking**](https://josd.github.io/arc/hertog_hawking.html) — A self‑contained book brief for *On the Origin of Time*.
 - [**Infinite Game Math**](https://josd.github.io/arc/infinite_game_math.html) — A math‑centric book brief for *The Infinite Game*.
+- [**Introduction to Logic**](https://josd.github.io/arc/introduction_to_logic.html) — A self‑contained book brief for *Introduction to Logic*.
 - [**Kakuro (Cross Sums)**](https://josd.github.io/arc/kakuro.html) — Fill grid sums with unique digits using constraint propagation.
 - [**Kaprekar’s Constant**](https://josd.github.io/arc/kaprekar_constant.html) — Exhaustive sweep of every 4‑digit state in Kaprekar’s routine.
 - [**KenKen**](https://josd.github.io/arc/kenken.html) — Latin‑square + cage arithmetic solved with explainable deductions.
