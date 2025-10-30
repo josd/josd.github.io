@@ -1,0 +1,371 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>The Best of All Possible Worlds — Book Brief</title>
+<meta name="description" content="A self-contained P3 (Prompt → Program → Proof) brief for Michael Kempe’s The Best of All Possible Worlds: A Life of Leibniz in Seven Pivotal Days." />
+<meta name="author" content="Book: Michael Kempe" />
+<style>
+  :root{
+    --bg:#f7f7fb;
+    --card:#ffffff;
+    --ink:#101418;
+    --ink-sub:#4b5563;
+    --muted:#9aa3af;
+    --accent:#7a4b00;      /* warm amber */
+    --accent-2:#c9982a;
+    --border:#e8e8ef;
+    --shadow: 0 1px 2px rgba(0,0,0,.05), 0 6px 20px rgba(0,0,0,.06);
+    --radius: 16px;
+    --radius-lg: 22px;
+    --max: 900px;
+  }
+  *{box-sizing:border-box}
+  html,body{background:var(--bg); color:var(--ink); margin:0; font:16px/1.65 system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,Apple Color Emoji,Segoe UI Emoji}
+  a{color:var(--accent); text-decoration:none}
+  a:hover{text-decoration:underline}
+  .wrap{max-width:var(--max); margin:32px auto; padding:0 16px}
+  header.hero{
+    background:linear-gradient(160deg,#fff8ea,#ffffff);
+    border:1px solid var(--border);
+    padding:24px;
+    border-radius:var(--radius-lg);
+    box-shadow:var(--shadow);
+  }
+  .title{display:flex; gap:18px; align-items:center; flex-wrap:wrap}
+  .cover{
+    width:110px; height:160px; border-radius:10px; box-shadow:var(--shadow);
+    background:#fff2d6; display:grid; place-items:center; border:1px solid var(--border); overflow:hidden;
+  }
+  .cover svg{width:100%; height:100%}
+  .title h1{font-size:1.65rem; margin:0}
+  .subtitle{color:var(--ink-sub); margin:.25rem 0 0}
+  .badges{display:flex; gap:8px; flex-wrap:wrap; margin-top:8px}
+  .badge{padding:4px 10px; border-radius:999px; background:#fff3df; color:#6a4c00; font-weight:600; font-size:.8rem; border:1px solid #ffe1ad}
+  nav.toc{margin-top:14px; padding-top:10px; border-top:1px dashed var(--border); color:var(--ink-sub); display:flex; flex-wrap:wrap; gap:10px}
+  nav.toc a{font-size:.92rem; background:#fff8eb; border:1px solid #ffe6bf; padding:6px 10px; border-radius:999px}
+  .cards{display:flex; flex-direction:column; gap:16px; margin-top:18px}
+  .card{background:var(--card); border:1px solid var(--border); border-radius:var(--radius); box-shadow:var(--shadow); padding:18px}
+  .card h2{margin:0 0 .35rem 0; font-size:1.15rem}
+  .card h3{margin:.75rem 0 .25rem; font-size:1rem}
+  .subcard{background:var(--card); border:1px solid var(--border); border-radius:12px; padding:14px; box-shadow:var(--shadow); margin-top:12px}
+  .muted{color:var(--muted)}
+  .list-tight li{margin:.25rem 0}
+  .pill{display:inline-flex; align-items:center; gap:.45rem; padding:4px 9px; border-radius:999px; background:#fff5e5; border:1px solid #ffe6bf; color:#6a4c00; font-weight:600}
+  .status-pass{color:#106941}
+  .status-fail{color:#8a2222}
+  .kicker{letter-spacing:.06em; text-transform:uppercase; color:var(--muted); font-size:.78rem; font-weight:700}
+  .quote{border-left:3px solid var(--accent-2); padding-left:10px; color:#213; background:#fffbf2; border-radius:8px; border:1px solid #ffe8b8}
+  .callout{background:#fffbf2; border:1px solid #ffe8b8; padding:12px; border-radius:12px}
+  .small{font-size:.94rem}
+  footer{color:var(--muted); font-size:.9rem; margin-top:22px}
+  code, pre{background:#f3f5f7; border:1px solid #e7e9ee; padding:.25rem .45rem; border-radius:8px; font-size:.95rem}
+  pre{padding:12px; overflow:auto}
+</style>
+
+<!-- Structured data -->
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"Book",
+  "name":"The Best of All Possible Worlds: A Life of Leibniz in Seven Pivotal Days",
+  "author":{"@type":"Person","name":"Michael Kempe"},
+  "translator":{"@type":"Person","name":"Marshall Yarbrough"},
+  "publisher":{"@type":"Organization","name":"W. W. Norton & Company"},
+  "isbn":"9781324093947",
+  "datePublished":"2024-11-12",
+  "numberOfPages":"304",
+  "inLanguage":"en",
+  "workExample":[
+    {"@type":"Book","bookFormat":"Hardcover","isbn":"9781805330868","publisher":{"@type":"Organization","name":"Pushkin Press"},"datePublished":"2024-11-07"},
+    {"@type":"Book","bookFormat":"EBook","isbn":"9781324093954","datePublished":"2024-11-12"}
+  ],
+  "sameAs":[
+    "https://books.google.com/books?id=ZMjuEAAAQBAJ",
+    "https://guardianbookshop.com/the-best-of-all-possible-worlds-9781805330868/",
+    "https://www.vitalsource.com/products/the-best-of-all-possible-worlds-a-life-of-leibniz-michael-kempe-v9781324093954"
+  ]
+}
+</script>
+</head>
+<body>
+<div class="wrap">
+  <header class="hero" id="top">
+    <div class="title">
+      <div class="cover" aria-hidden="true">
+        <!-- Self-contained SVG “cover” -->
+        <svg viewBox="0 0 210 300" xmlns="http://www.w3.org/2000/svg">
+          <defs><linearGradient id="g" x1="0" x2="1" y1="0" y2="1">
+            <stop offset="0" stop-color="#fff1cf"/><stop offset="1" stop-color="#f7d08a"/>
+          </linearGradient></defs>
+          <rect width="210" height="300" fill="url(#g)"/>
+          <g fill="#2b2110" font-family="Georgia, serif">
+            <text x="18" y="92" font-size="16" font-weight="700">THE BEST OF ALL</text>
+            <text x="18" y="116" font-size="22" font-weight="700">POSSIBLE WORLDS</text>
+            <text x="18" y="140" font-size="12">Michael Kempe — W. W. Norton / Pushkin</text>
+            <text x="18" y="225" font-size="13" font-weight="700">A Life of Leibniz in Seven Days</text>
+          </g>
+          <g stroke="#c9982a" stroke-width="2" fill="none" opacity=".7">
+            <path d="M20,250 C80,210 130,270 190,230" />
+            <circle cx="40" cy="240" r="3" fill="#c9982a"/>
+            <circle cx="170" cy="240" r="3" fill="#c9982a"/>
+          </g>
+        </svg>
+      </div>
+      <div>
+        <div class="kicker">Book Brief · P3 (Prompt → Program → Proof)</div>
+        <h1>The Best of All Possible Worlds</h1>
+        <p class="subtitle">Michael Kempe · trans. Marshall Yarbrough · W. W. Norton (US, 2024) · Pushkin Press (UK, 2024) · 304 pp</p>
+        <div class="badges" role="list">
+          <span class="badge" role="listitem">Leibniz</span>
+          <span class="badge" role="listitem">Biography</span>
+          <span class="badge" role="listitem">History of Ideas</span>
+          <span class="badge" role="listitem">Math & Philosophy</span>
+        </div>
+        <nav class="toc" aria-label="On this page">
+          <a href="#p3">P3 Summary</a>
+          <a href="#answer">Answer (TL;DR)</a>
+          <a href="#reasons">Reason Why</a>
+          <a href="#check">Check</a>
+          <a href="#math">Leibniz Track</a>
+          <a href="#themes">Themes</a>
+          <a href="#studies">Studies & Context</a>
+          <a href="#glossary">Glossary</a>
+          <a href="#meta">Book Metadata</a>
+          <a href="#sources">Citations</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <main class="cards">
+
+    <!-- P3 -->
+    <section class="card" id="p3" aria-labelledby="p3h2">
+      <h2 id="p3h2">P3 Summary: Prompt → Program → Proof</h2>
+
+      <article class="subcard">
+        <h3>Prompt &amp; Question</h3>
+        <p><strong>Prompt:</strong> Create a concise, self-contained brief of Kempe’s Leibniz biography, highlighting the seven-day structure and reliable publication facts.</p>
+        <p><strong>Question:</strong> What makes this biography distinctive, which seven days anchor it, and what are the key publication details (publisher, date, pages, translator)?</p>
+      </article>
+
+      <article class="subcard">
+        <h3>Data (Sources)</h3>
+        <ul class="list-tight small">
+          <li>Google Books record (Norton; 304 pp; dates; day summaries; translator shown).<sup><a href="#fn-gbooks">[1]</a></sup></li>
+          <li>VitalSource listing for print & eBook ISBNs (Norton).<sup><a href="#fn-vitalsource">[2]</a></sup></li>
+          <li>Pushkin/Guardian Bookshop page for UK edition (publisher, date, pages, description).<sup><a href="#fn-guardianbookshop">[3]</a></sup></li>
+          <li>Major reviews: <em>Publishers Weekly</em>, <em>The Guardian</em>, <em>The New Yorker</em>.<sup><a href="#fn-pw">[4]</a>, <a href="#fn-guardian">[5]</a>, <a href="#fn-newyorker">[6]</a></sup></li>
+          <li>SIAM News review summarizing all seven dated episodes; confirms translator & page count.<sup><a href="#fn-siam">[7]</a></sup></li>
+          <li>Original-language/translation records (German 2022; French 2023).<sup><a href="#fn-flammarion">[8]</a>, <a href="#fn-fnac">[9]</a></sup></li>
+        </ul>
+      </article>
+
+      <article class="subcard">
+        <h3>Logic (How we evaluate)</h3>
+        <ol class="small">
+          <li>Use Google Books & VitalSource for canonical US metadata and ISBNs.</li>
+          <li>Use Guardian Bookshop for UK imprint/date/pages and description.</li>
+          <li>Use SIAM News for the explicit list of the seven days and translator confirmation.</li>
+        </ol>
+      </article>
+
+      <article class="subcard">
+        <h3>Program (Driver)</h3>
+        <p class="muted small">A tiny “check” harness ensures every <code>data-claim</code> has at least one footnote in <em>Citations</em>.</p>
+<pre><code>// Pseudocode
+const claims=[...document.querySelectorAll('[data-claim]')];
+for (const c of claims) assert(c.querySelector('sup a[href^="#fn-"]'));</code></pre>
+        <div class="callout small">
+          <strong>Proof = Reason Why + Check.</strong> “Reason Why” summarizes evidence; “Check” verifies structure.
+        </div>
+      </article>
+    </section>
+
+    <!-- Answer -->
+    <section class="card" id="answer">
+      <h2>Answer (TL;DR)</h2>
+      <p data-claim="answer">
+        Kempe’s biography tells Leibniz’s story by reconstructing <em>seven pivotal days</em>—from the 1675 debut of the integral sign to late-life projects in 1716—making a vast life legible while linking philosophy to mathematics, technology, and statecraft; the English edition is translated by Marshall Yarbrough and published by W. W. Norton (US, Nov 12, 2024; 304 pp) and Pushkin Press (UK, Nov 7, 2024).<sup><a href="#fn-gbooks">[1]</a>, <a href="#fn-guardianbookshop">[3]</a>, <a href="#fn-siam">[7]</a></sup>
+      </p>
+    </section>
+
+    <!-- Reason Why -->
+    <section class="card" id="reasons">
+      <h2>Reason Why (Evidence)</h2>
+      <div class="quote small" data-claim="rw-1">
+        Google Books summarizes three of the featured days (Paris, 1675; Berlin, 1703; Vienna, 1714) and lists the book at 304 pages from W. W. Norton, with Yarbrough as translator.<sup><a href="#fn-gbooks">[1]</a></sup>
+      </div>
+      <p class="small" data-claim="rw-2">
+        SIAM News explicitly enumerates all seven days and confirms US publication (Norton, 304 pp) and translation by Yarbrough.<sup><a href="#fn-siam">[7]</a></sup>
+      </p>
+      <p class="small" data-claim="rw-3">
+        The UK product page (Guardian Bookshop for Pushkin Press) corroborates the seven-day structure and highlights math/philosophy moments (calculus; binary; science/faith).<sup><a href="#fn-guardianbookshop">[3]</a></sup>
+      </p>
+      <p class="small" data-claim="rw-4">
+        Reviews frame the book’s aim: revising the Pangloss stereotype and presenting Leibniz as a thinker of possibilities; see <em>The Guardian</em>, <em>Publishers Weekly</em>, and <em>The New Yorker</em>.<sup><a href="#fn-guardian">[5]</a>, <a href="#fn-pw">[4]</a>, <a href="#fn-newyorker">[6]</a></sup>
+      </p>
+    </section>
+
+    <!-- Check -->
+    <section class="card" id="check">
+      <h2>Check (Self-test)</h2>
+      <p class="small">Automated checks: (1) every claim cites a source; (2) required sections exist; (3) core metadata parses.</p>
+      <ul id="checklist" class="list-tight small"></ul>
+      <p id="status" class="pill" aria-live="polite">Running checks…</p>
+    </section>
+
+    <!-- "Math" slot → Leibniz Track -->
+    <section class="card" id="math">
+      <h2>Leibniz Track: Seven Pivotal Days (as presented in the book)</h2>
+      <ol class="small">
+        <li data-claim="d1"><strong>Oct 29, 1675 (Paris):</strong> Leibniz commits the integral symbol to paper—seed of his calculus notation.<sup><a href="#fn-gbooks">[1]</a>, <a href="#fn-pw">[4]</a>, <a href="#fn-siam">[7]</a></sup></li>
+        <li data-claim="d2"><strong>Feb 11, 1686 (Zellerfeld):</strong> Sends a philosophical manuscript to Antoine Arnauld amid Harz mining work.<sup><a href="#fn-siam">[7]</a></sup></li>
+        <li data-claim="d3"><strong>Aug 13, 1696:</strong> Begins a diary (soon abandoned) that reveals his restless project-juggling.<sup><a href="#fn-siam">[7]</a></sup></li>
+        <li data-claim="d4"><strong>Apr 17, 1703 (Berlin):</strong> Reports a Jesuit in China using Leibniz’s binary arithmetic to interpret the I Ching hexagrams.<sup><a href="#fn-gbooks">[1]</a>, <a href="#fn-siam">[7]</a></sup></li>
+        <li data-claim="d5"><strong>Jan 19, 1710 (Hanover):</strong> Long conversation with the von Uffenbach brothers; same year as the <em>Essays of Theodicy</em>.<sup><a href="#fn-siam">[7]</a></sup></li>
+        <li data-claim="d6"><strong>Aug 26, 1714 (Vienna):</strong> Draws connections across ontology, biology, and mathematics (the period of the <em>Monadology</em>).<sup><a href="#fn-gbooks">[1]</a>, <a href="#fn-siam">[7]</a></sup></li>
+        <li data-claim="d7"><strong>Jul 2, 1716 (Bad Pyrmont/Hanover):</strong> Meets Peter the Great; pitches science and education reforms for Russia.<sup><a href="#fn-siam">[7]</a></sup></li>
+      </ol>
+      <div class="callout small">
+        <strong>Takeaway:</strong> The seven-day lens ties calculus, binary logic, metaphysics, and statecraft into a unified portrait of a “universal genius.”<sup><a href="#fn-guardianbookshop">[3]</a>, <a href="#fn-guardian">[5]</a></sup>
+      </div>
+    </section>
+
+    <!-- Themes -->
+    <section class="card" id="themes">
+      <h2>Themes</h2>
+      <ol class="small">
+        <li data-claim="t1"><strong>Not Pangloss, but possibility.</strong> Reviews stress Kempe’s reframing of Leibniz as a philosopher of the possible, not naïve optimism.<sup><a href="#fn-guardian">[5]</a>, <a href="#fn-newyorker">[6]</a></sup></li>
+        <li data-claim="t2"><strong>Cross-domain thinking.</strong> The book highlights links from notation and binary to diplomacy, mining, and “global improvement.”<sup><a href="#fn-gbooks">[1]</a>, <a href="#fn-pw">[4]</a></sup></li>
+      </ol>
+    </section>
+
+    <!-- Studies & Context -->
+    <section class="card" id="studies">
+      <h2>Studies & Context</h2>
+      <ul class="list-tight small">
+        <li data-claim="s1"><strong>Publication timeline:</strong> US (Norton) Nov 12, 2024; UK (Pushkin) Nov 7, 2024; 304 pp; translator Marshall Yarbrough.<sup><a href="#fn-gbooks">[1]</a>, <a href="#fn-guardianbookshop">[3]</a>, <a href="#fn-siam">[7]</a></sup></li>
+        <li data-claim="s2"><strong>ISBNs:</strong> Print 978-1324093947 (1324093943); eBook 978-1324093954 (1324093951).<sup><a href="#fn-vitalsource">[2]</a></sup></li>
+        <li data-claim="s3"><strong>Origins & translations:</strong> German original 2022; French translation (Flammarion) 2023; UK/US English 2024.<sup><a href="#fn-flammarion">[8]</a>, <a href="#fn-fnac">[9]</a>, <a href="#fn-guardianbookshop">[3]</a>, <a href="#fn-gbooks">[1]</a></sup></li>
+      </ul>
+    </section>
+
+    <!-- Glossary -->
+    <section class="card" id="glossary">
+      <h2>Glossary (quick reference)</h2>
+      <dl class="small">
+        <dt><strong>Integral sign ∫</strong></dt>
+        <dd>Leibniz’s symbol for integration; its first use is the centerpiece of the 1675 Paris day.<sup><a href="#fn-pw">[4]</a>, <a href="#fn-siam">[7]</a></sup></dd>
+
+        <dt><strong>Binary arithmetic</strong></dt>
+        <dd>Leibniz’s dyadic notation (0/1), later linked to the I Ching by Jesuit Joachim Bouvet (1703 letter).<sup><a href="#fn-gbooks">[1]</a>, <a href="#fn-siam">[7]</a></sup></dd>
+
+        <dt><strong>Monad</strong></dt>
+        <dd>Basic “unit” in Leibniz’s metaphysics; the 1714 Vienna day coincides with the <em>Monadology</em> period.<sup><a href="#fn-gbooks">[1]</a>, <a href="#fn-guardian">[5]</a></sup></dd>
+      </dl>
+    </section>
+
+    <!-- Metadata -->
+    <section class="card" id="meta">
+      <h2>Book Metadata</h2>
+      <ul class="list-tight small">
+        <li data-claim="md1"><strong>Title:</strong> <em>The Best of All Possible Worlds: A Life of Leibniz in Seven Pivotal Days</em>.<sup><a href="#fn-gbooks">[1]</a></sup></li>
+        <li data-claim="md2"><strong>Author:</strong> Michael Kempe; <strong>Translator:</strong> Marshall Yarbrough.<sup><a href="#fn-gbooks">[1]</a>, <a href="#fn-siam">[7]</a></sup></li>
+        <li data-claim="md3"><strong>Publishers:</strong> W. W. Norton (US); Pushkin Press (UK).<sup><a href="#fn-gbooks">[1]</a>, <a href="#fn-guardianbookshop">[3]</a></sup></li>
+        <li data-claim="md4"><strong>Publication dates:</strong> US 2024-11-12; UK 2024-11-07.<sup><a href="#fn-gbooks">[1]</a>, <a href="#fn-guardianbookshop">[3]</a></sup></li>
+        <li data-claim="md5"><strong>Pages & ISBNs:</strong> 304 pp; print 978-1324093947; eBook 978-1324093954; print alt (1324093943), eBook alt (1324093951).<sup><a href="#fn-gbooks">[1]</a>, <a href="#fn-vitalsource">[2]</a></sup></li>
+      </ul>
+    </section>
+
+    <!-- Citations -->
+    <section class="card footnotes" id="sources" aria-labelledby="sourcesh2">
+      <h2 id="sourcesh2">Citations (for this page)</h2>
+      <ol>
+        <li id="fn-gbooks"><a href="https://books.google.com/books?id=ZMjuEAAAQBAJ">Google Books — Norton record with 304 pp, dates, day summaries, translator</a>. :contentReference[oaicite:0]{index=0}</li>
+        <li id="fn-vitalsource"><a href="https://www.vitalsource.com/products/the-best-of-all-possible-worlds-a-life-of-leibniz-michael-kempe-v9781324093954">VitalSource — US edition ISBNs (print & eBook) and Norton imprint</a>. :contentReference[oaicite:1]{index=1}</li>
+        <li id="fn-guardianbookshop"><a href="https://guardianbookshop.com/the-best-of-all-possible-worlds-9781805330868/">Guardian Bookshop — Pushkin Press (UK) details: 304 pp; pub. date 7 Nov 2024; description</a>. :contentReference[oaicite:2]{index=2}</li>
+        <li id="fn-pw"><a href="https://www.publishersweekly.com/9781324093947">Publishers Weekly — review outlining 1675 integral-sign episode and scope</a>. :contentReference[oaicite:3]{index=3}</li>
+        <li id="fn-guardian"><a href="https://www.theguardian.com/books/2024/dec/01/the-best-of-all-possible-worlds-by-michael-kempe-review-life-of-gottfried-wilhelm-leibniz">The Guardian — review emphasizing the “philosopher of the possible” framing</a>. :contentReference[oaicite:4]{index=4}</li>
+        <li id="fn-newyorker"><a href="https://www.newyorker.com/magazine/2025/01/13/leibniz-in-his-world-the-making-of-a-savant-audrey-borowski-book-review-the-best-of-all-possible-worlds-a-life-of-leibniz-in-seven-pivotal-days-michael-kempe">The New Yorker — comparative review with historical context</a>. :contentReference[oaicite:5]{index=5}</li>
+        <li id="fn-siam"><a href="https://www.siam.org/publications/siam-news/articles/eight-years-and-seven-days-in-the-life-of-gottfried-wilhelm-leibniz/">SIAM News — enumerates all seven days; confirms translator and 304 pp</a>. :contentReference[oaicite:6]{index=6}</li>
+        <li id="fn-flammarion"><a href="https://excerpts.numilog.com/books/9782080297570.pdf">Flammarion (excerpt PDF) — notes original German title (S. Fischer, 2022) and French edition (2023)</a>. :contentReference[oaicite:7]{index=7}</li>
+        <li id="fn-fnac"><a href="https://www.fr.fnac.be/a17402092/Michael-Kempe-Sept-jours-dans-la-vie-de-Leibniz">Fnac — French edition listing (date, publisher, translator)</a>. :contentReference[oaicite:8]{index=8}</li>
+      </ol>
+      <p class="muted small">This brief paraphrases public information; it does not reproduce the book’s text.</p>
+    </section>
+
+    <footer class="muted">
+      <p>Light background · vertical cards · P3 pattern. © You, for personal use.</p>
+    </footer>
+  </main>
+</div>
+
+<!-- Robust self-test script -->
+<script>
+(function () {
+  function runChecks () {
+    var statusEl = document.getElementById('status');
+    var listEl = document.getElementById('checklist');
+
+    function add(name, ok){
+      var li = document.createElement('li');
+      li.textContent = (ok ? '✔︎ ' : '✘ ') + name;
+      li.style.color = ok ? '#106941' : '#8a2222';
+      listEl.appendChild(li);
+      return ok;
+    }
+
+    var allOk = true;
+    try {
+      // 1) Required sections
+      var req = ['p3','answer','reasons','check','math','themes','studies','glossary','meta','sources'];
+      for (var i = 0; i < req.length; i++) {
+        var ok = !!document.getElementById(req[i]);
+        allOk = add('Section #' + req[i] + ' present', ok) && allOk;
+      }
+
+      // 2) Every claim has a citation
+      var claims = document.querySelectorAll('[data-claim]');
+      for (var j = 0; j < claims.length; j++) {
+        var cited = false;
+        var anchors = claims[j].querySelectorAll('sup a[href^="#fn-"]');
+        if (anchors && anchors.length) cited = true;
+        allOk = add('Claim ' + (j + 1) + ' cites a source', cited) && allOk;
+      }
+
+      // 3) Structured data sanity
+      var metaOk = false;
+      try {
+        var ld = document.querySelector('script[type="application/ld+json"]');
+        if (ld) {
+          var data = JSON.parse(ld.textContent || ld.innerText || '{}');
+          metaOk = !!(data && data.name && data.author && data.publisher && data.isbn && data.numberOfPages);
+        }
+      } catch (e) { metaOk = false; }
+      allOk = add('Structured data looks valid', metaOk) && allOk;
+
+      // Status pill
+      statusEl.textContent = allOk ? '✔︎ Check passed' : '✘ Check failed — see list above';
+      statusEl.className = 'pill ' + (allOk ? 'status-pass' : 'status-fail');
+    } catch (err) {
+      statusEl.textContent = '✘ Check error — ' + (err && err.message ? err.message : 'script blocked or runtime error');
+      statusEl.className = 'pill status-fail';
+    }
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', runChecks);
+  } else {
+    runChecks();
+  }
+})();
+</script>
+<noscript>
+  <p class="pill status-fail">✘ JavaScript is disabled — checks cannot run.</p>
+</noscript>
+</body>
+</html>
+

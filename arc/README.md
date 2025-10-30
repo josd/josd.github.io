@@ -33,6 +33,7 @@ The collection ranges from mathematics and formal logic to routing, clinical pol
 - [**A₂ (Ackermann via hyper-operations)**](https://josd.github.io/arc/ackermann.html) — Compute A₂ with exact hyper-ops; print small, expand huge safely.
 - [**Apollonian gasket**](https://josd.github.io/arc/apollonian-gasket.html) — Exact tangent-circle packing via Descartes’ theorem and complex centers.
 - [**Barbara**](https://josd.github.io/arc/barbara.html) — Barbara Term Logic example proved using Resolution.
+- [**Best of All Possible Worlds**](https://josd.github.io/arc/eloquent-leibniz-kempe.html) — A self‑contained research brief for *The Best of All Possible Worlds*.
 - [**Bike Trip Planning**](https://josd.github.io/arc/bike-trip.html) — Route priorities from hazards, preferences, and declarative JSON rules.
 - [**Binomial Theorem**](https://josd.github.io/arc/binomial-theorem.html) — Sum of all binomial coefficients.
 - [**BMI**](https://josd.github.io/arc/bmi.html) — Compute BMI categories with explainable thresholds and sanity checks.
