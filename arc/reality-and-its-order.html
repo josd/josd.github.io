@@ -1,0 +1,368 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Werner Heisenberg — Reality and Its Order</title>
+<meta name="description" content="A self-contained P3 (Prompt → Program → Proof) brief for Werner Heisenberg’s Reality and Its Order, edited by Konrad Kleinknecht, with an introduction by Helmut Rechenberg and a commentary by Ernst Peter Fischer." />
+<meta name="author" content="Book: Werner Heisenberg" />
+<style>
+  :root{
+    --bg:#f7f9ff;
+    --card:#ffffff;
+    --ink:#0f172a;
+    --ink-sub:#475569;
+    --muted:#94a3b8;
+    --accent:#104e8b;      /* Springer-ish deep blue */
+    --accent-2:#6aa2ff;
+    --border:#e5eaf3;
+    --shadow: 0 1px 2px rgba(0,0,0,.05), 0 6px 20px rgba(0,0,0,.06);
+    --radius: 16px;
+    --radius-lg: 22px;
+    --max: 900px;
+  }
+  *{box-sizing:border-box}
+  html,body{background:var(--bg); color:var(--ink); margin:0; font:16px/1.65 system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,"Apple Color Emoji","Segoe UI Emoji"}
+  a{color:var(--accent); text-decoration:none}
+  a:hover{text-decoration:underline}
+  .wrap{max-width:var(--max); margin:32px auto; padding:0 16px}
+  header.hero{
+    background:linear-gradient(160deg,#eef4ff,#ffffff);
+    border:1px solid var(--border);
+    padding:24px;
+    border-radius:var(--radius-lg);
+    box-shadow:var(--shadow);
+  }
+  .title{display:flex; gap:18px; align-items:center; flex-wrap:wrap}
+  .cover{width:110px;height:160px;border-radius:10px;box-shadow:var(--shadow);background:#e7efff;display:grid;place-items:center;border:1px solid var(--border);overflow:hidden}
+  .cover svg{width:100%;height:100%}
+  .title h1{font-size:1.65rem;margin:0}
+  .subtitle{color:var(--ink-sub);margin:.25rem 0 0}
+  .badges{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+  .badge{padding:4px 10px;border-radius:999px;background:#eff5ff;color:#0f3f7c;font-weight:600;font-size:.8rem;border:1px solid #d9e6ff}
+  nav.toc{margin-top:14px;padding-top:10px;border-top:1px dashed var(--border);color:var(--ink-sub);display:flex;flex-wrap:wrap;gap:10px}
+  nav.toc a{font-size:.92rem;background:#f3f7ff;border:1px solid #e5eeff;padding:6px 10px;border-radius:999px}
+  .cards{display:flex;flex-direction:column;gap:16px;margin-top:18px}
+  .card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);padding:18px}
+  .card h2{margin:0 0 .35rem 0;font-size:1.15rem}
+  .card h3{margin:.75rem 0 .25rem;font-size:1rem}
+  .subcard{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:14px;box-shadow:var(--shadow);margin-top:12px}
+  .muted{color:var(--muted)}
+  .list-tight li{margin:.25rem 0}
+  .pill{display:inline-flex;align-items:center;gap:.45rem;padding:4px 9px;border-radius:999px;background:#eef4ff;border:1px solid #dfe8ff;color:#0f3f7c;font-weight:600}
+  .status-pass{color:#106941}
+  .status-fail{color:#8a2222}
+  .kicker{letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-size:.78rem;font-weight:700}
+  .quote{border-left:3px solid var(--accent-2);padding-left:10px;color:#1e293b;background:#f8fbff;border-radius:8px;border:1px solid #e6efff}
+  .callout{background:#f8fbff;border:1px solid #e6efff;padding:12px;border-radius:12px}
+  .small{font-size:.94rem}
+  footer{color:var(--muted);font-size:.9rem;margin-top:22px}
+  code, pre{background:#f3f5f7;border:1px solid #e7e9ee;padding:.25rem .45rem;border-radius:8px;font-size:.95rem}
+  pre{padding:12px;overflow:auto}
+</style>
+
+<!-- Structured data -->
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"Book",
+  "name":"Reality and Its Order",
+  "author":{"@type":"Person","name":"Werner Heisenberg"},
+  "editor":{"@type":"Person","name":"Konrad Kleinknecht"},
+  "translator":[
+    {"@type":"Person","name":"Martin B. Rumscheidt"},
+    {"@type":"Person","name":"Nancy Lukens"},
+    {"@type":"Person","name":"Irene Heisenberg"}
+  ],
+  "publisher":{"@type":"Organization","name":"Springer, Cham"},
+  "isbn":"9783030256951",
+  "workExample":[
+    {"@type":"Book","bookFormat":"EBook","isbn":"9783030256968","datePublished":"2019-11-30"},
+    {"@type":"Book","bookFormat":"Hardcover","isbn":"9783030256951","datePublished":"2019-12-10"},
+    {"@type":"Book","bookFormat":"Paperback","isbn":"9783030256982","datePublished":"2021-01-21"}
+  ],
+  "datePublished":"2019-12-10",
+  "numberOfPages":"148",
+  "inLanguage":"en",
+  "sameAs":[
+    "https://link.springer.com/book/10.1007/978-3-030-25696-8",
+    "https://link.springer.com/content/pdf/10.1007/978-3-030-25696-8.pdf"
+  ]
+}
+</script>
+</head>
+<body>
+<div class="wrap">
+  <header class="hero" id="top">
+    <div class="title">
+      <div class="cover" aria-hidden="true">
+        <!-- simple SVG “cover” -->
+        <svg viewBox="0 0 210 300" xmlns="http://www.w3.org/2000/svg">
+          <defs><linearGradient id="g" x1="0" x2="1" y1="0" y2="1">
+            <stop offset="0" stop-color="#e1ebff"/><stop offset="1" stop-color="#cfe1ff"/>
+          </linearGradient></defs>
+          <rect width="210" height="300" fill="url(#g)"/>
+          <g fill="#0f3f7c" font-family="Georgia,serif">
+            <text x="18" y="92" font-size="16" font-weight="700">WERNER HEISENBERG</text>
+            <text x="18" y="118" font-size="22" font-weight="700">Reality and Its Order</text>
+            <text x="18" y="142" font-size="12">ed. Konrad Kleinknecht · Springer</text>
+            <text x="18" y="225" font-size="13" font-weight="700">Intro: Helmut Rechenberg · Commentary: E. P. Fischer</text>
+          </g>
+          <g stroke="#6aa2ff" stroke-width="2" fill="none" opacity=".6">
+            <path d="M20,250 C80,210 130,270 190,230" />
+            <circle cx="40" cy="240" r="3" fill="#6aa2ff"/>
+            <circle cx="170" cy="240" r="3" fill="#6aa2ff"/>
+          </g>
+        </svg>
+      </div>
+      <div>
+        <div class="kicker">Book Brief · P3 (Prompt → Program → Proof)</div>
+        <h1>Reality and Its Order</h1>
+        <p class="subtitle">Werner Heisenberg · ed. Konrad Kleinknecht · Springer (2019) · 148 pp · English translation with Introduction (H. Rechenberg) & Commentary (E. P. Fischer)</p>
+        <div class="badges" role="list">
+          <span class="badge" role="listitem">Quantum Foundations</span>
+          <span class="badge" role="listitem">History & Philosophy of Science</span>
+          <span class="badge" role="listitem">Wartime Essay (1941–42)</span>
+        </div>
+        <nav class="toc" aria-label="On this page">
+          <a href="#p3">P3 Summary</a>
+          <a href="#answer">Answer (TL;DR)</a>
+          <a href="#reasons">Reason Why</a>
+          <a href="#check">Check</a>
+          <a href="#math">Physics–Philosophy Track</a>
+          <a href="#themes">Themes</a>
+          <a href="#studies">Studies & Context</a>
+          <a href="#glossary">Glossary</a>
+          <a href="#meta">Book Metadata</a>
+          <a href="#sources">Citations</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <main class="cards">
+
+    <!-- P3 -->
+    <section class="card" id="p3" aria-labelledby="p3h2">
+      <h2 id="p3h2">P3 Summary: Prompt → Program → Proof</h2>
+
+      <article class="subcard">
+        <h3>Prompt &amp; Question</h3>
+        <p><strong>Prompt:</strong> Create a concise, self-contained brief of Heisenberg’s <em>Reality and Its Order</em> with reliable metadata and a quick map of its argument.</p>
+        <p><strong>Question:</strong> What is this text, when was it written, how is this edition structured, and what are the key publication facts?</p>
+      </article>
+
+      <article class="subcard">
+        <h3>Data (Sources)</h3>
+        <ul class="list-tight small">
+          <li>SpringerLink product page (official metadata, ToC, ISBNs, page count).<sup><a href="#fn-springer">[1]</a></sup></li>
+          <li>Sample PDF (preface/ToC) with translators, provenance, and section layout.<sup><a href="#fn-sample">[2]</a></sup></li>
+          <li>German original page: <em>Ordnung der Wirklichkeit</em> (context + description).<sup><a href="#fn-german">[3]</a></sup></li>
+          <li>Scholarly review in <em>Philosophy of Science</em> for reception and context.<sup><a href="#fn-pos">[4]</a></sup></li>
+        </ul>
+      </article>
+
+      <article class="subcard">
+        <h3>Logic (How we evaluate)</h3>
+        <ol class="small">
+          <li>Use SpringerLink for canonical bibliographic data & the chapter-level ToC.</li>
+          <li>Use the sample PDF for translators and the internal outline of parts/sections.</li>
+          <li>Use the German page for original title & wartime provenance.</li>
+          <li>Use a peer-reviewed review for scholarly positioning and cautions.</li>
+        </ol>
+      </article>
+
+      <article class="subcard">
+        <h3>Program (Driver)</h3>
+        <p class="muted small">This page includes a tiny “check” harness that ensures every <code>data-claim</code> has at least one footnote in <em>Citations</em>.</p>
+<pre><code>// Pseudocode
+const claims=[...document.querySelectorAll('[data-claim]')];
+for (const c of claims) assert(c.querySelector('sup a[href^="#fn-"]'));</code></pre>
+        <div class="callout small">
+          <strong>Proof = Reason Why + Check.</strong> “Reason Why” cites evidence; “Check” verifies structure.
+        </div>
+      </article>
+    </section>
+
+    <!-- Answer -->
+    <section class="card" id="answer">
+      <h2>Answer (TL;DR + Argument Map)</h2>
+      <p data-claim="answer">
+        Heisenberg’s wartime essay proposes that &ldquo;reality&rdquo; is best understood as a
+        <strong>stratified order</strong> of domains, each with its own fitting concepts and
+        limits; science belongs to culture rather than standing above it. This
+        edition presents the essay with Rechenberg’s introduction and Fischer’s
+        commentary (Springer, 2019; ix+148 pp).<sup><a href="#fn-springer">[1]</a>, <a href="#fn-sample">[2]</a></sup>
+      </p>
+      <ol class="small">
+        <li data-claim="a1"><strong>Setup — Areas · Language · Order.</strong> Heisenberg opens by arguing that what we can say about nature depends on the <strong>language</strong> and <strong>conceptual order</strong> appropriate to a domain; reductionism therefore misfires as a general method.<sup><a href="#fn-sample">[2]</a></sup></li>
+        <li data-claim="a2"><strong>Classical order.</strong> Stable objects and deterministic laws work within their scope but do not exhaust reality’s structure.<sup><a href="#fn-sample">[2]</a></sup></li>
+        <li data-claim="a3"><strong>Chemistry / Quantum order.</strong> Atoms, discreteness, and probability introduce complementarity-style limits; chemistry relies on quantum notions without collapsing to classical mechanics.<sup><a href="#fn-sample">[2]</a></sup></li>
+        <li data-claim="a4"><strong>Organic life.</strong> Organization and function require concepts not captured by physics alone; &ldquo;life&rdquo; marks a higher explanatory order.<sup><a href="#fn-sample">[2]</a></sup></li>
+        <li data-claim="a5"><strong>Consciousness.</strong> Knowing subjects and meaning conditions enter; the subject–object relation cannot be eliminated from a full account.<sup><a href="#fn-sample">[2]</a></sup></li>
+        <li data-claim="a6"><strong>Symbol &amp; Gestalt.</strong> Patterns, symbols, science, and art mediate understanding at the cultural level; wholes have properties irreducible to parts.<sup><a href="#fn-sample">[2]</a></sup></li>
+        <li data-claim="a7"><strong>Creative forces.</strong> Religion/illumination/parable orient communities; these are <em>orders</em> of reality alongside science, not competitors on the same plane.<sup><a href="#fn-sample">[2]</a></sup></li>
+        <li data-claim="a8"><strong>Framing in this edition.</strong> Rechenberg’s introduction situates the 1941–42 composition; Fischer’s commentary annotates and critiques the schema and its historical context.<sup><a href="#fn-springer">[1]</a>, <a href="#fn-sample">[2]</a></sup></li>
+      </ol>
+    </section>
+
+    <!-- Reason Why -->
+    <section class="card" id="reasons">
+      <h2>Reason Why (Evidence)</h2>
+      <div class="quote small" data-claim="rw-1">
+        Springer’s record gives the chapter breakdown—Introduction (pp. 1–17), the essay itself (pp. 19–121), and Fischer’s commentary (pp. 123–148)—plus editors/translators and the 2019 publication/ISBNs.<sup><a href="#fn-springer">[1]</a></sup>
+      </div>
+      <p class="small" data-claim="rw-2">
+        The sample PDF confirms the translator trio, shows the table of contents in detail, and notes the essay was written prior to the end of 1942; it also outlines the main “areas of reality.”<sup><a href="#fn-sample">[2]</a></sup>
+      </p>
+      <p class="small" data-claim="rw-3">
+        The German page for <em>Ordnung der Wirklichkeit</em> describes the text’s origin in the 1941/42 years and its philosophical scope, supporting the wartime provenance.<sup><a href="#fn-german">[3]</a></sup>
+      </p>
+      <p class="small" data-claim="rw-4">
+        A review in <em>Philosophy of Science</em> situates the essay within broader debates on quantum foundations and intellectual context, useful for scholarly orientation.<sup><a href="#fn-pos">[4]</a></sup>
+      </p>
+    </section>
+
+    <!-- Check -->
+    <section class="card" id="check">
+      <h2>Check (Self-test)</h2>
+      <p class="small">Automated checks: (1) every claim cites a source; (2) required sections exist; (3) core metadata parses.</p>
+      <ul id="checklist" class="list-tight small"></ul>
+      <p id="status" class="pill" aria-live="polite">Running checks…</p>
+    </section>
+
+    <!-- Physics–Philosophy Track -->
+    <section class="card" id="math">
+      <h2>Physics–Philosophy Track: How the Essay Organizes “Reality”</h2>
+      <ol>
+        <li data-claim="m1"><strong>Part I foundations:</strong> “Areas of Reality,” “Language,” and “Order” frame the project.<sup><a href="#fn-sample">[2]</a></sup></li>
+        <li data-claim="m2"><strong>Six-point schema (Part II):</strong> after a Goethe prelude, Heisenberg ranges through (2) Classical physics → (3) Chemistry (incl. quantum theory) → (4) Organic life → (5) Consciousness → (6) Symbol & Gestalt, then (7) Creative forces (religion, illumination, parable).<sup><a href="#fn-sample">[2]</a></sup></li>
+        <li data-claim="m3"><strong>Edition architecture:</strong> Rechenberg’s Introduction contextualizes origins and aims; Fischer’s Commentary annotates and critiques the essay’s claims and historical positioning.<sup><a href="#fn-springer">[1]</a>, <a href="#fn-sample">[2]</a></sup></li>
+      </ol>
+      <div class="callout small">
+        <strong>Takeaway:</strong> The book is less physics textbook than a philosopher-physicist’s layered map of nature, mind, and culture, placed in its 1940s moment and explained for today’s reader.<sup><a href="#fn-springer">[1]</a>, <a href="#fn-sample">[2]</a></sup>
+      </div>
+    </section>
+
+    <!-- Themes -->
+    <section class="card" id="themes">
+      <h2>Themes</h2>
+      <ol>
+        <li data-claim="t1"><strong>From facts to forms:</strong> A climb from classical mechanics to symbols, art, science, and community reveals Heisenberg’s expansive realism.<sup><a href="#fn-sample">[2]</a></sup></li>
+        <li data-claim="t2"><strong>Science with culture:</strong> Physics and metaphysics are treated as complementary orders rather than opponents—mirroring broader “complementarity” habits of thought in the era.<sup><a href="#fn-springer">[1]</a>, <a href="#fn-sample">[2]</a></sup></li>
+      </ol>
+    </section>
+
+    <!-- Studies & Context -->
+    <section class="card" id="studies">
+      <h2>Studies & Context</h2>
+      <ul class="list-tight">
+        <li data-claim="s1"><strong>Publication facts:</strong> eBook 2019-11-30 (ISBN 978-3-030-25696-8), hardcover 2019-12-10 (978-3-030-25695-1), softcover 2021-01-21 (978-3-030-25698-2), total ix+148 pages.<sup><a href="#fn-springer">[1]</a></sup></li>
+        <li data-claim="s2"><strong>Wartime provenance:</strong> Composed by 1942; the English text is translated from the German edition <em>Ordnung der Wirklichkeit</em>.<sup><a href="#fn-sample">[2]</a>, <a href="#fn-german">[3]</a></sup></li>
+        <li data-claim="s3"><strong>Scholarly reception:</strong> Recent philosophy-of-science commentary reviews and debates its theses and sources.<sup><a href="#fn-pos">[4]</a></sup></li>
+      </ul>
+    </section>
+
+    <!-- Glossary -->
+    <section class="card" id="glossary">
+      <h2>Glossary (quick reference)</h2>
+      <dl class="small">
+        <dt><strong>Complementarity</strong></dt>
+        <dd>A style of reasoning (associated with Bohr/Heisenberg) where apparently exclusive descriptions are jointly necessary for a full account; echoed in the book’s science–culture sweep.<sup><a href="#fn-sample">[2]</a></sup></dd>
+
+        <dt><strong>Gestalt</strong></dt>
+        <dd>Structured whole or pattern; Heisenberg uses “Symbol & Gestalt” to discuss meaning, art, science, and communal forms.<sup><a href="#fn-sample">[2]</a></sup></dd>
+      </dl>
+    </section>
+
+    <!-- Metadata -->
+    <section class="card" id="meta">
+      <h2>Book Metadata</h2>
+      <ul class="list-tight small">
+        <li data-claim="md1"><strong>Title:</strong> <em>Reality and Its Order</em> (English translation of <em>Ordnung der Wirklichkeit</em>).<sup><a href="#fn-springer">[1]</a>, <a href="#fn-sample">[2]</a></sup></li>
+        <li data-claim="md2"><strong>Author:</strong> Werner Heisenberg; <strong>Editor:</strong> Konrad Kleinknecht.<sup><a href="#fn-springer">[1]</a></sup></li>
+        <li data-claim="md3"><strong>Intro & Commentary:</strong> Helmut Rechenberg (Intro), Ernst Peter Fischer (Commentary).<sup><a href="#fn-springer">[1]</a></sup></li>
+        <li data-claim="md4"><strong>Translators:</strong> Martin B. Rumscheidt, Nancy Lukens, Irene Heisenberg.<sup><a href="#fn-springer">[1]</a>, <a href="#fn-sample">[2]</a></sup></li>
+        <li data-claim="md5"><strong>Publisher:</strong> Springer (Cham), 2019; ix+148 pages; DOI: 10.1007/978-3-030-25696-8.<sup><a href="#fn-springer">[1]</a></sup></li>
+        <li data-claim="md6"><strong>ISBNs:</strong> HC 978-3-030-25695-1; eBook 978-3-030-25696-8; PB 978-3-030-25698-2.<sup><a href="#fn-springer">[1]</a></sup></li>
+      </ul>
+    </section>
+
+    <!-- Citations -->
+    <section class="card footnotes" id="sources" aria-labelledby="sourcesh2">
+      <h2 id="sourcesh2">Citations (for this page)</h2>
+      <ol>
+        <li id="fn-springer"><a href="https://link.springer.com/book/10.1007/978-3-030-25696-8">SpringerLink — official book page: ToC, metadata, dates, ISBNs, pages</a>.</li>
+        <li id="fn-sample"><a href="https://content.e-bookshelf.de/media/reading/L-12791432-518e361368.pdf">Sample PDF — preface/ToC; translators; note on 1942 completion; section outline</a>.</li>
+        <li id="fn-german"><a href="https://link.springer.com/book/10.1007/978-3-662-59529-9">Springer (German): <em>Ordnung der Wirklichkeit</em> — description & provenance</a>.</li>
+        <li id="fn-pos"><a href="https://www.cambridge.org/core/journals/philosophy-of-science/article/review-of-konrad-kleinknechts-werner-heisenberg-reality-and-its-order-konrad-kleinknecht-ed-werner-heisenberg-reality-and-its-order-with-introduction-by-h-rechenberg-and-commentary-by-e-p-fischer-translated-by-m-b-rumscheidt-n-lukens-and-i-heisenberg-cham-switzerland-springer-2019-148-pp-12999/0C9AC6F396502302FB501A1DE763F381">Philosophy of Science — review & scholarly context</a>.</li>
+      </ol>
+      <p class="muted small">This brief paraphrases public information; it does not reproduce the book’s text.</p>
+    </section>
+
+    <footer class="muted">
+      <p>Light background · vertical cards · P3 pattern. © You, for personal use.</p>
+    </footer>
+  </main>
+</div>
+
+<!-- Self-test script -->
+<script>
+(function () {
+  function runChecks () {
+    var statusEl = document.getElementById('status');
+    var listEl = document.getElementById('checklist');
+
+    function add(name, ok){
+      var li = document.createElement('li');
+      li.textContent = (ok ? '✔︎ ' : '✘ ') + name;
+      li.style.color = ok ? '#106941' : '#8a2222';
+      listEl.appendChild(li);
+      return ok;
+    }
+
+    var allOk = true;
+    try {
+      // 1) Required sections
+      var req = ['p3','answer','reasons','check','math','themes','studies','glossary','meta','sources'];
+      for (var i = 0; i < req.length; i++) {
+        var ok = !!document.getElementById(req[i]);
+        allOk = add('Section #' + req[i] + ' present', ok) && allOk;
+      }
+
+      // 2) Every claim has a citation
+      var claims = document.querySelectorAll('[data-claim]');
+      for (var j = 0; j < claims.length; j++) {
+        var cited = false;
+        var anchors = claims[j].querySelectorAll('sup a[href^="#fn-"]');
+        if (anchors && anchors.length) cited = true;
+        allOk = add('Claim ' + (j + 1) + ' cites a source', cited) && allOk;
+      }
+
+      // 3) Structured data sanity
+      var metaOk = false;
+      try {
+        var ld = document.querySelector('script[type="application/ld+json"]');
+        if (ld) {
+          var data = JSON.parse(ld.textContent || ld.innerText || '{}');
+          metaOk = !!(data && data.name && data.author && data.publisher && data.isbn);
+        }
+      } catch (e) { metaOk = false; }
+      allOk = add('Structured data looks valid', metaOk) && allOk;
+
+      // Status pill
+      var statusText = allOk ? '✔︎ Check passed' : '✘ Check failed — see list above';
+      if (statusEl){ statusEl.textContent = statusText; statusEl.className = 'pill ' + (allOk ? 'status-pass' : 'status-fail'); }
+    } catch (err) {
+      if (statusEl){ statusEl.textContent = '✘ Check error — ' + (err && err.message ? err.message : 'script blocked'); statusEl.className = 'pill status-fail'; }
+    }
+  }
+
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', runChecks);
+  else runChecks();
+})();
+</script>
+<noscript><p class="pill status-fail">✘ JavaScript is disabled — checks cannot run.</p></noscript>
+</body>
+</html>
+

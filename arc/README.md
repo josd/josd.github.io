@@ -97,8 +97,10 @@ The collection ranges from mathematics and formal logic to routing, clinical pol
 - [**Primes**](https://josd.github.io/arc/prime.html) — Generate/test primes; log certs (trial factors or proofs) as checks.
 - [**Proofs from THE BOOK**](https://josd.github.io/arc/proofs-from-the-book.html) — A self‑contained book brief for *Proofs from THE BOOK*.
 - [**Pythagorean Theorem**](https://josd.github.io/arc/pythagorean-theorem.html) — Compute legs/hypotenuse and confirm with algebraic or area proofs.
+- [**Reality and Its Order**](https://josd.github.io/arc/reality-and-its-order.html) — A self‑contained book brief for *Reality and Its Order*.
 - [**REST‑path**](https://josd.github.io/arc/rest-path.html) — Explain link‑following over REST resources; verify pre/post conditions.
 - [**Roots of Unity**](https://josd.github.io/arc/roots-of-unity.html) — Place complex n‑th roots on the unit circle; check spacing and sums/products.
+- [**Secret Lives of Numbers**](https://josd.github.io/arc/secret-lives-of-numbers.html) — A self‑contained book brief for *The Secret Lives of Numbers*.
 - [**Skyscrapers**](https://josd.github.io/arc/skyscrapers.html) — Deduce building heights from sightlines with constraint logic.
 - [**Socrates**](https://josd.github.io/arc/socrates.html) — Classic syllogisms with explicit inference traces.
 - [**Square tiled by 17 right triangles**](https://josd.github.io/arc/square-triangles.html) — Dissect a square into 17 right triangles; verify tiling constraints.
