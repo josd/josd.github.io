@@ -1,0 +1,368 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>The Outer Limits of Reason — Book Brief</title>
+<meta name="description" content="A self-contained P3 (Prompt → Program → Proof) brief for Noson S. Yanofsky’s The Outer Limits of Reason: What Science, Mathematics, and Logic Cannot Tell Us (MIT Press)." />
+<meta name="author" content="Book: Noson S. Yanofsky · Page: you" />
+<style>
+  :root{
+    --bg:#f7f7fb;
+    --card:#ffffff;
+    --ink:#101418;
+    --ink-sub:#4b5563;
+    --muted:#9aa3af;
+    --accent:#0d4d92;      /* calm blue */
+    --accent-2:#6ea8ff;
+    --border:#e8e8ef;
+    --shadow: 0 1px 2px rgba(0,0,0,.05), 0 6px 20px rgba(0,0,0,.06);
+    --radius: 16px;
+    --radius-lg: 22px;
+    --max: 900px;
+  }
+  *{box-sizing:border-box}
+  html,body{background:var(--bg); color:var(--ink); margin:0; font:16px/1.65 system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,Apple Color Emoji,Segoe UI Emoji}
+  a{color:var(--accent); text-decoration:none}
+  a:hover{text-decoration:underline}
+  .wrap{max-width:var(--max); margin:32px auto; padding:0 16px}
+  header.hero{
+    background:linear-gradient(160deg,#f5f8fe,#ffffff);
+    border:1px solid var(--border);
+    padding:24px;
+    border-radius:var(--radius-lg);
+    box-shadow:var(--shadow);
+  }
+  .title{display:flex; gap:18px; align-items:center; flex-wrap:wrap}
+  .cover{
+    width:110px; height:160px; border-radius:10px; box-shadow:var(--shadow);
+    background:#eaf1ff; display:grid; place-items:center; border:1px solid var(--border); overflow:hidden;
+  }
+  .cover svg{width:100%; height:100%}
+  .title h1{font-size:1.65rem; margin:0}
+  .subtitle{color:var(--ink-sub); margin:.25rem 0 0}
+  .badges{display:flex; gap:8px; flex-wrap:wrap; margin-top:8px}
+  .badge{padding:4px 10px; border-radius:999px; background:#edf2fb; color:#254d85; font-weight:600; font-size:.8rem; border:1px solid #dfe6f6}
+  nav.toc{margin-top:14px; padding-top:10px; border-top:1px dashed var(--border); color:var(--ink-sub); display:flex; flex-wrap:wrap; gap:10px}
+  nav.toc a{font-size:.92rem; background:#f3f6fc; border:1px solid #e3eaf7; padding:6px 10px; border-radius:999px}
+  .cards{display:flex; flex-direction:column; gap:16px; margin-top:18px}
+  .card{background:var(--card); border:1px solid var(--border); border-radius:var(--radius); box-shadow:var(--shadow); padding:18px}
+  .card h2{margin:0 0 .35rem 0; font-size:1.15rem}
+  .card h3{margin:.75rem 0 .25rem; font-size:1rem}
+  .subcard{background:var(--card); border:1px solid var(--border); border-radius:12px; padding:14px; box-shadow:var(--shadow); margin-top:12px}
+  .meta{color:var(--ink-sub); font-size:.95rem}
+  .muted{color:var(--muted)}
+  .list-tight li{margin:.25rem 0}
+  .pill{display:inline-flex; align-items:center; gap:.45rem; padding:4px 9px; border-radius:999px; background:#f1f6ff; border:1px solid #e3ebff; color:#234c88; font-weight:600}
+  .status-pass{color:#106941}
+  .status-fail{color:#8a2222}
+  .kicker{letter-spacing:.06em; text-transform:uppercase; color:var(--muted); font-size:.78rem; font-weight:700}
+  .quote{border-left:3px solid var(--accent-2); padding-left:10px; color:#213; background:#f9fbfe; border-radius:8px; border:1px solid #e9eefb}
+  .callout{background:#f6f9fe; border:1px solid #e2e8f6; padding:12px; border-radius:12px}
+  .small{font-size:.94rem}
+  footer{color:var(--muted); font-size:.9rem; margin-top:22px}
+  code, pre{background:#f3f5f7; border:1px solid #e7e9ee; padding:.25rem .45rem; border-radius:8px; font-size:.95rem}
+  pre{padding:12px; overflow:auto}
+</style>
+
+<!-- Structured data -->
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"Book",
+  "name":"The Outer Limits of Reason: What Science, Mathematics, and Logic Cannot Tell Us",
+  "author":{"@type":"Person","name":"Noson S. Yanofsky"},
+  "publisher":{"@type":"Organization","name":"The MIT Press"},
+  "isbn":"9780262529846",
+  "workExample":[
+    {"@type":"Book","bookFormat":"Hardcover","isbn":"9780262019354","datePublished":"2013-08-23"},
+    {"@type":"Book","bookFormat":"EBook","isbn":"9780262316781","datePublished":"2013-08-23"},
+    {"@type":"Book","bookFormat":"Paperback","isbn":"9780262529846","datePublished":"2016-11-04"}
+  ],
+  "datePublished":"2016-11-04",
+  "numberOfPages":"418",
+  "inLanguage":"en",
+  "awards":"2013 PROSE Award (Popular Science & Popular Mathematics)",
+  "sameAs":[
+    "https://mitpress.mit.edu/9780262529846/the-outer-limits-of-reason/",
+    "https://www.amazon.com/Outer-Limits-Reason-Science-Mathematics/dp/0262019353"
+  ]
+}
+</script>
+</head>
+<body>
+<div class="wrap">
+  <header class="hero" id="top">
+    <div class="title">
+      <div class="cover" aria-hidden="true">
+        <!-- Self-contained SVG “cover” -->
+        <svg viewBox="0 0 210 300" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="g" x1="0" x2="1" y1="0" y2="1">
+              <stop offset="0" stop-color="#e9f0ff"/>
+              <stop offset="1" stop-color="#d7e6ff"/>
+            </linearGradient>
+          </defs>
+          <rect width="210" height="300" fill="url(#g)"/>
+          <g fill="#234c88" font-family="Georgia, serif">
+            <text x="20" y="92" font-size="16" font-weight="700">THE OUTER LIMITS</text>
+            <text x="20" y="118" font-size="22" font-weight="700">OF REASON</text>
+            <text x="20" y="142" font-size="12">Noson S. Yanofsky — MIT Press</text>
+            <text x="20" y="225" font-size="13" font-weight="700">Science · Math · Logic</text>
+          </g>
+          <g stroke="#6ea8ff" stroke-width="2" fill="none" opacity=".6">
+            <path d="M20,250 C80,210 130,270 190,230" />
+            <circle cx="40" cy="240" r="3" fill="#6ea8ff"/>
+            <circle cx="170" cy="240" r="3" fill="#6ea8ff"/>
+          </g>
+        </svg>
+      </div>
+      <div>
+        <div class="kicker">Book Brief · P3 (Prompt → Program → Proof)</div>
+        <h1>The Outer Limits of Reason</h1>
+        <p class="subtitle">Noson S. Yanofsky · The MIT Press · HC/ebook 2013 · PB 2016 · 418 pp</p>
+        <div class="badges" role="list">
+          <span class="badge" role="listitem">Popular Math & Logic</span>
+          <span class="badge" role="listitem">Limits of Knowledge</span>
+          <span class="badge" role="listitem">Computability</span>
+          <span class="badge" role="listitem">Quantum & Chaos</span>
+        </div>
+        <nav class="toc" aria-label="On this page">
+          <a href="#p3">P3 Summary</a>
+          <a href="#answer">Answer (TL;DR)</a>
+          <a href="#reasons">Reason Why</a>
+          <a href="#check">Check</a>
+          <a href="#math">Limits Track</a>
+          <a href="#themes">Themes</a>
+          <a href="#studies">Studies & Context</a>
+          <a href="#glossary">Glossary</a>
+          <a href="#meta">Book Metadata</a>
+          <a href="#sources">Citations</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <main class="cards">
+
+    <!-- P3 -->
+    <section class="card" id="p3" aria-labelledby="p3h2">
+      <h2 id="p3h2">P3 Summary: Prompt → Program → Proof</h2>
+
+      <article class="subcard">
+        <h3>Prompt &amp; Question</h3>
+        <p><strong>Prompt:</strong> Create a concise, self-contained brief of <em>The Outer Limits of Reason</em> that surfaces its central claim: many boundaries to knowing are principled, not merely practical.</p>
+        <p><strong>Question:</strong> Which limits does Yanofsky survey (logic, computation, physics, language), what distinguishes this treatment, and what are the key publication facts?</p>
+      </article>
+
+      <article class="subcard">
+        <h3>Data (Sources)</h3>
+        <ul class="list-tight small">
+          <li>MIT Press product page: canonical description, formats, dates, pages, ISBNs, award note.<sup><a href="#fn-mit">[1]</a></sup></li>
+          <li>Publishers Weekly review (starred) summarizing the inquiry and scope.<sup><a href="#fn-pw">[2]</a></sup></li>
+          <li>Retail listings confirming hardcover 2013 and paperback 2016 details.<sup><a href="#fn-amz-hc">[3]</a>, <a href="#fn-prh">[4]</a>, <a href="#fn-waterstones">[5]</a></sup></li>
+          <li>Accessible background definitions used in the glossary: Gödel, Halting Problem, Kolmogorov complexity, Uncertainty Principle.<sup><a href="#fn-godel">[6]</a>, <a href="#fn-halting">[7]</a>, <a href="#fn-kc">[8]</a>, <a href="#fn-uncertainty">[9]</a></sup></li>
+        </ul>
+      </article>
+
+      <article class="subcard">
+        <h3>Logic (How we evaluate)</h3>
+        <ol class="small">
+          <li>Use MIT Press for authoritative metadata and topic outline.</li>
+          <li>Use major-review pages to cross-check scope and reception.</li>
+          <li>Use standard references for concise definitions of formal results cited by the book.</li>
+        </ol>
+      </article>
+
+      <article class="subcard">
+        <h3>Program (Driver)</h3>
+        <p class="muted small">A tiny “check” harness ensures every <code>data-claim</code> has at least one footnote in <em>Citations</em>.</p>
+<pre><code>// Pseudocode
+const claims=[...document.querySelectorAll('[data-claim]')];
+for (const c of claims) assert(c.querySelector('sup a[href^="#fn-"]'));</code></pre>
+        <div class="callout small">
+          <strong>Proof = Reason Why + Check.</strong> “Reason Why” summarizes evidence; “Check” verifies structure.
+        </div>
+      </article>
+    </section>
+
+    <!-- Answer -->
+    <section class="card" id="answer">
+      <h2>Answer (TL;DR)</h2>
+      <p data-claim="answer">
+        Yanofsky tours principled limits on what can be known—from paradoxes and incompleteness to uncomputability, chaos, and quantum constraints—arguing that some questions are unsolvable in theory, not just in practice; MIT Press first published the hardcover/ebook in 2013 and the paperback in 2016 (418 pp).<sup><a href="#fn-mit">[1]</a>, <a href="#fn-pw">[2]</a></sup>
+      </p>
+    </section>
+
+    <!-- Reason Why -->
+    <section class="card" id="reasons">
+      <h2>Reason Why (Evidence)</h2>
+      <div class="quote small" data-claim="rw-1">
+        The MIT page lists topics spanning the limits of computers and logic (e.g., tasks taking “trillions of centuries,” unsolvable problems), paradoxes and levels of infinity, plus quantum/relativity/chaos constraints; it also records the 2013 PROSE Award.<sup><a href="#fn-mit">[1]</a></sup>
+      </div>
+      <p class="small" data-claim="rw-2">
+        Reviews describe it as a clear, entertaining survey of limits in language, formal logic, mathematics, and science (Publishers Weekly starred).<sup><a href="#fn-pw">[2]</a>, <a href="#fn-waterstones">[5]</a></sup>
+      </p>
+    </section>
+
+    <!-- Check -->
+    <section class="card" id="check">
+      <h2>Check (Self-test)</h2>
+      <p class="small">Automated checks: (1) every claim cites a source; (2) required sections exist; (3) core metadata parses.</p>
+      <ul id="checklist" class="list-tight small"></ul>
+      <p id="status" class="pill" aria-live="polite">Running checks…</p>
+    </section>
+
+    <!-- Limits Track -->
+    <section class="card" id="math">
+      <h2>Limits Track: Categories & Examples in the Book</h2>
+      <ol>
+        <li data-claim="m1"><strong>Logical limits:</strong> True statements that cannot be proved within a given formal system (Gödel).<sup><a href="#fn-mit">[1]</a>, <a href="#fn-godel">[6]</a></sup></li>
+        <li data-claim="m2"><strong>Computational limits:</strong> Problems no algorithm can solve in general (e.g., Halting Problem) and tasks infeasible in practice.<sup><a href="#fn-mit">[1]</a>, <a href="#fn-halting">[7]</a></sup></li>
+        <li data-claim="m3"><strong>Information limits:</strong> Notions of randomness and description length (Kolmogorov complexity) set boundaries on compression and inference.<sup><a href="#fn-mit">[1]</a>, <a href="#fn-kc">[8]</a></sup></li>
+        <li data-claim="m4"><strong>Physical limits:</strong> Uncertainty in quantum mechanics and constraints from relativity/causality; chaos amplifying initial-condition errors.<sup><a href="#fn-mit">[1]</a>, <a href="#fn-uncertainty">[9]</a></sup></li>
+        <li data-claim="m5"><strong>Conceptual/linguistic limits:</strong> Self-referential paradoxes and well-formed but meaningless sentences illustrate boundaries of description.<sup><a href="#fn-mit">[1]</a></sup></li>
+      </ol>
+      <div class="callout small">
+        <strong>Takeaway:</strong> Many “mysteries” persist not for lack of ingenuity but because logic, computation, and physics impose structural barriers—and recognizing them clarifies where inquiry can still progress fruitfully.<sup><a href="#fn-mit">[1]</a>, <a href="#fn-pw">[2]</a></sup>
+      </div>
+    </section>
+
+    <!-- Themes -->
+    <section class="card" id="themes">
+      <h2>Themes</h2>
+      <ol>
+        <li data-claim="t1"><strong>Principled impossibility vs. practical difficulty.</strong> A key distinction the book returns to across domains.<sup><a href="#fn-mit">[1]</a></sup></li>
+        <li data-claim="t2"><strong>Patterns of limitation repeat.</strong> Similar self-reference/diagonalization ideas recur from paradoxes to Turing to Cantor.<sup><a href="#fn-mit">[1]</a></sup></li>
+      </ol>
+    </section>
+
+    <!-- Studies & Context -->
+    <section class="card" id="studies">
+      <h2>Studies & Context</h2>
+      <ul class="list-tight">
+        <li data-claim="s1"><strong>Publication timeline:</strong> Hardcover & ebook released Aug 23, 2013; paperback Nov 4, 2016; MIT lists 418 pp and 118 b&w illustrations.<sup><a href="#fn-mit">[1]</a></sup></li>
+        <li data-claim="s2"><strong>Reception:</strong> Starred review in Publishers Weekly; retailers echo the cross-domain scope (logic → physics).<sup><a href="#fn-pw">[2]</a>, <a href="#fn-waterstones">[5]</a></sup></li>
+      </ul>
+    </section>
+
+    <!-- Glossary -->
+    <section class="card" id="glossary">
+      <h2>Glossary (quick reference)</h2>
+      <dl class="small">
+        <dt><strong>Gödel’s incompleteness theorems</strong></dt>
+        <dd>In any consistent, sufficiently strong formal system, there are true statements unprovable within the system; and the system can’t prove its own consistency.<sup><a href="#fn-godel">[6]</a></sup></dd>
+
+        <dt><strong>Halting Problem</strong></dt>
+        <dd>No general algorithm can decide for every program/input whether it will halt or run forever (undecidable).<sup><a href="#fn-halting">[7]</a></sup></dd>
+
+        <dt><strong>Kolmogorov complexity</strong></dt>
+        <dd>Length of the shortest description of a string in a fixed universal language; formalizes randomness/incompressibility.<sup><a href="#fn-kc">[8]</a></sup></dd>
+
+        <dt><strong>Uncertainty principle</strong></dt>
+        <dd>Quantum mechanics imposes lower bounds on joint knowledge of non-commuting observables (e.g., position and momentum).<sup><a href="#fn-uncertainty">[9]</a></sup></dd>
+      </dl>
+    </section>
+
+    <!-- Metadata -->
+    <section class="card" id="meta">
+      <h2>Book Metadata</h2>
+      <ul class="list-tight small">
+        <li data-claim="md1"><strong>Title:</strong> <em>The Outer Limits of Reason: What Science, Mathematics, and Logic Cannot Tell Us</em>.<sup><a href="#fn-mit">[1]</a></sup></li>
+        <li data-claim="md2"><strong>Author:</strong> Noson S. Yanofsky.<sup><a href="#fn-mit">[1]</a></sup></li>
+        <li data-claim="md3"><strong>Publisher:</strong> The MIT Press.<sup><a href="#fn-mit">[1]</a></sup></li>
+        <li data-claim="md4"><strong>Publication:</strong> Hardcover & ebook 2013-08-23 (HC ISBN 978-0262019354; eBook 978-0262316781); Paperback 2016-11-04 (PB ISBN 978-0262529846).<sup><a href="#fn-mit">[1]</a>, <a href="#fn-amz-hc">[3]</a></sup></li>
+        <li data-claim="md5"><strong>Pages & format:</strong> 418 pages; 118 b&w illustrations; size 6×9 in (MIT listing).<sup><a href="#fn-mit">[1]</a></sup></li>
+        <li data-claim="md6"><strong>Award:</strong> 2013 PROSE Award (Popular Science & Popular Mathematics).<sup><a href="#fn-mit">[1]</a></sup></li>
+      </ul>
+    </section>
+
+    <!-- Citations -->
+    <section class="card footnotes" id="sources" aria-labelledby="sourcesh2">
+      <h2 id="sourcesh2">Citations (for this page)</h2>
+      <ol>
+        <li id="fn-mit"><a href="https://mitpress.mit.edu/9780262529846/the-outer-limits-of-reason/">MIT Press — product page: description, topics, award, formats/dates, 418 pp, ISBNs</a>. :contentReference[oaicite:0]{index=0}</li>
+        <li id="fn-pw"><a href="https://www.publishersweekly.com/9780262019354">Publishers Weekly — review (starred) framing the scope</a>. :contentReference[oaicite:1]{index=1}</li>
+        <li id="fn-amz-hc"><a href="https://www.amazon.com/Outer-Limits-Reason-Science-Mathematics/dp/0262019353">Amazon — hardcover record (2013; MIT Press; HC ISBN)</a>. :contentReference[oaicite:2]{index=2}</li>
+        <li id="fn-prh"><a href="https://www.penguinrandomhouse.ca/books/656857/the-outer-limits-of-reason-by-noson-s-yanofsky/9780262529846">Penguin Random House — paperback listing</a>. :contentReference[oaicite:3]{index=3}</li>
+        <li id="fn-waterstones"><a href="https://www.waterstones.com/book/the-outer-limits-of-reason/noson-s-yanofsky/9780262529846">Waterstones — paperback page with review blurbs (scope summary)</a>. :contentReference[oaicite:4]{index=4}</li>
+        <li id="fn-godel"><a href="https://en.wikipedia.org/wiki/G%C3%B6del%27s_incompleteness_theorems">Wikipedia — Gödel’s incompleteness theorems (overview)</a>. :contentReference[oaicite:5]{index=5}</li>
+        <li id="fn-halting"><a href="https://en.wikipedia.org/wiki/Halting_problem">Wikipedia — Halting Problem (overview)</a>. :contentReference[oaicite:6]{index=6}</li>
+        <li id="fn-kc"><a href="https://en.wikipedia.org/wiki/Kolmogorov_complexity">Wikipedia — Kolmogorov complexity (overview)</a>. :contentReference[oaicite:7]{index=7}</li>
+        <li id="fn-uncertainty"><a href="https://en.wikipedia.org/wiki/Uncertainty_principle">Wikipedia — Uncertainty principle (overview)</a>. :contentReference[oaicite:8]{index=8}</li>
+      </ol>
+      <p class="muted small">This brief paraphrases public information; it does not reproduce the book’s text.</p>
+    </section>
+
+    <footer class="muted">
+      <p>Light background · vertical cards · P3 pattern. © You, for personal use.</p>
+    </footer>
+  </main>
+</div>
+
+<!-- Robust self-test script -->
+<script>
+(function () {
+  function runChecks () {
+    var statusEl = document.getElementById('status');
+    var listEl = document.getElementById('checklist');
+
+    function add(name, ok){
+      var li = document.createElement('li');
+      li.textContent = (ok ? '✔︎ ' : '✘ ') + name;
+      li.style.color = ok ? '#106941' : '#8a2222';
+      listEl.appendChild(li);
+      return ok;
+    }
+
+    var allOk = true;
+    try {
+      // 1) Required sections
+      var req = ['p3','answer','reasons','check','math','themes','studies','glossary','meta','sources'];
+      for (var i = 0; i < req.length; i++) {
+        var ok = !!document.getElementById(req[i]);
+        allOk = add('Section #' + req[i] + ' present', ok) && allOk;
+      }
+
+      // 2) Every claim has a citation
+      var claims = document.querySelectorAll('[data-claim]');
+      for (var j = 0; j < claims.length; j++) {
+        var cited = false;
+        var anchors = claims[j].querySelectorAll('sup a[href^="#fn-"]');
+        if (anchors && anchors.length) cited = true;
+        allOk = add('Claim ' + (j + 1) + ' cites a source', cited) && allOk;
+      }
+
+      // 3) Structured data sanity
+      var metaOk = false;
+      try {
+        var ld = document.querySelector('script[type="application/ld+json"]');
+        if (ld) {
+          var data = JSON.parse(ld.textContent || ld.innerText || '{}');
+          metaOk = !!(data && data.name && data.author && data.publisher && data.isbn && data.numberOfPages);
+        }
+      } catch (e) { metaOk = false; }
+      allOk = add('Structured data looks valid', metaOk) && allOk;
+
+      // Status pill
+      statusEl.textContent = allOk ? '✔︎ Check passed' : '✘ Check failed — see list above';
+      statusEl.className = 'pill ' + (allOk ? 'status-pass' : 'status-fail');
+    } catch (err) {
+      statusEl.textContent = '✘ Check error — ' + (err && err.message ? err.message : 'script blocked or runtime error');
+      statusEl.className = 'pill status-fail';
+    }
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', runChecks);
+  } else {
+    runChecks();
+  }
+})();
+</script>
+<noscript>
+  <p class="pill status-fail">✘ JavaScript is disabled — checks cannot run.</p>
+</noscript>
+</body>
+</html>
+
