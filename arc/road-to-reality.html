@@ -1,0 +1,374 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>The Road to Reality — Book Brief</title>
+<meta name="description" content="A self-contained P3 (Prompt → Program → Proof) brief for Roger Penrose’s The Road to Reality: A Complete Guide to the Laws of the Universe." />
+<meta name="author" content="Book: Roger Penrose" />
+<style>
+  :root{
+    --bg:#f7f9ff;
+    --card:#ffffff;
+    --ink:#0f172a;
+    --ink-sub:#475569;
+    --muted:#94a3b8;
+    --accent:#1061b0;
+    --accent-2:#6aa2ff;
+    --border:#e6eaf3;
+    --shadow: 0 1px 2px rgba(0,0,0,.05), 0 6px 20px rgba(0,0,0,.06);
+    --radius: 16px;
+    --radius-lg: 22px;
+    --max: 900px;
+  }
+  *{box-sizing:border-box}
+  html,body{background:var(--bg); color:var(--ink); margin:0; font:16px/1.65 system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,"Apple Color Emoji","Segoe UI Emoji"}
+  a{color:var(--accent); text-decoration:none}
+  a:hover{text-decoration:underline}
+  .wrap{max-width:var(--max); margin:32px auto; padding:0 16px}
+  header.hero{
+    background:linear-gradient(160deg,#eef4ff,#ffffff);
+    border:1px solid var(--border);
+    padding:24px;
+    border-radius:var(--radius-lg);
+    box-shadow:var(--shadow);
+  }
+  .title{display:flex; gap:18px; align-items:center; flex-wrap:wrap}
+  .cover{width:110px;height:160px;border-radius:10px;box-shadow:var(--shadow);background:#e7efff;display:grid;place-items:center;border:1px solid var(--border);overflow:hidden}
+  .cover svg{width:100%;height:100%}
+  .title h1{font-size:1.65rem;margin:0}
+  .subtitle{color:var(--ink-sub);margin:.25rem 0 0}
+  .badges{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+  .badge{padding:4px 10px;border-radius:999px;background:#eff5ff;color:#0f3f7c;font-weight:600;font-size:.8rem;border:1px solid #d9e6ff}
+  nav.toc{margin-top:14px;padding-top:10px;border-top:1px dashed var(--border);color:var(--ink-sub);display:flex;flex-wrap:wrap;gap:10px}
+  nav.toc a{font-size:.92rem;background:#f3f7ff;border:1px solid #e5eeff;padding:6px 10px;border-radius:999px}
+  .cards{display:flex;flex-direction:column;gap:16px;margin-top:18px}
+  .card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);padding:18px}
+  .card h2{margin:0 0 .35rem 0;font-size:1.15rem}
+  .card h3{margin:.75rem 0 .25rem;font-size:1rem}
+  .subcard{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:14px;box-shadow:var(--shadow);margin-top:12px}
+  .muted{color:var(--muted)}
+  .list-tight li{margin:.25rem 0}
+  .pill{display:inline-flex;align-items:center;gap:.45rem;padding:4px 9px;border-radius:999px;background:#eef4ff;border:1px solid #dfe8ff;color:#0f3f7c;font-weight:600}
+  .status-pass{color:#106941}
+  .status-fail{color:#8a2222}
+  .kicker{letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-size:.78rem;font-weight:700}
+  .quote{border-left:3px solid var(--accent-2);padding-left:10px;color:#1e293b;background:#f8fbff;border-radius:8px;border:1px solid #e6efff}
+  .callout{background:#f8fbff;border:1px solid #e6efff;padding:12px;border-radius:12px}
+  .small{font-size:.94rem}
+  footer{color:var(--muted);font-size:.9rem;margin-top:22px}
+  code, pre{background:#f3f5f7;border:1px solid #e7e9ee;padding:.25rem .45rem;border-radius:8px;font-size:.95rem}
+  pre{padding:12px;overflow:auto}
+</style>
+
+<!-- Structured data -->
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"Book",
+  "name":"The Road to Reality: A Complete Guide to the Laws of the Universe",
+  "author":{"@type":"Person","name":"Roger Penrose"},
+  "publisher":{"@type":"Organization","name":"Vintage Books"},
+  "isbn":"9780679776314",
+  "datePublished":"2007-01-09",
+  "numberOfPages":"1136",
+  "inLanguage":"en",
+  "workExample":[
+    {"@type":"Book","bookFormat":"Hardcover","isbn":"9780224044479","publisher":{"@type":"Organization","name":"Jonathan Cape"},"datePublished":"2004-08-24","numberOfPages":"1094"},
+    {"@type":"Book","bookFormat":"Hardcover","isbn":"9780679454434","publisher":{"@type":"Organization","name":"Alfred A. Knopf"},"datePublished":"2005-02-01"},
+    {"@type":"Book","bookFormat":"Paperback","isbn":"9780099440680","publisher":{"@type":"Organization","name":"Vintage (UK)"},"datePublished":"2006-02-02","numberOfPages":"1136"}
+  ],
+  "sameAs":[
+    "https://www.penguinrandomhouse.com/books/129420/the-road-to-reality-by-roger-penrose/",
+    "https://www.penguin.co.uk/books/357292/the-road-to-reality/9780099440680",
+    "https://www.amazon.com/Road-Reality-Complete-Guide-Universe/dp/0679776311",
+    "https://www.amazon.com/Road-Reality-Complete-Guide-Universe/dp/0679454438",
+    "https://www.amazon.com.be/-/en/Roger-Penrose/dp/0224044478"
+  ]
+}
+</script>
+</head>
+<body>
+<div class="wrap">
+  <header class="hero" id="top">
+    <div class="title">
+      <div class="cover" aria-hidden="true">
+        <!-- simple SVG “cover” -->
+        <svg viewBox="0 0 210 300" xmlns="http://www.w3.org/2000/svg">
+          <defs><linearGradient id="g" x1="0" x2="1" y1="0" y2="1">
+            <stop offset="0" stop-color="#e1f0ff"/><stop offset="1" stop-color="#cfe2ff"/>
+          </linearGradient></defs>
+          <rect width="210" height="300" fill="url(#g)"/>
+          <g fill="#0f3f7c" font-family="Georgia,serif">
+            <text x="18" y="90" font-size="16" font-weight="700">ROGER PENROSE</text>
+            <text x="18" y="116" font-size="22" font-weight="700">THE ROAD TO REALITY</text>
+            <text x="18" y="140" font-size="12">A Complete Guide to the Laws of the Universe</text>
+            <text x="18" y="225" font-size="13" font-weight="700">Math → Physics · 1100+ pages</text>
+          </g>
+          <g stroke="#6aa2ff" stroke-width="2" fill="none" opacity=".65">
+            <path d="M20,248 C80,210 130,270 190,232" />
+            <circle cx="42" cy="238" r="3" fill="#6aa2ff"/>
+            <circle cx="168" cy="238" r="3" fill="#6aa2ff"/>
+          </g>
+        </svg>
+      </div>
+      <div>
+        <div class="kicker">Book Brief · P3 (Prompt → Program → Proof)</div>
+        <h1>The Road to Reality</h1>
+        <p class="subtitle">Roger Penrose · Jonathan Cape (UK, 2004) · Knopf (US, 2005) · Vintage (UK 2006, US 2007) · 1094–1136 pp</p>
+        <div class="badges" role="list">
+          <span class="badge" role="listitem">Modern Physics</span>
+          <span class="badge" role="listitem">Math-First Approach</span>
+          <span class="badge" role="listitem">Critical of Fashion</span>
+          <span class="badge" role="listitem">Big, Challenging, Comprehensive</span>
+        </div>
+        <nav class="toc" aria-label="On this page">
+          <a href="#p3">P3 Summary</a>
+          <a href="#answer">Answer (TL;DR)</a>
+          <a href="#reasons">Reason Why</a>
+          <a href="#check">Check</a>
+          <a href="#math">Physics Track</a>
+          <a href="#themes">Themes</a>
+          <a href="#studies">Studies & Context</a>
+          <a href="#glossary">Glossary</a>
+          <a href="#meta">Book Metadata</a>
+          <a href="#sources">Citations</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <main class="cards">
+
+    <!-- P3 -->
+    <section class="card" id="p3" aria-labelledby="p3h2">
+      <h2 id="p3h2">P3 Summary: Prompt → Program → Proof</h2>
+
+      <article class="subcard">
+        <h3>Prompt &amp; Question</h3>
+        <p><strong>Prompt:</strong> Create a concise, self-contained brief of Penrose’s <em>The Road to Reality</em> with an argument map from mathematics to modern physics and reliable publication facts.</p>
+        <p><strong>Question:</strong> What makes the book distinctive (structure, stance), what are its main arcs, and what are the key editions (publishers, dates, pages, ISBNs)?</p>
+      </article>
+
+      <article class="subcard">
+        <h3>Data (Sources)</h3>
+        <ul class="list-tight small">
+          <li>US Penguin Random House/Vintage page (paperback 2007; 1136 pp; description).<sup><a href="#fn-prh">[1]</a></sup></li>
+          <li>UK Penguin/Vintage page (2006; math-first description; 1136 pp).<sup><a href="#fn-ukpenguin">[2]</a></sup></li>
+          <li>Jonathan Cape (UK, 2004) hardcover listing with ISBN/date (first edition).<sup><a href="#fn-cape">[3]</a></sup></li>
+          <li>US Knopf (2005) hardcover listing with ISBN.<sup><a href="#fn-knopf">[4]</a></sup></li>
+          <li>Contemporary review summarizing scope/length (Physics World, 2004).<sup><a href="#fn-physworld">[5]</a></sup></li>
+          <li>Overview of structure (math → spacetime → fields → QM/QFT → unification; chapters incl. strings/loop/twistors/measurement).<sup><a href="#fn-wp">[6]</a></sup></li>
+          <li>Penrose’s critical stance on “fashionable models” and string-theory skepticism (publisher blurb; Wired profile).<sup><a href="#fn-ukpenguin">[2]</a>, <a href="#fn-wired">[7]</a></sup></li>
+        </ul>
+      </article>
+
+      <article class="subcard">
+        <h3>Logic (How we evaluate)</h3>
+        <ol class="small">
+          <li>Use PRH/Penguin pages for canonical metadata and scope language.</li>
+          <li>Use first-edition retailer listings for initial publication facts.</li>
+          <li>Use Physics World & Wikipedia to summarize structure/length and late-chapter topics.</li>
+        </ol>
+      </article>
+
+      <article class="subcard">
+        <h3>Program (Driver)</h3>
+        <p class="muted small">A tiny “check” harness ensures every <code>data-claim</code> has at least one footnote in <em>Citations</em>.</p>
+<pre><code>// Pseudocode
+const claims=[...document.querySelectorAll('[data-claim]')];
+for (const c of claims) assert(c.querySelector('sup a[href^="#fn-"]'));</code></pre>
+        <div class="callout small">
+          <strong>Proof = Reason Why + Check.</strong> “Reason Why” summarizes evidence; “Check” verifies structure.
+        </div>
+      </article>
+    </section>
+
+    <!-- Answer -->
+    <section class="card" id="answer">
+      <h2>Answer (TL;DR + Argument Map)</h2>
+      <p data-claim="answer">
+        Penrose’s book is a <strong>math-first grand tour</strong> of modern physics: the early third builds the mathematical language, then the narrative moves through spacetime, classical fields, quantum theory and quantum fields, and ends with competing paths to unification—presented with Penrose’s characteristic skepticism about fashionable ideas. US Vintage paperback (2007) runs 1136 pages; the original UK hardcover (2004) was 1094 pages.<sup><a href="#fn-prh">[1]</a>, <a href="#fn-ukpenguin">[2]</a>, <a href="#fn-physworld">[5]</a></sup>
+      </p>
+      <ol class="small">
+        <li data-claim="a1"><strong>Why math first?</strong> The UK page stresses that the early chapters supply “vital mathematical background” for later physics, defining the book’s structure.<sup><a href="#fn-ukpenguin">[2]</a></sup></li>
+        <li data-claim="a2"><strong>From spacetime to fields.</strong> After the math, the book introduces spacetime and derives classical fields/Lagrangians from first principles.<sup><a href="#fn-wp">[6]</a></sup></li>
+        <li data-claim="a3"><strong>Quantum mechanics & the measurement problem.</strong> Dedicated chapters confront interpretation and measurement, then advance to quantum field theory and the Standard Model.<sup><a href="#fn-wp">[6]</a></sup></li>
+        <li data-claim="a4"><strong>Unification attempts.</strong> Late chapters survey superstrings, loop quantum gravity, and Penrose’s twistor programme; he is openly critical of popular fashions in theory choice.<sup><a href="#fn-wp">[6]</a>, <a href="#fn-ukpenguin">[2]</a>, <a href="#fn-wired">[7]</a></sup></li>
+      </ol>
+    </section>
+
+    <!-- Reason Why -->
+    <section class="card" id="reasons">
+      <h2>Reason Why (Evidence)</h2>
+      <div class="quote small" data-claim="rw-1">
+        PRH lists the Vintage paperback (Jan 9, 2007) at 1136 pages and describes the book as a comprehensive account of the physics of the universe built on mathematical foundations.<sup><a href="#fn-prh">[1]</a></sup>
+      </div>
+      <p class="small" data-claim="rw-2">
+        Penguin UK emphasizes the math-first approach: early chapters give essential mathematics before physics; it also confirms 1136 pages and a 2006 UK publication.<sup><a href="#fn-ukpenguin">[2]</a></sup>
+      </p>
+      <p class="small" data-claim="rw-3">
+        Physics World’s 2004 review records the first edition (Jonathan Cape, 1094 pp), situating the work at publication.<sup><a href="#fn-physworld">[5]</a></sup>
+      </p>
+      <p class="small" data-claim="rw-4">
+        Wikipedia’s overview captures the structural arc (math → spacetime/fields → QM/QFT → measurement → strings/loop/twistors) used in this page’s argument map.<sup><a href="#fn-wp">[6]</a></sup>
+      </p>
+      <p class="small" data-claim="rw-5">
+        The UK page quotes praise about “point[ing] out the flaws in fashionable models,” and a Wired profile highlights Penrose’s skepticism of string theory and advocacy of twistor ideas.<sup><a href="#fn-ukpenguin">[2]</a>, <a href="#fn-wired">[7]</a></sup>
+      </p>
+    </section>
+
+    <!-- Check -->
+    <section class="card" id="check">
+      <h2>Check (Self-test)</h2>
+      <p class="small">Automated checks: (1) every claim cites a source; (2) required sections exist; (3) core metadata parses.</p>
+      <ul id="checklist" class="list-tight small"></ul>
+      <p id="status" class="pill" aria-live="polite">Running checks…</p>
+    </section>
+
+    <!-- Physics Track -->
+    <section class="card" id="math">
+      <h2>Physics Track: From Mathematics to the Universe</h2>
+      <ol>
+        <li data-claim="m1"><strong>Foundations (first ~⅓):</strong> numbers, complex analysis, geometry/manifolds, tensors, symmetry, spinors—mathematics needed for modern physics.<sup><a href="#fn-ukpenguin">[2]</a>, <a href="#fn-wp">[6]</a></sup></li>
+        <li data-claim="m2"><strong>Spacetime & classical fields:</strong> relativity, Lagrangians/Hamiltonians, conservation laws.<sup><a href="#fn-wp">[6]</a></sup></li>
+        <li data-claim="m3"><strong>Quantum mechanics → quantum fields:</strong> interpretation/measurement, particle theory, quantum field theory, Standard Model sketch.<sup><a href="#fn-wp">[6]</a></sup></li>
+        <li data-claim="m4"><strong>Unification & outlook:</strong> strings, loop gravity, twistors; Penrose’s perspective on where physics may be headed (not a “theory of everything” yet).<sup><a href="#fn-wp">[6]</a>, <a href="#fn-wired">[7]</a></sup></li>
+      </ol>
+      <div class="callout small">
+        <strong>Takeaway:</strong> The book is less a quick popularization than a <em>guided course</em> that teaches the math you need and then uses it to traverse the known laws—while arguing for sober skepticism about fashionable theories.<sup><a href="#fn-ukpenguin">[2]</a>, <a href="#fn-prh">[1]</a>, <a href="#fn-wired">[7]</a></sup>
+      </div>
+    </section>
+
+    <!-- Themes -->
+    <section class="card" id="themes">
+      <h2>Themes</h2>
+      <ol>
+        <li data-claim="t1"><strong>Mathematics as the grammar of physics.</strong> Understanding comes from mastering the language first.<sup><a href="#fn-ukpenguin">[2]</a></sup></li>
+        <li data-claim="t2"><strong>Caution against “fashion.”</strong> Penrose critiques dominant models and highlights alternatives (e.g., twistors).<sup><a href="#fn-ukpenguin">[2]</a>, <a href="#fn-wired">[7]</a></sup></li>
+      </ol>
+    </section>
+
+    <!-- Studies & Context -->
+    <section class="card" id="studies">
+      <h2>Studies & Context</h2>
+      <ul class="list-tight">
+        <li data-claim="s1"><strong>Editions:</strong> Jonathan Cape 2004 (HC, 1094 pp); Knopf 2005 (US HC); Vintage UK 2006 (PB, 1136 pp); Vintage US 2007 (PB, 1136 pp).<sup><a href="#fn-physworld">[5]</a>, <a href="#fn-cape">[3]</a>, <a href="#fn-knopf">[4]</a>, <a href="#fn-ukpenguin">[2]</a>, <a href="#fn-prh">[1]</a></sup></li>
+        <li data-claim="s2"><strong>Audience & scope:</strong> PRH calls it a comprehensive account of the physics of the universe; Penguin notes hundreds of hand-drawn diagrams and challenging but accessible exposition.<sup><a href="#fn-prh">[1]</a>, <a href="#fn-ukpenguin">[2]</a></sup></li>
+      </ul>
+    </section>
+
+    <!-- Glossary -->
+    <section class="card" id="glossary">
+      <h2>Glossary (quick reference)</h2>
+      <dl class="small">
+        <dt><strong>Twistor theory</strong></dt>
+        <dd>Penrose’s mathematical framework relating spacetime geometry and complex analytic structures; discussed as an alternative path to unification.<sup><a href="#fn-wp">[6]</a>, <a href="#fn-wired">[7]</a></sup></dd>
+
+        <dt><strong>Loop quantum gravity</strong></dt>
+        <dd>Background-independent quantization of spacetime emphasized in the book’s survey of unification attempts.<sup><a href="#fn-wp">[6]</a></sup></dd>
+
+        <dt><strong>Lagrangian/Hamiltonian</strong></dt>
+        <dd>Variational and canonical formalisms used to derive classical field equations—the bridge from math to physics in the book’s middle chapters.<sup><a href="#fn-wp">[6]</a></sup></dd>
+      </dl>
+    </section>
+
+    <!-- Metadata -->
+    <section class="card" id="meta">
+      <h2>Book Metadata</h2>
+      <ul class="list-tight small">
+        <li data-claim="md1"><strong>Title:</strong> <em>The Road to Reality: A Complete Guide to the Laws of the Universe</em>.<sup><a href="#fn-prh">[1]</a></sup></li>
+        <li data-claim="md2"><strong>Author:</strong> Roger Penrose.<sup><a href="#fn-prh">[1]</a></sup></li>
+        <li data-claim="md3"><strong>Publishers:</strong> Jonathan Cape (UK, 2004); Alfred A. Knopf (US, 2005); Vintage (UK 2006; US 2007).<sup><a href="#fn-cape">[3]</a>, <a href="#fn-knopf">[4]</a>, <a href="#fn-ukpenguin">[2]</a>, <a href="#fn-prh">[1]</a></sup></li>
+        <li data-claim="md4"><strong>Pages & ISBNs:</strong> Vintage US PB 1136 pp (ISBN 9780679776314); Vintage UK PB 1136 pp (ISBN 9780099440680); Jonathan Cape HC 1094 pp (ISBN 0224044478); Knopf HC (ISBN 0679454438).<sup><a href="#fn-prh">[1]</a>, <a href="#fn-ukpenguin">[2]</a>, <a href="#fn-cape">[3]</a>, <a href="#fn-knopf">[4]</a></sup></li>
+      </ul>
+    </section>
+
+    <!-- Citations -->
+    <section class="card footnotes" id="sources" aria-labelledby="sourcesh2">
+      <h2 id="sourcesh2">Citations (for this page)</h2>
+      <ol>
+        <li id="fn-prh"><a href="https://www.penguinrandomhouse.com/books/129420/the-road-to-reality-by-roger-penrose/">Penguin Random House (US, Vintage) — product page: 2007-01-09 paperback; 1136 pp; description</a>. :contentReference[oaicite:0]{index=0}</li>
+        <li id="fn-ukpenguin"><a href="https://www.penguin.co.uk/books/357292/the-road-to-reality/9780099440680">Penguin (UK, Vintage) — product page: 2006 publication; math-first description; 1136 pp</a>. :contentReference[oaicite:1]{index=1}</li>
+        <li id="fn-cape"><a href="https://www.amazon.com.be/-/en/Roger-Penrose/dp/0224044478">Amazon listing — Jonathan Cape hardcover (UK, 2004) with ISBN/date</a>. :contentReference[oaicite:2]{index=2}</li>
+        <li id="fn-knopf"><a href="https://www.amazon.com/Road-Reality-Complete-Guide-Universe/dp/0679454438">Amazon listing — Knopf hardcover (US, 2005) with ISBN</a>. :contentReference[oaicite:3]{index=3}</li>
+        <li id="fn-physworld"><a href="https://physicsworld.com/a/on-the-road-with-roger-penrose/">Physics World (2004) — review noting 1094 pp Jonathan Cape edition</a>. :contentReference[oaicite:4]{index=4}</li>
+        <li id="fn-wp"><a href="https://en.wikipedia.org/wiki/The_Road_to_Reality">Wikipedia — structural overview of chapter arcs and late-chapter topics</a>. :contentReference[oaicite:5]{index=5}</li>
+        <li id="fn-wired"><a href="https://www.wired.com/2005/03/penrose-the-answers-not-42">Wired (2005) — profile on Penrose’s skepticism of string theory and advocacy of twistors</a>. :contentReference[oaicite:6]{index=6}</li>
+      </ol>
+      <p class="muted small">This brief paraphrases public information; it does not reproduce the book’s text.</p>
+    </section>
+
+    <footer class="muted">
+      <p>Light background · vertical cards · P3 pattern. © You, for personal use.</p>
+    </footer>
+  </main>
+</div>
+
+<!-- Robust self-test script -->
+<script>
+(function () {
+  function runChecks () {
+    var statusEl = document.getElementById('status');
+    var listEl = document.getElementById('checklist');
+
+    function add(name, ok){
+      var li = document.createElement('li');
+      li.textContent = (ok ? '✔︎ ' : '✘ ') + name;
+      li.style.color = ok ? '#106941' : '#8a2222';
+      listEl.appendChild(li);
+      return ok;
+    }
+
+    var allOk = true;
+    try {
+      // 1) Required sections
+      var req = ['p3','answer','reasons','check','math','themes','studies','glossary','meta','sources'];
+      for (var i = 0; i < req.length; i++) {
+        var ok = !!document.getElementById(req[i]);
+        allOk = add('Section #' + req[i] + ' present', ok) && allOk;
+      }
+
+      // 2) Every claim has a citation
+      var claims = document.querySelectorAll('[data-claim]');
+      for (var j = 0; j < claims.length; j++) {
+        var cited = false;
+        var anchors = claims[j].querySelectorAll('sup a[href^="#fn-"]');
+        if (anchors && anchors.length) cited = true;
+        allOk = add('Claim ' + (j + 1) + ' cites a source', cited) && allOk;
+      }
+
+      // 3) Structured data sanity
+      var metaOk = false;
+      try {
+        var ld = document.querySelector('script[type="application/ld+json"]');
+        if (ld) {
+          var data = JSON.parse(ld.textContent || ld.innerText || '{}');
+          metaOk = !!(data && data.name && data.author && data.publisher && data.isbn && data.numberOfPages);
+        }
+      } catch (e) { metaOk = false; }
+      allOk = add('Structured data looks valid', metaOk) && allOk;
+
+      // Status pill
+      document.getElementById('status').textContent = allOk ? '✔︎ Check passed' : '✘ Check failed — see list above';
+      document.getElementById('status').className = 'pill ' + (allOk ? 'status-pass' : 'status-fail');
+    } catch (err) {
+      var s = document.getElementById('status');
+      s.textContent = '✘ Check error — ' + (err && err.message ? err.message : 'script blocked or runtime error');
+      s.className = 'pill status-fail';
+    }
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', runChecks);
+  } else {
+    runChecks();
+  }
+})();
+</script>
+<noscript>
+  <p class="pill status-fail">✘ JavaScript is disabled — checks cannot run.</p>
+</noscript>
+</body>
+</html>
+

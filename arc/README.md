@@ -27,9 +27,7 @@ If you teach, consider assigning one case as a lab. The combination of code, com
 ARC’s discipline is easy to remember: **P3 — Prompt → Program → Proof**. Start with a prompt (the question, the data, and the rules you are willing to use). Write a small program that answers that prompt. Then insist on a proof‑like obligation: an explanation in words plus a check that runs. You can read more at the brief note on P3: <https://josd.github.io/arc/p3/>.
 
 ## Examples and test cases
-
 The collection ranges from mathematics and formal logic to routing, clinical policy, and classic puzzles. Each link below opens a self‑contained page that presents the ARC triad in place.
-
 - [**A₂ (Ackermann via hyper-operations)**](https://josd.github.io/arc/ackermann.html) — Compute A₂ with exact hyper-ops; print small, expand huge safely.
 - [**Apollonian gasket**](https://josd.github.io/arc/apollonian-gasket.html) — Exact tangent-circle packing via Descartes’ theorem and complex centers.
 - [**Barbara**](https://josd.github.io/arc/barbara.html) — Barbara Term Logic example proved using Resolution.
@@ -99,6 +97,7 @@ The collection ranges from mathematics and formal logic to routing, clinical pol
 - [**Pythagorean Theorem**](https://josd.github.io/arc/pythagorean-theorem.html) — Compute legs/hypotenuse and confirm with algebraic or area proofs.
 - [**Reality and Its Order**](https://josd.github.io/arc/reality-and-its-order.html) — A self‑contained book brief for *Reality and Its Order*.
 - [**REST‑path**](https://josd.github.io/arc/rest-path.html) — Explain link‑following over REST resources; verify pre/post conditions.
+- [**Road to Reality**](https://josd.github.io/arc/road-to-reality.html) — A self‑contained book brief for *The Road to Reality*.
 - [**Roots of Unity**](https://josd.github.io/arc/roots-of-unity.html) — Place complex n‑th roots on the unit circle; check spacing and sums/products.
 - [**Secret Lives of Numbers**](https://josd.github.io/arc/secret-lives-of-numbers.html) — A self‑contained book brief for *The Secret Lives of Numbers*.
 - [**Skyscrapers**](https://josd.github.io/arc/skyscrapers.html) — Deduce building heights from sightlines with constraint logic.
