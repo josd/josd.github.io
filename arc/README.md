@@ -83,7 +83,7 @@ The collection ranges from mathematics and formal logic to routing, clinical pol
 - [**Matrix Multiplication**](https://josd.github.io/arc/matrix-multiplication.html) — Not commutative (AB ≠ BA).
 - [**N‑Queens**](https://josd.github.io/arc/n-queens.html) — Place N queens without attacks; verify constraints per row/diag.
 - [**Newton–Raphson method**](https://josd.github.io/arc/newton-raphson.html) — Newton–Raphson method for root‑finding.
-- [**Outer Limits of Reason**](https://josd.github.io/arc/newton-raphson.html) — A self‑contained book brief for *The Outer Limits of Reason*.
+- [**Outer Limits of Reason**](https://josd.github.io/arc/outer-limits-of-reason.html) — A self‑contained book brief for *The Outer Limits of Reason*.
 - [**Nonogram (Picross)**](https://josd.github.io/arc/nonogram.html) — Fill grid cells to match run hints using logical deductions.
 - [**Peano Addition**](https://josd.github.io/arc/peano-addition.html) — 1+1=2 proved via Resolution.
 - [**Peano Factorial**](https://josd.github.io/arc/peano-factorial.html) — 5! = 120 proved via Resolution.
