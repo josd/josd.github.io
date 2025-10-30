@@ -164,36 +164,34 @@
       <!-- P3: Prompt, Data, Logic, Program -->
       <section class="card" id="p3" aria-labelledby="p3h2">
         <h2 id="p3h2">P3 Summary: Prompt → Program → Proof</h2>
-        <div class="grid-2">
-          <div>
-            <h3>Prompt & Question</h3>
-            <p class="spaced">
-              <strong>Prompt:</strong> Create a self-contained brief of <em>The Light Eaters</em> for curious readers. <br>
-              <strong>Question:</strong> What does the book claim about plant “intelligence,” what evidence does it present, and how credible are those claims?
-            </p>
-            <h3>Data (Sources)</h3>
-            <ul class="list-tight small">
-              <li>Publisher & catalog copy (Harper/HarperCollins).<sup><a href="#fn-harper">[1]</a></sup></li>
-              <li>Author’s page for the book.<sup><a href="#fn-author">[2]</a></sup></li>
-              <li>Independent reviews: <em>Undark</em>, <em>The New Yorker</em>, <em>WSJ</em>, <em>The Guardian</em>.<sup><a href="#fn-undark">[3]</a>, <a href="#fn-newyorker">[4]</a>, <a href="#fn-wsj">[5]</a>, <a href="#fn-guardian">[6]</a></sup></li>
-            </ul>
-            <h3>Logic (How we evaluate)</h3>
-            <ol class="small">
-              <li>Prefer primary/official metadata for bibliographic facts.</li>
-              <li>Triangulate scientific claims across reputable outlets.</li>
-              <li>Paraphrase; avoid long quotes from the book (copyright).</li>
-              <li>Flag controversies and scope limits.</li>
-            </ol>
-          </div>
-          <div>
-            <h3>Program (Driver)</h3>
-            <p class="muted small">This page includes a tiny “check” harness that ensures every claim tagged <code>data-claim</code> points to at least one citation in the <em>Citations</em> section.</p>
-            <pre><code>// Pseudocode
+        <div>
+          <h3>Prompt & Question</h3>
+          <p class="spaced">
+            <strong>Prompt:</strong> Create a self-contained brief of <em>The Light Eaters</em> for curious readers. <br>
+            <strong>Question:</strong> What does the book claim about plant “intelligence,” what evidence does it present, and how credible are those claims?
+          </p>
+          <h3>Data (Sources)</h3>
+          <ul class="list-tight small">
+            <li>Publisher & catalog copy (Harper/HarperCollins).<sup><a href="#fn-harper">[1]</a></sup></li>
+            <li>Author’s page for the book.<sup><a href="#fn-author">[2]</a></sup></li>
+            <li>Independent reviews: <em>Undark</em>, <em>The New Yorker</em>, <em>WSJ</em>, <em>The Guardian</em>.<sup><a href="#fn-undark">[3]</a>, <a href="#fn-newyorker">[4]</a>, <a href="#fn-wsj">[5]</a>, <a href="#fn-guardian">[6]</a></sup></li>
+          </ul>
+          <h3>Logic (How we evaluate)</h3>
+          <ol class="small">
+            <li>Prefer primary/official metadata for bibliographic facts.</li>
+            <li>Triangulate scientific claims across reputable outlets.</li>
+            <li>Paraphrase; avoid long quotes from the book (copyright).</li>
+            <li>Flag controversies and scope limits.</li>
+          </ol>
+        </div>
+        <div>
+          <h3>Program (Driver)</h3>
+          <p class="muted small">This page includes a tiny “check” harness that ensures every claim tagged <code>data-claim</code> points to at least one citation in the <em>Citations</em> section.</p>
+          <pre><code>// Pseudocode
 const claims = [...document.querySelectorAll('[data-claim]')];
 for (c of claims) assert(hasFootnoteLink(c));</code></pre>
-            <div class="callout small">
-              <strong>Proof = Reason Why + Check.</strong> Below, “Reason Why” summarizes evidence with citations; “Check” verifies the internal consistency of the page’s sources.
-            </div>
+          <div class="callout small">
+            <strong>Proof = Reason Why + Check.</strong> Below, “Reason Why” summarizes evidence with citations; “Check” verifies the internal consistency of the page’s sources.
           </div>
         </div>
       </section>
