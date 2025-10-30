@@ -1,0 +1,355 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>It All Adds Up — Book Brief</title>
+<meta name="description" content="A self-contained P3 (Prompt → Program → Proof) brief for Mickaël Launay’s It All Adds Up: The Story of People and Mathematics." />
+<meta name="author" content="Book: Mickaël Launay · Page: you" />
+<style>
+  :root{
+    --bg:#f7f7fb;
+    --card:#ffffff;
+    --ink:#101418;
+    --ink-sub:#4b5563;
+    --muted:#9aa3af;
+    --accent:#014c8c;      /* calm blue */
+    --accent-2:#7ea6db;
+    --border:#e8e8ef;
+    --shadow: 0 1px 2px rgba(0,0,0,.05), 0 6px 20px rgba(0,0,0,.06);
+    --radius: 16px;
+    --radius-lg: 22px;
+    --max: 900px;
+  }
+  *{box-sizing:border-box}
+  html,body{background:var(--bg); color:var(--ink); margin:0; font:16px/1.65 system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,Apple Color Emoji,Segoe UI Emoji}
+  a{color:var(--accent); text-decoration:none}
+  a:hover{text-decoration:underline}
+  .wrap{max-width:var(--max); margin:32px auto; padding:0 16px}
+  header.hero{
+    background:linear-gradient(160deg,#f5f8fe,#ffffff);
+    border:1px solid var(--border);
+    padding:24px;
+    border-radius:var(--radius-lg);
+    box-shadow:var(--shadow);
+  }
+  .title{display:flex; gap:18px; align-items:center; flex-wrap:wrap}
+  .cover{
+    width:110px; height:160px; border-radius:10px; box-shadow:var(--shadow);
+    background:#eef3fb; display:grid; place-items:center; border:1px solid var(--border); overflow:hidden;
+  }
+  .cover svg{width:100%; height:100%}
+  .title h1{font-size:1.65rem; margin:0}
+  .subtitle{color:var(--ink-sub); margin:.25rem 0 0}
+  .badges{display:flex; gap:8px; flex-wrap:wrap; margin-top:8px}
+  .badge{padding:4px 10px; border-radius:999px; background:#edf2fb; color:#254d85; font-weight:600; font-size:.8rem; border:1px solid #dfe6f6}
+  nav.toc{margin-top:14px; padding-top:10px; border-top:1px dashed var(--border); color:var(--ink-sub); display:flex; flex-wrap:wrap; gap:10px}
+  nav.toc a{font-size:.92rem; background:#f3f6fc; border:1px solid #e3eaf7; padding:6px 10px; border-radius:999px}
+  .cards{display:flex; flex-direction:column; gap:16px; margin-top:18px}
+  .card{background:var(--card); border:1px solid var(--border); border-radius:var(--radius); box-shadow:var(--shadow); padding:18px}
+  .card h2{margin:0 0 .35rem 0; font-size:1.15rem}
+  .card h3{margin:.75rem 0 .25rem; font-size:1rem}
+  .subcard{background:var(--card); border:1px solid var(--border); border-radius:12px; padding:14px; box-shadow:var(--shadow); margin-top:12px}
+  .meta{color:var(--ink-sub); font-size:.95rem}
+  .muted{color:var(--muted)}
+  .list-tight li{margin:.25rem 0}
+  .pill{display:inline-flex; align-items:center; gap:.45rem; padding:4px 9px; border-radius:999px; background:#f1f6ff; border:1px solid #e3ebff; color:#234c88; font-weight:600}
+  .status-pass{color:#106941}
+  .status-fail{color:#8a2222}
+  .kicker{letter-spacing:.06em; text-transform:uppercase; color:var(--muted); font-size:.78rem; font-weight:700}
+  .quote{border-left:3px solid var(--accent-2); padding-left:10px; color:#213; background:#f9fbfe; border-radius:8px; border:1px solid #e9eefb}
+  .callout{background:#f6f9fe; border:1px solid #e2e8f6; padding:12px; border-radius:12px}
+  .small{font-size:.94rem}
+  footer{color:var(--muted); font-size:.9rem; margin-top:22px}
+  code, pre{background:#f3f5f7; border:1px solid #e7e9ee; padding:.25rem .45rem; border-radius:8px; font-size:.95rem}
+  pre{padding:12px; overflow:auto}
+</style>
+
+<!-- Structured data -->
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"Book",
+  "name":"It All Adds Up: The Story of People and Mathematics",
+  "author":{"@type":"Person","name":"Micka\u00ebl Launay"},
+  "publisher":{"@type":"Organization","name":"William Collins"},
+  "datePublished":"2019-11-14",
+  "isbn":"9780008283971",
+  "numberOfPages":"272",
+  "inLanguage":"en",
+  "sameAs":[
+    "https://www.williamcollinsbooks.co.uk/products/it-all-adds-up-the-story-of-people-and-mathematics-mickael-launay-9780008283971/",
+    "https://www.harpercollins.com.au/9780008283957/it-all-adds-up-the-story-of-people-and-mathematics/",
+    "https://www.amazon.com/All-Adds-Up-People-Mathematics/dp/0008283974"
+  ]
+}
+</script>
+</head>
+<body>
+<div class="wrap">
+  <header class="hero" id="top">
+    <div class="title">
+      <div class="cover" aria-hidden="true">
+        <!-- Self-contained SVG “cover” -->
+        <svg viewBox="0 0 210 300" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="g" x1="0" x2="1" y1="0" y2="1">
+              <stop offset="0" stop-color="#e9f0ff"/>
+              <stop offset="1" stop-color="#d7e6ff"/>
+            </linearGradient>
+          </defs>
+          <rect x="0" y="0" width="210" height="300" fill="url(#g)"/>
+          <g fill="#234c88" font-family="Georgia, serif">
+            <text x="20" y="88" font-size="18" font-weight="700">IT ALL ADDS UP</text>
+            <text x="20" y="114" font-size="12">The Story of People and Mathematics</text>
+            <text x="20" y="152" font-size="12">Micka\u00ebl Launay</text>
+            <text x="20" y="170" font-size="12">William Collins</text>
+            <text x="20" y="225" font-size="12" font-weight="700">Popular Mathematics</text>
+          </g>
+          <g stroke="#2d5d9f" stroke-width="2" fill="none" opacity=".6">
+            <path d="M20,250 C80,210 130,270 190,230" />
+            <circle cx="40" cy="240" r="3" fill="#2d5d9f"/>
+            <circle cx="170" cy="240" r="3" fill="#2d5d9f"/>
+          </g>
+        </svg>
+      </div>
+      <div>
+        <div class="kicker">Book Brief · P3 (Prompt → Program → Proof)</div>
+        <h1>It All Adds Up</h1>
+        <p class="subtitle">Mickaël Launay · William Collins · English edition 2018/2019 · 272 pp</p>
+        <div class="badges" role="list">
+          <span class="badge" role="listitem">Popular Math</span>
+          <span class="badge" role="listitem">History</span>
+          <span class="badge" role="listitem">People & Ideas</span>
+          <span class="badge" role="listitem">Accessible</span>
+        </div>
+        <nav class="toc" aria-label="On this page">
+          <a href="#p3">P3 Summary</a>
+          <a href="#answer">Answer (TL;DR)</a>
+          <a href="#reasons">Reason Why</a>
+          <a href="#check">Check</a>
+          <a href="#math">Math Track</a>
+          <a href="#themes">Themes</a>
+          <a href="#studies">Studies & Context</a>
+          <a href="#glossary">Glossary</a>
+          <a href="#meta">Book Metadata</a>
+          <a href="#sources">Citations</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <main class="cards">
+
+    <!-- P3 -->
+    <section class="card" id="p3" aria-labelledby="p3h2">
+      <h2 id="p3h2">P3 Summary: Prompt → Program → Proof</h2>
+
+      <article class="subcard">
+        <h3>Prompt &amp; Question</h3>
+        <p><strong>Prompt:</strong> Create a concise, self-contained brief of <em>It All Adds Up</em> that highlights how Launay tells the story of mathematics through people and pivotal ideas.</p>
+        <p><strong>Question:</strong> What is the book’s angle, what range of topics/eras does it span, and what are the key publication facts (publisher, year, pages, ISBN)?</p>
+      </article>
+
+      <article class="subcard">
+        <h3>Data (Sources)</h3>
+        <ul class="list-tight small">
+          <li>Official William Collins product page (overview, positioning).<sup><a href="#fn-wcollins">[1]</a></sup></li>
+          <li>HarperCollins AU listing with pages/ISBN/on-sale date.<sup><a href="#fn-hcau">[2]</a></sup></li>
+          <li>Retail listings confirming UK publication date and page count for the English edition.<sup><a href="#fn-amazon">[3]</a>, <a href="#fn-abebooks">[4]</a></sup></li>
+          <li>Review noting French original and English edition details.<sup><a href="#fn-bultheel">[5]</a></sup></li>
+        </ul>
+      </article>
+
+      <article class="subcard">
+        <h3>Logic (How we evaluate)</h3>
+        <ol class="small">
+          <li>Use publisher pages for description and canonical metadata.</li>
+          <li>Cross-check format/date/pages/ISBN with retailer records.</li>
+          <li>Place the English edition in context of the French original using a scholarly review.</li>
+        </ol>
+      </article>
+
+      <article class="subcard">
+        <h3>Program (Driver)</h3>
+        <p class="muted small">A tiny “check” harness ensures every <code>data-claim</code> has at least one footnote in <em>Citations</em>.</p>
+<pre><code>// Pseudocode
+const claims=[...document.querySelectorAll('[data-claim]')];
+for (const c of claims) assert(c.querySelector('sup a[href^="#fn-"]'));</code></pre>
+        <div class="callout small">
+          <strong>Proof = Reason Why + Check.</strong> “Reason Why” summarizes evidence; “Check” verifies structure.
+        </div>
+      </article>
+    </section>
+
+    <!-- Answer -->
+    <section class="card" id="answer">
+      <h2>Answer (TL;DR)</h2>
+      <p data-claim="answer">
+        Launay’s book is an accessible, people-first tour of mathematics — “from Aristotle to Ada Lovelace” — weaving stories and ideas to show how maths became central to human history; the English edition is published by William Collins (272 pages).<sup><a href="#fn-wcollins">[1]</a>, <a href="#fn-hcau">[2]</a></sup>
+      </p>
+    </section>
+
+    <!-- Reason Why -->
+    <section class="card" id="reasons">
+      <h2>Reason Why (Evidence)</h2>
+      <div class="quote small" data-claim="rw-1">
+        The publisher positions it as a “brief history of the mathematical ideas that have forever changed the world and the everyday people and pioneers behind them,” explicitly framed “from Aristotle to Ada Lovelace.”<sup><a href="#fn-wcollins">[1]</a></sup>
+      </div>
+      <p class="small" data-claim="rw-2">
+        The English edition’s core facts — William Collins as imprint, 272 pages, English, and release in the 2018/2019 window — are listed on HarperCollins AU and retailer pages (paperback ISBN 9780008283971 / 0008283974).<sup><a href="#fn-hcau">[2]</a>, <a href="#fn-amazon">[3]</a>, <a href="#fn-abebooks">[4]</a></sup>
+      </p>
+      <p class="small" data-claim="rw-3">
+        Reviews place the book as the English version of Launay’s French bestseller <em>Le grand roman des maths</em> (Flammarion, 2016), adapted for a broad audience.<sup><a href="#fn-bultheel">[5]</a></sup>
+      </p>
+    </section>
+
+    <!-- Check -->
+    <section class="card" id="check">
+      <h2>Check (Self-test)</h2>
+      <p class="small">Automated checks: (1) every claim cites a source; (2) required sections exist; (3) core metadata parses.</p>
+      <ul id="checklist" class="list-tight small"></ul>
+      <p id="status" class="pill" aria-live="polite">Running checks…</p>
+    </section>
+
+    <!-- Math Track -->
+    <section class="card" id="math">
+      <h2>Math Track: People + Ideas the Book Emphasizes</h2>
+      <ol>
+        <li data-claim="m1"><strong>People & pioneers:</strong> The narrative highlights mathematicians and everyday figures behind turning points, not just abstractions.<sup><a href="#fn-wcollins">[1]</a></sup></li>
+        <li data-claim="m2"><strong>Across eras:</strong> Spans from classical philosophy (e.g., Aristotle) to early computing (e.g., Ada Lovelace), anchoring ideas in their time.<sup><a href="#fn-wcollins">[1]</a></sup></li>
+        <li data-claim="m3"><strong>Global anecdotes:</strong> Retail descriptions stress history mixed with stories “from around the world,” aiming to demystify mathematics.<sup><a href="#fn-amazon-uk">[6]</a></sup></li>
+        <li data-claim="m4"><strong>Popularization goal:</strong> Written as an accessible, engaging introduction to how mathematical thinking shapes the world.<sup><a href="#fn-wcollins">[1]</a></sup></li>
+      </ol>
+      <div class="callout small">
+        <strong>Takeaway:</strong> By foregrounding people and narrative, the book lowers barriers for readers who find math intimidating while still conveying why specific ideas mattered.
+      </div>
+    </section>
+
+    <!-- Themes -->
+    <section class="card" id="themes">
+      <h2>Themes</h2>
+      <ol>
+        <li data-claim="t1"><strong>Human stories drive ideas:</strong> Mathematics advances through communities, curiosity, and context — not in a vacuum.<sup><a href="#fn-wcollins">[1]</a></sup></li>
+        <li data-claim="t2"><strong>Bridging fear and fascination:</strong> The publisher’s framing underscores accessibility and demystification for general readers.<sup><a href="#fn-wcollins">[1]</a></sup></li>
+      </ol>
+    </section>
+
+    <!-- Studies & Context -->
+    <section class="card" id="studies">
+      <h2>Studies & Context</h2>
+      <ul class="list-tight">
+        <li data-claim="s1"><strong>French original:</strong> <em>Le grand roman des maths: de la préhistoire à nos jours</em> (Flammarion, 2016), cited by reviewers as the source work.<sup><a href="#fn-bultheel">[5]</a></sup></li>
+        <li data-claim="s2"><strong>English edition timeline:</strong> 2018 release listings (HC/Kindle) and 2019 paperback availability across retailers.<sup><a href="#fn-hcau">[2]</a>, <a href="#fn-amazon">[3]</a>, <a href="#fn-abebooks">[4]</a></sup></li>
+      </ul>
+    </section>
+
+    <!-- Glossary -->
+    <section class="card" id="glossary">
+      <h2>Glossary (quick reference)</h2>
+      <dl class="small">
+        <dt><strong>Popular mathematics</strong></dt>
+        <dd>Writing that aims to communicate mathematical ideas to a general audience with stories, history, and applications — the publisher explicitly positions this book that way.<sup><a href="#fn-wcollins">[1]</a></sup></dd>
+        <dt><strong>Mathematical biography</strong></dt>
+        <dd>A genre focusing on the lives of mathematicians and their contexts; the book blends this with thematic history.<sup><a href="#fn-wcollins">[1]</a>, <a href="#fn-bultheel">[5]</a></sup></dd>
+      </dl>
+    </section>
+
+    <!-- Metadata -->
+    <section class="card" id="meta">
+      <h2>Book Metadata</h2>
+      <ul class="list-tight small">
+        <li data-claim="md1"><strong>Title:</strong> <em>It All Adds Up: The Story of People and Mathematics</em>.<sup><a href="#fn-wcollins">[1]</a></sup></li>
+        <li data-claim="md2"><strong>Author:</strong> Mickaël Launay.<sup><a href="#fn-wcollins">[1]</a></sup></li>
+        <li data-claim="md3"><strong>Publisher / Imprint:</strong> William Collins (HarperCollins UK).<sup><a href="#fn-wcollins">[1]</a>, <a href="#fn-hcau">[2]</a></sup></li>
+        <li data-claim="md4"><strong>English edition publication:</strong> 2018 (release listings); widespread 2019 paperback availability.<sup><a href="#fn-hcau">[2]</a>, <a href="#fn-amazon">[3]</a>, <a href="#fn-abebooks">[4]</a></sup></li>
+        <li data-claim="md5"><strong>Pages:</strong> 272; <strong>ISBN (paperback):</strong> 9780008283971 / 0008283974.<sup><a href="#fn-hcau">[2]</a>, <a href="#fn-abebooks">[4]</a></sup></li>
+      </ul>
+    </section>
+
+    <!-- Citations -->
+    <section class="card footnotes" id="sources" aria-labelledby="sourcesh2">
+      <h2 id="sourcesh2">Citations (for this page)</h2>
+      <ol>
+        <li id="fn-wcollins"><a href="https://www.williamcollinsbooks.co.uk/products/it-all-adds-up-the-story-of-people-and-mathematics-mickael-launay-9780008283971/">William Collins — product page (overview & positioning)</a>. :contentReference[oaicite:0]{index=0}</li>
+        <li id="fn-hcau"><a href="https://www.harpercollins.com.au/9780008283957/it-all-adds-up-the-story-of-people-and-mathematics/">HarperCollins AU — listing with pages (272), ISBNs, on-sale date</a>. :contentReference[oaicite:1]{index=1}</li>
+        <li id="fn-amazon"><a href="https://www.amazon.com/All-Adds-Up-People-Mathematics/dp/0008283974">Amazon (US) — 2019-11-14 publication date; 272 pages</a>. :contentReference[oaicite:2]{index=2}</li>
+        <li id="fn-abebooks"><a href="https://www.abebooks.com/9780008283971/Adds-Story-People-Mathematics-Mickael-0008283974/plp">AbeBooks — paperback ISBN 9780008283971 / 0008283974; 2019</a>. :contentReference[oaicite:3]{index=3}</li>
+        <li id="fn-bultheel"><a href="https://lirias.kuleuven.be/retrieve/631990">A. Bultheel (2021) — review noting French original (Flammarion, 2016) and English edition (William Collins, 272 pp)</a>. :contentReference[oaicite:4]{index=4}</li>
+        <li id="fn-amazon-uk"><a href="https://www.amazon.co.uk/All-Adds-Up-People-Mathematics/dp/0008283931">Amazon (UK) — description emphasising global anecdotes & accessibility</a>. :contentReference[oaicite:5]{index=5}</li>
+      </ol>
+      <p class="muted small">This brief paraphrases public information; it does not reproduce the book’s text.</p>
+    </section>
+
+    <footer class="muted">
+      <p>Light background · vertical cards · P3 pattern. © You, for personal use.</p>
+    </footer>
+  </main>
+</div>
+
+<!-- Robust self-test script -->
+<script>
+(function () {
+  function runChecks () {
+    var statusEl = document.getElementById('status');
+    var listEl = document.getElementById('checklist');
+
+    function add(name, ok){
+      var li = document.createElement('li');
+      li.textContent = (ok ? '✔︎ ' : '✘ ') + name;
+      li.style.color = ok ? '#106941' : '#8a2222';
+      listEl.appendChild(li);
+      return ok;
+    }
+
+    var allOk = true;
+    try {
+      // 1) Required sections
+      var req = ['p3','answer','reasons','check','math','themes','studies','glossary','meta','sources'];
+      for (var i = 0; i < req.length; i++) {
+        var ok = !!document.getElementById(req[i]);
+        allOk = add('Section #' + req[i] + ' present', ok) && allOk;
+      }
+
+      // 2) Every claim has a citation
+      var claims = document.querySelectorAll('[data-claim]');
+      for (var j = 0; j < claims.length; j++) {
+        var cited = false;
+        var anchors = claims[j].querySelectorAll('sup a[href^="#fn-"]');
+        if (anchors && anchors.length) cited = true;
+        allOk = add('Claim ' + (j + 1) + ' cites a source', cited) && allOk;
+      }
+
+      // 3) Structured data sanity
+      var metaOk = false;
+      try {
+        var ld = document.querySelector('script[type="application/ld+json"]');
+        if (ld) {
+          var data = JSON.parse(ld.textContent || ld.innerText || '{}');
+          metaOk = !!(data && data.name && data.author && (data.publisher || data.isPartOf) && data.isbn && data.numberOfPages);
+        }
+      } catch (e) { metaOk = false; }
+      allOk = add('Structured data looks valid', metaOk) && allOk;
+
+      // Status pill
+      statusEl.textContent = allOk ? '✔︎ Check passed' : '✘ Check failed — see list above';
+      statusEl.className = 'pill ' + (allOk ? 'status-pass' : 'status-fail');
+    } catch (err) {
+      statusEl.textContent = '✘ Check error — ' + (err && err.message ? err.message : 'script blocked or runtime error');
+      statusEl.className = 'pill status-fail';
+    }
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', runChecks);
+  } else {
+    runChecks();
+  }
+})();
+</script>
+<noscript>
+  <p class="pill status-fail">✘ JavaScript is disabled — checks cannot run.</p>
+</noscript>
+</body>
+</html>
+
