@@ -30,12 +30,9 @@ ARC’s discipline is easy to remember: **P3 — Prompt → Program → Proof**.
 Each link below opens a self‑contained page that presents the ARC triad in place.
 - [**Ackermann**](https://josd.github.io/arc/ackermann.html) — Compute A₂ with exact hyper-ops; print small, expand huge safely.
 - [**Binomial Theorem**](https://josd.github.io/arc/binomial-theorem.html) — Sum of all binomial coefficients.
-- [**Chinese Remainder Theorem**](https://josd.github.io/arc/chinese-remainder-theorem.html) — CRT: unique solution mod product of coprime moduli.
 - [**Collatz**](https://josd.github.io/arc/collatz.html) — Generate trajectories and check invariants for the Collatz map.
-- [**Combinatorics**](https://josd.github.io/arc/combinatorics.html) — Count, choose, and permute with proofs of identities where feasible.
 - [**Complex identities**](https://josd.github.io/arc/complex.html) — Symbolic steps for complex-number equalities with auditable reasoning.
 - [**Euclid’s Infinitude of Primes**](https://josd.github.io/arc/euclid-infinitude.html) — Restate the theorem, explain Euclid’s one‑line proof, and run computational checks.
-- [**Euler’s characteristic**](https://josd.github.io/arc/euler-characteristic.html) — Compute χ = V−E+F for meshes; sanity-check against topology rules.
 - [**Euler’s identity**](https://josd.github.io/arc/euler-identity.html) — The most beautiful equation in mathematics.
 - [**Fibonacci**](https://josd.github.io/arc/fibonacci.html) — Compute big Fₙ with fast-doubling recurrences and proof‑style checks.
 - [**Fundamental Theorem of Arithmetic**](https://josd.github.io/arc/fundamental-theorem-arithmetic.html) — Every integer factors as a product of primes.
@@ -43,13 +40,11 @@ Each link below opens a self‑contained page that presents the ARC triad in pla
 - [**Group Theory**](https://josd.github.io/arc/group-theory.html) — Verify closure, identity, inverses, and associativity on examples.
 - [**Kaprekar’s Constant**](https://josd.github.io/arc/kaprekar-constant.html) — Exhaustive sweep of every 4‑digit state in Kaprekar’s routine.
 - [**Matrix basics**](https://josd.github.io/arc/matrix.html) — Add/multiply/invert with dimension/property checks.
-- [**Peano Addition**](https://josd.github.io/arc/peano-addition.html) — 1+1=2 proved via Resolution.
 - [**Peano Factorial**](https://josd.github.io/arc/peano-factorial.html) — 5! = 120 proved via Resolution.
 - [**Pi**](https://josd.github.io/arc/pi.html) — High‑precision π via Chudnovsky series with error‑bound checks.
 - [**Polynomial roots**](https://josd.github.io/arc/polynomial.html) — Find all roots simultaneously; prove convergence on typical cases.
 - [**Primes**](https://josd.github.io/arc/prime.html) — Generate/test primes; log certs (trial factors or proofs) as checks.
 - [**Pythagorean Theorem**](https://josd.github.io/arc/pythagorean-theorem.html) — Compute legs/hypotenuse and confirm with algebraic or area proofs.
-- [**Roots of Unity**](https://josd.github.io/arc/roots-of-unity.html) — Place complex n‑th roots on the unit circle; check spacing and sums/products.
 - [**Turing Machine**](https://josd.github.io/arc/turing.html) — Run tapes with explicit transitions; verify halting and tape contents.
 - [**Vandermonde’s identity**](https://josd.github.io/arc/vandermonde-identity.html) — Binomial‑convolution equals a single binomial.
 - [**Wilson’s Theorem**](https://josd.github.io/arc/wilson-theorem.html) — A property of primes.
