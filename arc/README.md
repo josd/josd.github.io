@@ -45,7 +45,7 @@ The collection ranges from mathematics and formal logic to routing, clinical pol
 - [**Control System**](https://josd.github.io/arc/control-system.html) — Model simple feedback loops and verify stability/response conditions.
 - [**Cryptarithm**](https://josd.github.io/arc/cryptarithm.html) — Solve letter-to-digit puzzles with constraint checks on carry/uniqueness.
 - [**Descartes’ circle theorem**](https://josd.github.io/arc/descartes-circles.html) — Compute the fourth tangent circle from three using curvature relations.
-- [**DAG**](https://josd.github.io/arc/descartes-dag.html) — DAG ⇔ Topological Order (∃ strict total order &forall; edges).
+- [**DAG**](https://josd.github.io/arc/dag.html) — DAG ⇔ Topological Order (∃ strict total order &forall; edges).
 - [**Easter (Computus)**](https://josd.github.io/arc/easter.html) — Derive Easter dates from calendrical rules with verifiable steps.
 - [**Eco-Route**](https://josd.github.io/arc/eco-route.html) — Pick lower-emission routes by fusing traffic, grade, and policy goals.
 - [**Eloquent JavaScript**](https://josd.github.io/arc/eloquent-javascript.html) — A self‑contained research brief for *Eloquent JavaScript*.
