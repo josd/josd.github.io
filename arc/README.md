@@ -45,12 +45,15 @@ The collection ranges from mathematics and formal logic to routing, clinical pol
 - [**Control System**](https://josd.github.io/arc/control-system.html) — Model simple feedback loops and verify stability/response conditions.
 - [**Cryptarithm**](https://josd.github.io/arc/cryptarithm.html) — Solve letter-to-digit puzzles with constraint checks on carry/uniqueness.
 - [**Descartes’ circle theorem**](https://josd.github.io/arc/descartes-circles.html) — Compute the fourth tangent circle from three using curvature relations.
+- [**DAG**](https://josd.github.io/arc/descartes-dag.html) — DAG ⇔ Topological Order (∃ strict total order &forall; edges).
 - [**Easter (Computus)**](https://josd.github.io/arc/easter.html) — Derive Easter dates from calendrical rules with verifiable steps.
 - [**Eco-Route**](https://josd.github.io/arc/eco-route.html) — Pick lower-emission routes by fusing traffic, grade, and policy goals.
 - [**Eloquent JavaScript**](https://josd.github.io/arc/eloquent-javascript.html) — A self‑contained research brief for *Eloquent JavaScript*.
 - [**Euclid’s Infinitude of Primes**](https://josd.github.io/arc/euclid-infinitude.html) — Restate the theorem, explain Euclid’s one‑line proof, and run computational checks.
 - [**Euler’s characteristic**](https://josd.github.io/arc/euler-characteristic.html) — Compute χ = V−E+F for meshes; sanity-check against topology rules.
 - [**Euler’s identity**](https://josd.github.io/arc/euler-identity.html) — The most beautiful equation in mathematics.
+- [**Eulerian Path**](https://josd.github.io/arc/eulerian-path.html) — Eulerian Path via ∃ edge-order.
+- [**Evenness**](https://josd.github.io/arc/evenness.html) — Evenness via Fixed-Point-Free Involution.
 - [**Family logic**](https://josd.github.io/arc/family.html) — Infer kinship from base relations (parent, spouse) with consistency checks.
 - [**Fermat’s Little Theorem**](https://josd.github.io/arc/fermat-little-theorem.html) — A classic property of prime numbers.
 - [**Fibonacci golden spiral**](https://josd.github.io/arc/fibonacci-golden-spiral.html) — Draw the spiral from Fibonacci rectangles and verify ratios.
@@ -64,6 +67,7 @@ The collection ranges from mathematics and formal logic to routing, clinical pol
 - [**Graph — French cities**](https://josd.github.io/arc/graph-french.html) — Shortest paths and connectivity over a city graph with proofs.
 - [**Grass seed — molecular germination**](https://josd.github.io/arc/grass-molecular.html) — Model germination states and transitions with rule checks.
 - [**Group Theory**](https://josd.github.io/arc/group-theory.html) — Verify closure, identity, inverses, and associativity on examples.
+- [**Hamiltonian Path**](https://josd.github.io/arc/hamiltonian-path.html) — Hamiltonian Path via ∃ M ⊆ E.
 - [**Health Information Processing**](https://josd.github.io/arc/health-info.html) — Transform clinical payloads with typed rules and validation.
 - [**Hertog Hawking**](https://josd.github.io/arc/hertog-hawking.html) — A self‑contained book brief for *On the Origin of Time*.
 - [**Infinite Game Math**](https://josd.github.io/arc/infinite-game-math.html) — A math‑centric book brief for *The Infinite Game*.
@@ -88,6 +92,7 @@ The collection ranges from mathematics and formal logic to routing, clinical pol
 - [**Peano Addition**](https://josd.github.io/arc/peano-addition.html) — 1+1=2 proved via Resolution.
 - [**Peano Factorial**](https://josd.github.io/arc/peano-factorial.html) — 5! = 120 proved via Resolution.
 - [**Pentagon & pentagram — golden ratio**](https://josd.github.io/arc/pentagon-pentagram.html) — Construct φ‑relations in pentagons and star polygons with proofs.
+- [**Perfect Matching**](https://josd.github.io/arc/perfect-matching.html) — Perfect Matching via ∃ M ⊆ E.
 - [**π (Chudnovsky)**](https://josd.github.io/arc/pi.html) — High‑precision π via Chudnovsky series with error‑bound checks.
 - [**Pick’s Theorem**](https://josd.github.io/arc/picks-theorem.html) — Area = I + B/2 − 1 for lattice polygons; verify counts.
 - [**Poincaré rotation on the circle**](https://josd.github.io/arc/poincare.html) — An irrational circle rotation is non‑repeating and uniform.

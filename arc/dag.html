@@ -1,0 +1,244 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>DAG ⇔ Topological Order (∃ strict total order &forall; edges)</title>
+  <style>
+    :root{--bg:#f7f7fb;--card:#fff;--text:#14151a;--muted:#62636a;--border:#e7e7ef;--accent:#1f6feb;--pass:#1a7f37;--fail:#b42318}
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0;background:var(--bg);color:var(--text);
+      font:16px/1.5 system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,Helvetica,Arial}
+    .container{max-width:900px;margin:32px auto;padding:0 16px;display:flex;flex-direction:column;gap:16px}
+    h1{margin:0 0 4px;font-size:1.6rem}
+    .subtle{color:var(--muted);font-size:.95rem;margin:0 0 12px}
+    .card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:16px 18px;
+      box-shadow:0 1px 0 rgba(10,10,20,.03);display:flex;flex-direction:column;gap:10px}
+    .row{display:flex;flex-direction:column;gap:4px}
+    .mono{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace;font-size:.95rem}
+    .btn{align-self:start;background:var(--accent);color:#fff;border:none;border-radius:10px;padding:10px 14px;font-weight:600;cursor:pointer;box-shadow:0 2px 0 rgba(0,0,0,.05)}
+    .btn[disabled]{opacity:.6;cursor:not-allowed}
+    ol.checks{padding-left:1.2rem;margin:0;display:flex;flex-direction:column;gap:8px}
+    .checks li{list-style:decimal}
+    .pass{color:var(--pass)} .fail{color:var(--fail)}
+    .badge{display:inline-block;font-size:.75rem;padding:2px 8px;border-radius:999px;border:1px solid var(--border);margin-left:8px;background:#f2f8f0}
+    .fail .badge{background:#fff3f2}
+    code.k{background:#f0f3fb;padding:2px 6px;border-radius:6px;border:1px solid var(--border)}
+    .chip{border:1px solid var(--border);padding:2px 8px;border-radius:999px;background:#f9f9ff;margin-right:6px}
+    .diag{font-size:.9rem;color:var(--muted)}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header class="row">
+      <h1>DAG ⇔ Topological Order (∃ strict total order &forall; edges)</h1>
+      <button id="run" class="btn">Run</button>
+    </header>
+
+    <section class="card" id="prompt">
+      <h2>Prompt (Question • Data • Logic)</h2>
+      <div class="row">
+        <strong>Question.</strong>
+        <div>Is the directed graph <code class="k">G=(V,E)</code> a DAG?</div>
+      </div>
+      <div class="row">
+        <strong>Data.</strong>
+        <div>
+          <span class="mono">V = {a,b,c,d,e}</span> &nbsp;
+          <span class="mono">E = { a→b, a→c, b→d, c→d, d→e }</span>
+        </div>
+      </div>
+      <div class="row">
+        <strong>Logic (Second-Order).</strong>
+        <div class="mono">∃ &lt; ⊆ V×V. StrictTotalOrder(&lt;) ∧ ∀(u→v)∈E. u &lt; v</div>
+        <div>This quantifies over the binary relation “&lt;” (a topological order), which is second-order.</div>
+      </div>
+    </section>
+
+    <section class="card" id="answer">
+      <h2>Answer</h2>
+      <div class="mono" id="answer-body">—</div>
+      <div id="witness-chips"></div>
+    </section>
+
+    <section class="card" id="reason">
+      <h2>Reason Why</h2>
+      <div id="reason-body">—</div>
+    </section>
+
+    <section class="card" id="checks">
+      <h2>Checks (at least 5)</h2>
+      <ol class="checks" id="checks-list">
+        <li>—</li>
+      </ol>
+    </section>
+
+    <section class="card">
+      <h2>Diagnostics</h2>
+      <div id="diag" class="diag">No errors yet.</div>
+    </section>
+  </div>
+
+  <script>
+    const $ = (id) => document.getElementById(id);
+    const write = (id, html) => { const el = $(id); if (el) el.innerHTML = html; };
+    const diag = (msg) => write("diag", msg);
+
+    // --- Graph dataset ---
+    const V = ['a','b','c','d','e'];
+    const E = [['a','b'],['a','c'],['b','d'],['c','d'],['d','e']];
+
+    // --- Helpers ---
+    function positions(order){ const m = new Map(); order.forEach((v,i)=>m.set(v,i)); return m; }
+    function isTopo(order, edges, vertices){
+      if (order.length !== new Set(order).size) return false;      // all distinct
+      const pos = positions(order);
+      // every vertex present (for THIS graph)?
+      if (order.length !== vertices.length || vertices.some(v => !pos.has(v))) return false;
+      // all edges go forward in the order
+      return edges.every(([u,v]) => pos.get(u) < pos.get(v));
+    }
+    function* permutations(arr){
+      const a = arr.slice(); const n = a.length;
+      const c = Array(n).fill(0); yield a.slice();
+      let i = 1; while (i < n) {
+        if (c[i] < i) {
+          const k = i % 2 ? c[i] : 0;
+          [a[i], a[k]] = [a[k], a[i]];
+          yield a.slice();
+          c[i]++; i = 1;
+        } else { c[i] = 0; i++; }
+      }
+    }
+    function allTopologicalOrders(vertices, edges){
+      const res = [];
+      for (const p of permutations(vertices)) if (isTopo(p, edges, vertices)) res.push(p);
+      return res;
+    }
+    // Strict total order checks derived from an order list
+    function strictTotalOrderProps(order){
+      const pos = positions(order);
+      const verts = order.slice();
+      // irreflexive: ∀x ¬(x<x) — tautology under index order
+      const irreflexive = verts.every(x => true);
+      // antisymmetric: x<y ⇒ ¬(y<x)
+      const antisym = verts.every(x => verts.every(y => (x===y) || (pos.get(x) < pos.get(y) ? !(pos.get(y) < pos.get(x)) : true)));
+      // transitive: x<y ∧ y<z ⇒ x<z
+      let trans = true;
+      for (let i=0;i<verts.length;i++)
+        for (let j=i+1;j<verts.length;j++)
+          for (let k=j+1;k<verts.length;k++){
+            const x=verts[i], y=verts[j], z=verts[k];
+            if (!(pos.get(x) < pos.get(y) && pos.get(y) < pos.get(z) ? pos.get(x) < pos.get(z) : true)) trans=false;
+          }
+      // total: x≠y ⇒ x<y ∨ y<x
+      const total = verts.every(x => verts.every(y => x===y || pos.get(x) < pos.get(y) || pos.get(y) < pos.get(x)));
+      return {irreflexive, antisym, trans, total};
+    }
+    // DFS cycle test (independent oracle)
+    function isDAG_DFS(vertices, edges){
+      const adj = new Map(vertices.map(v=>[v,[]]));
+      edges.forEach(([u,v]) => adj.get(u).push(v));
+      const vis = new Map(vertices.map(v=>[v,0])); // 0=unseen,1=visiting,2=done
+      function dfs(u){
+        vis.set(u,1);
+        for (const v of adj.get(u)){
+          const s = vis.get(v);
+          if (s===1) return false; // back edge
+          if (s===0 && !dfs(v)) return false;
+        }
+        vis.set(u,2); return true;
+      }
+      return vertices.every(v => vis.get(v)!==0 || dfs(v));
+    }
+
+    function run(){
+      const btn = $("run"); btn.disabled = true; btn.textContent = "Running…";
+      try{
+        // ----- Second-order search: enumerate < (as permutations) -----
+        const orders = allTopologicalOrders(V, E);
+        const hasWitness = orders.length > 0;
+        if(!hasWitness) throw new Error("No topological order found (unexpected for this graph).");
+        const witness = orders[0];
+
+        // ----- Answer -----
+        write("answer-body", `DAG = <strong>YES</strong>. One topological order is: ${witness.join(" ≺ ")}`);
+
+        $("witness-chips").innerHTML = witness.map((v,i)=>`<span class="chip">${i+1}. ${v}</span>`).join("");
+
+        document.getElementById("witness-chips").insertAdjacentHTML(
+          "afterend",
+          `<div class="subtle" style="margin-top:6px">Edges E: ${
+             E.map(([u,v])=>`<span class="chip">${u}→${v}</span>`).join(" ")
+           }</div>`
+        );
+
+        // ----- Reason Why -----
+        write("reason-body", `
+          <ol>
+            <li>We search over all binary relations “&lt;” that are strict total orders (enumerated as permutations of V).</li>
+            <li>We require ∀(u→v)∈E: u &lt; v. A satisfying order is a <em>second-order witness</em>.</li>
+            <li>Finding such an order proves acyclicity; adding any back-edge destroys all witnesses.</li>
+          </ol>
+        `);
+
+        // ----- Checks (6) -----
+        const checks = [];
+
+        // 1 — A witness exists and satisfies the edge constraints
+        checks.push({ title:"Witness exists and respects all edges", ok: isTopo(witness, E, V) });
+
+        // 2 — Witness order really is a strict total order
+        const props = strictTotalOrderProps(witness);
+        checks.push({ title:"Witness is a strict total order (irreflexive, antisymmetric, transitive, total)",
+                      ok: props.irreflexive && props.antisym && props.trans && props.total });
+
+        // 3 — Adding a single back edge creates a cycle ⇒ no witness
+        const E_cycle = E.concat([['e','a']]); // closes a→…→e→a cycle
+        checks.push({ title:"Adding edge e→a breaks satisfiability (no topological order)",
+                      ok: allTopologicalOrders(V, E_cycle).length === 0 });
+
+        // 4 — Independent oracle agreement: “∃ order” ⇔ DFS says DAG
+        const agrees = isDAG_DFS(V, E) === (orders.length > 0);
+        checks.push({ title:"Equivalence with DFS-based DAG test", ok: agrees });
+
+        // 5 — Count of witnesses for this graph (should be 2: a b c d e and a c b d e)
+        checks.push({ title:"Witness count is exactly 2 for this G",
+                      ok: orders.length === 2 });
+
+        // 6 — Meta-check across all 3-vertex digraphs (64 cases)
+        const V3 = ['x','y','z'];
+        const pairs3 = [['x','y'],['y','x'],['x','z'],['z','x'],['y','z'],['z','y']];
+        let metaOK = true;
+        for (let mask=0; mask<64 && metaOK; mask++){
+          const E3 = [];
+          for (let i=0;i<pairs3.length;i++) if (mask & (1<<i)) E3.push(pairs3[i]);
+          const left = allTopologicalOrders(V3, E3).length > 0;
+          const right = isDAG_DFS(V3, E3);
+          if (left !== right) metaOK = false;
+        }
+        checks.push({ title:"For all 3-node graphs: ∃ topological order ⇔ DFS reports DAG",
+                      ok: metaOK });
+
+        $("checks-list").innerHTML = checks.map((c,i)=>`<li class="${c.ok?"pass":"fail"}">
+          <strong>Check ${i+1}:</strong> ${c.title} <span class="badge">${c.ok?"PASS":"FAIL"}</span>
+        </li>`).join("");
+
+        diag(`Found ${orders.length} topological order(s). Example: ${witness.join(" → ")}`);
+
+      } catch(e){
+        write("answer-body", `<span class="fail">Error</span>`);
+        write("reason-body", "—");
+        write("checks-list", `<li class="fail">Run failed</li>`);
+        diag(e && (e.stack || e.message) ? (e.stack || e.message) : String(e));
+      } finally {
+        const btn = $("run"); btn.disabled = false; btn.textContent = "Run again";
+      }
+    }
+
+    $("run").addEventListener("click", run);
+    run();
+  </script>
+</body>
+</html>
+

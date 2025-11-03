@@ -1,0 +1,312 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Perfect Matching via ∃ M ⊆ E</title>
+  <style>
+    :root{--bg:#f7f7fb;--card:#fff;--text:#14151a;--muted:#62636a;--border:#e7e7ef;--accent:#1f6feb;--pass:#1a7f37;--fail:#b42318}
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0;background:var(--bg);color:var(--text);
+      font:16px/1.5 system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,Helvetica,Arial}
+    .container{max-width:900px;margin:32px auto;padding:0 16px;display:flex;flex-direction:column;gap:16px}
+    h1{margin:0 0 4px;font-size:1.6rem}
+    .subtle{color:var(--muted);font-size:.95rem;margin:0 0 12px}
+    .card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:16px 18px;
+      box-shadow:0 1px 0 rgba(10,10,20,.03);display:flex;flex-direction:column;gap:10px}
+    .row{display:flex;flex-direction:column;gap:4px}
+    .mono{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace;font-size:.95rem}
+    .btn{align-self:start;background:var(--accent);color:#fff;border:none;border-radius:10px;padding:10px 14px;font-weight:600;cursor:pointer;box-shadow:0 2px 0 rgba(0,0,0,.05)}
+    .btn[disabled]{opacity:.6;cursor:not-allowed}
+    ol.checks{padding-left:1.2rem;margin:0;display:flex;flex-direction:column;gap:8px}
+    .checks li{list-style:decimal}
+    .pass{color:var(--pass)} .fail{color:var(--fail)}
+    .badge{display:inline-block;font-size:.75rem;padding:2px 8px;border-radius:999px;border:1px solid var(--border);margin-left:8px;background:#f2f8f0}
+    .fail .badge{background:#fff3f2}
+    code.k{background:#f0f3fb;padding:2px 6px;border-radius:6px;border:1px solid var(--border)}
+    .chip{border:1px solid var(--border);padding:2px 8px;border-radius:999px;background:#f9f9ff;margin-right:6px}
+    .pair{border:1px dashed var(--border);padding:4px 8px;border-radius:10px;background:#fafafe;margin-right:6px;margin-bottom:6px;display:inline-block}
+    .flex{display:flex;flex-wrap:wrap;gap:8px}
+    .diag{font-size:.9rem;color:var(--muted)}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header class="row">
+      <h1>Perfect Matching via ∃ M ⊆ E</h1>
+      <button id="run" class="btn">Run</button>
+    </header>
+
+    <section class="card" id="prompt">
+      <h2>Prompt (Question • Data • Logic)</h2>
+      <div class="row">
+        <strong>Question.</strong>
+        <div>Does the bipartite graph <code class="k">G=(L,R,E)</code> have a perfect matching?</div>
+      </div>
+      <div class="row">
+        <strong>Data.</strong>
+        <div class="mono">L = {u1,u2,u3,u4}</div>
+        <div class="mono">R = {v1,v2,v3,v4}</div>
+        <div class="mono">E = { u1→v1, u1→v2, u2→v2, u2→v3, u3→v1, u3→v3, u3→v4, u4→v4 }</div>
+      </div>
+      <div class="row">
+        <strong>Logic (Second-Order).</strong>
+        <div class="mono">∃ M ⊆ E. PerfectMatching(M) ∧ covers(L∪R)</div>
+        <div>We quantify over a subset of edges <code class="k">M</code>; this is a genuine second-order witness.</div>
+      </div>
+    </section>
+
+    <section class="card" id="answer">
+      <h2>Answer</h2>
+      <div class="mono" id="answer-body">—</div>
+      <div id="witness-pairs" class="flex"></div>
+      <div class="subtle" id="edges-view"></div>
+    </section>
+
+    <section class="card" id="reason">
+      <h2>Reason Why</h2>
+      <div id="reason-body">—</div>
+    </section>
+
+    <section class="card" id="checks">
+      <h2>Checks (at least 5)</h2>
+      <ol class="checks" id="checks-list">
+        <li>—</li>
+      </ol>
+    </section>
+
+    <section class="card">
+      <h2>Diagnostics</h2>
+      <div id="diag" class="diag">No errors yet.</div>
+    </section>
+  </div>
+
+  <script>
+    // ===== Data =====
+    const L = ['u1','u2','u3','u4'];
+    const R = ['v1','v2','v3','v4'];
+    // Edge list as [i,j] with i index into L, j index into R
+    const E = [
+      [0,0],[0,1], // u1-v1, u1-v2
+      [1,1],[1,2], // u2-v2, u2-v3
+      [2,0],[2,2],[2,3], // u3-v1, u3-v3, u3-v4
+      [3,3]        // u4-v4
+    ];
+
+    // ===== UI helpers =====
+    const $ = (id) => document.getElementById(id);
+    const write = (id, html) => { const el = $(id); if (el) el.innerHTML = html; };
+    const diag = (msg) => write("diag", msg);
+    const edgeName = ([i,j]) => `${L[i]}→${R[j]}`;
+
+    // Show edge set under the answer to avoid confusion with the order/pairs
+    function renderEdges(){
+      $("edges-view").innerHTML = `Edges E: ${
+        E.map(e => `<span class="chip mono">${edgeName(e)}</span>`).join(" ")
+      }`;
+    }
+
+    // ===== Graph helpers =====
+    function buildAdjL(nL, nR, edges){
+      const adj = Array.from({length:nL}, () => []);
+      for (const [i,j] of edges) adj[i].push(j);
+      return adj;
+    }
+    function edgesInclude(edges, i, j){
+      for (const [a,b] of edges) if (a===i && b===j) return true;
+      return false;
+    }
+
+    // ===== Matching algorithms =====
+    // (A) Kuhn's algorithm (DFS-based augmenting paths) — returns a maximum matching
+    function kuhnMaximumMatching(nL, nR, edges){
+      const adj = buildAdjL(nL, nR, edges);
+      const matchR = Array(nR).fill(-1);
+      let size = 0, dfsCalls = 0;
+
+      function dfs(u, seen){
+        dfsCalls++;
+        for (const v of adj[u]){
+          if (seen[v]) continue; seen[v] = true;
+          if (matchR[v] === -1 || dfs(matchR[v], seen)){
+            matchR[v] = u; return true;
+          }
+        }
+        return false;
+      }
+      for (let u=0; u<nL; u++){
+        const seen = Array(nR).fill(false);
+        if (dfs(u, seen)) size++;
+      }
+      // Extract M as [u,v] pairs
+      const M = [];
+      for (let v=0; v<nR; v++) if (matchR[v] !== -1) M.push([matchR[v], v]);
+      return { size, M, matchR, dfsCalls };
+    }
+
+    // (B) Hopcroft–Karp — as an independent oracle for the max size
+    function hopcroftKarp(nL, nR, edges){
+      const adj = buildAdjL(nL, nR, edges);
+      const NIL = -1;
+      const pairU = Array(nL).fill(NIL);
+      const pairV = Array(nR).fill(NIL);
+      const dist = Array(nL).fill(0);
+
+      function bfs(){
+        const q = [];
+        for (let u=0; u<nL; u++){
+          if (pairU[u] === NIL){ dist[u] = 0; q.push(u); }
+          else dist[u] = Infinity;
+        }
+        let reachableFree = false;
+        while (q.length){
+          const u = q.shift();
+          for (const v of adj[u]){
+            const pu = pairV[v];
+            if (pu === NIL) reachableFree = true;
+            else if (dist[pu] === Infinity){
+              dist[pu] = dist[u] + 1;
+              q.push(pu);
+            }
+          }
+        }
+        return reachableFree;
+      }
+
+      function dfs(u){
+        for (const v of adj[u]){
+          const pu = pairV[v];
+          if (pu === NIL || (dist[pu] === dist[u] + 1 && dfs(pu))){
+            pairU[u] = v; pairV[v] = u;
+            return true;
+          }
+        }
+        dist[u] = Infinity;
+        return false;
+      }
+
+      let matching = 0;
+      while (bfs()){
+        for (let u=0; u<nL; u++)
+          if (pairU[u] === NIL && dfs(u)) matching++;
+      }
+      return { size: matching, pairU, pairV };
+    }
+
+    // ===== Second-order witness validation =====
+    function isPerfectMatching(nL, nR, edges, M){
+      if (M.length !== nL || nL !== nR) return false;
+      const seenL = Array(nL).fill(false);
+      const seenR = Array(nR).fill(false);
+      for (const [u,v] of M){
+        if (!edgesInclude(edges, u, v)) return false; // witness only uses E
+        if (seenL[u] || seenR[v]) return false;       // unique endpoints
+        seenL[u] = true; seenR[v] = true;
+      }
+      // cover both sides
+      return seenL.every(Boolean) && seenR.every(Boolean);
+    }
+
+    // ===== Hall's condition (∀ S ⊆ L : |N(S)| ≥ |S|) =====
+    function hallCondition(nL, nR, edges){
+      const neigh = (Smask) => {
+        const set = new Set();
+        for (let u=0; u<nL; u++) if (Smask & (1<<u)){
+          for (const [a,b] of edges) if (a===u) set.add(b);
+        }
+        return set.size;
+      };
+      for (let Smask=1; Smask < (1<<nL); Smask++){
+        const sSize = countBits(Smask);
+        if (neigh(Smask) < sSize) return false;
+      }
+      return true;
+    }
+    function countBits(x){ let c=0; while(x){ x&=x-1; c++; } return c; }
+
+    // ===== Runner =====
+    function run(){
+      const btn = $("run"); btn.disabled = true; btn.textContent = "Running…";
+      try{
+        renderEdges();
+
+        // Solve (second-order search for M ⊆ E via maximum matching)
+        const N = L.length, Msize = R.length;
+        const { size, M, dfsCalls } = kuhnMaximumMatching(N, Msize, E);
+
+        if (size === N){
+          // ----- Answer -----
+          write("answer-body", `Perfect matching = <strong>YES</strong>. Witness M has ${size} edges:`);
+          $("witness-pairs").innerHTML = M
+            .map(([u,v]) => `<span class="pair mono">${L[u]} — ${R[v]}</span>`).join("");
+        } else {
+          write("answer-body", `Perfect matching = <strong>NO</strong>. Max matching size is ${size}.`);
+          $("witness-pairs").innerHTML = "";
+        }
+
+        // ----- Reason Why -----
+        write("reason-body", `
+          <ol>
+            <li>We seek a subset <code class="k">M ⊆ E</code> such that each vertex in <code class="k">L∪R</code> is incident to exactly one edge in <code class="k">M</code>.</li>
+            <li>This is a <em>second-order</em> witness because <code class="k">M</code> is a quantification over relations (subsets of edges).</li>
+            <li>We compute a maximum matching (augmenting paths). If its size is <code class="k">|L|=|R|</code>, the found set is a perfect matching and serves as the witness.</li>
+          </ol>
+        `);
+
+        // ----- Checks (6) -----
+        const checks = [];
+
+        // 1 — Witness really is a perfect matching
+        checks.push({ title: "Witness satisfies perfect-matching constraints",
+                      ok: size === N && isPerfectMatching(N, N, E, M) });
+
+        // 2 — Hall's condition holds for this graph
+        const hallOK = hallCondition(N, N, E);
+        checks.push({ title: "Hall’s condition (∀S⊆L: |N(S)| ≥ |S|) holds",
+                      ok: hallOK });
+
+        // 3 — Equivalence on this graph: Hall ⇔ perfect matching exists
+        checks.push({ title: "Equivalence (Hall ⇔ ∃ perfect matching) holds on this instance",
+                      ok: (size === N) === hallOK });
+
+        // 4 — Removing critical edge u4→v4 destroys any perfect matching
+        const E_crit = E.filter(e => !(e[0]===3 && e[1]===3)); // drop u4-v4
+        const sizeCrit = kuhnMaximumMatching(N, N, E_crit).size;
+        checks.push({ title: "Dropping edge u4→v4 makes it unsatisfiable",
+                      ok: sizeCrit < N });
+
+        // 5 — Build a 3×3 counterexample that violates Hall and confirm unsat
+        const L3 = ['x1','x2','x3'], R3 = ['y1','y2','y3'];
+        const E3 = [[0,0],[1,0],[2,1],[2,2]]; // x1→y1, x2→y1, x3→{y2,y3}
+        const size3 = kuhnMaximumMatching(3,3,E3).size;
+        const hall3 = hallCondition(3,3,E3); // Fails since N({x1,x2})={y1}
+        checks.push({ title: "Example with |N(S)|<|S| has no perfect matching",
+                      ok: size3 < 3 && hall3 === false });
+
+        // 6 — Independent oracle: Hopcroft–Karp size agrees with Kuhn
+        const hk = hopcroftKarp(N, N, E).size;
+        checks.push({ title: "Hopcroft–Karp agrees on maximum size",
+                      ok: hk === size && hk === N });
+
+        $("checks-list").innerHTML = checks.map((c,i)=>`<li class="${c.ok?"pass":"fail"}">
+          <strong>Check ${i+1}:</strong> ${c.title} <span class="badge">${c.ok?"PASS":"FAIL"}</span>
+        </li>`).join("");
+
+        diag(`Maximum matching size = ${size} (DFS calls: ${dfsCalls}). Hopcroft–Karp size = ${hk}.`);
+
+      } catch (e){
+        write("answer-body", `<span class="fail">Error</span>`);
+        write("reason-body", "—");
+        write("checks-list", `<li class="fail">Run failed</li>`);
+        diag(e && (e.stack || e.message) ? (e.stack || e.message) : String(e));
+      } finally {
+        const btn = $("run"); btn.disabled = false; btn.textContent = "Run again";
+      }
+    }
+
+    $("run").addEventListener("click", run);
+    run();
+  </script>
+</body>
+</html>
+
