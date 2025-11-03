@@ -24,7 +24,7 @@ If you teach, consider assigning one case as a lab. The combination of code, com
 
 ## P3
 
-ARC’s discipline is easy to remember: **P3 — Prompt → Program → Proof**. Start with a prompt (the question, the data, and the rules you are willing to use). Write a small program that answers that prompt. Then insist on a proof‑like obligation: an explanation in words plus a check that runs. You can read more at the brief note on P3: <https://eyereasoner.github.io/eye/p3/p3>.
+ARC’s discipline is easy to remember: **P3 — Prompt → Program → Proof**. Start with a prompt (the question, the data, and the rules you are willing to use). Write a small program that answers that prompt. Then insist on a proof‑like obligation: an explanation in words plus a check that runs. You can read more at the brief note on P3: <https://josd.github.io/p3/>.
 
 ## Examples and test cases
 Each link below opens a self‑contained page that presents the ARC triad in place.
