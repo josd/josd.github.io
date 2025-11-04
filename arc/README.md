@@ -28,6 +28,8 @@ ARC’s discipline is easy to remember: **P3 — Prompt → Program → Proof**.
 
 ## Examples and test cases
 Each link below opens a self‑contained page that presents the ARC triad in place.
+
+Part A
 - [**Ackermann**](https://josd.github.io/arc/ackermann.html) — Compute A₂ with exact hyper-ops; print small, expand huge safely.
 - [**Binomial Theorem**](https://josd.github.io/arc/binomial-theorem.html) — Sum of all binomial coefficients.
 - [**Collatz**](https://josd.github.io/arc/collatz.html) — Generate trajectories and check invariants for the Collatz map.
@@ -48,6 +50,38 @@ Each link below opens a self‑contained page that presents the ARC triad in pla
 - [**Turing Machine**](https://josd.github.io/arc/turing.html) — Run tapes with explicit transitions; verify halting and tape contents.
 - [**Vandermonde’s identity**](https://josd.github.io/arc/vandermonde-identity.html) — Binomial‑convolution equals a single binomial.
 - [**Wilson’s Theorem**](https://josd.github.io/arc/wilson-theorem.html) — A property of primes.
+
+Part B
+- [**Barbara**](https://josd.github.io/arc/barbara.html) — Barbara Term Logic example proved using Resolution.
+- [**Bike Trip Planning**](https://josd.github.io/arc/bike-trip.html) — Route priorities from hazards, preferences, and declarative JSON rules.
+- [**Body Mass Index**](https://josd.github.io/arc/bmi.html) — Compute BMI categories with explainable thresholds and sanity checks.
+- [**Building Performance**](https://josd.github.io/arc/building-performance.html) — Reason about energy/comfort metrics and verify rule-based outcomes.
+- [**Clinical Care Planning**](https://josd.github.io/arc/clinical-care.html) — Derive care plans from observations, guidelines, and policy constraints.
+- [**Control System**](https://josd.github.io/arc/control-system.html) — Model simple feedback loops and verify stability/response conditions.
+- [**Easter**](https://josd.github.io/arc/easter.html) — Derive Easter dates from calendrical rules with verifiable steps.
+- [**Eco-Route**](https://josd.github.io/arc/eco-route.html) — Pick lower-emission routes by fusing traffic, grade, and policy goals.
+- [**Family logic**](https://josd.github.io/arc/family.html) — Infer kinship from base relations (parent, spouse) with consistency checks.
+- [**GPS Bike**](https://josd.github.io/arc/gps-bike.html) — GPS for bike trip Gent → Maasmechelen.
+- [**GPS Clinical Bench**](https://josd.github.io/arc/gps-clinical-bench.html) — Benchmark clinical decisions with transparent rules and audit trails.
+- [**Graph — French cities**](https://josd.github.io/arc/graph-french.html) — Shortest paths and connectivity over a city graph with proofs.
+- [**Grass seed — molecular germination**](https://josd.github.io/arc/grass-molecular.html) — Model germination states and transitions with rule checks.
+- [**Health Information Processing**](https://josd.github.io/arc/health-info.html) — Transform clinical payloads with typed rules and validation.
+- [**Kakuro**](https://josd.github.io/arc/kakuro.html) — Fill grid sums with unique digits using constraint propagation.
+- [**KenKen**](https://josd.github.io/arc/kenken.html) — Latin‑square + cage arithmetic solved with explainable deductions.
+- [**Lee**](https://josd.github.io/arc/lee.html) — Maze routing with Lee’s algorithm; trace optimal wavefront paths.
+- [**Leg Length Discrepancy Measurement**](https://josd.github.io/arc/lldm.html) — Leg Length Discrepancy Measurement from four landmarks.
+- [**Linked Lists**](https://josd.github.io/arc/linked-lists.html) — Term logic example proved using Resolution.
+- [**N‑Queens**](https://josd.github.io/arc/n-queens.html) — Place N queens without attacks; verify constraints per row/diag.
+- [**Newton–Raphson method**](https://josd.github.io/arc/newton-raphson.html) — Newton–Raphson method for root‑finding.
+- [**Nonogram**](https://josd.github.io/arc/nonogram.html) — Fill grid cells to match run hints using logical deductions.
+- [**REST‑path**](https://josd.github.io/arc/rest-path.html) — Explain link‑following over REST resources; verify pre/post conditions.
+- [**Roots of Unity**](https://josd.github.io/arc/roots-of-unity.html) — Place complex n‑th roots on the unit circle; check spacing and sums/products.
+- [**Skyscrapers**](https://josd.github.io/arc/skyscrapers.html) — Deduce building heights from sightlines with constraint logic.
+- [**Socrates**](https://josd.github.io/arc/socrates.html) — Classic syllogisms with explicit inference traces.
+- [**Square tiled by 17 right triangles**](https://josd.github.io/arc/square-triangles.html) — Dissect a square into 17 right triangles; verify tiling constraints.
+- [**Sudoku**](https://josd.github.io/arc/sudoku.html) — Explain each step of solving a 9×9 with row/col/box checks.
+- [**Turing Machine**](https://josd.github.io/arc/turing.html) — Run tapes with explicit transitions; verify halting and tape contents.
+- [**Wind‑Turbine Maintenance**](https://josd.github.io/arc/wind-turbines.html) — Plan maintenance from telemetry and policies with auditable outcomes.
 
 ---
 
