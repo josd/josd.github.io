@@ -63,7 +63,7 @@ Part B
 - [**Family Logic**](https://josd.github.io/arc/family.html) — Infer kinship from base relations (parent, spouse) with consistency checks.
 - [**GPS Bike**](https://josd.github.io/arc/gps-bike.html) — GPS for bike trip Gent → Maasmechelen.
 - [**GPS Clinical Bench**](https://josd.github.io/arc/gps-clinical-bench.html) — Benchmark clinical decisions with transparent rules and audit trails.
-- [**Graph — French Cities**](https://josd.github.io/arc/graph-french.html) — Shortest paths and connectivity over a city graph with proofs.
+- [**Graph of French Cities**](https://josd.github.io/arc/graph-french.html) — Shortest paths and connectivity over a city graph with proofs.
 - [**Grass Seed Germination**](https://josd.github.io/arc/grass-molecular.html) — Model germination states and transitions with rule checks.
 - [**Health Information Processing**](https://josd.github.io/arc/health-info.html) — Transform clinical payloads with typed rules and validation.
 - [**Kakuro**](https://josd.github.io/arc/kakuro.html) — Fill grid sums with unique digits using constraint propagation.
