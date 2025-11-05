@@ -24,16 +24,6 @@ The architecture is straightforward: inputs flow into the AI synthesizer, which 
 
 Adopting this workflow is an iterative process. It begins by clearly defining the question you need to answer. Next, you assemble the relevant data files, the logic that defines your operational rules, and a prompt that explains the task to the model. You then use the prompt to guide the AI in generating the self-contained program. After running the program, you confirm that the answer, reason, and check are all correct. As your data and logic evolve, you simply refine your inputs and re-run the synthesis step to create an updated, validated artifact. The practical benefits include building unprecedented trust, as the "answer, reason, check" triad makes every output verifiable. This is essential for regulatory and compliance-driven environments. It also enables extreme automation by producing executables that integrate seamlessly into modern development pipelines. Furthermore, it lowers maintenance overhead because policies are maintained as declarative logic, not complex code. Subject matter experts can define operational logic in a high-level format, while the AI handles the complex task of translating it into efficient, verifiable code.
 
-## Why JavaScript (pure, in the browser)
-
-We use **plain JavaScript** so that every case can run instantly in any modern browser, requiring no installation or complex build steps. JavaScript provides essential tools like exact arithmetic via `BigInt`, convenient arrays and data views for efficient iteration, and first-class access to the DOM for creating simple, interactive visuals. By keeping the mathematics and the interface within the same file, we make it easy to learn from the code, profile performance using DevTools, and modify the inputs directly on the page. Using a single language across all cases also ensures a uniform style; what varies is the core idea, not the underlying plumbing.
-
-## How to read a case
-
-When approaching a new case, begin by skimming the page: What is the question, and what does the output look like? Next, read the **Reason Why**. This is the heart of the ARC method—the place where the steps are explained in clear sentences. Finally, examine the **Check**. What exactly does the page verify? A conservation law? A known identity? A bound on error? If this check fails, the page will explicitly state so. Treat these checks as an integral part of the learning experience; they exist to make all expectations explicit.
-
-If you teach, consider assigning a case as a lab. The combination of code, commentary, and checks naturally invites exploration and discussion. Students can experiment safely, knowing the page will complain if something important goes wrong.
-
 ## Examples and test cases
 
 Each link below opens a self-contained page that presents the ARC triad in place.
@@ -94,6 +84,3 @@ Part B
   - [**Turing Machine**](https://josd.github.io/arc/turing.html) — Run tapes with explicit transitions; verify halting and tape contents.
   - [**Wind‑Turbine Maintenance**](https://josd.github.io/arc/wind-turbines.html) — Plan maintenance from telemetry and policies with auditable outcomes.
 
------
-
-If you spot an error, have a clearer sentence, or can propose a better check, please contribute. Small improvements accumulate quickly in a format like this. The only house rule is to keep all examples self-contained and written in plain JavaScript, so anyone can open them in a browser and learn from them.
