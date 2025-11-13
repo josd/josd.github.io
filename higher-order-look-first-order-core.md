@@ -1,4 +1,4 @@
-# Higher-order look, first-order heart
+# Higher-order look, first-order core
 
 ## Intuition
 
