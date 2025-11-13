@@ -1,27 +1,27 @@
 Model
 =====
-Elements (individuals) D = ['0', '1', '2', '3', '4', '5']  (Z₆, written as strings)
+Elements (individuals) D = ['0', '1', '2', '3', '4', '5'] (Z6, as strings)
 
 Fixed predicates (signature)
 ----------------------------
-• ex:holds2(R,x,y)   — application (⟨x,y⟩ ∈ ext(R)); sorts: (NAME, IND, IND)
-• ex:SubRelOf(P,Q)   — inclusion over relation *names*; sorts: (NAME, NAME)
-• ex:leq_strict / ex:leq   — ⊆* with/without reflex on names; sorts: (NAME, NAME)
+• ex:holds2(R,x,y) — extensional application; sorts: (NAME, IND, IND)
+• ex:SubRelOf(P,Q) — inclusion over relation names; sorts: (NAME, NAME)
+• ex:leq_strict / ex:leq — subset* with / without reflex; sorts: (NAME, NAME)
 
-Named relations (with facts)
-----------------------------
+Named relations (with base facts)
+---------------------------------
 Add1 = {⟨0,1⟩, ⟨1,2⟩, ⟨2,3⟩, ⟨3,4⟩, ⟨4,5⟩, ⟨5,0⟩}
 Add2 = {⟨0,2⟩, ⟨1,3⟩, ⟨2,4⟩, ⟨3,5⟩, ⟨4,0⟩, ⟨5,1⟩}
 Add3 = {⟨0,3⟩, ⟨1,4⟩, ⟨2,5⟩, ⟨3,0⟩, ⟨4,1⟩, ⟨5,2⟩}
-Gen1, Gen2, Gen3 = derived only (no base facts)
+Gen1, Gen2, Gen3 are derived only (no base facts)
 
-Inclusions over names: Add1 ⊆ Gen1,  Add2 ⊆ Gen2,  Add3 ⊆ Gen3
+Inclusions over names: Add1 ⊆ Gen1, Add2 ⊆ Gen2, Add3 ⊆ Gen3
 
 Question
 ========
-Q1) List all (x,y) with holds2(Gen2,x,y).                  [auto engine]
-Q2) ∃R: holds2(R,0,3) ∧ leq(R,Gen3) ?  (witness relation names)  [auto engine]
-Q3) ∀R,y: (leq(R,Gen2) ∧ holds2(R,0,y)) → holds2(Gen2,0,y) ?     [auto engine]
+Q1) List all (x,y) with holds2(Gen2,x,y). [auto engine]
+Q2) ∃R: holds2(R,0,3) ∧ leq(R,Gen3) ? (witness relation names) [auto engine]
+Q3) ∀R,y: (leq(R,Gen2) ∧ holds2(R,0,y)) → holds2(Gen2,0,y) ? [auto engine]
 
 Answer
 ======
@@ -31,11 +31,11 @@ Q3) Engine: mixed → Universal statement holds: Yes
 
 Reason why
 ==========
-• In Z₆, ⟨1⟩ = Z₆, ⟨2⟩ = {0,2,4}, ⟨3⟩ = {0,3}.
-• We encode “generated-by-k” as reachability under Addk steps with right recursion.
-• Quantification over relations (e.g., ∃R ⊆ Gen3) is over **names** (intensions).
-• Lifting pushes Addk-facts into Genk, then the recursive rule closes paths (n≥2).
-• Auto-chooser: big enumerations (Gen2(X,Y)) → bottom-up; ground checks → top-down.
+• In Z6, ⟨1⟩ = Z6, ⟨2⟩ = {0,2,4}, ⟨3⟩ = {0,3}.
+• “Generated-by-k” is encoded as reachability under Addk steps with right recursion.
+• Quantification over relations (e.g., ∃R ⊆ Gen3) ranges over relation names (intensions).
+• Lifting pushes Addk facts into Genk; recursion then closes paths of length ≥ 2.
+• The engine chooser prefers bottom-up for big enumerations (Gen2(X,Y)); ground checks often use top-down.
 
 Check (harness)
 ===============

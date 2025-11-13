@@ -1,341 +1,381 @@
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-CASE MODULE
-===========
-Greek family pedigree demonstrating the Hayes–Menzel idea:
-relation *symbols* are **names** (intensions) and application is a fixed predicate:
+README (plain text)
+===================
+Purpose
+-------
+A small “branch of insights” (in the spirit of https://eyereasoner.github.io/eye/brains/)
+that *quantifies over binary predicates* while keeping a first-order core via the
+Hayes–Menzel idea. Binary predicates (relations) are **named objects** (intensions
+like "ex:ParentOf"), and we use a single fixed predicate style:
 
-    ex:holds2(R, x, y)   (read: ⟨x,y⟩ ∈ ext(R))
+  • Holds₂(R, a, b)           — membership: ⟨a,b⟩ is in the extension of relation-name R
+  • Holds₂(SubRelOf, P, Q)    — inclusion:   extension(P) ⊆ extension(Q) (over *names* P, Q)
 
-So “quantifying over predicates” becomes quantifying over **names** while staying first-order.
+Quantifying over predicates = quantifying over **relation names** drawn from a finite
+vocabulary RELS. This keeps everything first-order while the behavior still looks
+second-order.
 
-This module relies on the generic engine in eyezero.py and provides:
-  - D, SIGNATURE, PROGRAM
-  - presentation hooks (print_model/print_question/...)
-  - a case-specific engine chooser + ask()
+Realistic facts (historical)
+----------------------------
+Individuals D = {Sophroniscus, Socrates, Lamprocles, Ariston, Plato, Nicomachus, Aristotle}.
+
+  FatherOf:   Sophroniscus→Socrates, Socrates→Lamprocles, Ariston→Plato, Nicomachus→Aristotle
+  ParentOf:   same four pairs (different name)
+  TeacherOf:  Socrates→Plato (historically accurate)
+  AncestorOf: transitive closure of ParentOf (so Sophroniscus→Lamprocles holds)
+
+Rules over relation *names*:
+  FatherOf ⊆ ParentOf,   ParentOf ⊆ AncestorOf.   (but TeacherOf ⊄ AncestorOf)
+
+Typical Question (this program prints)
+--------------------------------------
+(1) ∃R [ R(Socrates, Lamprocles) ∧ R ⊆ AncestorOf ] ?   (list witnesses R)
+(2) ∀R [ (R ⊆ ParentOf ∧ R(Socrates, y)) → AncestorOf(Socrates, y) ] ?  (true/false)
+(3) What are all pairs in AncestorOf after closure?
+
+How to run
+----------
+    python3 holdsn_greek_family.py
+
+No external dependencies; deterministic execution and output.
 """
 
-from eyezero import (
-    Var, Atom, Clause, atom, fact,
-    solve_topdown, solve_bottomup, match_against_facts,
-    NAME, IND, Signature, deref,
-    local, fmt_pairs, fmt_set,
-)
+from __future__ import annotations
+from typing import Dict, Iterable, List, Set, Tuple, Optional
 
-from typing import Dict, List, Tuple, Set
+# =========================================================
+# Model: individuals, relation names (intensions), Holds₂
+# =========================================================
 
-# -------------------------
-# Names (constants) & preds
-# -------------------------
-
+# Deterministically ordered individuals (historically plausible)
 D: Tuple[str, ...] = (
-    "Sophroniscus",
+    "Sophroniscus",  # father of Socrates
     "Socrates",
-    "Lamprocles",
-    "Ariston",
+    "Lamprocles",    # son of Socrates
+    "Ariston",       # father of Plato
     "Plato",
-    "Nicomachus",
-    "Aristotle",
+    "Nicomachus",    # father of Aristotle
+    "Aristotle"
 )
 
+# Namespace for names (URIs/strings as intensions)
 EX = "ex:"
-FatherOf   = EX + "FatherOf"
-ParentOf   = EX + "ParentOf"
-TeacherOf  = EX + "TeacherOf"
-AncestorOf = EX + "AncestorOf"
 
-SubRelOf   = EX + "SubRelOf"
-LeqStrict  = EX + "leq_strict"
-Leq        = EX + "leq"
-Holds2     = EX + "holds2"
+# ---------- Binary: relation names → set of pairs (their extensions) ----------
+EXT2: Dict[str, Set[Tuple[str, str]]] = {}
 
-# -------------------------------
-# Predicate signature (NAME/IND)
-# -------------------------------
+def define_relation(name: str, pairs: Iterable[Tuple[str, str]]) -> str:
+    """Register a named binary relation with its extension (a set of ordered pairs)."""
+    EXT2[name] = {(a, b) for (a, b) in pairs}
+    return name
 
-SIGNATURE: Signature = {
-    Holds2:     (NAME, IND, IND),
-    SubRelOf:   (NAME, NAME),
-    LeqStrict:  (NAME, NAME),
-    Leq:        (NAME, NAME),
-}
+def Holds2(rname: str, x: str, y: str) -> bool:
+    """Holds₂(R, x, y) — ⟨x,y⟩ ∈ extension of the relation named by R."""
+    return (x, y) in EXT2.get(rname, set())
 
-# -----------------------------
-# PROGRAM (facts + rules)
-# -----------------------------
-PROGRAM: List[Clause] = []
+# Base relations (realistic)
+FatherOf   = define_relation(EX + "FatherOf", [
+    ("Sophroniscus", "Socrates"),
+    ("Socrates",     "Lamprocles"),
+    ("Ariston",      "Plato"),
+    ("Nicomachus",   "Aristotle"),
+])
+ParentOf   = define_relation(EX + "ParentOf", [
+    ("Sophroniscus", "Socrates"),
+    ("Socrates",     "Lamprocles"),
+    ("Ariston",      "Plato"),
+    ("Nicomachus",   "Aristotle"),
+])
+TeacherOf  = define_relation(EX + "TeacherOf", [
+    ("Socrates",     "Plato"),
+])
 
-# >>> USER SECTION: FACTS
-for a,b in [
-    ("Sophroniscus","Socrates"),
-    ("Socrates","Lamprocles"),
-    ("Ariston","Plato"),
-    ("Nicomachus","Aristotle"),
-]:
-    PROGRAM += [fact(Holds2, FatherOf, a, b),
-                fact(Holds2, ParentOf, a, b)]
-PROGRAM.append(fact(Holds2, TeacherOf, "Socrates", "Plato"))
+# Build AncestorOf as the *transitive closure* of ParentOf (non-reflexive).
+def transitive_closure(E: Set[Tuple[str, str]]) -> Set[Tuple[str, str]]:
+    closure = set(E)
+    changed = True
+    while changed:
+        changed = False
+        add: Set[Tuple[str, str]] = set()
+        for (x, y1) in sorted(closure):
+            for (y2, z) in sorted(closure):
+                if y1 == y2 and (x, z) not in closure:
+                    add.add((x, z))
+        if add:
+            closure |= add
+            changed = True
+    return closure
 
-PROGRAM += [
-    fact(SubRelOf, FatherOf, ParentOf),
-    fact(SubRelOf, ParentOf, AncestorOf),
-]
+AncestorOf = define_relation(EX + "AncestorOf", transitive_closure(EXT2[ParentOf]))
 
-# >>> USER SECTION: RULES
-# Inclusion closure over names
-P,Q,R = Var("P"),Var("Q"),Var("R")
-PROGRAM.append(Clause(atom(LeqStrict,P,Q), [atom(SubRelOf,P,Q)]))
-P,Q,R = Var("P"),Var("Q"),Var("R")
-PROGRAM.append(Clause(atom(LeqStrict,P,Q), [atom(SubRelOf,P,R), atom(LeqStrict,R,Q)]))
+# Universe of relation *names* we quantify over
+RELS: Tuple[str, ...] = (FatherOf, ParentOf, TeacherOf, AncestorOf)
 
-# Reflexive closure over names (unsafe; grounded from NAME domain)
-P = Var("P")
-PROGRAM.append(Clause(atom(Leq,P,P), []))
+# ---------- Meta-relation over relation names: SubRelOf ----------
+# Holds₂(SubRelOf, P, Q) means: extension(P) ⊆ extension(Q).
+SubRelOf = define_relation(EX + "SubRelOf", [
+    (FatherOf, ParentOf),
+    (ParentOf, AncestorOf),
+    # TeacherOf deliberately NOT included in AncestorOf chain
+])
 
-# Leq includes leq_strict
-P,Q = Var("P"),Var("Q")
-PROGRAM.append(Clause(atom(Leq,P,Q), [atom(LeqStrict,P,Q)]))
+def subrel_transitive_closure() -> Set[Tuple[str, str]]:
+    """Compute (non-reflexive) transitive closure over relation-names."""
+    base = set(EXT2[SubRelOf])
+    changed = True
+    while changed:
+        changed = False
+        add: Set[Tuple[str, str]] = set()
+        for (p, q1) in sorted(base):
+            for (q2, r) in sorted(base):
+                if q1 == q2 and (p, r) not in base:
+                    add.add((p, r))
+        if add:
+            base |= add
+            changed = True
+    return base
 
-# AncestorOf via holds2
-X,Y = Var("X"),Var("Y")
-PROGRAM.append(Clause(atom(Holds2, AncestorOf, X, Y),
-                      [atom(Holds2, ParentOf, X, Y)]))
-X,Y,Z = Var("X"),Var("Y"),Var("Z")
-PROGRAM.append(Clause(atom(Holds2, AncestorOf, X, Z),
-                      [atom(Holds2, ParentOf, X, Y),
-                       atom(Holds2, AncestorOf, Y, Z)]))
+SUBREL_CLOS: Set[Tuple[str, str]] = subrel_transitive_closure()
 
-# Lifting along inclusion between names
-P,Q,X,Y = Var("P"),Var("Q"),Var("X"),Var("Y")
-PROGRAM.append(Clause(atom(Holds2, Q, X, Y),
-                      [atom(LeqStrict, P, Q), atom(Holds2, P, X, Y)]))
+def subrel_leq(P: str, Q: str) -> bool:
+    """Reflexive-transitive inclusion on relation-names: P ⊆* Q."""
+    return P == Q or (P, Q) in EXT2[SubRelOf] or (P, Q) in SUBREL_CLOS
 
-# -------------------------
-# Case-specific engine glue
-# -------------------------
+# =========================================================
+# Membership closure (Kleene): propagate along SubRelOf
+# =========================================================
+# Facts are triples (R, a, b) meaning Holds₂(R, a, b).
+# Operator F(S) = base_facts ∪ { (Q,a,b) | (P,a,b)∈S ∧ (P ⊆* Q) }.
 
-def _is_var(t) -> bool: return isinstance(t, Var)
+def kleene_membership_closure(max_steps: int = 64) -> Tuple[Set[Tuple[str, str, str]], List[Set[Tuple[str, str, str]]]]:
+    base: Set[Tuple[str, str, str]] = set()
+    for R in RELS:
+        for (a, b) in sorted(EXT2[R]):
+            base.add((R, a, b))
 
-def choose_engine(goals: List[Atom]) -> str:
-    """
-    Heuristic:
-      - holds2(AncestorOf, X?, Y?) with variables → bottom-up (enumeration)
-      - any fully unbound goal (all vars) → bottom-up
-      - otherwise → top-down
-    """
-    for g in goals:
-        if g.pred == Holds2 and len(g.args)==3 and g.args[0]==AncestorOf and (_is_var(g.args[1]) or _is_var(g.args[2])):
-            return "bottomup"
-        if all(_is_var(t) for t in g.args):
-            return "bottomup"
-    return "topdown"
+    chain: List[Set[Tuple[str, str, str]]] = [set()]
+    S: Set[Tuple[str, str, str]] = set()
+    for _ in range(max_steps):
+        S_next = set(base)
+        for (P, a, b) in S:
+            for Q in RELS:
+                if subrel_leq(P, Q):
+                    S_next.add((Q, a, b))
+        chain.append(S_next)
+        if S_next == S:
+            return S_next, chain
+        S = S_next
+    return S, chain  # defensive (should converge quickly)
 
-def ask(goals: List[Atom], step_limit: int = 10000, fallback_threshold: int = 4000):
-    engine = choose_engine(goals)
-    if engine == "topdown":
-        sols, steps = solve_topdown(PROGRAM, goals, step_limit=step_limit)
-        if steps > fallback_threshold:
-            facts, _ = solve_bottomup(PROGRAM, SIGNATURE)
-            sols = match_against_facts(goals, facts)
-            engine = "bottomup"
-            return engine, sols, 0
-        return engine, sols, steps
-    else:
-        facts, rounds = solve_bottomup(PROGRAM, SIGNATURE)
-        sols = match_against_facts(goals, facts)
-        return engine, sols, rounds
+# =========================================================
+# Quantification over relation *names*
+# =========================================================
 
-# -------------------------
-# Presentation (printing)
-# -------------------------
+def exists_R_member_and_subrel_to(a: str, b: str, Target: str, LFP: Set[Tuple[str, str, str]]) -> List[str]:
+    """Return all relation-names R with R(a,b) and R ⊆* Target (witnesses for ∃R …)."""
+    return [R for (R, x, y) in LFP if x == a and y == b and subrel_leq(R, Target)]
+
+def forall_R_parent_implies_ancestor(x: str, LFP: Set[Tuple[str, str, str]]) -> bool:
+    """Check ∀R∀y: (R ⊆ ParentOf ∧ R(x,y)) → AncestorOf(x,y)."""
+    for (R, a, b) in LFP:
+        if a != x:
+            continue
+        if subrel_leq(R, ParentOf) and (AncestorOf, a, b) not in LFP:
+            return False
+    return True
+
+# =========================================================
+# Pretty helpers (deterministic)
+# =========================================================
+
+def local(name: str) -> str:
+    """Drop 'ex:' for display."""
+    return name.split(":", 1)[1] if ":" in name else name
+
+def fmt_pairs(R: Iterable[Tuple[str, str]]) -> str:
+    seq = list(sorted(R))
+    return "∅" if not seq else "{" + ", ".join(f"⟨{a},{b}⟩" for (a, b) in seq) + "}"
+
+def fmt_facts(S: Iterable[Tuple[str, str, str]]) -> str:
+    seq = list(sorted(S))
+    return "∅" if not seq else "{" + ", ".join(f"{local(R)}({a},{b})" for (R, a, b) in seq) + "}"
+
+def fmt_chain(chain: List[Set[Tuple[str, str, str]]], limit: int = 5) -> str:
+    parts = [fmt_facts(S) for S in chain[:limit]]
+    if len(chain) > limit:
+        parts.append("…")
+    return " ⊆ ".join(parts)
+
+# =========================================================
+# The Branch: Model → Question → Answer → Reason why
+# =========================================================
 
 def print_model() -> None:
     print("Model")
     print("=====")
-    print(f"Individuals D = {list(D)}\n")
-    print("Fixed predicates (signature)")
-    print("----------------------------")
-    print("• ex:holds2(R,x,y)   — application (⟨x,y⟩ ∈ ext(R)); sorts: (NAME, IND, IND)")
-    print("• ex:SubRelOf(P,Q)   — inclusion over relation *names*; sorts: (NAME, NAME)")
-    print("• ex:leq_strict / ex:leq   — ⊆* with/without reflex on names; sorts: (NAME, NAME)\n")
-    print("Named relations (with facts)")
-    print("----------------------------")
-    print("FatherOf  =", fmt_pairs([("Sophroniscus","Socrates"), ("Socrates","Lamprocles"), ("Ariston","Plato"), ("Nicomachus","Aristotle")]))
-    print("ParentOf  =", "same pairs (different name)")
-    print("TeacherOf =", fmt_pairs([("Socrates","Plato")]))
-    print("AncestorOf = derived only (no base facts)\n")
-    print("Inclusions over names: FatherOf ⊆ ParentOf, ParentOf ⊆ AncestorOf\n")
+    print(f"Individuals D = {list(D)}")
+    print()
+    print("Signature")
+    print("---------")
+    print("• Holds₂(R, a, b): ⟨a,b⟩ ∈ extension of the relation named by R (R is an *intension*).")
+    print("• Holds₂(SubRelOf, P, Q): extension of P is included in extension of Q (P,Q are names).")
+    print()
+    print("Named relations (intensions) and their pairs")
+    print("-------------------------------------------")
+    for R, blurb in [
+        (FatherOf,  "biological father relation"),
+        (ParentOf,  "parent relation (same pairs as FatherOf here)"),
+        (TeacherOf, "teaching relation (unrelated to ancestry)"),
+        (AncestorOf,"transitive closure of ParentOf (non-reflexive)"),
+    ]:
+        print(f"- {local(R):<12}: {fmt_pairs(EXT2[R])} — {blurb}")
+    print()
+    print("Inclusion rules over relation *names*")
+    print("-------------------------------------")
+    subs = [f"{local(p)} ⊆ {local(q)}" for (p,q) in sorted(EXT2[SubRelOf])]
+    print("• " + ", ".join(subs))
+    print()
 
 def print_question() -> None:
     print("Question")
     print("========")
-    print("Q1) List all (X,Y) with holds2(AncestorOf,X,Y).   [auto engine]")
-    print("Q2) ∃R: holds2(R,Socrates,Lamprocles) ∧ leq(R,AncestorOf) ?  [auto engine]")
-    print("Q3) ∀R,y: (leq(R,ParentOf) ∧ holds2(R,Socrates,y)) → holds2(AncestorOf,Socrates,y) ?  [auto engine]")
+    print("(1) ∃R  [ R(Socrates,Lamprocles) ∧ R ⊆ AncestorOf ] ?  (list witnesses)")
+    print("(2) ∀R  [ (R ⊆ ParentOf ∧ R(Socrates,y)) → AncestorOf(Socrates,y) ] ?")
+    print("(3) What are all pairs in AncestorOf after closure?")
     print()
 
-def run_queries():
-    # Q1: enumerate AncestorOf pairs
-    Xv, Yv = Var("X"), Var("Y")
-    eng1, sols1, m1 = ask([atom(Holds2, AncestorOf, Xv, Yv)])
-    anc_pairs = sorted({(deref(Xv,s), deref(Yv,s)) for s in sols1})  # type: ignore
+def compute_answer():
+    LFP, chain = kleene_membership_closure()
+    witnesses = exists_R_member_and_subrel_to("Socrates", "Lamprocles", AncestorOf, LFP)
+    universal = forall_R_parent_implies_ancestor("Socrates", LFP)
+    ancestor_pairs_after = sorted({(a,b) for (R,a,b) in LFP if R == AncestorOf})
+    return LFP, chain, witnesses, universal, ancestor_pairs_after
 
-    # Q2: witness relation-names R
-    Rv = Var("R")
-    eng2, sols2, m2 = ask([atom(Holds2, Rv, "Socrates", "Lamprocles"),
-                           atom(Leq,   Rv, AncestorOf)])
-    witnesses = sorted({deref(Rv,s) for s in sols2 if isinstance(deref(Rv,s), str)})
-
-    # Q3: universal property
-    ok = True
-    for R in [FatherOf, ParentOf, TeacherOf, AncestorOf]:
-        for y in D:
-            _, cond, _ = ask([atom(Leq, R, ParentOf), atom(Holds2, R, "Socrates", y)])
-            if cond:
-                if not ask([atom(Holds2, AncestorOf, "Socrates", y)])[1]:
-                    ok = False; break
-        if not ok: break
-
-    return (("Q1", eng1, anc_pairs, m1),
-            ("Q2", eng2, witnesses, m2),
-            ("Q3", "mixed", ok, 0))
-
-def print_answer(res1, res2, res3) -> None:
+def print_answer(witnesses: List[str], universal: bool, ancestor_pairs_after: List[Tuple[str,str]]) -> None:
     print("Answer")
     print("======")
-    tag1, eng1, pairs, _ = res1
-    tag2, eng2, wits, _  = res2
-    tag3, eng3, ok, _    = res3
-    print(f"{tag1}) Engine: {eng1} → AncestorOf =", fmt_pairs(pairs))
-    print(f"{tag2}) Engine: {eng2} → Witness relation-names R = " + (fmt_set(wits) if wits else "∅"))
-    print(f"{tag3}) Engine: {eng3} → Universal statement holds: {'Yes' if ok else 'No'}\n")
+    print("(1) Exists R ?  " + ("Yes" if witnesses else "No"))
+    if witnesses:
+        print("    Witnesses:", "{" + ", ".join(local(w) for w in sorted(set(witnesses))) + "}")
+    print("(2) For all R ? " + ("Yes" if universal else "No"))
+    print("(3) AncestorOf =", fmt_pairs(ancestor_pairs_after))
+    print()
 
-def print_reason(eng1, eng2) -> None:
+def print_reason(LFP: Set[Tuple[str, str, str]], chain: List[Set[Tuple[str, str, str]]]) -> None:
     print("Reason why")
     print("==========")
-    print("• Engines are generic; this CASE supplies only facts, rules, and a signature.")
-    print("• Top-down SLD does goal-directed proof search with standardize-apart.")
-    print("• Bottom-up LFP derives all consequences; the signature safely grounds")
-    print("  head-only variables (e.g., leq(P,P).) from NAME/IND domains.")
-    print("• Auto-chooser sends enumerative AncestorOf(X,Y) to bottom-up;")
-    print("  bound/ground queries go top-down.\n")
+    print("We treat binary predicates as *names* and mediate application with a fixed predicate:")
+    print("  • Holds₂(R,a,b) for membership, plus Holds₂(SubRelOf,P,Q) for inclusion of relation-names.")
+    print("From FatherOf ⊆ ParentOf and ParentOf ⊆ AncestorOf we get FatherOf ⊆ AncestorOf by transitivity.")
+    print("Since FatherOf(Socrates,Lamprocles), the existential in (1) holds with witnesses {FatherOf, ParentOf, AncestorOf}.")
+    print("For (2), whenever R ⊆ ParentOf, any R(Socrates,y) also lies in ParentOf and thus in AncestorOf.")
+    print()
+    print("Kleene membership closure from base facts yields the ascending chain:")
+    print("  " + fmt_chain(chain, limit=5))
+    print(f"which stabilizes at LFP = {fmt_facts(LFP)}.")
+    print()
 
-# -------------------
-# Check (12 tests)
-# -------------------
+# =========================================================
+# Check (harness) — deterministic, ≥ 12 tests
+# =========================================================
 
-class CheckFailure(AssertionError): pass
-def check(c: bool, msg: str):
-    if not c: raise CheckFailure(msg)
+class CheckFailure(AssertionError):
+    pass
 
-def run_checks() -> List[str]:
+def check(cond: bool, msg: str) -> None:
+    if not cond:
+        raise CheckFailure(msg)
+
+def run_checks(LFP: Set[Tuple[str, str, str]], chain: List[Set[Tuple[str, str, str]]],
+               witnesses: List[str], universal: bool) -> List[str]:
     notes: List[str] = []
-    expected = {
-        ("Sophroniscus","Socrates"),
-        ("Sophroniscus","Lamprocles"),
-        ("Socrates","Lamprocles"),
-        ("Ariston","Plato"),
-        ("Nicomachus","Aristotle"),
-    }
 
-    # 1) Bottom-up enumerates expected AncestorOf
-    facts, _ = solve_bottomup(PROGRAM, SIGNATURE)
-    X, Y = Var("X"),Var("Y")
-    bu = match_against_facts([atom(Holds2, AncestorOf, X, Y)], facts)
-    anc_bu = {(deref(X,s), deref(Y,s)) for s in bu}
-    check(anc_bu == expected, "Bottom-up AncestorOf enumeration mismatch.")
-    notes.append("PASS 1: Bottom-up AncestorOf enumeration is correct.")
+    # 1) Inclusion rules present
+    check((FatherOf, ParentOf)  in EXT2[SubRelOf], "Expected FatherOf ⊆ ParentOf.")
+    check((ParentOf, AncestorOf) in EXT2[SubRelOf], "Expected ParentOf ⊆ AncestorOf.")
+    notes.append("PASS 1: Intended inclusion rules present.")
 
-    # 2) Top-down enumerates the same AncestorOf
-    td, _ = solve_topdown(PROGRAM, [atom(Holds2, AncestorOf, X, Y)])
-    anc_td = {(deref(X,s), deref(Y,s)) for s in td}
-    check(anc_td == expected, "Top-down AncestorOf enumeration mismatch.")
-    notes.append("PASS 2: Top-down AncestorOf enumeration is correct.")
+    # 2) Transitive inclusion: FatherOf ⊆ AncestorOf via closure
+    check(subrel_leq(FatherOf, AncestorOf), "FatherOf should be ⊆* AncestorOf.")
+    notes.append("PASS 2: Transitive inclusion FatherOf ⊆* AncestorOf holds.")
 
-    # 3) Engines agree on witnesses
-    R = Var("R")
-    bu_w = match_against_facts([atom(Holds2, R, "Socrates","Lamprocles"), atom(Leq, R, AncestorOf)], facts)
-    td_w, _ = solve_topdown(PROGRAM, [atom(Holds2, R, "Socrates","Lamprocles"), atom(Leq, R, AncestorOf)])
-    w1 = {deref(R,s) for s in bu_w}; w2 = {deref(R,s) for s in td_w}
-    check(w1 == w2 == {FatherOf, ParentOf, AncestorOf}, "Witness set mismatch.")
-    notes.append("PASS 3: Engines agree on existential witnesses.")
+    # 3) First Kleene step contains all base facts
+    base = {(R,a,b) for R in RELS for (a,b) in EXT2[R]}
+    check(base.issubset(chain[1]), "First Kleene step must include base facts.")
+    notes.append("PASS 3: Kleene step 1 contains base facts.")
 
-    # 4) Universal property holds
-    ok = True
-    for r in [FatherOf, ParentOf, TeacherOf, AncestorOf]:
-        for y in D:
-            cond = ask([atom(Leq, r, ParentOf), atom(Holds2, r, "Socrates", y)])[1]
-            if cond and not ask([atom(Holds2, AncestorOf, "Socrates", y)])[1]:
-                ok = False; break
-        if not ok: break
-    check(ok, "Universal property failed.")
-    notes.append("PASS 4: Universal property verified.")
+    # 4) Chain is ascending and stabilizes
+    for i in range(len(chain) - 1):
+        check(chain[i].issubset(chain[i+1]), "Kleene chain must be ascending.")
+    check(chain[-1] == LFP, "Kleene chain must stabilize at LFP.")
+    notes.append("PASS 4: Chain is ascending and stabilizes.")
 
-    # 5) TeacherOf does not entail AncestorOf
-    check(not ask([atom(Holds2, AncestorOf, "Socrates", "Plato")])[1],
-          "TeacherOf leaked into AncestorOf.")
-    notes.append("PASS 5: TeacherOf does not entail AncestorOf.")
+    # 5) AncestorOf pairs include the transitive link (Sophroniscus,Lamprocles)
+    check(("Sophroniscus","Lamprocles") in EXT2[AncestorOf], "AncestorOf must include (Sophroniscus,Lamprocles).")
+    notes.append("PASS 5: AncestorOf has the expected transitive pair.")
 
-    # 6) No reflexive AncestorOf
-    for x in D:
-        check(not ask([atom(Holds2, AncestorOf, x, x)])[1],
-              "Unexpected reflexive AncestorOf fact.")
-    notes.append("PASS 6: No reflexive AncestorOf facts.")
+    # 6) Existential witnesses for R(Socrates,Lamprocles) ∧ R ⊆ AncestorOf
+    wset = set(witnesses)
+    check(FatherOf in wset and ParentOf in wset and AncestorOf in wset, "Witnesses should include FatherOf, ParentOf, AncestorOf.")
+    check(TeacherOf not in wset, "TeacherOf should not be a witness (not ⊆ AncestorOf).")
+    notes.append("PASS 6: Existential witnesses correct.")
 
-    # 7) Auto-chooser behavior
-    e1, _, _ = ask([atom(Holds2, AncestorOf, Var("X"), Var("Y"))])
-    e2, _, _ = ask([atom(Holds2, AncestorOf, "Socrates", "Lamprocles")])
-    check(e1 == "bottomup" and e2 == "topdown", "Engine chooser mismatch.")
-    notes.append("PASS 7: Engine chooser behaves as intended.")
+    # 7) Universal statement holds (for Socrates as parent)
+    check(universal is True, "Universal statement should be true.")
+    notes.append("PASS 7: Universal statement verified.")
 
-    # 8) leq reflexive
-    for r in [FatherOf, ParentOf, TeacherOf, AncestorOf]:
-        check(ask([atom(Leq, r, r)])[1], f"Reflexivity of leq failed for {local(r)}.")
-    notes.append("PASS 8: leq reflexivity holds.")
+    # 8) Propagation: any (FatherOf,a,b) ends up as (AncestorOf,a,b) in LFP
+    for (a,b) in EXT2[FatherOf]:
+        check((AncestorOf, a, b) in LFP, "FatherOf facts must propagate to AncestorOf.")
+    notes.append("PASS 8: Inclusion propagation works.")
 
-    # 9) leq_strict transitivity (FatherOf ⊆ AncestorOf via ParentOf)
-    check(ask([atom(LeqStrict, FatherOf, AncestorOf)])[1],
-          "leq_strict transitivity failed.")
-    notes.append("PASS 9: leq_strict transitivity holds.")
+    # 9) No spurious propagation from TeacherOf to AncestorOf
+    for (a,b) in EXT2[TeacherOf]:
+        check((AncestorOf, a, b) not in LFP, "TeacherOf facts must NOT propagate to AncestorOf.")
+    notes.append("PASS 9: Unrelated relations do not propagate.")
 
-    # 10) Standardize-apart stability
-    ok1 = ask([atom(Holds2, AncestorOf, "Sophroniscus", "Lamprocles")])[1]
-    ok2 = ask([atom(Holds2, AncestorOf, "Sophroniscus", "Lamprocles")])[1]
-    check(ok1 and ok2, "Repeated top-down query should remain true.")
-    notes.append("PASS 10: Standardize-apart avoids capture across proofs.")
+    # 10) LFP is a fixed point for inclusion propagation
+    L2, _ = kleene_membership_closure()
+    check(L2 == LFP, "Closure should be idempotent (fixed point).")
+    notes.append("PASS 10: Closure is idempotent.")
 
-    # 11) Bottom-up closure idempotence
-    f1, _ = solve_bottomup(PROGRAM, SIGNATURE)
-    f2, _ = solve_bottomup(PROGRAM, SIGNATURE)
-    check(f1[Holds2] == f2[Holds2], "Bottom-up closure not idempotent.")
-    notes.append("PASS 11: Bottom-up closure is stable.")
+    # 11) Deterministic formatting
+    s1 = fmt_facts(LFP); s2 = fmt_facts(set(sorted(LFP)))
+    check(s1 == s2, "Pretty-printer must be deterministic.")
+    notes.append("PASS 11: Deterministic formatting is stable.")
 
-    # 12) Deterministic printing
-    s1 = fmt_pairs(sorted(expected)); s2 = fmt_pairs(sorted(list(expected)))
-    check(s1 == s2, "Pretty-printer determinism failed.")
-    notes.append("PASS 12: Pretty printing deterministic.")
+    # 12) Count facts: base + propagated (unique triples)
+    # Base counts: FatherOf(4) + ParentOf(4) + TeacherOf(1) + AncestorOf(5) = 14
+    # Propagation doesn’t add *new* triples beyond these (it only ensures they’re present).
+    check(len(LFP) == 14, f"Expected exactly 14 membership triples in LFP, got {len(LFP)}.")
+    notes.append("PASS 12: LFP fact count is exactly 14.")
 
     return notes
 
-# -------------------
-# Standalone runner
-# -------------------
+# =========================================================
+# Main orchestration
+# =========================================================
 
-def main():
+def main() -> None:
     print_model()
     print_question()
-    res1, res2, res3 = run_queries()
-    print_answer(res1, res2, res3)
-    print_reason(res1[1], res2[1])
+
+    LFP, chain, witnesses, universal, ancestor_pairs_after = compute_answer()
+    print_answer(witnesses, universal, ancestor_pairs_after)
+    print_reason(LFP, chain)
 
     print("Check (harness)")
     print("===============")
     try:
-        for note in run_checks():
-            print(note)
+        notes = run_checks(LFP, chain, witnesses, universal)
     except CheckFailure as e:
         print("FAIL:", e)
         raise
+    else:
+        for line in notes:
+            print(line)
 
 if __name__ == "__main__":
     main()

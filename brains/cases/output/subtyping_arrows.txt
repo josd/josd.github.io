@@ -5,7 +5,7 @@ Arrow types (names): Arr_Top_Top, Arr_Top_Int, Arr_Top_Bool, Arr_Int_Top, Arr_In
 
 Fixed predicates (signature)
 ----------------------------
-• ex:SubType(T,U)  — subtyping over *names*; sorts: (NAME, NAME)
+• ex:SubType(T,U) — subtyping over *names*; sorts: (NAME, NAME)
 • ex:ArrowOf(A1,A2,T) — T is the *name* of arrow A1→A2; sorts: (NAME, NAME, NAME)
 
 Program rules
@@ -17,10 +17,10 @@ Base facts: Int ≤ Top, Bool ≤ Top.
 
 Question
 ========
-Q1) Enumerate all subtyping pairs SubType(T,U).             [auto engine]
-Q2) Witness TB s.t. SubType(Arr_Int_Bool, TB).              [auto engine]
-Q3) ∀X∈{Top,Int,Bool}: SubType(Arr_Top_X, Arr_Top_Top)?     [auto engine]
-Q4) ∀X∈{Top,Int,Bool}: SubType(Arr_Top_Top, Arr_X_Top)?     [auto engine]
+Q1) Enumerate all subtyping pairs SubType(T,U). [auto engine]
+Q2) Witness TB s.t. SubType(Arr_Int_Bool, TB). [auto engine]
+Q3) ∀X∈{Top,Int,Bool}: SubType(Arr_Top_X, Arr_Top_Top)? [auto engine]
+Q4) ∀X∈{Top,Int,Bool}: SubType(Arr_Top_Top, Arr_X_Top)? [auto engine]
 Answer
 ======
 Q1) Engine: bottomup → {Arr_Bool_Bool ≤ Arr_Bool_Bool, Arr_Bool_Bool ≤ Arr_Bool_Top, Arr_Bool_Int ≤ Arr_Bool_Int, Arr_Bool_Int ≤ Arr_Bool_Top, Arr_Bool_Top ≤ Arr_Bool_Top, Arr_Int_Bool ≤ Arr_Int_Bool, Arr_Int_Bool ≤ Arr_Int_Top, Arr_Int_Int ≤ Arr_Int_Int, Arr_Int_Int ≤ Arr_Int_Top, Arr_Int_Top ≤ Arr_Int_Top, Arr_Top_Bool ≤ Arr_Bool_Bool, Arr_Top_Bool ≤ Arr_Bool_Top, Arr_Top_Bool ≤ Arr_Int_Bool, Arr_Top_Bool ≤ Arr_Int_Top, Arr_Top_Bool ≤ Arr_Top_Bool, Arr_Top_Bool ≤ Arr_Top_Top, Arr_Top_Int ≤ Arr_Bool_Int, Arr_Top_Int ≤ Arr_Bool_Top, Arr_Top_Int ≤ Arr_Int_Int, Arr_Top_Int ≤ Arr_Int_Top, Arr_Top_Int ≤ Arr_Top_Int, Arr_Top_Int ≤ Arr_Top_Top, Arr_Top_Top ≤ Arr_Bool_Top, Arr_Top_Top ≤ Arr_Int_Top, Arr_Top_Top ≤ Arr_Top_Top, Bool ≤ Bool, Bool ≤ Top, Int ≤ Int, Int ≤ Top, Top ≤ Top}

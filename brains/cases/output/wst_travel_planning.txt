@@ -5,10 +5,10 @@ Locations as classes: At_Brussels, At_Paris, At_London, At_Berlin
 
 Fixed predicates (signature)
 ----------------------------
-• ex:holds1(C,S)     — C holds in state S; sorts: (NAME, IND)
-• ex:holds2(A,S,S1)  — do action-name A from S to S1; sorts: (NAME, IND, IND)
-• ex:Pre/Add         — action precondition/effect (first-order over *names*)
-• ex:Cost/Time       — small naturals as *names* for measures
+• ex:holds1(C,S)  — C holds in state S; sorts: (NAME, IND)
+• ex:holds2(A,S,T) — do action-name A from S to T; sorts: (NAME, IND, IND)
+• ex:Pre/Add      — action precondition/effect (first-order over *names*)
+• ex:Cost/Time    — small naturals as *names* for measures
 • ex:PathCost/PathTime, ex:BestCost/BestTime — accumulated and minimal measures
 
 Initial & step graph
@@ -17,17 +17,17 @@ Initial: At_Brussels holds in S0; step chain S0→S1→S2→S3.
 
 Actions (cost, time)
 --------------------
-• Fly Brussels→Paris (cost 1, time 1)  | Train Brussels→Paris (2, 2)
-• Fly Paris→London (1, 2) [Forbidden]  | Fly Paris→Berlin (2, 2)
+• Fly Brussels→Paris (cost 1, time 1) | Train Brussels→Paris (2, 2)
+• Fly Paris→London (1, 2) [Forbidden] | Fly Paris→Berlin (2, 2)
 • Train London→Berlin (2, 3)
 
 Question
 ========
-Q1) Enumerate all plan edges holds2(A,S,S1).                              [auto engine]
-Q2) Minimal COST to reach any state where At_Berlin holds?                [auto engine]
-Q3) Minimal TIME to reach any state where At_Berlin holds?                [auto engine]
-Q4) Example (COST, TIME) pairs to S2 (Berlin via Fly_BP then Fly_PB).     [auto engine]
-Q5) Policy: does a transition using Fly_Paris_London appear (Forbidden)?  [auto engine]
+Q1) Enumerate all plan edges holds2(A,S,S1). [auto engine]
+Q2) Minimal COST to reach any state where At_Berlin holds? [auto engine]
+Q3) Minimal TIME to reach any state where At_Berlin holds? [auto engine]
+Q4) Example (COST, TIME) pairs to S2 (Berlin via Fly_BP then Fly_PB). [auto engine]
+Q5) Policy: does a transition using Fly_Paris_London appear (Forbidden)? [auto engine]
 
 Answer
 ======
@@ -39,11 +39,12 @@ Q5) Engine: bottomup → Forbidden action present among transitions: Yes
 
 Reason why
 ==========
-• Names as intensions (URIs); application via fixed holds₁/holds₂ → stays first-order.
-• Enabling split (Enabled(A,S) then holds2(A,S,S1)) makes bottom-up robust.
-• Cost and time both use explicit tiny arithmetic (Plus, LeqN) on names ('0'..'9').
-• PathCost/PathTime accumulate measures; BestCost/BestTime select minima via a lower-bound trick.
-• Policy (Forbidden) is just a tag you can check in queries.
+• Names as intensions (URIs); application via fixed holds₁/holds₂ keeps it first-order.
+• The two-phase enabling (Enabled(A,S) then holds2(A,S,S1)) is robust for bottom-up.
+• Cost and time both use explicit tiny arithmetic (Plus, LeqN) over names '0'..'9'.
+• PathCost/PathTime accumulate measures; BestCost/BestTime select minima by a
+  lower-bound trick (no negation or aggregates).
+• Policy tags (Forbidden) are just unary predicates you can test in queries.
 
 Check (harness)
 ===============

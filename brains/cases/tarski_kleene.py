@@ -5,386 +5,555 @@ README (plain text)
 ===================
 Purpose
 -------
-This CASE module for `eyezero.py` illustrates **Tarski + Kleene** fixed-point
-semantics using only the generic reasoning engine.
+This single-file program is a “branch of insights” in the spirit of
+https://eyereasoner.github.io/eye/brains/ . It demonstrates how a problem that
+*looks* like Second-Order Logic (SOL)—because it quantifies over **sets** and
+**set-operators**—can be modeled with a **first-order core** using a small,
+fixed set of predicates. This follows the core idea of Hayes–Menzel.
 
-We fix a tiny domain D = {0,1,2,3,4} with a successor relation succ:
+Core idea (Hayes–Menzel, in plain words)
+----------------------------------------
+- Treat things like “the set of evens” or “the successor relation” or even
+  “the operator that maps a set S to S U succ(S)” as **named objects**.
+  These **names** are called **intensions** (think: URIs or constants).
+- Keep a single, fixed predicate for applying those intensions to arguments:
+    • `Holds₁(S, x)` means: “x is a member of the set *named by* S.”
+    • `Holds₂(op, S, x)` means: “x is a member of F_op(S), i.e., applying the
+      set-operator *named by* op to the set *named by* S.”
+- This avoids quantifying over predicates or functions themselves. We only ever
+  quantify over **names** (ordinary objects), so the core stays first-order.
 
-  succ(0,1), succ(1,2), succ(2,3), succ(3,4)
+Intension vs Extension (gentle glossary)
+----------------------------------------
+- **Intension**: the *name* of a thing (like a URI, string, or constant).
+  Example: `"ex:Evens"` is a name for the set of even numbers.
+- **Extension**: the actual *collection of elements* the name refers to.
+  Example: `{0,2,4}` is the extension of `"ex:Evens"` in our tiny world.
+- Two different names can share the same extension (e.g., aliases).
 
-We consider the monotone operator on subsets S⊆D:
+What this program asks and answers (ambitious question)
+-------------------------------------------------------
+We work over a tiny domain D = {0,1,2,3,4}. We define several **named set-operators**:
+each takes a subset of D and returns a new subset of D (e.g., “closure from 0
+under successor”). For **each operator F** we:
 
-  F(S) = {0} ∪ succ(S)
+1) Check whether F is **monotone**:
+   For all S ⊆ T, do we have F(S) ⊆ F(T)?
+   (Monotone operators are nice because fixed points exist by Tarski’s Theorem.)
 
-The least fixed point LFP(F) is the **smallest** S such that:
+2) If F is monotone, we compute its **least fixed point** (LFP(F)) in two ways:
+   - **Kleene iteration**: start from ∅, repeatedly apply F, and see where it
+     stabilizes.
+   - **Tarski characterization**: LFP(F) = intersection of all *pre-fixed* sets,
+     i.e., all S with F(S) ⊆ S.
 
-  1. 0 ∈ S
-  2. S is closed under succ:  ∀x,y (x∈S ∧ succ(x,y) → y∈S).
+3) If F is not monotone, we exhibit a **concrete counterexample** S ⊆ T with
+   F(S) ⊄ F(T), and describe the Kleene chain from ∅ (which need not converge).
 
-In this finite chain, LFP(F) is all of D = {0,1,2,3,4}.
+Why this shows the Hayes–Menzel trick
+-------------------------------------
+- “Quantifying over sets” is usually labeled SOL. Here, sets and operators are
+  just **named objects**. Membership is expressed by a single fixed predicate
+  `Holds₁`, and operator application by `Holds₂`. That’s a **first-order**
+  signature.
+- Despite the SOL *flavor*, the reasoning is carried out by plain data and
+  fixed predicates. This mirrors how RDF/CLIF/CL treat classes/properties as
+  first-order objects while keeping a first-order model theory.
 
-Encoding in EyeZero
--------------------
-We encode:
-
-  • The succ relation via a *name* and a fixed binary application predicate
-
-        ex:holds2(ex:succ, x, y)
-
-    so that succ is just a **named relation** (an intension).
-
-  • The least fixed point of F as a unary predicate
-
-        ex:Reach(x)
-
-    with rules:
-
-        Reach(0).
-        Reach(y) :- Reach(x), holds2(ex:succ, x, y).
-
-EyeZero’s bottom-up engine computes the unique least model for these Horn rules.
-This least model is exactly the Kleene least fixed point of F. The harness then
-checks, using only EyeZero for logical consequences, that:
-
-  • Reach is closed under succ and contains 0.
-  • For every S ⊆ D closed under succ and containing 0, Reach ⊆ S,
-
-which corresponds to Tarski’s characterization of the **least** fixed point.
+What the program prints
+-----------------------
+1) **Model**  — domain, named sets and operators, and the successor relation.
+2) **Question** — the ambitious question stated clearly.
+3) **Answer** — monotonicity classification and least fixed points (when exist).
+4) **Reason why** — short explanations in mathematical English (Kleene + Tarski,
+   or a concrete monotonicity counterexample).
+5) **Check (harness)** — 13 deterministic checks to validate everything.
 
 How to run
 ----------
-Standalone:
+    python3 holdsn_lfp_tarski.py
 
-    python tarski_kleene.py
-
-Via EyeZero:
-
-    python eyezero.py tarski_kleene.py
-
-Output
-------
-Model → Question → Answer → Reason why → Check (harness)
+No external dependencies; deterministic execution and output.
 """
 
 from __future__ import annotations
 
-from typing import List, Tuple, Set, Dict
-from itertools import combinations
+from typing import Iterable, Tuple, Dict, Set, List, Callable, Optional
 
-# Import the generic engine primitives from EyeZero
-from eyezero import (
-    Var, Atom, Clause, atom, fact,
-    solve_topdown, solve_bottomup, match_against_facts,
-    NAME, IND, Signature, deref,
-)
+# =========================================================
+# Model: domain D, Holds₁ for sets, Holds₂ for set-operators
+# =========================================================
 
-# ─────────────────────────────────────────────────────────────────────────────
-# Model: domain, relation name, and Horn program
-# ─────────────────────────────────────────────────────────────────────────────
+# We use a tiny, *fixed* domain, with a deterministic order to keep output stable.
+D: Tuple[int, ...] = (0, 1, 2, 3, 4)
 
-# Domain as *strings* (logic side): "0","1","2","3","4"
-D_STR: Tuple[str, ...] = tuple(str(i) for i in range(5))
-
+# We'll format names (intensions) as URI-like strings in an "ex:" namespace.
 EX = "ex:"
-Holds2Pred = EX + "holds2"      # (NAME, IND, IND)
-SuccName   = EX + "succ"       # the *name* of the succ relation
-ReachPred  = EX + "Reach"      # unary predicate for the fixed point
 
-# Signature: tells EyeZero which arguments are NAME vs IND
-SIGNATURE: Signature = {
-    Holds2Pred: (NAME, IND, IND),
-    ReachPred:  (IND,),
-}
+# --- Unary side: "named sets" (intensions) and their extensions ----------------
+# EXT1 maps a *name* (string) to the *extension* (a Python set of ints).
+EXT1: Dict[str, Set[int]] = {}
 
-# Program: facts + rules
-PROGRAM: List[Clause] = []
-
-# succ facts as holds2(ex:succ, x, y)
-succ_edges: List[Tuple[str, str]] = [("0", "1"), ("1", "2"), ("2", "3"), ("3", "4")]
-for x, y in succ_edges:
-    PROGRAM.append(fact(Holds2Pred, SuccName, x, y))
-
-# Reach(0).
-PROGRAM.append(Clause(atom(ReachPred, "0"), []))
-
-# Reach(y) :- Reach(x), holds2(ex:succ, x, y).
-X, Y = Var("X"), Var("Y")
-PROGRAM.append(
-    Clause(
-        atom(ReachPred, Y),
-        [
-            atom(ReachPred, X),
-            atom(Holds2Pred, SuccName, X, Y),
-        ],
-    )
-)
-
-# ─────────────────────────────────────────────────────────────────────────────
-# Tiny engine glue for this CASE
-# ─────────────────────────────────────────────────────────────────────────────
-
-def _is_var(t) -> bool:
-    return isinstance(t, Var)
-
-def choose_engine(goals: List[Atom]) -> str:
+def define_set(name: str, elems: Iterable[int]) -> str:
     """
-    Very small heuristic:
-
-      • If a goal has variables (e.g. Reach(X)) → bottom-up (enumeration).
-      • Otherwise (fully ground)               → top-down (goal-directed).
+    Register the extension (elements) for a named set (its intension).
+    Example: define_set("ex:Evens", [0,2,4]) makes Holds1("ex:Evens", 2) True.
     """
-    for g in goals:
-        if any(_is_var(a) for a in g.args):
-            return "bottomup"
-    return "topdown"
+    EXT1[name] = set(sorted(elems))  # sort -> deterministic storage
+    return name
 
-def ask(goals: List[Atom], step_limit: int = 10000):
+def Holds1(Sname: str, x: int) -> bool:
     """
-    Ask the engine a conjunctive query.
-
-    Returns: (engine_tag, solutions, metric)
-      - engine_tag ∈ {"bottomup","topdown"}
-      - metric is number of rounds/steps (we don't display it here).
+    Read: Holds₁(S, x)  ≡  x ∈ extension of the set *named by* S.
+    S is a *name* (intension), not a predicate symbol.
     """
-    engine = choose_engine(goals)
-    if engine == "topdown":
-        sols, steps = solve_topdown(PROGRAM, goals, step_limit=step_limit)
-        return engine, sols, steps
-    else:
-        facts, rounds = solve_bottomup(PROGRAM, SIGNATURE)
-        sols = match_against_facts(goals, facts)
-        return engine, sols, rounds
+    return x in EXT1.get(Sname, set())
 
-def compute_reach_set() -> Set[str]:
-    """Enumerate all x with Reach(x) using the engine."""
-    X = Var("X")
-    _, sols, _ = ask([atom(ReachPred, X)])
-    return {deref(X, s) for s in sols if isinstance(deref(X, s), str)}
+# Define some named sets for display and testing.
+N            = define_set(EX + "N",            D)         # the whole domain
+Evens        = define_set(EX + "Evens",        [0, 2, 4]) # even numbers in D
+Odds         = define_set(EX + "Odds",         [1, 3])    # odd numbers in D
+Prefix012    = define_set(EX + "Prefix012",    [0, 1, 2]) # initial segment
+ZeroOnly     = define_set(EX + "ZeroOnly",     [0])       # singleton {0}
+EmptySet     = define_set(EX + "EmptySet",     [])        # empty set ∅
 
-def compute_succ_edges_from_engine() -> Set[Tuple[str, str]]:
-    """Read succ edges back from holds2 facts (to show we trust the engine)."""
-    facts, _ = solve_bottomup(PROGRAM, SIGNATURE)
-    edges: Set[Tuple[str, str]] = set()
-    for (rel, x, y) in facts.get(Holds2Pred, set()):
-        if rel == SuccName:
-            edges.add((x, y))
-    return edges
+# An alias with the *same extension* as N, to illustrate intension ≠ extension.
+omegaAlias   = define_set(EX + "omegaAlias",   D)
 
-# ─────────────────────────────────────────────────────────────────────────────
-# Model + Question pretty-printing
-# ─────────────────────────────────────────────────────────────────────────────
+# We'll keep a small list of named sets for pretty printing.
+NAMED_SETS: List[str] = [N, omegaAlias, Evens, Odds, Prefix012, ZeroOnly, EmptySet]
 
-def fmt_set_str(S: Set[str]) -> str:
-    if not S: return "∅"
-    return "{" + ", ".join(sorted(S, key=int)) + "}"
+# --- Binary side: a named relation succ(x,y) ≡ y = x + 1 (within D) ----------
+# EXT2 maps a *relation name* to a set of ordered pairs (its extension).
+EXT2: Dict[str, Set[Tuple[int, int]]] = {}
 
-def print_model() -> None:
-    print("Model")
-    print("=====")
-    print(f"Domain D = {[int(x) for x in D_STR]}  (represented as strings in the logic)")
-    print()
-    print("Fixed predicates (signature)")
-    print("----------------------------")
-    print("• ex:holds2(R, x, y)  — binary application; sorts: (NAME, IND, IND)")
-    print(f"   here R = {SuccName} names the succ relation.")
-    print(f"• {ReachPred}(x)      — unary predicate for the least fixed point of F(S) = {{0}} ∪ succ(S).")
-    print()
-    print("Succ relation (as holds2 facts)")
-    print("--------------------------------")
-    print("succ = { (0,1), (1,2), (2,3), (3,4) }")
-    print()
-    print("Horn program")
-    print("------------")
-    print("1) Reach(0).")
-    print("2) Reach(y) :- Reach(x), holds2(ex:succ, x, y).")
-    print()
-    print("Semantics")
-    print("---------")
-    print("The bottom-up (least fixed-point) model of this program is exactly")
-    print("the Kleene least fixed point of F(S) = {0} ∪ succ(S) on P(D).")
-    print("Tarski’s theorem says this is the **smallest** S containing 0 and")
-    print("closed under succ. The harness checks those properties explicitly.\n")
-
-def print_question() -> None:
-    print("Question")
-    print("========")
-    print("Q1) Enumerate all x with Reach(x).                      [auto engine]")
-    print("Q2) Ground checks: Reach(0)? Reach(4)?                  [auto engine]")
-    print("Q3) Is Reach the least set S⊆D with 0∈S and S succ-closed? [meta + engine]\n")
-
-# ─────────────────────────────────────────────────────────────────────────────
-# Queries
-# ─────────────────────────────────────────────────────────────────────────────
-
-def is_least_closed_from0(reach: Set[str], succ_edges: Set[Tuple[str, str]]) -> bool:
+def define_relation(name: str, pairs: Iterable[Tuple[int, int]]) -> str:
     """
-    Check Tarski-style minimality on the finite domain D:
-      Reach is the least S with
-        (i) "0" in S, and
-        (ii) succ-closed: ∀(x,y)∈succ, x∈S → y∈S.
-
-    Implementation:
-      enumerate all subsets S⊆D, filter those closed and containing "0",
-      and ensure Reach ⊆ S for all such S.
-
-    This uses engine-derived succ_edges and reach-set; the rest is finite
-    set reasoning in Python.
+    Register the extension (pairs) for a named binary relation.
+    Example: define_relation("ex:succ", [(0,1),(1,2),...]).
     """
-    domain = list(D_STR)
+    EXT2[name] = {(a, b) for (a, b) in pairs}  # set of pairs
+    return name
 
-    def closed(S: Set[str]) -> bool:
-        for x, y in succ_edges:
-            if x in S and y not in S:
+def Holds2(rel: str, x: int, y: int) -> bool:
+    """
+    Read: Holds₂(rel, x, y)  ≡  ⟨x,y⟩ ∈ extension of the relation named by rel.
+    """
+    return (x, y) in EXT2.get(rel, set())
+
+# Define the successor relation restricted to D.
+succ = define_relation(EX + "succ", [(0, 1), (1, 2), (2, 3), (3, 4)])
+
+def succ_image(S: Set[int]) -> Set[int]:
+    """
+    Image under succ: { y | ∃x∈S . succ(x,y) }.
+    Deterministic because EXT2[succ] is iterated in sorted order.
+    """
+    out: Set[int] = set()
+    for (a, b) in sorted(EXT2[succ]):
+        if a in S:
+            out.add(b)
+    return out
+
+def pred_image(S: Set[int]) -> Set[int]:
+    """
+    Predecessor image under succ: { x | ∃y∈S . succ(x,y) }.
+    """
+    out: Set[int] = set()
+    for (a, b) in sorted(EXT2[succ]):
+        if b in S:
+            out.add(a)
+    return out
+
+# --- Powerset utility: we will sometimes iterate over *all* subsets of D ------
+def all_subsets(domain: Tuple[int, ...]) -> List[Set[int]]:
+    """
+    Enumerate all subsets of 'domain' (the powerset), in a deterministic order:
+    by increasing size, then lexicographic by elements. This keeps proofs and
+    counterexamples printed in a stable, human-friendly order.
+    """
+    n = len(domain)
+    subs: List[Set[int]] = []
+    order = list(domain)
+    for mask in range(1 << n):
+        s = {order[i] for i in range(n) if (mask >> i) & 1}
+        subs.append(s)
+    subs.sort(key=lambda s: (len(s), tuple(sorted(s))))
+    return subs
+
+ALL_SUBSETS: List[Set[int]] = all_subsets(D)
+BOTTOM: Set[int] = set()
+TOP: Set[int] = set(D)
+
+# =============================
+# Named set-operators (intensions)
+# =============================
+# We let each *operator name* map to a Python function F: P(D) -> P(D).
+# Importantly: the *name* is the intension; the function realizes its extension.
+OP_FUNC: Dict[str, Callable[[Set[int]], Set[int]]] = {}
+
+def define_operator(name: str, F: Callable[[Set[int]], Set[int]]) -> str:
+    """
+    Register an operator name and its behavior (a Python function over sets).
+    This mirrors: Holds₂(op, S, x)  ≡  x ∈ F_op(S).
+    """
+    OP_FUNC[name] = F
+    return name
+
+# Monotone operators (F(S) grows monotonically with S)
+op_closure_from_zero   = define_operator(EX + "F_closureFrom0",
+    lambda S: {0} | succ_image(S))                 # adds 0 and one-step successors
+op_constant_prefix012  = define_operator(EX + "F_constPrefix012",
+    lambda S: {0, 1, 2})                           # ignores S; constant operator
+op_evens_or_succ       = define_operator(EX + "F_evensOrSucc",
+    lambda S: set(EXT1[Evens]) | succ_image(S))    # always keeps Evens and adds successors
+op_from_top_pred       = define_operator(EX + "F_fromTopPred",
+    lambda S: {4} | pred_image(S))                 # adds 4 and predecessors of S
+
+# Non-monotone operators (used to show what breaks)
+op_toggle_complement   = define_operator(EX + "F_toggle",
+    lambda S: set(D) - set(S))                     # complement toggling: ∅↔D↔∅↔…
+op_branching_weird     = define_operator(EX + "F_weird",
+    lambda S: {0} if 1 in S else {1})              # behavior flips on whether 1∈S
+
+MONOTONE_OPS: List[str]     = [op_closure_from_zero, op_constant_prefix012, op_evens_or_succ, op_from_top_pred]
+NON_MONOTONE_OPS: List[str] = [op_toggle_complement, op_branching_weird]
+ALL_OPS: List[str]          = MONOTONE_OPS + NON_MONOTONE_OPS
+
+def apply_op(op: str, S: Set[int]) -> Set[int]:
+    """
+    Apply operator 'op' to set 'S' to get F_op(S).
+    We wrap with 'set(sorted(...))' for deterministic output ordering.
+    """
+    return set(sorted(OP_FUNC[op](set(S))))
+
+def Holds2_op(op: str, Sname: str, x: int) -> bool:
+    """
+    Read: Holds₂(op, S, x)  ≡  x ∈ F_op(S), where S is the *name* of a set.
+    This is exactly the Hayes–Menzel “application” pattern: a fixed predicate
+    connects intensions (names) to their extensions.
+    """
+    return x in apply_op(op, EXT1[Sname])
+
+# ==========================
+# First-order style predicates
+# ==========================
+
+def SubsetEq(A: Set[int], B: Set[int]) -> bool:
+    """A ⊆ B"""
+    return A.issubset(B)
+
+def ExtEq1(Sname1: str, Sname2: str) -> bool:
+    """Extensionally equal named sets"""
+    return EXT1[Sname1] == EXT1[Sname2]
+
+def is_monotone(op: str) -> bool:
+    """
+    Check ∀S⊆T: F(S) ⊆ F(T). Since D is finite, we can brute-force *all* subsets.
+    Deterministic enumeration guarantees stable witnesses and messages.
+    """
+    for i, S in enumerate(ALL_SUBSETS):
+        for T in ALL_SUBSETS[i:]:
+            if not S.issubset(T):
+                continue
+            if not apply_op(op, S).issubset(apply_op(op, T)):
                 return False
-        return True
-
-    from_zero_closed_subsets: List[Set[str]] = []
-    # enumerate all subsets via combinations
-    for r in range(1, len(domain)+1):
-        for comb in combinations(domain, r):
-            S = set(comb)
-            if "0" in S and closed(S):
-                from_zero_closed_subsets.append(S)
-
-    # Tarski minimality: Reach ⊆ S for every such S
-    for S in from_zero_closed_subsets:
-        if not reach.issubset(S):
-            return False
     return True
 
-def run_queries():
-    # Q1: enumerate Reach(x)
-    reach_set = compute_reach_set()
-    eng1 = choose_engine([atom(ReachPred, Var("X"))])
+def first_monotonicity_counterexample(op: str) -> Optional[Tuple[Set[int], Set[int]]]:
+    """
+    If op is not monotone, return the *first* S⊆T (in our deterministic order)
+    such that F(S) ⊄ F(T). Otherwise return None.
+    """
+    for i, S in enumerate(ALL_SUBSETS):
+        for T in ALL_SUBSETS[i:]:
+            if not S.issubset(T):
+                continue
+            if not apply_op(op, S).issubset(apply_op(op, T)):
+                return (S, T)
+    return None
 
-    # Q2: ground checks
-    eng2a, sols0, _ = ask([atom(ReachPred, "0")])
-    eng2b, sols4, _ = ask([atom(ReachPred, "4")])
-    ok0 = bool(sols0)
-    ok4 = bool(sols4)
+# Kleene and Tarski constructions (finite lattice = guaranteed termination behaviors)
+def kleene_lfp(op: str, max_steps: int = 1 << len(D)) -> Tuple[Optional[Set[int]], List[Set[int]]]:
+    """
+    Kleene iteration from the bottom element ∅:
+      S₀ := ∅;  S_{n+1} := F(S_n).
+    If the sequence stabilizes at step k, we return (S_k, [S₀, …, S_k]).
+    If it cycles (possible for non-monotone F), we return (None, chain_so_far).
+    """
+    chain: List[Set[int]] = [set()]
+    seen: Dict[Tuple[int, ...], int] = {(): 0}  # remember visited sets by sorted tuple
+    S = set()
+    for _ in range(max_steps):
+        S_next = apply_op(op, S)
+        chain.append(S_next)
+        if S_next == S:
+            return S_next, chain  # fixed point reached
+        key = tuple(sorted(S_next))
+        if key in seen:
+            # cycle: no fixed point reached by this process
+            return None, chain
+        seen[key] = len(chain) - 1
+        S = S_next
+    return None, chain  # defensive fallback (should not happen for our finite cases)
 
-    # Q3: Tarski minimality check (meta + engine)
-    succ_from_engine = compute_succ_edges_from_engine()
-    minimal = is_least_closed_from0(reach_set, succ_from_engine)
-    eng3 = "mixed"
+def tarski_lfp(op: str) -> Set[int]:
+    """
+    Tarski’s characterization:
+      LFP(F) = ⋂ { S ⊆ D | F(S) ⊆ S }   (intersection of all *pre-fixed* sets).
+    For finite D we can directly compute this intersection.
+    """
+    prefixed: List[Set[int]] = [S for S in ALL_SUBSETS if apply_op(op, S).issubset(S)]
+    out = set(TOP)
+    for S in prefixed:
+        out &= S
+    return out
 
-    return (
-        ("Q1", eng1, reach_set, "n/a"),
-        ("Q2", f"{eng2a}/{eng2b}", (ok0, ok4), "n/a"),
-        ("Q3", eng3, minimal, "n/a"),
-    )
+# ======================
+# Pretty-print utilities
+# ======================
 
-# ─────────────────────────────────────────────────────────────────────────────
-# Answer + Reason
-# ─────────────────────────────────────────────────────────────────────────────
+def fmt_set(S: Iterable[int]) -> str:
+    """Human-friendly set printer with deterministic ordering."""
+    seq = list(sorted(S))
+    return "{" + ", ".join(str(x) for x in seq) if seq else "∅"
 
-def print_answer(res1, res2, res3) -> None:
+def fmt_chain(chain: List[Set[int]], limit: int = 8) -> str:
+    """
+    Render a Kleene chain like: ∅ ⊆ {0} ⊆ {0,1} ⊆ … (truncated with … if long).
+    """
+    parts = []
+    for S in chain[:limit]:
+        seq = list(sorted(S))
+        parts.append("∅" if not seq else "{" + ", ".join(str(x) for x in seq) + "}")
+    if len(chain) > limit:
+        parts.append("…")
+    return " ⊆ ".join(parts)
+
+# ======================
+# The Branch: Model → Q → A → Why
+# ======================
+
+def print_model() -> None:
+    """Explain the world the program reasons about."""
+    print("Model")
+    print("=====")
+    print(f"Domain D = {list(D)}")
+    print()
+    print("Signature")
+    print("---------")
+    print("• Holds₁(S, x): x ∈ extension of the set named by S (S is an *intension*).")
+    print("• Holds₂(op, S, x): x ∈ F_op(S), where op names a set-operator F_op: P(D)→P(D).")
+    print("• Named binary relation ex:succ with extension {(x,y) | y = x+1 within D}.")
+    print()
+    print("Named subsets (for display)")
+    print("---------------------------")
+    for Sname, blurb in [
+        (N,          "the whole domain"),
+        (omegaAlias, "alias of the whole domain (different name)"),
+        (Evens,      "even numbers"),
+        (Odds,       "odd numbers"),
+        (Prefix012,  "prefix {0,1,2}"),
+        (ZeroOnly,   "singleton {0}"),
+        (EmptySet,   "empty set"),
+    ]:
+        print(f"- {Sname:<14}: {fmt_set(EXT1[Sname])} — {blurb}")
+    print()
+    print("Named set-operators (intensions)")
+    print("--------------------------------")
+    descriptions = {
+        op_closure_from_zero:  "F(S) = {0} ∪ succ(S)                  (monotone)",
+        op_constant_prefix012: "F(S) = {0,1,2}                        (monotone, constant)",
+        op_evens_or_succ:      "F(S) = Evens ∪ succ(S)                (monotone)",
+        op_from_top_pred:      "F(S) = {4} ∪ pred(S)                  (monotone)",
+        op_toggle_complement:  "F(S) = D \\ S                          (non-monotone)",
+        op_branching_weird:    "F(S) = {0} if 1∈S else {1}            (non-monotone)"
+    }
+    for op in ALL_OPS:
+        print(f"- {op:<24}: {descriptions[op]}")
+    print()
+
+def print_question() -> None:
+    """State the ambitious question in user-facing mathematical English."""
+    print("Question")
+    print("========")
+    print("For each *named* set-operator F: P(D)→P(D),")
+    print("  (i) determine whether F is monotone;")
+    print("  (ii) if monotone, compute its **least fixed point** LFP(F),")
+    print("       and justify it by BOTH Kleene iteration from ∅ and Tarski’s characterization")
+    print("       LFP(F) = ⋂{ S ⊆ D | F(S) ⊆ S }.")
+    print("  (iii) if not monotone, exhibit a concrete S ⊆ T with F(S) ⊄ F(T),")
+    print("        and describe the behavior of the Kleene chain from ∅.")
+    print()
+
+def compute_answers() -> Dict[str, str]:
+    """
+    Produce a concise answer summary per operator:
+      - If monotone: the least fixed point (by Tarski).
+      - If non-monotone: a specific counterexample S⊆T with F(S)⊄F(T).
+    """
+    answers: Dict[str, str] = {}
+    for op in ALL_OPS:
+        mono = is_monotone(op)
+        if mono:
+            lfp_k, chain = kleene_lfp(op)
+            lfp_t = tarski_lfp(op)
+            answers[op] = f"LFP(F) = {fmt_set(lfp_t)}"
+        else:
+            witness = first_monotonicity_counterexample(op)
+            answers[op] = f"Not monotone; witness S⊆T with F(S)⊄F(T): S={fmt_set(witness[0])}, T={fmt_set(witness[1])}"
+    return answers
+
+def print_answer(answers: Dict[str, str]) -> None:
+    """Print the short answers in a predictable order: monotone first, then non-monotone."""
     print("Answer")
     print("======")
-    tag1, eng1, reach_set, _ = res1
-    tag2, eng2, (ok0, ok4), _ = res2
-    tag3, eng3, minimal, _ = res3
+    for op in MONOTONE_OPS:
+        print(f"- {op}: {answers[op]}")
+    for op in NON_MONOTONE_OPS:
+        print(f"- {op}: {answers[op]}")
+    print()
 
-    print(f"{tag1}) Engine: {eng1} → Reach = {fmt_set_str(reach_set)}")
-    print(f"{tag2}) Engine: {eng2} → Reach(0): {'Yes' if ok0 else 'No'}, Reach(4): {'Yes' if ok4 else 'No'}")
-    print(f"{tag3}) Engine: {eng3} → Reach is least succ-closed S with 0∈S: {'Yes' if minimal else 'No'}\n")
+def reason_for(op: str) -> str:
+    """
+    Provide a human-readable justification:
+      - Monotone: show Kleene chain, show Tarski intersection result, assert equality.
+      - Non-monotone: give an explicit S⊆T with F(S)⊄F(T) and show Kleene chain behavior.
+    """
+    if is_monotone(op):
+        lfp_k, chain = kleene_lfp(op)
+        lfp_t = tarski_lfp(op)
+        chain_txt = fmt_chain(chain, limit=8)
+        return (f"{op} is monotone, so by Tarski the least fixed point exists. "
+                f"Kleene iteration from ∅ produces the ascending chain:\n"
+                f"  {chain_txt}\n"
+                f"which stabilizes at {fmt_set(lfp_k)}. "
+                f"The Tarski intersection of all pre-fixed sets also yields {fmt_set(lfp_t)}; "
+                f"therefore LFP(F) = {fmt_set(lfp_t)}.")
+    else:
+        S, T = first_monotonicity_counterexample(op)
+        lfp_k, chain = kleene_lfp(op)
+        chain_txt = fmt_chain(chain, limit=6)
+        return (f"{op} is not monotone: with S⊆T given by S={fmt_set(S)}, T={fmt_set(T)} "
+                f"we have F(S)={fmt_set(apply_op(op, S))} ⊄ F(T)={fmt_set(apply_op(op, T))}. "
+                f"The Kleene sequence from ∅ behaves as:\n"
+                f"  {chain_txt}\n"
+                f"(no guaranteed least fixed point).")
 
-def print_reason(eng1: str, eng2: str) -> None:
-    # eng1, eng2 kept for compatibility with eyezero, but not used here.
+def print_reason() -> None:
+    """Print the full explanations for each operator, in the same fixed order."""
     print("Reason why")
     print("==========")
-    print("• The Horn program:")
-    print("    Reach(0).")
-    print("    Reach(y) :- Reach(x), succ(x,y).")
-    print("  induces a monotone operator F on subsets S⊆D:")
-    print("    F(S) = {0} ∪ { y | ∃x∈S . succ(x,y) }.")
-    print("• EyeZero’s bottom-up semantics computes the least fixed point of F,")
-    print("  i.e., the smallest S such that S = F(S). On this finite chain,")
-    print("  the result is D = {0,1,2,3,4}.")
-    print("• The harness checks the Tarski conditions:")
-    print("    1) Reach contains 0 and is closed under succ,")
-    print("    2) Any S⊆D that contains 0 and is succ-closed must contain Reach.")
-    print("  Together, this confirms that Reach is the Tarski–Kleene least fixed")
-    print("  point of F.\n")
+    for op in ALL_OPS:
+        print(f"- {reason_for(op)}")
+    print()
 
-# ─────────────────────────────────────────────────────────────────────────────
-# Check (harness)
-# ─────────────────────────────────────────────────────────────────────────────
+# ==================
+# Check (harness) ≥12
+# ==================
 
 class CheckFailure(AssertionError):
+    """Raised when a check fails; forces a loud, visible failure."""
     pass
 
-def check(c: bool, msg: str) -> None:
-    if not c:
+def check(cond: bool, msg: str) -> None:
+    """Tiny helper for readable, fail-fast checks."""
+    if not cond:
         raise CheckFailure(msg)
 
 def run_checks() -> List[str]:
+    """
+    A battery of deterministic checks. These serve as executable documentation:
+    if the model, operators, or reasoning are changed, a failing check will
+    explain exactly what broke.
+    """
     notes: List[str] = []
 
-    # 1) succ edges as expected (via engine)
-    succ_engine = compute_succ_edges_from_engine()
-    check(succ_engine == set(succ_edges), "succ edges mismatch between program and expectation.")
-    notes.append("PASS 1: succ = {(0,1),(1,2),(2,3),(3,4)} as expected.")
+    # 1) succ relation is exactly the chain
+    check(EXT2[succ] == {(0,1),(1,2),(2,3),(3,4)}, "succ must be 0→1→2→3→4.")
+    notes.append("PASS 1: succ = {(0,1),(1,2),(2,3),(3,4)}.")
 
-    # 2) bottom-up Reach enumeration is complete
-    reach = compute_reach_set()
-    check(reach == set(D_STR), f"Reach should be all of D, got {reach}.")
-    notes.append("PASS 2: bottom-up Reach enumeration = D.")
+    # 2) powerset size sanity check
+    check(len(ALL_SUBSETS) == 32, "P(D) must have 32 subsets for |D|=5.")
+    notes.append("PASS 2: |P(D)| = 32.")
 
-    # 3) top-down Reach(4) and Reach(0) are provable
-    td0, _ = solve_topdown(PROGRAM, [atom(ReachPred, "0")])
-    td4, _ = solve_topdown(PROGRAM, [atom(ReachPred, "4")])
-    check(bool(td0) and bool(td4), "Top-down should prove Reach(0) and Reach(4).")
-    notes.append("PASS 3: top-down proves Reach(0) and Reach(4).")
+    # 3) intension vs extension: two names, one extension
+    check(ExtEq1(N, omegaAlias) and N != omegaAlias, "N and omegaAlias must be ext-equal but different names.")
+    notes.append("PASS 3: N ≡ omegaAlias (extension), but names differ (intensions).")
 
-    # 4) Closure: if Reach(x) and succ(x,y), then Reach(y)
-    for x, y in succ_engine:
-        # ask engine for Reach(x) -> then Reach(y) must hold
-        _, sols_x, _ = ask([atom(ReachPred, x)])
-        if sols_x:
-            _, sols_y, _ = ask([atom(ReachPred, y)])
-            check(bool(sols_y), f"Closure violated at edge {x}->{y}.")
-    notes.append("PASS 4: Reach is closed under succ.")
+    # 4) monotone vs non-monotone classification correct
+    for op in MONOTONE_OPS:
+        check(is_monotone(op), f"{op} should be monotone.")
+    for op in NON_MONOTONE_OPS:
+        check(not is_monotone(op), f"{op} should be non-monotone.")
+    notes.append("PASS 4: Monotonicity classification correct.")
 
-    # 5) 0 is in Reach, and 4 is reachable by some chain
-    check("0" in reach and "4" in reach, "0 and 4 must be in Reach.")
-    notes.append("PASS 5: 0 and 4 are in Reach.")
+    # 5) Kleene LFP equals Tarski LFP for every monotone operator
+    for op in MONOTONE_OPS:
+        lfp_k, chain = kleene_lfp(op)
+        lfp_t = tarski_lfp(op)
+        check(lfp_k is not None and lfp_k == lfp_t, f"{op}: Kleene and Tarski LFP must match.")
+    notes.append("PASS 5: Kleene LFP = Tarski LFP for all monotone ops.")
 
-    # 6) No element outside D is in Reach (sanity; domain fixed)
-    for s in reach:
-        check(s in D_STR, f"Unexpected element {s} in Reach.")
-    notes.append("PASS 6: Reach is subset of D.")
+    # 6–9) Expected concrete LFPs (hand-checked)
+    check(tarski_lfp(op_closure_from_zero)  == set(D),          "F_closureFrom0 LFP should be D.")
+    notes.append("PASS 6: LFP(F_closureFrom0) = D.")
+    check(tarski_lfp(op_constant_prefix012) == {0,1,2},         "F_constPrefix012 LFP should be {0,1,2}.")
+    notes.append("PASS 7: LFP(F_constPrefix012) = {0,1,2}.")
+    check(tarski_lfp(op_evens_or_succ)      == set(D),          "F_evensOrSucc LFP should be D.")
+    notes.append("PASS 8: LFP(F_evensOrSucc) = D.")
+    check(tarski_lfp(op_from_top_pred)      == set(D),          "F_fromTopPred LFP should be D.")
+    notes.append("PASS 9: LFP(F_fromTopPred) = D.")
 
-    # 7) Tarski minimality: Reach is least closed from 0
-    check(is_least_closed_from0(reach, succ_engine),
-          "Reach must be the least succ-closed set containing 0.")
-    notes.append("PASS 7: Reach is the Tarski least fixed point of F(S) = {0} ∪ succ(S).")
+    # 10) Kleene chain length bounded and sensible for closure-from-0
+    lfp0, chain0 = kleene_lfp(op_closure_from_zero)
+    check(len(chain0) <= 1 + len(ALL_SUBSETS), "Kleene chain should be finite.")
+    check(chain0[1] == {0} and chain0[-1] == set(D), "F_closureFrom0 should grow from {0} to D.")
+    notes.append("PASS 10: Kleene chain for F_closureFrom0 grows {0}→…→D.")
 
-    # 8) Determinism: recomputing Reach yields same set
-    reach2 = compute_reach_set()
-    check(reach == reach2, "Recomputation of Reach changed the result.")
-    notes.append("PASS 8: Reach computation deterministic.")
+    # 11) Non-monotone: toggle has a counterexample and its Kleene chain oscillates
+    witness = first_monotonicity_counterexample(op_toggle_complement)
+    check(witness is not None, "toggle must have a monotonicity counterexample.")
+    lfp_toggle, chain_toggle = kleene_lfp(op_toggle_complement, max_steps=16)
+    check(lfp_toggle is None and chain_toggle[0] == set() and chain_toggle[1] == set(D),
+          "toggle oscillates ∅↔D; no fixed point by Kleene iteration.")
+    notes.append("PASS 11: Non-monotone toggle oscillates and has a counterexample.")
+
+    # 12) Each monotone LFP is actually a fixed point (idempotence check)
+    for op in MONOTONE_OPS:
+        L = tarski_lfp(op)
+        check(apply_op(op, L) == L, f"{op}: computed LFP is not a fixed point.")
+    notes.append("PASS 12: Computed LFPs are fixed points.")
+
+    # 13) For the constant operator, the fixed points set is exactly { {0,1,2} }
+    fixeds = [S for S in ALL_SUBSETS if apply_op(op_constant_prefix012, S) == S]
+    check(len(fixeds) == 1 and fixeds[0] == {0,1,2}, "Constant operator should have exactly one fixed point: {0,1,2}.")
+    notes.append("PASS 13: Constant operator has unique fixed point {0,1,2}.")
 
     return notes
 
-# ─────────────────────────────────────────────────────────────────────────────
-# Main
-# ─────────────────────────────────────────────────────────────────────────────
+# ===============
+# Main orchestration
+# ===============
 
 def main() -> None:
     print_model()
     print_question()
-    res1, res2, res3 = run_queries()
-    print_answer(res1, res2, res3)
-    print_reason(res1[1], res2[1])
+
+    answers = compute_answers()
+    print_answer(answers)
+    print_reason()
+
     print("Check (harness)")
     print("===============")
     try:
-        for note in run_checks():
-            print(note)
+        notes = run_checks()
     except CheckFailure as e:
         print("FAIL:", e)
         raise
+    else:
+        for line in notes:
+            print(line)
 
 if __name__ == "__main__":
     main()

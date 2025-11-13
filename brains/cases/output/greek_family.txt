@@ -2,53 +2,58 @@ Model
 =====
 Individuals D = ['Sophroniscus', 'Socrates', 'Lamprocles', 'Ariston', 'Plato', 'Nicomachus', 'Aristotle']
 
-Fixed predicates (signature)
-----------------------------
-• ex:holds2(R,x,y)   — application (⟨x,y⟩ ∈ ext(R)); sorts: (NAME, IND, IND)
-• ex:SubRelOf(P,Q)   — inclusion over relation *names*; sorts: (NAME, NAME)
-• ex:leq_strict / ex:leq   — ⊆* with/without reflex on names; sorts: (NAME, NAME)
+Signature
+---------
+• Holds₂(R, a, b): ⟨a,b⟩ ∈ extension of the relation named by R (R is an *intension*).
+• Holds₂(SubRelOf, P, Q): extension of P is included in extension of Q (P,Q are names).
 
-Named relations (with facts)
-----------------------------
-FatherOf  = {⟨Ariston,Plato⟩, ⟨Nicomachus,Aristotle⟩, ⟨Socrates,Lamprocles⟩, ⟨Sophroniscus,Socrates⟩}
-ParentOf  = same pairs (different name)
-TeacherOf = {⟨Socrates,Plato⟩}
-AncestorOf = derived only (no base facts)
+Named relations (intensions) and their pairs
+-------------------------------------------
+- FatherOf    : {⟨Ariston,Plato⟩, ⟨Nicomachus,Aristotle⟩, ⟨Socrates,Lamprocles⟩, ⟨Sophroniscus,Socrates⟩} — biological father relation
+- ParentOf    : {⟨Ariston,Plato⟩, ⟨Nicomachus,Aristotle⟩, ⟨Socrates,Lamprocles⟩, ⟨Sophroniscus,Socrates⟩} — parent relation (same pairs as FatherOf here)
+- TeacherOf   : {⟨Socrates,Plato⟩} — teaching relation (unrelated to ancestry)
+- AncestorOf  : {⟨Ariston,Plato⟩, ⟨Nicomachus,Aristotle⟩, ⟨Socrates,Lamprocles⟩, ⟨Sophroniscus,Lamprocles⟩, ⟨Sophroniscus,Socrates⟩} — transitive closure of ParentOf (non-reflexive)
 
-Inclusions over names: FatherOf ⊆ ParentOf, ParentOf ⊆ AncestorOf
+Inclusion rules over relation *names*
+-------------------------------------
+• FatherOf ⊆ ParentOf, ParentOf ⊆ AncestorOf
 
 Question
 ========
-Q1) List all (X,Y) with holds2(AncestorOf,X,Y).   [auto engine]
-Q2) ∃R: holds2(R,Socrates,Lamprocles) ∧ leq(R,AncestorOf) ?  [auto engine]
-Q3) ∀R,y: (leq(R,ParentOf) ∧ holds2(R,Socrates,y)) → holds2(AncestorOf,Socrates,y) ?  [auto engine]
+(1) ∃R  [ R(Socrates,Lamprocles) ∧ R ⊆ AncestorOf ] ?  (list witnesses)
+(2) ∀R  [ (R ⊆ ParentOf ∧ R(Socrates,y)) → AncestorOf(Socrates,y) ] ?
+(3) What are all pairs in AncestorOf after closure?
 
 Answer
 ======
-Q1) Engine: bottomup → AncestorOf = {⟨Ariston,Plato⟩, ⟨Nicomachus,Aristotle⟩, ⟨Socrates,Lamprocles⟩, ⟨Sophroniscus,Lamprocles⟩, ⟨Sophroniscus,Socrates⟩}
-Q2) Engine: topdown → Witness relation-names R = {AncestorOf, FatherOf, ParentOf}
-Q3) Engine: mixed → Universal statement holds: Yes
+(1) Exists R ?  Yes
+    Witnesses: {AncestorOf, FatherOf, ParentOf}
+(2) For all R ? Yes
+(3) AncestorOf = {⟨Ariston,Plato⟩, ⟨Nicomachus,Aristotle⟩, ⟨Socrates,Lamprocles⟩, ⟨Sophroniscus,Lamprocles⟩, ⟨Sophroniscus,Socrates⟩}
 
 Reason why
 ==========
-• Engines are generic; this CASE supplies only facts, rules, and a signature.
-• Top-down SLD does goal-directed proof search with standardize-apart.
-• Bottom-up LFP derives all consequences; the signature safely grounds
-  head-only variables (e.g., leq(P,P).) from NAME/IND domains.
-• Auto-chooser sends enumerative AncestorOf(X,Y) to bottom-up;
-  bound/ground queries go top-down.
+We treat binary predicates as *names* and mediate application with a fixed predicate:
+  • Holds₂(R,a,b) for membership, plus Holds₂(SubRelOf,P,Q) for inclusion of relation-names.
+From FatherOf ⊆ ParentOf and ParentOf ⊆ AncestorOf we get FatherOf ⊆ AncestorOf by transitivity.
+Since FatherOf(Socrates,Lamprocles), the existential in (1) holds with witnesses {FatherOf, ParentOf, AncestorOf}.
+For (2), whenever R ⊆ ParentOf, any R(Socrates,y) also lies in ParentOf and thus in AncestorOf.
+
+Kleene membership closure from base facts yields the ascending chain:
+  ∅ ⊆ {AncestorOf(Ariston,Plato), AncestorOf(Nicomachus,Aristotle), AncestorOf(Socrates,Lamprocles), AncestorOf(Sophroniscus,Lamprocles), AncestorOf(Sophroniscus,Socrates), FatherOf(Ariston,Plato), FatherOf(Nicomachus,Aristotle), FatherOf(Socrates,Lamprocles), FatherOf(Sophroniscus,Socrates), ParentOf(Ariston,Plato), ParentOf(Nicomachus,Aristotle), ParentOf(Socrates,Lamprocles), ParentOf(Sophroniscus,Socrates), TeacherOf(Socrates,Plato)} ⊆ {AncestorOf(Ariston,Plato), AncestorOf(Nicomachus,Aristotle), AncestorOf(Socrates,Lamprocles), AncestorOf(Sophroniscus,Lamprocles), AncestorOf(Sophroniscus,Socrates), FatherOf(Ariston,Plato), FatherOf(Nicomachus,Aristotle), FatherOf(Socrates,Lamprocles), FatherOf(Sophroniscus,Socrates), ParentOf(Ariston,Plato), ParentOf(Nicomachus,Aristotle), ParentOf(Socrates,Lamprocles), ParentOf(Sophroniscus,Socrates), TeacherOf(Socrates,Plato)}
+which stabilizes at LFP = {AncestorOf(Ariston,Plato), AncestorOf(Nicomachus,Aristotle), AncestorOf(Socrates,Lamprocles), AncestorOf(Sophroniscus,Lamprocles), AncestorOf(Sophroniscus,Socrates), FatherOf(Ariston,Plato), FatherOf(Nicomachus,Aristotle), FatherOf(Socrates,Lamprocles), FatherOf(Sophroniscus,Socrates), ParentOf(Ariston,Plato), ParentOf(Nicomachus,Aristotle), ParentOf(Socrates,Lamprocles), ParentOf(Sophroniscus,Socrates), TeacherOf(Socrates,Plato)}.
 
 Check (harness)
 ===============
-PASS 1: Bottom-up AncestorOf enumeration is correct.
-PASS 2: Top-down AncestorOf enumeration is correct.
-PASS 3: Engines agree on existential witnesses.
-PASS 4: Universal property verified.
-PASS 5: TeacherOf does not entail AncestorOf.
-PASS 6: No reflexive AncestorOf facts.
-PASS 7: Engine chooser behaves as intended.
-PASS 8: leq reflexivity holds.
-PASS 9: leq_strict transitivity holds.
-PASS 10: Standardize-apart avoids capture across proofs.
-PASS 11: Bottom-up closure is stable.
-PASS 12: Pretty printing deterministic.
+PASS 1: Intended inclusion rules present.
+PASS 2: Transitive inclusion FatherOf ⊆* AncestorOf holds.
+PASS 3: Kleene step 1 contains base facts.
+PASS 4: Chain is ascending and stabilizes.
+PASS 5: AncestorOf has the expected transitive pair.
+PASS 6: Existential witnesses correct.
+PASS 7: Universal statement verified.
+PASS 8: Inclusion propagation works.
+PASS 9: Unrelated relations do not propagate.
+PASS 10: Closure is idempotent.
+PASS 11: Deterministic formatting is stable.
+PASS 12: LFP fact count is exactly 14.

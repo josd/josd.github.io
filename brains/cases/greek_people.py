@@ -5,482 +5,361 @@ README (plain text)
 ===================
 Purpose
 -------
-A CASE module for `eyezero.py` that constructs the **Greek people** example
+A small “branch of insights” (in the spirit of https://eyereasoner.github.io/eye/brains/)
+that *quantifies over predicates* while keeping a first-order core via the
+Hayes–Menzel idea. Predicates (classes) are **named objects** (intensions like
+"ex:Greek"), and we use fixed predicates:
 
-    Greek(Socrates)
-    Philosopher(Socrates), Philosopher(Plato)
-    Human(Plato), Human(Aristotle)
-    Olympian(Zeus)
-    Greek ⊆ Human, Philosopher ⊆ Human, Human ⊆ Mortal
+  • Holds₁(C, a)   — membership: a is in the extension of class-name C
+  • Holds₂(SubClassOf, P, Q) — subclass: class-name P’s extension is included in Q’s
 
-using the Hayes–Menzel idea:
+Quantifying over predicates = quantifying over **names** P drawn from a finite
+vocabulary `CLASSES`. This keeps everything first-order, while the behavior still
+looks second-order (ranging over predicates).
 
-  • Class predicates like Greek, Human, Mortal are **names** (intensions).
-  • Membership is mediated by a fixed unary predicate
+Typical Question
+----------------
+Given base facts and subclass rules:
 
-        ex:holds1(C,x)   # "x is in the extension of the class named by C"
+  Base facts:
+    Greek(Socrates), Philosopher(Socrates), Philosopher(Plato),
+    Human(Plato), Human(Aristotle), Olympian(Zeus).
 
-  • Subclassing is mediated by a fixed binary predicate
+  Rules:
+    Greek ⊆ Human, Philosopher ⊆ Human, Human ⊆ Mortal.
 
-        ex:SubClassOf(C,D)   # "extension(C) ⊆ extension(D)"
+(1) ∃P [ P is a class-name ∧ P(Socrates) ∧ P ⊆ Mortal ] ?   (give witnesses)  
+(2) ∀P [ (P ⊆ Human ∧ P(Socrates)) → Mortal(Socrates) ] ?  
+(3) List all classes that Socrates belongs to after closure.
 
-Quantifying over predicates (e.g. “∃P P(Socrates) ∧ P ⊆ Mortal”) becomes
-quantifying over **names** P in the NAME-sort; the underlying logic is still
-first-order over a fixed vocabulary (holds1, SubClassOf, leq, ...).
-
-Model
------
-Individuals (IND-sort, as strings):
-  D = { "Socrates", "Plato", "Aristotle", "Zeus" }
-
-Class names (NAME-sort, intensions):
-  ex:Greek, ex:Philosopher, ex:Human, ex:Mortal, ex:Olympian
-
-Base membership facts (via holds1):
-  Greek(Socrates)
-  Philosopher(Socrates), Philosopher(Plato)
-  Human(Plato), Human(Aristotle)
-  Mortal(–)   # empty initially
-  Olympian(Zeus)
-
-Subclass facts (via SubClassOf):
-  Greek ⊆ Human
-  Philosopher ⊆ Human
-  Human ⊆ Mortal
-
-Rules (first-order Horn clauses)
---------------------------------
-We work with two sorts (NAME, IND) and predicates:
-
-  ex:holds1(C,x)      # (NAME, IND)
-  ex:SubClassOf(C,D)  # (NAME, NAME)
-  ex:leq_strict(C,D)  # (NAME, NAME) – transitive closure
-  ex:leq(C,D)         # (NAME, NAME) – reflexive-transitive closure
-
-Rules:
-
-  1) leq_strict(C,D) :- SubClassOf(C,D).
-  2) leq_strict(C,D) :- SubClassOf(C,E), leq_strict(E,D).
-  3) leq(C,C).
-  4) leq(C,D) :- leq_strict(C,D).
-  5) holds1(D,x) :- leq_strict(C,D), holds1(C,x).   # membership lifting
-
-EyeZero’s bottom-up semantics computes the least fixed point of this program.
-
-Typical questions
------------------
-Q1) ∃P: P(Socrates) ∧ P ⊆ Mortal ?        (list witness class-names)
-Q2) ∀P: (P ⊆ Human ∧ P(Socrates)) → Mortal(Socrates) ?
-Q3) List all classes that Socrates belongs to after closure.
+What the program prints
+-----------------------
+1) **Model**  — individuals, class names, base facts, subclass rules.  
+2) **Question** — the three items above.  
+3) **Answer** — Yes/No + witnesses for (1); truth-value for (2); the set for (3).  
+4) **Reason why** — mathematical-English explanation with a tiny closure chain.  
+5) **Check (harness)** — 12 deterministic tests (closure, quantifiers, monotonicity).
 
 How to run
 ----------
-Standalone:
+    python3 holdsn_greek_people.py
 
-    python3 greek_people.py
-
-Via EyeZero:
-
-    python3 eyezero.py greek_people.py
-
-Output
-------
-Model → Question → Answer → Reason why → Check (harness)
+No external dependencies; deterministic execution and output.
 """
 
 from __future__ import annotations
+from typing import Dict, Iterable, List, Set, Tuple
 
-from typing import List, Set, Tuple
+# =========================================================
+# Model: individuals, class names (intensions), Holds₁/₂
+# =========================================================
 
-from eyezero import (
-    Var, Atom, Clause, atom, fact,
-    solve_topdown, solve_bottomup, match_against_facts,
-    NAME, IND, Signature, deref,
-)
+# Deterministic domain of individuals
+D: Tuple[str, ...] = ("Socrates", "Plato", "Aristotle", "Zeus")
 
-# ─────────────────────────────────────────────────────────────────────────────
-# Names, signature, and program
-# ─────────────────────────────────────────────────────────────────────────────
-
+# Namespace for names (URIs/strings as intensions)
 EX = "ex:"
 
-# Application and meta-predicates
-Holds1     = EX + "holds1"       # (NAME, IND) – class-name application
-SubClassOf = EX + "SubClassOf"   # (NAME, NAME) – subclass over names
-LeqStrict  = EX + "leq_strict"   # (NAME, NAME) – transitive closure of SubClassOf
-Leq        = EX + "leq"          # (NAME, NAME) – reflexive-transitive closure
+# ---------- Unary: class names → member sets ----------
+EXT1: Dict[str, Set[str]] = {}
 
-# Class names (intensions)
-Greek       = EX + "Greek"
-Philosopher = EX + "Philosopher"
-Human       = EX + "Human"
-Mortal      = EX + "Mortal"
-Olympian    = EX + "Olympian"
+def define_class(name: str, members: Iterable[str]) -> str:
+    """Register a named class with its (sorted) extension of members."""
+    EXT1[name] = set(sorted(members))
+    return name
 
-ALL_CLASSES = [Greek, Philosopher, Human, Mortal, Olympian]
+def Holds1(cname: str, a: str) -> bool:
+    """Holds₁(C, a): individual a is in the extension of the class named by C."""
+    return a in EXT1.get(cname, set())
 
-# Individuals
-Socrates  = "Socrates"
-Plato     = "Plato"
-Aristotle = "Aristotle"
-Zeus      = "Zeus"
+# Class (predicate) names (intensions)
+Greek       = define_class(EX + "Greek",       ["Socrates"])
+Philosopher = define_class(EX + "Philosopher", ["Socrates", "Plato"])
+Human       = define_class(EX + "Human",       ["Plato", "Aristotle"])  # Socrates derived via subclass
+Mortal      = define_class(EX + "Mortal",      [])                      # to be derived
+Olympian    = define_class(EX + "Olympian",    ["Zeus"])
 
-D: Tuple[str, ...] = (Socrates, Plato, Aristotle, Zeus)
+# Universe of predicate *names* we will quantify over
+CLASSES: Tuple[str, ...] = (Greek, Philosopher, Human, Mortal, Olympian)
 
-# Signature for EyeZero (NAME vs IND per argument position)
-SIGNATURE: Signature = {
-    Holds1:     (NAME, IND),
-    SubClassOf: (NAME, NAME),
-    LeqStrict:  (NAME, NAME),
-    Leq:        (NAME, NAME),
-}
+# ---------- Binary: SubClassOf relation ----------
+EXT2: Dict[str, Set[Tuple[str, str]]] = {}
 
-# Program: facts + rules (Prolog-style)
-PROGRAM: List[Clause] = []
+def define_relation(name: str, pairs: Iterable[Tuple[str, str]]) -> str:
+    """Register a named binary relation with its extension (set of ordered pairs)."""
+    EXT2[name] = {(a, b) for (a, b) in pairs}
+    return name
 
-def h1(C, x) -> Clause:
-    return fact(Holds1, C, x)
+def Holds2(rname: str, x: str, y: str) -> bool:
+    """Holds₂(R, x, y): the pair ⟨x,y⟩ is in the extension of relation-name R."""
+    return (x, y) in EXT2.get(rname, set())
 
-# Base membership facts
-PROGRAM += [
-    h1(Greek,       Socrates),
-    h1(Philosopher, Socrates),
-    h1(Philosopher, Plato),
-    h1(Human,       Plato),
-    h1(Human,       Aristotle),
-    h1(Olympian,    Zeus),
-    # Mortal has no base members; all Mortal facts are derived.
-]
+SubClassOf = define_relation(EX + "SubClassOf", [
+    (Greek,       Human),
+    (Philosopher, Human),
+    (Human,       Mortal),
+    # (Olympian, Mortal) — intentionally absent (Zeus is not inferred mortal)
+])
 
-# SubClassOf facts (name-level inclusions)
-PROGRAM += [
-    fact(SubClassOf, Greek,       Human),
-    fact(SubClassOf, Philosopher, Human),
-    fact(SubClassOf, Human,       Mortal),
-]
+# =========================================================
+# Subclass transitive closure & membership closure (Kleene)
+# =========================================================
 
-# Rules: leq_strict = transitive closure of SubClassOf
-C, Dv, Ev = Var("C"), Var("D"), Var("E")
-PROGRAM += [
-    Clause(atom(LeqStrict, C, Dv), [atom(SubClassOf, C, Dv)]),
-]
-C, Dv, Ev = Var("C"), Var("D"), Var("E")
-PROGRAM += [
-    Clause(atom(LeqStrict, C, Dv), [atom(SubClassOf, C, Ev), atom(LeqStrict, Ev, Dv)]),
-]
-
-# leq = reflexive + leq_strict
-C = Var("C")
-PROGRAM.append(Clause(atom(Leq, C, C), []))
-C, Dv = Var("C"), Var("D")
-PROGRAM.append(Clause(atom(Leq, C, Dv), [atom(LeqStrict, C, Dv)]))
-
-# Membership lifting along subclass chains:
-#   if C ⊆ D and x ∈ C then x ∈ D
-C, Dv, X = Var("C"), Var("D"), Var("X")
-PROGRAM.append(
-    Clause(
-        atom(Holds1, Dv, X),
-        [atom(LeqStrict, C, Dv), atom(Holds1, C, X)],
-    )
-)
-
-# ─────────────────────────────────────────────────────────────────────────────
-# Engine glue (auto-chooser + ask)
-# ─────────────────────────────────────────────────────────────────────────────
-
-def _is_var(t) -> bool:
-    return isinstance(t, Var)
-
-def choose_engine(goals: List[Atom]) -> str:
+def subclass_transitive_closure() -> Set[Tuple[str, str]]:
     """
-    Heuristic:
-      • holds1(C, Socrates) with C free → bottom-up (enumeration).
-      • fully unbound atomic goals      → bottom-up.
-      • otherwise                       → top-down (tabled).
+    Compute the (non-reflexive) transitive closure of SubClassOf over known class names:
+      if P⊆Q and Q⊆R, include P⊆R.
     """
-    for g in goals:
-        if g.pred == Holds1 and len(g.args) == 2 and g.args[1] == Socrates and _is_var(g.args[0]):
-            return "bottomup"
-        if all(_is_var(a) for a in g.args):
-            return "bottomup"
-    return "topdown"
+    base = set(EXT2[SubClassOf])
+    changed = True
+    while changed:
+        changed = False
+        add: Set[Tuple[str, str]] = set()
+        for (p, q1) in sorted(base):
+            for (q2, r) in sorted(base):
+                if q1 == q2 and (p, r) not in base:
+                    add.add((p, r))
+        if add:
+            base |= add
+            changed = True
+    return base
 
-def ask(goals: List[Atom], step_limit: int = 10000):
+SUBCLOS: Set[Tuple[str, str]] = subclass_transitive_closure()
+
+def subclass_leq(P: str, Q: str) -> bool:
+    """Reflexive-transitive subclass check: P ⊆* Q  (reflexive on names)."""
+    return P == Q or (P, Q) in SUBCLOS or (P, Q) in EXT2[SubClassOf]
+
+def kleene_membership_closure(max_steps: int = 64) -> Tuple[Set[Tuple[str, str]], List[Set[Tuple[str, str]]]]:
     """
-    Ask the engine a conjunctive query.
-
-    Returns: (engine_tag, solutions, metric)
-      - engine_tag ∈ {"bottomup","topdown"}
-      - metric is number of rounds/steps (we don't print it here).
+    Least fixed point of membership under subclass propagation.
+      Universe of facts: {(C, a) | C∈CLASSES, a∈D}.
+      F(S) = base_members ∪ { (Q, a) | (P, a)∈S and P ⊆* Q }.
+    Return (LFP, chain).
     """
-    engine = choose_engine(goals)
-    if engine == "topdown":
-        sols, steps = solve_topdown(PROGRAM, goals, step_limit=step_limit)
-        return engine, sols, steps
-    else:
-        facts, rounds = solve_bottomup(PROGRAM, SIGNATURE)
-        sols = match_against_facts(goals, facts)
-        return engine, sols, rounds
+    base_members: Set[Tuple[str, str]] = set()
+    for C in CLASSES:
+        for a in sorted(EXT1.get(C, set())):
+            base_members.add((C, a))
 
-# ─────────────────────────────────────────────────────────────────────────────
-# Pretty helpers
-# ─────────────────────────────────────────────────────────────────────────────
+    chain: List[Set[Tuple[str, str]]] = [set()]
+    S: Set[Tuple[str, str]] = set()
+    for _ in range(max_steps):
+        S_next = set(base_members)
+        for (P, a) in S:
+            for Q in CLASSES:
+                if subclass_leq(P, Q):
+                    S_next.add((Q, a))
+        chain.append(S_next)
+        if S_next == S:
+            return S_next, chain
+        S = S_next
+    return S, chain  # defensive (should converge quickly)
+
+# =========================================================
+# Quantification over predicate *names*
+# =========================================================
+
+def exists_P_such_that_member_and_subclass_to_mortal(a: str, LFP: Set[Tuple[str, str]]) -> List[str]:
+    """Return all predicate-names P with P(a) and P ⊆* Mortal (witnesses for ∃P …)."""
+    return [P for P in CLASSES if (P, a) in LFP and subclass_leq(P, Mortal)]
+
+def forall_P_human_implies_mortal_for(a: str, LFP: Set[Tuple[str, str]]) -> bool:
+    """Check ∀P: (P ⊆* Human ∧ P(a)) → Mortal(a)."""
+    for P in CLASSES:
+        if subclass_leq(P, Human) and (P, a) in LFP:
+            if (Mortal, a) not in LFP:
+                return False
+    return True
+
+# =========================================================
+# Pretty helpers (deterministic)
+# =========================================================
 
 def local(name: str) -> str:
     """Drop 'ex:' for pretty printing."""
     return name.split(":", 1)[1] if ":" in name else name
 
-def fmt_class_set(classes: Set[str]) -> str:
-    if not classes:
-        return "∅"
-    return "{" + ", ".join(sorted(local(c) for c in classes)) + "}"
+def fmt_membership(S: Iterable[Tuple[str, str]]) -> str:
+    seq = list(sorted(S))
+    return "∅" if not seq else "{" + ", ".join(f"{local(c)}({a})" for (c, a) in seq) + "}"
 
-# ─────────────────────────────────────────────────────────────────────────────
-# Model + Question
-# ─────────────────────────────────────────────────────────────────────────────
+def fmt_classes_of(a: str, LFP: Set[Tuple[str, str]]) -> str:
+    Cs = sorted({local(c) for (c, x) in LFP if x == a})
+    return "∅" if not Cs else "{" + ", ".join(Cs) + "}"
+
+def fmt_chain(chain: List[Set[Tuple[str, str]]], limit: int = 6) -> str:
+    parts = [fmt_membership(S) for S in chain[:limit]]
+    if len(chain) > limit:
+        parts.append("…")
+    return " ⊆ ".join(parts)
+
+# =========================================================
+# The Branch: Model → Question → Answer → Reason why
+# =========================================================
 
 def print_model() -> None:
     print("Model")
     print("=====")
     print(f"Individuals D = {list(D)}")
     print()
-    print("Fixed predicates (signature)")
+    print("Signature")
+    print("---------")
+    print("• Holds₁(C, a): a ∈ extension of the class named by C (C is an *intension*).")
+    print("• Holds₂(SubClassOf, P, Q): the class named P is included in the class named Q.")
+    print()
+    print("Named classes and base facts")
     print("----------------------------")
-    print("• ex:holds1(C,x)     — unary application; sorts: (NAME, IND)")
-    print("• ex:SubClassOf(C,D) — inclusion over class *names*; sorts: (NAME, NAME)")
-    print("• ex:leq_strict / ex:leq — transitive / reflexive-transitive closure on names")
+    for C in CLASSES:
+        print(f"- {local(C):<12}: members = {sorted(EXT1.get(C, set()))}")
     print()
-    print("Class names (intensions)")
-    print("------------------------")
-    print("Greek, Philosopher, Human, Mortal, Olympian")
+    print("Subclass rules")
+    print("--------------")
+    print("• " + ", ".join([f"{local(p)} ⊆ {local(q)}" for (p, q) in sorted(EXT2[SubClassOf])]))
     print()
-    print("Base facts")
-    print("----------")
-    print("Membership:")
-    print(f"  Greek({Socrates})")
-    print(f"  Philosopher({Socrates}), Philosopher({Plato})")
-    print(f"  Human({Plato}), Human({Aristotle})")
-    print(f"  Olympian({Zeus})")
-    print("Subclass:")
-    print("  Greek ⊆ Human, Philosopher ⊆ Human, Human ⊆ Mortal")
-    print()
-    print("Rules")
-    print("-----")
-    print("1) leq_strict(C,D) :- SubClassOf(C,D).")
-    print("2) leq_strict(C,D) :- SubClassOf(C,E), leq_strict(E,D).")
-    print("3) leq(C,C).")
-    print("4) leq(C,D) :- leq_strict(C,D).")
-    print("5) holds1(D,x) :- leq_strict(C,D), holds1(C,x).")
-    print()
-    print("These rules propagate membership along subclass chains. Intuitively,")
-    print("if x is Greek or Philosopher, and Greek/Philosopher ⊆ Human ⊆ Mortal,")
-    print("then x is Human and Mortal as well.\n")
 
 def print_question() -> None:
     print("Question")
     print("========")
-    print(f"Q1) ∃P: holds1(P,{Socrates}) ∧ leq(P,Mortal) ?  (witness class-names)        [auto engine]")
-    print(f"Q2) ∀P: (leq(P,Human) ∧ holds1(P,{Socrates})) → holds1(Mortal,{Socrates}) ?  [auto engine]")
-    print(f"Q3) List all classes C with holds1(C,{Socrates}) after closure.             [auto engine]\n")
+    print("(1) ∃P  [ P is a class-name ∧ P(Socrates) ∧ P ⊆ Mortal ] ?  (list witnesses)")
+    print("(2) ∀P  [ (P ⊆ Human ∧ P(Socrates)) → Mortal(Socrates) ] ?")
+    print("(3) What are the classes of Socrates after closure?")
+    print()
 
-# ─────────────────────────────────────────────────────────────────────────────
-# Queries
-# ─────────────────────────────────────────────────────────────────────────────
+def compute_answer():
+    LFP, chain = kleene_membership_closure()
+    witnesses = exists_P_such_that_member_and_subclass_to_mortal("Socrates", LFP)
+    universal = forall_P_human_implies_mortal_for("Socrates", LFP)
+    classes_socrates = sorted({local(C) for (C, a) in LFP if a == "Socrates"})
+    return LFP, chain, witnesses, universal, classes_socrates
 
-def run_queries():
-    # Q1: witnesses P with leq(P,Mortal) ∧ holds1(P,Socrates)
-    P = Var("P")
-    eng1, sols1, _ = ask([atom(Leq, P, Mortal), atom(Holds1, P, Socrates)])
-    witnesses = {deref(P, s) for s in sols1 if isinstance(deref(P, s), str)}
-
-    # Q2: Universal: ∀P ((P⊆Human ∧ P(Socrates)) → Mortal(Socrates))
-    # Implemented by searching for a counterexample P.
-    universal_ok = True
-    for cname in ALL_CLASSES:
-        _, cond_sols, _ = ask([atom(Leq, cname, Human), atom(Holds1, cname, Socrates)])
-        if cond_sols:
-            # antecedent holds; check consequent holds1(Mortal,Socrates)
-            _, msols, _ = ask([atom(Holds1, Mortal, Socrates)])
-            if not msols:
-                universal_ok = False
-                break
-
-    # Q3: all classes Socrates belongs to
-    Cvar = Var("C")
-    eng3, sols3, _ = ask([atom(Holds1, Cvar, Socrates)])
-    classes = {deref(Cvar, s) for s in sols3 if isinstance(deref(Cvar, s), str)}
-
-    return (
-        ("Q1", eng1, witnesses, "n/a"),
-        ("Q2", "mixed", universal_ok, "n/a"),
-        ("Q3", eng3, classes, "n/a"),
-    )
-
-# ─────────────────────────────────────────────────────────────────────────────
-# Answers + Reason
-# ─────────────────────────────────────────────────────────────────────────────
-
-def print_answer(res1, res2, res3) -> None:
+def print_answer(witnesses: List[str], universal: bool, classes_socrates: List[str]) -> None:
     print("Answer")
     print("======")
-    tag1, eng1, witnesses, _ = res1
-    tag2, eng2, universal_ok, _ = res2
-    tag3, eng3, classes, _ = res3
+    print("(1) Exists P ?  " + ("Yes" if witnesses else "No"))
+    if witnesses:
+        print("    Witnesses:", "{" + ", ".join(local(w) for w in sorted(witnesses)) + "}")
+    print("(2) For all P ? " + ("Yes" if universal else "No"))
+    print("(3) Classes(Socrates) =", "{" + ", ".join(classes_socrates) + "}" if classes_socrates else "∅")
+    print()
 
-    print(f"{tag1}) Engine: {eng1} → Witnesses P with leq(P,Mortal) and holds1(P,{Socrates}): {fmt_class_set(witnesses)}")
-    print(f"{tag2}) Engine: {eng2} → ∀P ((P⊆Human ∧ P({Socrates})) ⇒ Mortal({Socrates})): {'Yes' if universal_ok else 'No'}")
-    print(f"{tag3}) Engine: {eng3} → Classes C with holds1(C,{Socrates}): {fmt_class_set(classes)}\n")
-
-def print_reason(eng1: str, eng2: str) -> None:
-    # eng1, eng2 kept for compatibility with eyezero main; not used directly.
+def print_reason(LFP: Set[Tuple[str, str]], chain: List[Set[Tuple[str, str]]]) -> None:
     print("Reason why")
     print("==========")
-    print("• Class symbols (Greek, Philosopher, Human, Mortal, Olympian) are **names**.")
-    print("  Application is via holds1(C,x); subclassing is via SubClassOf(C,D) and its")
-    print("  closure leq/leq_strict over names.")
-    print("• From the base facts and subclass rules we get:")
-    print("    Greek ⊆ Human ⊆ Mortal")
-    print("    Philosopher ⊆ Human ⊆ Mortal")
-    print(f"  so Greek(Socrates) and Philosopher(Socrates) imply Human({Socrates}) and Mortal({Socrates}).")
-    print("• Q1 finds all class-names P such that P(Socrates) and P ⊆ Mortal; these include")
-    print("  Greek, Philosopher, and Mortal itself.")
-    print("• Q2 checks a universal over class-names P: any P that is a subclass of Human")
-    print(f"  and that contains {Socrates} forces Mortal({Socrates}). This follows because")
-    print("  Human ⊆ Mortal, and membership lifts along subclass chains.")
-    print("• Q3 simply enumerates all classes Socrates belongs to in the least fixed point,")
-    print("  which are exactly Greek, Philosopher, Human, and Mortal.\n")
+    print("We treat predicates as *names* and mediate application with fixed predicates:")
+    print("  • Holds₁(C,a) for membership, Holds₂(SubClassOf,P,Q) for subclass.")
+    print("Subclass rules Greek⊆Human and Philosopher⊆Human, together with Human⊆Mortal,")
+    print("yield (by transitivity) Greek⊆Mortal and Philosopher⊆Mortal. Since Greek(Socrates)")
+    print("and Philosopher(Socrates), the existential (1) holds with witnesses {Greek, Philosopher}")
+    print("(and also the trivial witness Mortal, since Mortal(Socrates) will hold in the closure).")
+    print("For (2), whenever P⊆Human and P(Socrates), subclass propagation implies Mortal(Socrates).")
+    print()
+    print("Kleene membership closure from base facts yields the ascending chain:")
+    print("  " + fmt_chain(chain, limit=5))
+    print(f"which stabilizes at LFP = {fmt_membership(LFP)}.")
+    print()
 
-# ─────────────────────────────────────────────────────────────────────────────
-# Check (harness)
-# ─────────────────────────────────────────────────────────────────────────────
+# =========================================================
+# Check (harness) — deterministic, ≥ 12 tests
+# =========================================================
 
 class CheckFailure(AssertionError):
     pass
 
-def check(c: bool, msg: str) -> None:
-    if not c:
+def check(cond: bool, msg: str) -> None:
+    if not cond:
         raise CheckFailure(msg)
 
-def run_checks() -> List[str]:
+def run_checks(LFP: Set[Tuple[str, str]], chain: List[Set[Tuple[str, str]]], witnesses: List[str], universal: bool) -> List[str]:
     notes: List[str] = []
 
-    # Bottom-up closure once, shared by several checks
-    facts_bu, _ = solve_bottomup(PROGRAM, SIGNATURE)
-    mem = facts_bu.get(Holds1, set())
-    sub = facts_bu.get(SubClassOf, set())
-    leq_s = facts_bu.get(LeqStrict, set())
-    leq   = facts_bu.get(Leq, set())
-
-    # Expected membership facts after closure
-    expected_mem = {
-        (Greek,       Socrates),
-        (Philosopher, Socrates),
-        (Philosopher, Plato),
-        (Human,       Plato),
-        (Human,       Aristotle),
-        (Human,       Socrates),
-        (Mortal,      Socrates),
-        (Mortal,      Plato),
-        (Mortal,      Aristotle),
-        (Olympian,    Zeus),
-    }
-
     # 1) SubClassOf contains intended rules
-    intended_sub = {
-        (Greek,       Human),
-        (Philosopher, Human),
-        (Human,       Mortal),
-    }
-    check(intended_sub.issubset(sub), "Intended subclass rules missing.")
+    check(Holds2(SubClassOf, Greek, Human), "Expected Greek ⊆ Human.")
+    check(Holds2(SubClassOf, Philosopher, Human), "Expected Philosopher ⊆ Human.")
+    check(Holds2(SubClassOf, Human, Mortal), "Expected Human ⊆ Mortal.")
     notes.append("PASS 1: Intended subclass rules present.")
 
-    # 2) leq_strict contains transitive closure edges up to Mortal
-    check((Greek, Mortal) in leq_s and (Philosopher, Mortal) in leq_s,
-          "Transitive subclass closure to Mortal missing.")
-    notes.append("PASS 2: leq_strict includes Greek⊆Mortal and Philosopher⊆Mortal.")
+    # 2) Transitive closure includes Greek⊆Mortal and Philosopher⊆Mortal
+    check((Greek, Mortal) in SUBCLOS and (Philosopher, Mortal) in SUBCLOS, "Transitive closure should include P⊆Mortal.")
+    notes.append("PASS 2: Transitive subclass closure correct.")
 
-    # 3) leq is reflexive on all class names
-    for cname in ALL_CLASSES:
-        check((cname, cname) in leq, f"Reflexivity of leq failed for {local(cname)}.")
-    notes.append("PASS 3: leq is reflexive on all class names.")
+    # 3) First Kleene step contains all base facts
+    base = {(C, a) for C in CLASSES for a in EXT1.get(C, set())}
+    check(base.issubset(chain[1]), "First Kleene step must include base facts.")
+    notes.append("PASS 3: Base facts included in step 1.")
 
-    # 4) leq(Human,Mortal) holds
-    check((Human, Mortal) in leq, "leq(Human,Mortal) should hold.")
-    notes.append("PASS 4: leq(Human,Mortal) via closure.")
+    # 4) Chain is ascending and stabilizes at LFP
+    for i in range(len(chain) - 1):
+        check(chain[i].issubset(chain[i+1]), "Chain must be ascending.")
+    check(chain[-1] == LFP, "Chain must stabilize at LFP.")
+    notes.append("PASS 4: Kleene chain is ascending and stabilizes.")
 
-    # 5) Membership closure matches expected 10 facts
-    check(mem == expected_mem, f"Membership closure mismatch: got {mem}.")
-    notes.append("PASS 5: Membership closure for holds1 is exactly the expected 10 facts.")
+    # 5) Main derived facts: Human(Socrates) and Mortal(Socrates)
+    check(("ex:Human", "Socrates") in LFP, "Human(Socrates) must be derived.")
+    check(("ex:Mortal", "Socrates") in LFP, "Mortal(Socrates) must be derived.")
+    notes.append("PASS 5: Human(Socrates) and Mortal(Socrates) derived.")
 
-    # 6) Zeus is not Mortal
-    check((Mortal, Zeus) not in mem, "Zeus should not be inferred Mortal.")
-    notes.append("PASS 6: Zeus is not inferred Mortal.")
+    # 6) Zeus not mortal (no Olympian⊆Mortal rule)
+    check(("ex:Mortal", "Zeus") not in LFP, "Zeus should not be inferred mortal.")
+    notes.append("PASS 6: Zeus is not inferred mortal.")
 
-    # 7) Socrates is Human and Mortal
-    check((Human, Socrates) in mem and (Mortal, Socrates) in mem,
-          "Socrates should be Human and Mortal.")
-    notes.append("PASS 7: Socrates is Human and Mortal via subclass propagation.")
+    # 7) Witnesses for ∃P include Greek and Philosopher (and Mortal)
+    wloc = {local(w) for w in witnesses}
+    check({"Greek", "Philosopher"}.issubset(wloc), "Greek/Philosopher should witness ∃P.")
+    check("Mortal" in wloc, "Mortal should also be a (trivial) witness.")
+    notes.append("PASS 7: Existential witnesses are present.")
 
-    # 8) existence witnesses for Q1 include Greek, Philosopher, and Mortal
-    P = Var("P")
-    sols_q1_td, _ = solve_topdown(PROGRAM, [atom(Leq, P, Mortal), atom(Holds1, P, Socrates)])
-    w_td = {deref(P, s) for s in sols_q1_td if isinstance(deref(P, s), str)}
-    for c in (Greek, Philosopher, Mortal):
-        check(c in w_td, f"{local(c)} should be a witness for ∃P.")
-    notes.append("PASS 8: Greek, Philosopher, Mortal are witnesses for Q1.")
+    # 8) ∀P statement holds
+    check(universal is True, "Universal statement should be true.")
+    notes.append("PASS 8: Universal statement verified.")
 
-    # 9) Q2 universal holds
-    universal_ok = True
-    for cname in ALL_CLASSES:
-        sols_leq, _ = solve_topdown(PROGRAM, [atom(Leq, cname, Human)])
-        sols_mem_S, _ = solve_topdown(PROGRAM, [atom(Holds1, cname, Socrates)])
-        if sols_leq and sols_mem_S:
-            sols_mort_S, _ = solve_topdown(PROGRAM, [atom(Holds1, Mortal, Socrates)])
-            if not sols_mort_S:
-                universal_ok = False
-                break
-    check(universal_ok, "Universal property in Q2 failed.")
-    notes.append("PASS 9: Universal property for subclasses of Human holds.")
+    # 9) Classes(Socrates) are exactly {Greek, Philosopher, Human, Mortal}
+    soc = {local(C) for (C, a) in LFP if a == "Socrates"}
+    check(soc == {"Greek", "Philosopher", "Human", "Mortal"}, f"Socrates classes mismatch: {soc}")
+    notes.append("PASS 9: Socrates’s classes are correct after closure.")
 
-    # 10) Classes of Socrates are exactly {Greek, Philosopher, Human, Mortal}
-    classes_S = {C for (C, a) in mem if a == Socrates}
-    expected_S = {Greek, Philosopher, Human, Mortal}
-    check(classes_S == expected_S, f"Socrates class set mismatch: {classes_S}")
-    notes.append("PASS 10: Classes(Socrates) = {Greek, Philosopher, Human, Mortal}.")
+    # 10) Deterministic pretty-print
+    s1 = fmt_membership(LFP)
+    s2 = fmt_membership(set(sorted(LFP)))
+    check(s1 == s2, "Pretty-printer must be deterministic.")
+    notes.append("PASS 10: Deterministic formatting stable.")
 
-    # 11) Top-down and bottom-up agree on Socrates' classes
-    Cvar = Var("C")
-    sols_td_S, _ = solve_topdown(PROGRAM, [atom(Holds1, Cvar, Socrates)])
-    td_set = {deref(Cvar, s) for s in sols_td_S if isinstance(deref(Cvar, s), str)}
-    check(td_set == classes_S, "Top-down and bottom-up disagree on Socrates' classes.")
-    notes.append("PASS 11: Top-down and bottom-up agree for Socrates.")
+    # 11) No out-of-vocabulary symbols appear
+    for (c, a) in LFP:
+        check(c in CLASSES and a in D, "All derived facts must use known classes/individuals.")
+    notes.append("PASS 11: No out-of-vocabulary facts.")
 
-    # 12) Bottom-up closure is deterministic (two runs the same)
-    facts_bu2, _ = solve_bottomup(PROGRAM, SIGNATURE)
-    check(facts_bu2.get(Holds1, set()) == mem, "Bottom-up closure changed between runs.")
-    notes.append("PASS 12: Bottom-up closure is stable and deterministic.")
+    # 12) Expected total number of membership facts:
+    # Base: Greek{S} (1), Philosopher{S,P} (2), Human{P,A} (2), Olympian{Z}(1) → 6
+    # Derived: Human{S} (1), Mortal{S,P,A} (3) → +4  (Plato already Human)
+    # Total = 10
+    check(len(LFP) == 10, f"Expected 10 membership facts, got {len(LFP)}.")
+    notes.append("PASS 12: Total number of membership facts is 10.")
 
     return notes
 
-# ─────────────────────────────────────────────────────────────────────────────
-# Main
-# ─────────────────────────────────────────────────────────────────────────────
+# =========================================================
+# Main orchestration
+# =========================================================
 
 def main() -> None:
     print_model()
     print_question()
-    res1, res2, res3 = run_queries()
-    print_answer(res1, res2, res3)
-    print_reason(res1[1], res2[1])
+
+    LFP, chain, witnesses, universal, classes_socrates = compute_answer()
+    print_answer(witnesses, universal, classes_socrates)
+    print_reason(LFP, chain)
+
     print("Check (harness)")
     print("===============")
     try:
-        for note in run_checks():
-            print(note)
+        notes = run_checks(LFP, chain, witnesses, universal)
     except CheckFailure as e:
         print("FAIL:", e)
         raise
+    else:
+        for line in notes:
+            print(line)
 
 if __name__ == "__main__":
     main()

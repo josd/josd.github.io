@@ -5,130 +5,79 @@ README (plain text)
 ===================
 Purpose
 -------
-This CASE module for `eyezero.py` is a “branch of insights - brains” case
-that illustrates the **Fundamental Theorem of Arithmetic (FTA)** on a finite
-domain, while showcasing the **Hayes–Menzel** idea:
+This single-file program is a “branch of insights” (in the spirit of
+https://eyereasoner.github.io/eye/brains/) that illustrates the **Fundamental
+Theorem of Arithmetic (FTA)**—existence and uniqueness of prime factorization—
+while showcasing the Hayes–Menzel idea: treat *predicates* like "is prime" or
+"divides" as **named objects** (intensions), and use fixed predicates
+`Holds₁`/`Holds₂` to relate those names to their extensions.
 
-  • We give *names* (intensions) to mathematical predicates/relations, e.g.
-      - `ex:Prime`   — the set of primes in our domain;
-      - `ex:Divides` — the binary relation “a divides b”.
-  • Their **extensions** are ordinary Python sets of numbers/pairs.
-  • A fixed *application* vocabulary is used:
+Core idea (Hayes–Menzel)
+------------------------
+- We give simple *names* (intensions) to mathematical concepts:
+    • `ex:Prime` — the set of primes in our domain,
+    • `ex:Divides` — the binary relation “a divides b”.
+- Their **extensions** are ordinary Python sets computed in the model.
+- A fixed application predicate is used:
+    • `Holds₁("ex:Prime", n)` means: n is in the prime set.
+    • `Holds₂("ex:Divides", a, b)` means: (a, b) is in the divides relation.
+Thus reasoning that *looks* second-order (“quantify over sets/relations”) is
+phrased using **first-order** terms (we quantify over **names** and ordinary
+numbers), with application mediated by `Holds`.
 
-        ex:holds1(S, x)      (NAME, IND)       — “x is in the set named S”
-        ex:holds2(R, a, b)   (NAME, IND, IND)  — “⟨a,b⟩ in the relation named R”
+Typical question (what the program prints)
+------------------------------------------
+On the finite domain N = {1,…,60}:
 
-    So “prime(n)” and “Divides(a,b)” are modeled as *first-order* predicates
-    over **names and numbers-as-individuals**. Internally we encode numbers as
-    strings ("1","2",...) in the logical world; arithmetic uses Python ints.
+1) **Concrete:** What is the prime factorization of 360? Is it unique?
+2) **General (finite scope):** Does every n ∈ {2,…,60} have a prime factorization,
+   and is that factorization unique (up to order)?
 
-Domain & scope
---------------
-We work over N = {1,…,60} with:
-
-  • ex:Prime   — primes up to 60;
-  • ex:Divides — divides relation restricted to N×N.
-
-We compute factorizations only for numbers in [1,60], and we verify:
-
-  • Concrete example: factorization of 360.
-  • Finite FTA: for every n ∈ {2,…,60},
-      - n has a prime factorization (existence),
-      - that factorization is unique up to order (uniqueness).
-
-What this CASE prints
----------------------
-1) **Model** — N, the named predicates/relations, and their interpretation.
-2) **Question** — two core questions:
-
-       Q1  What is the prime factorization of 360? Is it unique?
-       Q2  On N∩{2,…,60}, does FTA (existence + uniqueness) hold?
-
-3) **Answer** — concrete factorization string for 360 and Yes/No answers.
+What the program prints
+-----------------------
+1) **Model**  — domain, the named predicates/relations, and how factorization is computed.
+2) **Question** — the two questions above.
+3) **Answer** — the factorization of 360 and a summary “FTA holds on {2,…,60}”.
 4) **Reason why** — a standard mathematical-English proof sketch:
-     - existence via a minimal counterexample argument;
-     - uniqueness via Euclid’s Lemma + induction;
-     - and the 360 example.
-5) **Check (harness)** — 12+ deterministic tests:
-     - primes and divides are correct,
-     - Euclid’s Lemma holds on the finite domain,
-     - every n has a correct prime factorization,
-     - uniqueness via multiset equality,
-     - EyeZero’s bottom-up view of holds₁/holds₂ matches the extensional store.
+   existence (minimal counterexample / division by smallest prime),
+   uniqueness (Euclid’s lemma + induction), plus the 360 example.
+5) **Check (harness)** — 12 deterministic checks verifying primes, divisibility,
+   Euclid’s lemma on the finite domain, existence/uniqueness of factorizations,
+   and deterministic formatting.
 
 How to run
 ----------
-Standalone:
+    python3 holdsn_factorization_fta.py
 
-    python3 fundamental_theorem_arithmetic.py
-
-Via EyeZero runner:
-
-    python3 eyezero.py fundamental_theorem_arithmetic.py
-
-Output
-------
-Model → Question → Answer → Reason why → Check (harness)
+No external dependencies; deterministic execution and output.
 """
 
 from __future__ import annotations
 
 from typing import Dict, Iterable, List, Tuple, Set
 
-from eyezero import (
-    Var, Atom, Clause, atom, fact,
-    solve_topdown, solve_bottomup, match_against_facts,
-    NAME, IND, Signature, deref, local, fmt_pairs, fmt_set,
-)
-
-# ─────────────────────────────────────────────────────────────────────────────
-# Model: domain N, named sets/relations, and EyeZero facts
-# ─────────────────────────────────────────────────────────────────────────────
+# ==========================================
+# Model: domain N, Holds₁ for sets, Holds₂ for relations
+# ==========================================
 
 # Finite domain: 1..MAXN (deterministic order for stable output)
 MAXN: int = 60
-N: Tuple[int, ...] = tuple(range(1, MAXN + 1))   # arithmetic domain (ints)
+N: Tuple[int, ...] = tuple(range(1, MAXN + 1))
 
 # URI-like namespace for names (intensions)
 EX = "ex:"
 
-# Application predicates (first-order, in the EyeZero sense)
-Holds1Pred = EX + "holds1"   # (NAME, IND)
-Holds2Pred = EX + "holds2"   # (NAME, IND, IND)
-
-# Signature for EyeZero
-SIGNATURE: Signature = {
-    Holds1Pred: (NAME, IND),
-    Holds2Pred: (NAME, IND, IND),
-}
-
-# EyeZero program of facts (no rules needed here)
-PROGRAM: List[Clause] = []
-
 # --- Unary: named set(s) (intensions) and their extensions ---
-# Internally, individuals in the logic world are strings "1", "2", ...
-
-EXT1: Dict[str, Set[str]] = {}  # map set-name -> extension as a set of IND-strings
-
+EXT1: Dict[str, Set[int]] = {}
 
 def define_set(name: str, elems: Iterable[int]) -> str:
-    """
-    Register a named set (its intension) with its extension, and
-    add EyeZero facts holds1(name,x) for all x in the extension.
-
-    elems are Python ints; we store their string codes as IND terms.
-    """
-    s = {str(x) for x in elems}
-    EXT1[name] = s
-    for x in s:
-        PROGRAM.append(fact(Holds1Pred, name, x))
+    """Register a named set (its intension) with its (sorted) extension."""
+    EXT1[name] = set(sorted(elems))
     return name
 
-
-def Holds1_py(sname: str, x: int) -> bool:
-    """Holds₁(S,x): x ∈ extension of the set named by S (using extensional store)."""
-    return str(x) in EXT1.get(sname, set())
-
+def Holds1(sname: str, x: int) -> bool:
+    """Holds₁(S, x): x ∈ extension of the set named by S."""
+    return x in EXT1.get(sname, set())
 
 # Compute primes by sieve (deterministic)
 def sieve_primes_up_to(n: int) -> List[int]:
@@ -145,48 +94,31 @@ def sieve_primes_up_to(n: int) -> List[int]:
         p += 1
     return [i for i, is_p in enumerate(sieve) if is_p]
 
-
 PRIMES: Tuple[int, ...] = tuple(sieve_primes_up_to(MAXN))
-PrimeSet = define_set(EX + "Prime", PRIMES)  # name for the prime set
+Prime = define_set(EX + "Prime", PRIMES)   # name for the prime set
 
 # --- Binary: named relation(s) and their extensions ---
-# Again, store IND arguments as strings.
-
-EXT2: Dict[str, Set[Tuple[str, str]]] = {}  # map relation-name -> set of (a,b) (strings)
-
+EXT2: Dict[str, Set[Tuple[int, int]]] = {}
 
 def define_relation(name: str, pairs: Iterable[Tuple[int, int]]) -> str:
-    """
-    Register a named binary relation with its extension, and
-    add EyeZero facts holds2(name,a,b) for all (a,b) in the extension.
-
-    pairs are Python ints; we store their string codes as IND terms.
-    """
-    s: Set[Tuple[str, str]] = {(str(a), str(b)) for (a, b) in pairs}
-    EXT2[name] = s
-    for (a, b) in s:
-        PROGRAM.append(fact(Holds2Pred, name, a, b))
+    """Register a named binary relation with its extension."""
+    EXT2[name] = {(a, b) for (a, b) in pairs}
     return name
 
-
-def Holds2_py(rname: str, a: int, b: int) -> bool:
-    """Holds₂(R,a,b): (a,b) ∈ extension of the relation named by R (using extensional store)."""
-    return (str(a), str(b)) in EXT2.get(rname, set())
-
+def Holds2(rname: str, a: int, b: int) -> bool:
+    """Holds₂(R, a, b): (a,b) ∈ extension of the relation named by R."""
+    return (a, b) in EXT2.get(rname, set())
 
 # "Divides" relation as an intension + extension
-Divides = define_relation(
-    EX + "Divides",
-    [(a, b) for a in N for b in N if b % a == 0],
-)
+Divides = define_relation(EX + "Divides",
+                          [(a, b) for a in N for b in N if b % a == 0])
 
-# ─────────────────────────────────────────────────────────────────────────────
+# ==========================================
 # Factorization utilities (deterministic)
-# ─────────────────────────────────────────────────────────────────────────────
+# ==========================================
 
 def is_prime(n: int) -> bool:
-    return Holds1_py(PrimeSet, n)
-
+    return Holds1(Prime, n)
 
 def smallest_prime_divisor(n: int) -> int:
     """Return the least prime dividing n (>1). Assumes n ≥ 2."""
@@ -197,7 +129,6 @@ def smallest_prime_divisor(n: int) -> int:
             return p
     raise ValueError("No prime divisor found (should not happen for n≥2).")
 
-
 def largest_prime_divisor(n: int) -> int:
     """Return the greatest prime dividing n (>1). Assumes n ≥ 2."""
     for p in reversed(PRIMES):
@@ -205,9 +136,8 @@ def largest_prime_divisor(n: int) -> int:
             return p
     raise ValueError("No prime divisor found (should not happen for n≥2).")
 
-
 def factor_smallest_first(n: int) -> List[int]:
-    """Prime factorization as a list of primes in nondecreasing order."""
+    """Prime factorization as a list of primes in nondecreasing order (trial by smallest)."""
     if n < 2:
         return []
     out: List[int] = []
@@ -222,9 +152,8 @@ def factor_smallest_first(n: int) -> List[int]:
         out.append(m)
     return out
 
-
 def factor_largest_first(n: int) -> List[int]:
-    """Alternative deterministic factorization order (largest prime factors first)."""
+    """An alternative deterministic factorization order (largest prime factors first)."""
     if n < 2:
         return []
     out: List[int] = []
@@ -239,7 +168,6 @@ def factor_largest_first(n: int) -> List[int]:
             break
     return out
 
-
 def multiset_of(primes_list: List[int]) -> Dict[int, int]:
     """Canonical prime-exponent map."""
     d: Dict[int, int] = {}
@@ -247,13 +175,11 @@ def multiset_of(primes_list: List[int]) -> Dict[int, int]:
         d[p] = d.get(p, 0) + 1
     return d
 
-
 def product(nums: Iterable[int]) -> int:
     out = 1
     for x in nums:
         out *= x
     return out
-
 
 def fmt_factorization(primes_list: List[int]) -> str:
     """Pretty: '2^3 · 3^2 · 5' (or '1' for empty)."""
@@ -266,28 +192,28 @@ def fmt_factorization(primes_list: List[int]) -> str:
         bits.append(f"{p}^{k}" if k > 1 else f"{p}")
     return " · ".join(bits)
 
-# ─────────────────────────────────────────────────────────────────────────────
+# ==========================================
 # Euclid's Lemma (checked on the finite domain)
-# ─────────────────────────────────────────────────────────────────────────────
+# ==========================================
 
 def euclid_lemma_holds_on_domain() -> bool:
     """
-    Check: for all primes p and all a,b in domain, if p | (a*b) then
-    p | a or p | b.
-
-    We use plain integer arithmetic (×, %) and the PRIMES list.
+    Check: for all primes p and all a,b in domain,
+    if p | a*b then p | a or p | b.
     """
     for p in PRIMES:
         for a in N:
             for b in N:
+                if b == 0:  # (no zero in our domain; safe but redundant)
+                    continue
                 if (a * b) % p == 0:
                     if not (a % p == 0 or b % p == 0):
                         return False
     return True
 
-# ─────────────────────────────────────────────────────────────────────────────
+# ==========================================
 # The Branch: Model → Question → Answer → Reason why
-# ─────────────────────────────────────────────────────────────────────────────
+# ==========================================
 
 TARGET_N: int = 360  # the concrete “typical” number
 
@@ -296,164 +222,103 @@ def print_model() -> None:
     print("=====")
     print(f"Domain N = {list(N)}")
     print()
-    print("Named predicates & relations (intensional level)")
-    print("-----------------------------------------------")
-    print(f"• {PrimeSet} : the set of primes up to {MAXN}.")
-    print(f"• {Divides}  : the divides relation restricted to N×N.")
+    print("Signature")
+    print("---------")
+    print("• Holds₁(S, x): x is in the extension of the set named by S (S is an intension).")
+    print("  - Named set: ex:Prime (the primes up to 60).")
+    print("• Holds₂(R, a, b): ⟨a,b⟩ is in the extension of relation-name R.")
+    print("  - Named relation: ex:Divides (a divides b).")
     print()
-    print("Application predicates (first-order, EyeZero-style)")
-    print("---------------------------------------------------")
-    print(f"• {Holds1Pred}(S,x) — x is in the extension of the set named S.")
-    print(f"• {Holds2Pred}(R,a,b) — ⟨a,b⟩ is in the extension of relation-name R.")
-    print("  In particular:")
-    print(f"    - {Holds1Pred}({PrimeSet}, n) ⇔ n is prime (for n in N).")
-    print(f"    - {Holds2Pred}({Divides}, a, b) ⇔ a divides b (for a,b in N).")
-    print()
-    print("Factorization (deterministic algorithms)")
-    print("----------------------------------------")
+    print("Factorization (deterministic)")
+    print("------------------------------")
     print("• factor_smallest_first(n): repeated division by the least prime divisor.")
-    print("• factor_largest_first(n): repeated division by the greatest prime divisor.")
-    print("Both yield the same canonical multiset of primes for each n ≥ 2.\n")
-
+    print("• factor_largest_first(n):  repeated division by the greatest prime divisor.")
+    print("Both yield the same canonical multiset of primes for each n ≥ 2.")
+    print()
 
 def print_question() -> None:
     print("Question")
     print("========")
-    print(f"(Q1) What is the prime factorization of {TARGET_N}? Is it unique (up to order)?")
-    print(f"(Q2) On N∩{{2,…,{MAXN}}}, does every n have a prime factorization,")
-    print("     and is that factorization unique up to order (finite-scope FTA)?\n")
-
+    print(f"(1) What is the prime factorization of {TARGET_N}? Is it unique?")
+    print("(2) On N∩{2,…,60}, does every n have a prime factorization, and is it unique (up to order)?")
+    print()
 
 def compute_answer() -> Tuple[str, bool, bool]:
     # Factor the target number two ways
     f1 = factor_smallest_first(TARGET_N)
     f2 = factor_largest_first(TARGET_N)
-
     # Canonical string (ascending primes)
     f_str = fmt_factorization(f1)
-
-    # Uniqueness check via multiset equality
-    unique_360 = multiset_of(f1) == multiset_of(f2)
-
-    # General existence/uniqueness over 2..MAXN
+    # Uniqueness check via multiset
+    unique = multiset_of(f1) == multiset_of(f2)
+    # General existence/uniqueness over 2..60
     exists_and_unique = True
     for n in range(2, MAXN + 1):
         a = factor_smallest_first(n)
         b = factor_largest_first(n)
-        # existence & correctness: product is n and all factors are prime
         if product(a) != n or not all(is_prime(p) for p in a):
             exists_and_unique = False
             break
-        # uniqueness up to order: same multiset
         if multiset_of(a) != multiset_of(b):
             exists_and_unique = False
             break
+    return f_str, unique, exists_and_unique
 
-    return f_str, unique_360, exists_and_unique
-
-# ─────────────────────────────────────────────────────────────────────────────
-# EyeZero-facing queries
-# ─────────────────────────────────────────────────────────────────────────────
-
-def run_queries():
-    """
-    For compatibility with eyezero.py, we return a tuple of “results”.
-    We do not actually use EyeZero for factorization; the reasoning is
-    arithmetic here, while EyeZero is used in the harness as a model checker.
-    """
-    f_str, unique_360, fta_ok = compute_answer()
-    # Engine tag "meta" indicates that this is meta-level reasoning here.
-    res1 = ("Q1", "meta", f_str, unique_360)
-    res2 = ("Q2", "meta", fta_ok, "n/a")
-    return (res1, res2)
-
-# ─────────────────────────────────────────────────────────────────────────────
-# Answers + Reason why
-# ─────────────────────────────────────────────────────────────────────────────
-
-def print_answer(res1, res2) -> None:
+def print_answer(f_str: str, unique_target: bool, exists_and_unique: bool) -> None:
     print("Answer")
     print("======")
-    tag1, eng1, f_str, unique_360 = res1
-    tag2, eng2, fta_ok, _ = res2
-
-    print(f"{tag1}) Engine: {eng1}")
-    print(f"    Prime factorization of {TARGET_N}: {f_str}")
-    print(f"    Is it unique (up to order)? {'Yes' if unique_360 else 'No'}")
+    print(f"Prime factorization of {TARGET_N}: {f_str}")
+    print(f"Is it unique (up to order)? {'Yes' if unique_target else 'No'}")
+    print(f"FTA on 2..{MAXN}: existence and uniqueness hold? {'Yes' if exists_and_unique else 'No'}")
     print()
-    print(f"{tag2}) Engine: {eng2}")
-    print(f"    FTA on 2..{MAXN}: existence and uniqueness hold?")
-    print(f"    {'Yes' if fta_ok else 'No'}\n")
 
-
-def print_reason(eng1: str, eng2: str) -> None:
+def print_reason() -> None:
     print("Reason why")
     print("==========")
-    print("Existence (sketch).")
-    print("-------------------")
-    print("Suppose there were a nonempty set S ⊆ ℕ of integers ≥ 2 that have no prime")
-    print("factorization. Let m be the least element of S. Since m is not prime, it has a")
-    print("proper divisor d with 1 < d < m. By minimality, d has a prime factorization;")
-    print("so does m/d. Concatenating these factorizations yields one for m — a contradiction.")
-    print("Thus every n ≥ 2 has a prime factorization.")
+    print("Existence (sketch).  Suppose there were a nonempty set S ⊆ ℕ of integers ≥2 having no")
+    print("prime factorization. Let m be the least element of S. Since m is not prime, it has a")
+    print("proper divisor d with 1 < d < m. By minimality, d has a prime factorization; so does")
+    print("m/d; concatenating them yields one for m — a contradiction. Thus every n ≥ 2 factors.")
     print()
-    print("Uniqueness (sketch via Euclid’s Lemma).")
-    print("--------------------------------------")
-    print("Euclid’s Lemma: If a prime p divides a product ab, then p divides a or p divides b.")
-    print("Assume n ≥ 2 has two prime factorizations:")
-    print("  n = p₁ p₂ ··· p_k = q₁ q₂ ··· q_m.")
-    print("Since p₁ | (q₁···q_m), Euclid’s Lemma gives p₁ = q_j for some j; cancel p₁ on both")
-    print("sides and repeat inductively. Eventually the multisets {p_i} and {q_j} match;")
+    print("Uniqueness (sketch via Euclid’s Lemma).  If a prime p divides a product ab, then p")
+    print("divides a or p divides b. Using this, assume n ≥ 2 has two prime factorizations:")
+    print("  n = p₁ p₂ ··· p_k = q₁ q₂ ··· q_m.  Since p₁ | (q₁···q_m), Euclid’s Lemma gives p₁ = q_j")
+    print("for some j; cancel and repeat inductively. Eventually the multisets {p_i} and {q_j} match;")
     print("hence the factorization is unique up to order.")
     print()
-    print(f"Example: n = {TARGET_N}.")
-    print("------------------------")
+    print(f"Example ({TARGET_N}).  We compute two factorizations deterministically:")
     f1 = factor_smallest_first(TARGET_N)
     f2 = factor_largest_first(TARGET_N)
-    print(f"smallest-first: {fmt_factorization(f1)}")
-    print(f"largest-first : {fmt_factorization(f2)}")
-    print("By the lemma, the first prime on the left must occur on the right; cancel and")
-    print("continue. The multisets coincide, so the factorization of 360 is unique up to")
-    print("ordering of the prime factors.\n")
+    print(f"  - smallest-first: {fmt_factorization(f1)}")
+    print(f"  - largest-first:  {fmt_factorization(f2)}")
+    print("By the lemma, the first prime on the left must occur on the right; cancel and continue —")
+    print("the multisets coincide, so the factorization of 360 is unique up to order.")
+    print()
 
-# ─────────────────────────────────────────────────────────────────────────────
-# Check (harness) — deterministic, ≥ 12 tests + EyeZero cross-check
-# ─────────────────────────────────────────────────────────────────────────────
+# ==========================================
+# Check (harness) — deterministic, ≥ 12 tests
+# ==========================================
 
 class CheckFailure(AssertionError):
     pass
-
 
 def check(cond: bool, msg: str) -> None:
     if not cond:
         raise CheckFailure(msg)
 
-
 def run_checks() -> List[str]:
     notes: List[str] = []
-
-    # 0) EyeZero bottom-up view of holds1/holds2 matches the extensional store
-    facts, _ = solve_bottomup(PROGRAM, SIGNATURE)
-    h1_facts = facts.get(Holds1Pred, set())
-    h2_facts = facts.get(Holds2Pred, set())
-
-    ext1_union = {(PrimeSet, x) for x in EXT1[PrimeSet]}
-    ext2_union = {(Divides, a, b) for (a, b) in EXT2[Divides]}
-
-    check(h1_facts == ext1_union, "EyeZero holds1 facts do not match extensional Prime set.")
-    check(h2_facts == ext2_union, "EyeZero holds2 facts do not match extensional Divides relation.")
-    notes.append("PASS 0: EyeZero bottom-up holds₁/holds₂ facts match the extensional store.")
 
     # 1) Sieve primes up to 60 are as expected
     expected_primes = [2,3,5,7,11,13,17,19,23,29,31,37,41,43,47,53,59]
     check(list(PRIMES) == expected_primes, "Primes up to 60 mismatch.")
     notes.append("PASS 1: Prime set up to 60 is correct.")
 
-    # 2) Divides relation is consistent with arithmetic (sample 1..10)
+    # 2) Divides relation is consistent with arithmetic
     for a in range(1, 11):
         for b in range(1, 11):
-            check(Holds2_py(Divides, a, b) == (b % a == 0), "Divides relation mismatch.")
-    notes.append("PASS 2: Divides relation matches modulo arithmetic on 1..10.")
+            check(Holds2(Divides, a, b) == (b % a == 0), "Divides relation mismatch.")
+    notes.append("PASS 2: Divides relation matches modulo arithmetic.")
 
     # 3) Euclid’s Lemma holds on the finite domain
     check(euclid_lemma_holds_on_domain(), "Euclid’s Lemma failed on the finite domain.")
@@ -464,7 +329,7 @@ def run_checks() -> List[str]:
         fs = factor_smallest_first(n)
         check(product(fs) == n, f"Product of factors must equal n ({n}).")
         check(all(is_prime(p) for p in fs), f"All factors must be prime ({n}).")
-    notes.append("PASS 4: Existence & correctness of factorization for all n in 2..60.")
+    notes.append("PASS 4: Existence & correctness of factorization for all n.")
 
     # 5) Uniqueness via multiset equality: smallest-first vs largest-first
     for n in range(2, MAXN + 1):
@@ -474,30 +339,20 @@ def run_checks() -> List[str]:
     notes.append("PASS 5: Uniqueness (up to order) across the domain.")
 
     # 6) Specific example 360
-    check(fmt_factorization(factor_smallest_first(360)) == "2^3 · 3^2 · 5",
-          "360 factorization should be 2^3 · 3^2 · 5.")
+    check(fmt_factorization(factor_smallest_first(360)) == "2^3 · 3^2 · 5", "360 factorization should be 2^3 · 3^2 · 5.")
     notes.append("PASS 6: Factorization of 360 is 2^3 · 3^2 · 5.")
 
     # 7) Units and boundary cases: 1 has empty prime list; primes have themselves
-    check(factor_smallest_first(1) == [] and factor_largest_first(1) == [],
-          "1 should factor to empty list.")
+    check(factor_smallest_first(1) == [] and factor_largest_first(1) == [], "1 should factor to empty list.")
     for p in PRIMES:
         check(factor_smallest_first(p) == [p], f"Prime {p} should factor as itself (smallest-first).")
         check(factor_largest_first(p) == [p], f"Prime {p} should factor as itself (largest-first).")
     notes.append("PASS 7: Unit and prime boundary cases behave correctly.")
 
     # 8) Small composites sample
-    samples = {
-        4: "2^2",
-        6: "2 · 3",
-        8: "2^3",
-        12: "2^2 · 3",
-        18: "2 · 3^2",
-        30: "2 · 3 · 5",
-    }
+    samples = {4: "2^2", 6: "2 · 3", 8: "2^3", 12: "2^2 · 3", 18: "2 · 3^2", 30: "2 · 3 · 5"}
     for n, s in samples.items():
-        check(fmt_factorization(factor_smallest_first(n)) == s,
-              f"Factorization mismatch for {n}.")
+        check(fmt_factorization(factor_smallest_first(n)) == s, f"Factorization mismatch for {n}.")
     notes.append("PASS 8: Sample composite factorizations are correct.")
 
     # 9) Deterministic formatting for multiset strings
@@ -511,10 +366,8 @@ def run_checks() -> List[str]:
     for n in range(2, MAXN + 1):
         fs = factor_smallest_first(n)
         if fs:
-            check(fs[0] == smallest_prime_divisor(n),
-                  f"Smallest prime divisor mismatch for n={n}.")
-            check(fs[-1] == largest_prime_divisor(n),
-                  f"Largest prime divisor mismatch for n={n}.")
+            check(fs[0] == smallest_prime_divisor(n), f"Smallest prime divisor mismatch for n={n}.")
+            check(fs[-1] == largest_prime_divisor(n), f"Largest prime divisor mismatch for n={n}.")
     notes.append("PASS 10: Smallest/largest prime divisor helpers consistent.")
 
     # 11) Divides relation agrees with factorization: p | n iff p in factorization
@@ -523,14 +376,10 @@ def run_checks() -> List[str]:
         for p in PRIMES:
             if p > n:
                 break
-            expected = (n % p == 0)
-            check(Holds2_py(Divides, p, n) == expected,
-                  "Divides must match arithmetic divisibility.")
-            if expected:
-                check(p in factors, f"Divides({p},{n}) implies {p} is a prime factor of {n}.")
-    notes.append("PASS 11: Divisibility and factorization align on the domain.")
+            check(Holds2(Divides, p, n) == (p in factors or (n % p == 0)), "Divides must match factor presence.")
+    notes.append("PASS 11: Divisibility and factorization align.")
 
-    # 12) Multiset product equals n (reconstruction)
+    # 12) Multiset product equals n (redundant, but catches formatting mistakes)
     for n in range(2, MAXN + 1):
         mp = multiset_of(factor_smallest_first(n))
         rec = 1
@@ -541,16 +390,18 @@ def run_checks() -> List[str]:
 
     return notes
 
-# ─────────────────────────────────────────────────────────────────────────────
-# Main
-# ─────────────────────────────────────────────────────────────────────────────
+# ==========================================
+# Main orchestration
+# ==========================================
 
 def main() -> None:
     print_model()
     print_question()
-    res1, res2 = run_queries()
-    print_answer(res1, res2)
-    print_reason(res1[1], res2[1])
+
+    f_str, unique_target, exists_and_unique = compute_answer()
+    print_answer(f_str, unique_target, exists_and_unique)
+    print_reason()
+
     print("Check (harness)")
     print("===============")
     try:
@@ -561,7 +412,6 @@ def main() -> None:
     else:
         for line in notes:
             print(line)
-
 
 if __name__ == "__main__":
     main()

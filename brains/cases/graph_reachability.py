@@ -1,334 +1,322 @@
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-CASE MODULE (standalone runnable)
-=================================
-Graph reachability (directed) in the Hayes–Menzel style:
-relation *symbols* are **names** (intensions), and application is a fixed predicate
+README (plain text)
+===================
+Purpose
+-------
+A small, self-contained “branch of insights” (in the spirit of
+https://eyereasoner.github.io/eye/brains/) for **graph reachability**. It answers a
+*typical* question on one concrete graph and explains the result in mathematical English.
 
-    ex:holds2(R, x, y)   (read: ⟨x,y⟩ ∈ ext(R))
+Core idea (Hayes–Menzel)
+------------------------
+We model the graph’s **edge relation** as a *named* object (an intension, like "ex:edge").
+Its **extension** is a set of pairs of nodes. We use a single fixed predicate:
 
-We define:
-  - ex:Edge      — base directed edges
-  - ex:Reach     — transitive closure of Edge (non-reflexive here)
-  - ex:SubRelOf  — inclusion between relation *names* (intensions), with Edge ⊆ Reach
+    Holds₂(r, x, y)  ≡  the pair ⟨x,y⟩ is in the extension of relation-name r.
 
-Rules:
-  • leq_strict/2 builds transitive closure of SubRelOf (⊊*)
-  • leq/2 adds reflexive closure over names
-  • lifting: holds2(Q,x,y) :- leq_strict(P,Q), holds2(P,x,y)
-  • reach transitivity (right-recursive): holds2(Reach,x,z) :- holds2(Edge,x,y), holds2(Reach,y,z)
-    (length-1 paths are obtained by lifting Edge ⊆ Reach)
+So we “quantify over” or refer to **relation names** (ordinary objects), not over predicates.
+Reachability (reflexive–transitive closure) is computed via the monotone operator
+
+    F(R) = Id ∪ E ∪ (R ∘ E)
+
+and we find its least fixed point by **Kleene iteration** from ∅.
+
+Typical question (what this program prints)
+-------------------------------------------
+Given the named graph ex:edge on nodes D = {A,B,C,D} with edges A→B, B→C, C→D:
+
+1) Which nodes are reachable **from A**?
+2) Is **D reachable from A**?
+
+What the program prints
+-----------------------
+1) **Model**  — nodes, the named edge relation, and the operator F.
+2) **Question** — the two items above.
+3) **Answer** — the set ReachableFrom(A) and a Yes/No for “D reachable from A”.
+4) **Reason why** — a short explanation: the Kleene chain and a path witness.
+5) **Check (harness)** — 10 deterministic checks (fixed point, transitivity, etc.).
+
+How to run
+----------
+    python3 holdsn_graph_reachability.py
+
+No external dependencies; deterministic execution and output.
 """
 
-from typing import Dict, List, Tuple, Set
-from eyezero import (
-    Var, Atom, Clause, atom, fact,
-    solve_topdown, solve_bottomup, match_against_facts,
-    NAME, IND, Signature, deref,
-    local, fmt_pairs, fmt_set,
-)
+from __future__ import annotations
 
-# -------------------------
-# Names (constants) & preds
-# -------------------------
+from typing import Iterable, Tuple, Dict, Set, List, Optional
+from collections import deque
 
-# Graph nodes (individuals)
-D: Tuple[str, ...] = ("A", "B", "C", "D", "E")
+# =========================================================
+# Model: nodes D, relation names (intensions), Holds₂
+# =========================================================
 
-# Relation names (intensions)
+# Deterministic node order keeps printing stable
+D: Tuple[str, ...] = ("A", "B", "C", "D")
+
+# Relation-name namespace (URIs/strings as *intensions*)
 EX = "ex:"
-Edge      = EX + "Edge"
-Reach     = EX + "Reach"
-SubRelOf  = EX + "SubRelOf"
-LeqStrict = EX + "leq_strict"
-Leq       = EX + "leq"
-Holds2    = EX + "holds2"
 
-# -------------------------------
-# Predicate signature (NAME/IND)
-# -------------------------------
+# Map each relation-name (intension) to its extension (a set of node pairs)
+EXT2: Dict[str, Set[Tuple[str, str]]] = {}
 
-SIGNATURE: Signature = {
-    Holds2:     (NAME, IND, IND),
-    SubRelOf:   (NAME, NAME),
-    LeqStrict:  (NAME, NAME),
-    Leq:        (NAME, NAME),
-}
-
-# -----------------------------
-# PROGRAM (facts + rules)
-# -----------------------------
-PROGRAM: List[Clause] = []
-
-# >>> USER SECTION: FACTS
-# Base directed edges
-for a,b in [
-    ("A","B"),
-    ("B","C"),
-    ("C","D"),
-    ("B","D"),  # a shortcut
-    # "E" is isolated (no outgoing/incoming edges)
-]:
-    PROGRAM.append(fact(Holds2, Edge, a, b))
-
-# Inclusion between relation *names*: Edge ⊆ Reach
-PROGRAM.append(fact(SubRelOf, Edge, Reach))
-
-# >>> USER SECTION: RULES
-# Inclusion closure over names (⊊*)
-P,Q,R = Var("P"),Var("Q"),Var("R")
-PROGRAM.append(Clause(atom(LeqStrict,P,Q), [atom(SubRelOf,P,Q)]))
-P,Q,R = Var("P"),Var("Q"),Var("R")
-PROGRAM.append(Clause(atom(LeqStrict,P,Q), [atom(SubRelOf,P,R), atom(LeqStrict,R,Q)]))
-
-# Reflexive closure over names (unsafe; grounded from NAME-domain)
-P = Var("P")
-PROGRAM.append(Clause(atom(Leq,P,P), []))
-
-# ≤ includes ⊊
-P,Q = Var("P"),Var("Q")
-PROGRAM.append(Clause(atom(Leq,P,Q), [atom(LeqStrict,P,Q)]))
-
-# Lifting facts along inclusion of names:
-#   if P ⊆* Q and (x,y) ∈ P then (x,y) ∈ Q
-P,Q,X,Y = Var("P"),Var("Q"),Var("X"),Var("Y")
-PROGRAM.append(Clause(atom(Holds2, Q, X, Y),
-                      [atom(LeqStrict, P, Q), atom(Holds2, P, X, Y)]))
-
-# Transitive closure for Reach using Edge as the *first* step (right recursion):
-#   Reach(x,z) :- Edge(x,y), Reach(y,z)
-# This avoids left-recursive blowups in top-down SLD for ground goals.
-X,Y,Z = Var("X"),Var("Y"),Var("Z")
-PROGRAM.append(Clause(atom(Holds2, Reach, X, Z),
-                      [atom(Holds2, Edge,  X, Y),
-                       atom(Holds2, Reach, Y, Z)]))
-# NOTE: We do NOT add Reach(x,x) (no reflexive closure) to keep "non-reflexive reachability".
-
-# -------------------------
-# Case-specific engine glue
-# -------------------------
-
-def _is_var(t) -> bool: return isinstance(t, Var)
-
-def choose_engine(goals: List[Atom]) -> str:
+def define_relation(name: str, pairs: Iterable[Tuple[str, str]]) -> str:
     """
-    Heuristic:
-      - holds2(Reach, X?, Y?) with variables → bottom-up (enumeration)
-      - any fully unbound goal (all vars) → bottom-up
-      - otherwise → top-down
+    Register a named binary relation.
+    Intension: `name` (a string).
+    Extension: the set of ordered pairs provided.
     """
-    for g in goals:
-        if g.pred == Holds2 and len(g.args)==3 and g.args[0]==Reach and (_is_var(g.args[1]) or _is_var(g.args[2])):
-            return "bottomup"
-        if all(_is_var(t) for t in g.args):
-            return "bottomup"
-    return "topdown"
+    EXT2[name] = {(a, b) for (a, b) in pairs}
+    return name
 
-def ask(goals: List[Atom], step_limit: int = 10000, fallback_threshold: int = 4000):
-    engine = choose_engine(goals)
-    if engine == "topdown":
-        sols, steps = solve_topdown(PROGRAM, goals, step_limit=step_limit)
-        if steps > fallback_threshold:
-            facts, _ = solve_bottomup(PROGRAM, SIGNATURE)
-            sols = match_against_facts(goals, facts)
-            engine = "bottomup"
-            return engine, sols, 0
-        return engine, sols, steps
-    else:
-        facts, rounds = solve_bottomup(PROGRAM, SIGNATURE)
-        sols = match_against_facts(goals, facts)
-        return engine, sols, rounds
+def Holds2(rname: str, x: str, y: str) -> bool:
+    """Holds₂(r, x, y) — ⟨x,y⟩ ∈ extension of the relation named by r."""
+    return (x, y) in EXT2.get(rname, set())
 
-# -------------------------
-# Presentation (printing)
-# -------------------------
+# Identity relation on D (reflexive pairs)
+ID: Set[Tuple[str, str]] = {(x, x) for x in D}
+
+# One concrete graph: A→B→C→D (a simple line)
+edge = define_relation(EX + "edge", [("A", "B"), ("B", "C"), ("C", "D")])
+
+# =========================================================
+# Reachability operator and fixed-point computation
+# =========================================================
+
+def rcomp(R: Set[Tuple[str, str]], E: Set[Tuple[str, str]]) -> Set[Tuple[str, str]]:
+    """
+    Relational composition: R ∘ E = { (x,z) | ∃y. (x,y)∈R and (y,z)∈E }.
+    Deterministic iteration for stable output.
+    """
+    out: Set[Tuple[str, str]] = set()
+    for (x, y1) in sorted(R):
+        for (y2, z) in sorted(E):
+            if y1 == y2:
+                out.add((x, z))
+    return out
+
+def F(R: Set[Tuple[str, str]]) -> Set[Tuple[str, str]]:
+    """Monotone operator for reflexive–transitive closure: F(R) = Id ∪ E ∪ (R ∘ E)."""
+    return ID | set(EXT2[edge]) | rcomp(R, EXT2[edge])
+
+def kleene_lfp(max_steps: int = 1 << len(D)) -> Tuple[Set[Tuple[str, str]], List[Set[Tuple[str, str]]]]:
+    """
+    Kleene iteration from ∅: R₀:=∅; R_{n+1}:=F(R_n).
+    On a finite domain, this stabilizes. Return (LFP, full_chain).
+    """
+    chain: List[Set[Tuple[str, str]]] = [set()]
+    R = set()
+    for _ in range(max_steps):
+        R_next = F(R)
+        chain.append(R_next)
+        if R_next == R:
+            return R_next, chain
+        R = R_next
+    # Defensive (shouldn’t happen here)
+    return R, chain
+
+# =========================================================
+# Typical queries and pretty-print helpers
+# =========================================================
+
+SOURCE: str = "A"
+TARGET: str = "D"
+
+def reachable_from(R: Set[Tuple[str, str]], src: str) -> Set[str]:
+    """Return {y | (src,y) ∈ R} in deterministic order."""
+    return {y for (x, y) in R if x == src}
+
+def bfs_path(src: str, dst: str) -> Optional[List[str]]:
+    """
+    Shortest path witness using only the edge relation.
+    Returns list like ['A','B','C','D'] or None if unreachable.
+    """
+    E = EXT2[edge]
+    adj: Dict[str, List[str]] = {u: [] for u in D}
+    for (a, b) in sorted(E):
+        adj[a].append(b)
+    for u in adj:
+        adj[u].sort()
+    q = deque([src])
+    parent: Dict[str, Optional[str]] = {src: None}
+    while q:
+        u = q.popleft()
+        if u == dst:
+            # Reconstruct path
+            path: List[str] = []
+            v: Optional[str] = u
+            while v is not None:
+                path.append(v)
+                v = parent[v]
+            return list(reversed(path))
+        for v in adj[u]:
+            if v not in parent:
+                parent[v] = u
+                q.append(v)
+    return None
+
+def fmt_pairs(R: Iterable[Tuple[str, str]]) -> str:
+    seq = list(sorted(R))
+    return "∅" if not seq else "{" + ", ".join(f"⟨{a},{b}⟩" for (a, b) in seq) + "}"
+
+def fmt_chain(chain: List[Set[Tuple[str, str]]], limit: int = 6) -> str:
+    parts = [fmt_pairs(S) for S in chain[:limit]]
+    if len(chain) > limit:
+        parts.append("…")
+    return " ⊆ ".join(parts)
+
+def fmt_set(xs: Iterable[str]) -> str:
+    seq = sorted(xs)
+    return "∅" if not seq else "{" + ", ".join(seq) + "}"
+
+# =========================================================
+# The Branch: Model → Question → Answer → Reason why
+# =========================================================
 
 def print_model() -> None:
     print("Model")
     print("=====")
-    print(f"Nodes (individuals) D = {list(D)}\n")
-    print("Fixed predicates (signature)")
-    print("----------------------------")
-    print("• ex:holds2(R,x,y)   — application (⟨x,y⟩ ∈ ext(R)); sorts: (NAME, IND, IND)")
-    print("• ex:SubRelOf(P,Q)   — inclusion over relation *names*; sorts: (NAME, NAME)")
-    print("• ex:leq_strict / ex:leq   — ⊆* with/without reflex on names; sorts: (NAME, NAME)\n")
-    print("Named relations (with facts)")
-    print("----------------------------")
-    print("Edge   =", fmt_pairs([("A","B"), ("B","C"), ("C","D"), ("B","D")]))
-    print("Reach  = derived only (no base facts)\n")
-    print("Inclusions over names: Edge ⊆ Reach\n")
+    print(f"Nodes D = {list(D)}")
+    print()
+    print("Signature")
+    print("---------")
+    print("• Holds₂(r, x, y): ⟨x,y⟩ ∈ extension of relation-name r (r is an *intension*).")
+    print("• Named edge relation ex:edge with pairs", fmt_pairs(EXT2[edge]))
+    print("• Operator F(R) = Id ∪ ex:edge ∪ (R ∘ ex:edge) (monotone).")
+    print()
 
 def print_question() -> None:
     print("Question")
     print("========")
-    print("Q1) List all (X,Y) with holds2(Reach,X,Y).   [auto engine]")
-    print("Q2) ∃R: holds2(R,A,D) ∧ leq(R,Reach) ?  [auto engine]")
-    print("Q3) ∀R,y: (leq(R,Edge) ∧ holds2(R,A,y)) → holds2(Reach,A,y) ?  [auto engine]")
+    print(f"(1) Which nodes are reachable from {SOURCE}?")
+    print(f"(2) Is {TARGET} reachable from {SOURCE}?")
     print()
 
-def run_queries():
-    # Q1: enumerate Reach pairs
-    Xv, Yv = Var("X"), Var("Y")
-    eng1, sols1, m1 = ask([atom(Holds2, Reach, Xv, Yv)])
-    reach_pairs = sorted({(deref(Xv,s), deref(Yv,s)) for s in sols1})  # type: ignore
+def compute_answer():
+    LFP, chain = kleene_lfp()
+    from_source = reachable_from(LFP, SOURCE)
+    is_target_reachable = (TARGET in from_source)
+    return LFP, chain, from_source, is_target_reachable
 
-    # Q2: witness relation-names R for (A,D)
-    Rv = Var("R")
-    eng2, sols2, m2 = ask([atom(Holds2, Rv, "A", "D"),
-                           atom(Leq,   Rv, Reach)])
-    witnesses = sorted({deref(Rv,s) for s in sols2 if isinstance(deref(Rv,s), str)})
-
-    # Q3: universal property for node A
-    ok = True
-    for R in [Edge, Reach]:
-        for y in D:
-            _, cond, _ = ask([atom(Leq, R, Edge), atom(Holds2, R, "A", y)])
-            if cond:
-                if not ask([atom(Holds2, Reach, "A", y)])[1]:
-                    ok = False; break
-        if not ok: break
-
-    return (("Q1", eng1, reach_pairs, m1),
-            ("Q2", eng2, witnesses, m2),
-            ("Q3", "mixed", ok, 0))
-
-def print_answer(res1, res2, res3) -> None:
+def print_answer(LFP: Set[Tuple[str, str]], from_source: Set[str], is_target_reachable: bool) -> None:
     print("Answer")
     print("======")
-    tag1, eng1, pairs, _ = res1
-    tag2, eng2, wits, _  = res2
-    tag3, eng3, ok, _    = res3
-    print(f"{tag1}) Engine: {eng1} → Reach =", fmt_pairs(pairs))
-    print(f"{tag2}) Engine: {eng2} → Witness relation-names R = " + (fmt_set(wits) if wits else "∅"))
-    print(f"{tag3}) Engine: {eng3} → Universal statement holds: {'Yes' if ok else 'No'}\n")
+    print(f"ReachableFrom({SOURCE}) = {fmt_set(from_source)}")
+    print(f"{TARGET} reachable from {SOURCE}: {'Yes' if is_target_reachable else 'No'}")
+    print()
 
-def print_reason(eng1, eng2) -> None:
+def print_reason(LFP: Set[Tuple[str, str]], chain: List[Set[Tuple[str, str]]], is_target_reachable: bool) -> None:
     print("Reason why")
     print("==========")
-    print("• Edge ⊆ Reach via SubRelOf; the lifting rule moves Edge-facts into Reach.")
-    print("• The transitive rule Reach(x,z) :- Edge(x,y), Reach(y,z) closes paths of length ≥2.")
-    print("• We keep Reach non-reflexive (no zero-length paths).")
-    print("• Auto-chooser: enumeration of Reach(X,Y) → bottom-up; ground checks → top-down.\n")
+    chain_txt = fmt_chain(chain, limit=6)
+    print("Kleene iteration from ∅ with F(R) = Id ∪ E ∪ (R ∘ E) yields:")
+    print(f"  {chain_txt}")
+    print(f"which stabilizes at LFP = {fmt_pairs(LFP)}.")
+    if is_target_reachable:
+        path = bfs_path(SOURCE, TARGET)
+        if path is not None:
+            print(f"A path witness is: {SOURCE} → " + " → ".join(path[1:]) + ".")
+        else:
+            print("A path witness exists (by LFP), and the BFS would return one.")
+    else:
+        print(f"No path exists from {SOURCE} to {TARGET} in E; hence not in the closure.")
+    print()
 
-# -------------------
-# Check (12 tests)
-# -------------------
+# =========================================================
+# Check (harness): deterministic tests (≥ 10)
+# =========================================================
 
-class CheckFailure(AssertionError): pass
-def check(c: bool, msg: str):
-    if not c: raise CheckFailure(msg)
+class CheckFailure(AssertionError):
+    pass
 
-def run_checks() -> List[str]:
+def check(cond: bool, msg: str) -> None:
+    if not cond:
+        raise CheckFailure(msg)
+
+def run_checks(LFP: Set[Tuple[str, str]], chain: List[Set[Tuple[str, str]]], from_source: Set[str], is_target_reachable: bool) -> List[str]:
     notes: List[str] = []
 
-    expected = {
-        ("A","B"),
-        ("A","C"),
-        ("A","D"),
-        ("B","C"),
-        ("B","D"),
-        ("C","D"),
-    }
+    # 1) First Kleene step should add Id and edges
+    check(chain[1] == ID | EXT2[edge], "First Kleene step must add Id ∪ edges.")
+    notes.append("PASS 1: First Kleene step = Id ∪ edges.")
 
-    # 1) Bottom-up enumerates expected Reach
-    facts, _ = solve_bottomup(PROGRAM, SIGNATURE)
-    X, Y = Var("X"),Var("Y")
-    bu = match_against_facts([atom(Holds2, Reach, X, Y)], facts)
-    reach_bu = {(deref(X,s), deref(Y,s)) for s in bu}
-    check(reach_bu == expected, "Bottom-up Reach enumeration mismatch.")
-    notes.append("PASS 1: Bottom-up Reach enumeration is correct.")
+    # 2) Chain is ascending
+    for i in range(len(chain) - 1):
+        check(chain[i].issubset(chain[i+1]), "Kleene chain must be ascending.")
+    notes.append("PASS 2: Kleene chain is ascending.")
 
-    # 2) Top-down enumerates the same Reach
-    td, _ = solve_topdown(PROGRAM, [atom(Holds2, Reach, X, Y)])
-    reach_td = {(deref(X,s), deref(Y,s)) for s in td}
-    check(reach_td == expected, "Top-down Reach enumeration mismatch.")
-    notes.append("PASS 2: Top-down Reach enumeration is correct.")
+    # 3) LFP is a fixed point
+    check(F(LFP) == LFP, "LFP must satisfy F(LFP) = LFP.")
+    notes.append("PASS 3: LFP is a fixed point of F.")
 
-    # 3) Existential witnesses for (A,D) are exactly {Reach}
-    R = Var("R")
-    bu_w = match_against_facts([atom(Holds2, R, "A","D"), atom(Leq, R, Reach)], facts)
-    td_w, _ = solve_topdown(PROGRAM, [atom(Holds2, R, "A","D"), atom(Leq, R, Reach)])
-    w1 = {deref(R,s) for s in bu_w}; w2 = {deref(R,s) for s in td_w}
-    check(w1 == w2 == {Reach}, f"Witness set mismatch: {w1} vs {w2}")
-    notes.append("PASS 3: Witness set for (A,D) is {Reach}.")
+    # 4) LFP contains identity and all edges
+    check(ID.issubset(LFP), "LFP must be reflexive (contain identity).")
+    check(EXT2[edge].issubset(LFP), "LFP must contain all edges (be transitive closure over E with reflexive part).")
+    notes.append("PASS 4: LFP contains Id and edges.")
 
-    # 4) Universal property for node A
-    ok = True
-    for r in [Edge, Reach]:
-        for y in D:
-            # If r ≤ Edge and r(A,y) then Reach(A,y)
-            cond = ask([atom(Leq, r, Edge), atom(Holds2, r, "A", y)])[1]
-            if cond and not ask([atom(Holds2, Reach, "A", y)])[1]:
-                ok = False; break
-        if not ok: break
-    check(ok, "Universal property failed for node A.")
-    notes.append("PASS 4: Universal property holds for node A.")
+    # 5) Transitivity of LFP (closure property)
+    for (x, y1) in LFP:
+        for (y2, z) in LFP:
+            if y1 == y2:
+                check((x, z) in LFP, "LFP must be transitive.")
+    notes.append("PASS 5: LFP is transitive.")
 
-    # 5) No reachability from E (isolated)
-    X = Var("X")
-    none_from_E = not ask([atom(Holds2, Reach, "E", X)])[1]
-    check(none_from_E, "Unexpected reachability from isolated node E.")
-    notes.append("PASS 5: No reachability from E.")
+    # 6) Expected reachability from A on this line graph
+    check(from_source == {"A", "B", "C", "D"}, "ReachableFrom(A) must be {A,B,C,D}.")
+    notes.append("PASS 6: ReachableFrom(A) = {A,B,C,D}.")
 
-    # 6) Non-reflexive: no Reach(x,x)
-    for v in D:
-        check(not ask([atom(Holds2, Reach, v, v)])[1], f"Unexpected reflexive reach at {v}.")
-    notes.append("PASS 6: Reach is non-reflexive.")
+    # 7) D is reachable from A, and the BFS path is valid
+    path = bfs_path(SOURCE, TARGET)
+    check(is_target_reachable and path == ["A", "B", "C", "D"], "Expected path A→B→C→D.")
+    # Validate each step is an edge
+    for u, v in zip(path, path[1:]):
+        check((u, v) in EXT2[edge], "BFS path must use actual edges.")
+    notes.append("PASS 7: D is reachable from A with path A→B→C→D.")
 
-    # 7) Auto-chooser behavior
-    e1, _, _ = ask([atom(Holds2, Reach, Var("X"), Var("Y"))])
-    e2, _, _ = ask([atom(Holds2, Reach, "A", "D")])
-    check(e1 == "bottomup" and e2 == "topdown", "Engine chooser mismatch.")
-    notes.append("PASS 7: Engine chooser behaves as intended.")
+    # 8) Some non-reachabilities (on the line graph)
+    check(("D", "A") not in LFP and ("C", "A") not in LFP, "No backward reachability on a line.")
+    notes.append("PASS 8: Non-reachabilities are correct for the line graph.")
 
-    # 8) leq reflexive on names
-    for r in [Edge, Reach]:
-        check(ask([atom(Leq, r, r)])[1], f"Reflexivity of leq failed for {local(r)}.")
-    notes.append("PASS 8: leq reflexivity holds for all relation names.")
+    # 9) Deterministic pretty-print formatting
+    s1 = fmt_pairs(LFP)
+    s2 = fmt_pairs(set(sorted(LFP)))
+    check(s1 == s2, "Pretty-printer must be deterministic.")
+    notes.append("PASS 9: Deterministic formatting is stable.")
 
-    # 9) leq_strict transitivity: Edge ⊆ Reach
-    check(ask([atom(LeqStrict, Edge, Reach)])[1],
-          "leq_strict Edge ⊆ Reach failed.")
-    notes.append("PASS 9: leq_strict Edge ⊆ Reach holds.")
-
-    # 10) Top-down stability (standardize-apart)
-    ok1 = ask([atom(Holds2, Reach, "A", "D")])[1]
-    ok2 = ask([atom(Holds2, Reach, "A", "D")])[1]
-    check(ok1 and ok2, "Repeated top-down query should remain true.")
-    notes.append("PASS 10: Standardize-apart stable on repeats.")
-
-    # 11) Bottom-up closure idempotence
-    f1, _ = solve_bottomup(PROGRAM, SIGNATURE)
-    f2, _ = solve_bottomup(PROGRAM, SIGNATURE)
-    check(f1[Holds2] == f2[Holds2], "Bottom-up closure not idempotent.")
-    notes.append("PASS 11: Bottom-up closure is stable.")
-
-    # 12) Deterministic printing
-    s1 = fmt_pairs(sorted(expected)); s2 = fmt_pairs(sorted(list(expected)))
-    check(s1 == s2, "Pretty-printer determinism failed.")
-    notes.append("PASS 12: Pretty printing deterministic.")
+    # 10) Minimality w.r.t. first fixed point: LFP ⊆ any R with F(R) ⊆ R (checked on a small family)
+    # We avoid full powerset; instead we verify against ∅, Id, Id∪E, and LFP itself.
+    for R in [set(), ID, ID | EXT2[edge], LFP]:
+        if F(R).issubset(R):
+            check(LFP.issubset(R), "LFP must be subset of every pre-fixed relation (sampled family).")
+    notes.append("PASS 10: LFP minimality holds on the sampled family (∅, Id, Id∪E, LFP).")
 
     return notes
 
-# -------------------
-# Standalone runner
-# -------------------
+# =========================================================
+# Main orchestration
+# =========================================================
 
-def main():
+def main() -> None:
     print_model()
     print_question()
-    res1, res2, res3 = run_queries()
-    print_answer(res1, res2, res3)
-    print_reason(res1[1], res2[1])
+
+    LFP, chain, from_source, is_target_reachable = compute_answer()
+    print_answer(LFP, from_source, is_target_reachable)
+    print_reason(LFP, chain, is_target_reachable)
 
     print("Check (harness)")
     print("===============")
     try:
-        for note in run_checks():
-            print(note)
+        notes = run_checks(LFP, chain, from_source, is_target_reachable)
     except CheckFailure as e:
         print("FAIL:", e)
         raise
+    else:
+        for line in notes:
+            print(line)
 
 if __name__ == "__main__":
     main()
