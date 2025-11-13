@@ -1,164 +1,101 @@
-# Higher-Order Look, First-Order Core
+# Higher-order Look, First-order Core
 
-## Abstract
+## Intuition
 
-We recall a simple device, due to Hayes and Menzel, for giving a **higher-order look** to a logic whose **semantics remains first-order**. Predicates and relations are treated as first-order objects (intensions), and their application is mediated by a fixed family of predicates (\mathsf{Holds}_n). This yields a straightforward embedding of a higher-order-looking surface language into ordinary first-order logic (FOL), and matches neatly the way RDF and related Web standards treat URIs and properties.
-
----
-
-## 1 Idea in one paragraph
-
-The key move is to separate **naming a relation** from **applying a relation**.
-
-* Relation names (symbols, URIs) are interpreted as **first-order objects**.
-* For each arity (n), a distinguished predicate
-  [
-  \mathsf{Holds}_n(r,x_1,\dots,x_n)
-  ]
-  says: “the relation named by (r) holds of (x_1,\dots,x_n).”
-
-Higher-order-looking formulas such as “(\forall P)” or “(P(x,y))” are then understood as **quantifying over names** and using (\mathsf{Holds}_n) for application. The model theory is purely first-order; the “higher-order” aspect is only in the surface syntax.
+* **Intension** = the *named* property/relation (e.g., a URI like `ex:likes`).
+* **Extension** = the *set of tuples* that satisfy it.
+* The Hayes–Menzel move: treat relation *names* as ordinary **first-order objects**, and mediate application with fixed **first-order predicates** `Holdsₙ` (and `Appₙ` for function application). This yields a **truth-preserving translation** of the higher-order-looking syntax into orthodox FOL. 
+* On the Web this fits naturally: **URIs are logical constants** (intensions); **property extensions** are given by an interpretation map `IEXT` from property-resources to sets of pairs (their extensions). ([W3C][1])
 
 ---
 
-## 2 The first-order core
+## Signature (pure FOL)
 
-We fix a standard first-order language with equality and add, for each arity (n \ge 1),
+For each arity `n ≥ 1`, add a predicate:
 
-[
-\mathsf{Holds}_n(r,x_1,\dots,x_n).
-]
+* `Holdsₙ(r, x₁, …, xₙ)` (“the relation named by `r` holds of those args”).
+  Everything you “apply” (predicates, classes, properties) is just a *term* naming an intension; `Holdsₙ` links that name to its extension. 
 
-Intended reading:
+Optional but common:
 
-* domain elements include **relation intensions** (e.g., URIs for properties);
-* (\mathsf{Holds}_n(r,\vec x)) is true iff the tuple (\vec x) is in the **extension** of the relation named by (r).
-
-We can also define **extensional equality** of (n)-ary relations:
-
-[
-\mathsf{ExtEq}_n(r,s) ;;:!!\iff;;
-\forall x_1\dots x_n;
-\bigl(\mathsf{Holds}_n(r,x_1,\dots,x_n)
-\leftrightarrow
-\mathsf{Holds}_n(s,x_1,\dots,x_n)\bigr).
-]
-
-Thus we distinguish:
-
-* **intensional identity**: (r = s),
-* **extensional equality**: (\mathsf{ExtEq}_n(r,s)).
-
-This mirrors, for example, RDF’s `IEXT` mapping from a property-resource to its extension, and more generally the intension/extension split emphasised in [3,4].
+* `ExtEqₙ(r, s) := ∀x₁…xₙ( Holdsₙ(r,x₁,…,xₙ) ↔ Holdsₙ(s,x₁,…,xₙ) )` for **extensional equality** (distinct from intensional identity `r = s`). This intension/extension separation is emphasized by Menzel. ([jfsowa.com][2])
 
 ---
 
-## 3 The translation (schematic)
+## Translation schema (HO → FO)
 
-Suppose the surface language allows:
+* **Predicate application**
+  `P(t₁,…,tₙ)`  ↦  `Holdsₙ(P, T(t₁), …, T(tₙ))`. 
+* **Quantification over predicates**
+  `∀P φ`  ↦  `∀p T(φ)` (now `p` ranges over *objects* naming relations). 
+* **Predicate equality**
+  intensional `P = Q` stays `p = q`; extensional equality becomes `ExtEqₙ(p,q)`. ([jfsowa.com][2])
 
-* predicate application: (P(t_1,\dots,t_n));
-* quantification over predicate variables: (\forall P), (\exists P);
-* (optionally) equality between predicates.
-
-We map this into the (\mathsf{Holds}_n)-language as follows.
-
-1. **Application**
-
-   [
-   P(t_1,\dots,t_n)
-   \quad\mapsto\quad
-   \mathsf{Holds}_n(P,T(t_1),\dots,T(t_n)),
-   ]
-   where (P) is now a *term* (variable or constant) naming a relation, and (T) is the recursive translation on terms.
-
-2. **Quantification over predicates**
-
-   [
-   \forall P,\varphi
-   \quad\mapsto\quad
-   \forall p,T(\varphi),
-   ]
-   where (p) is an ordinary first-order variable. Inside (\varphi), each (P(\dots)) has already been translated to a (\mathsf{Holds}_n(p,\dots)) atom.
-
-3. **Predicate equality**
-
-   * intensional: (P = Q \mapsto p = q),
-   * extensional: (P \equiv Q) (if present) (\mapsto \mathsf{ExtEq}_n(p,q)).
-
-Hayes and Menzel show that such a translation can be made truth-preserving and adequate for KIF-style formalisms [1,2].
+*A concise third-party summary of the same “Holdsₙ” trick appears in Horrocks et al., describing Hayes–Menzel’s translation explicitly.* 
 
 ---
 
-## 4 Tiny examples
+## Micro-examples
 
-### 4.1 Meta-properties of relations
-
-In a CLIF-style syntax, with `r` ranging over relation names:
+### CLIF-style
 
 ```lisp
-(def Reflexive (r)
-  (forall (x)
-    (Holds2 r x x)))
+;; r is a first-order variable ranging over relation-names (intensions)
+(def Reflexive (r) (forall (x) (Holds2 r x x)))
+
+;; extensional vs intensional equality
+(forall (x y) (iff (Holds2 likes x y) (Holds2 admires x y)))   ; ExtEq2(likes,admires)
+(= likes admires)                                              ; intensional identity (different claim)
 ```
 
-This defines “`r` is reflexive” entirely within FOL.
+### RDF intuition → FOL core
 
-For two binary relation names `likes` and `admires`:
+RDF triple
 
-```lisp
-(forall (x y)
-  (iff (Holds2 likes  x y)
-       (Holds2 admires x y)))  ;; extensional equality
-
-(= likes admires)              ;; intensional identity
 ```
-
-The first states (\mathsf{ExtEq}_2(\text{likes},\text{admires})); the second states that the *names* are identical.
-
-### 4.2 RDF triples
-
-An RDF triple
-
-```turtle
 ex:Alice ex:likes ex:Bob .
 ```
 
-can be read as the FOL atom
+reads as
 
-[
-\mathsf{Holds}_2(\text{likes},\text{Alice},\text{Bob}),
-]
+```
+Holds2(likes, Alice, Bob)
+```
 
-with `likes` a first-order object whose extension is given by the usual RDF `IEXT` mapping [5].
-
----
-
-## 5 Essence and limitations
-
-* We get a **higher-order look** (quantifying over and talking about predicates) on top of a **first-order core**.
-* The trick is entirely driven by:
-
-  * first-order objects as intensions,
-  * fixed (\mathsf{Holds}_n) predicates for application.
-
-Limitations:
-
-* One (\mathsf{Holds}_n) is needed per arity (n); this is harmless in practice.
-* Truly **variadic** predicates (row variables, arbitrary arity) or strong comprehension principles go beyond this simple FOL setting.
-* The approach is nevertheless sufficient for most Semantic Web-style reasoning and everyday meta-talk about relations.
+since URIs are **constants** and **property extensions** are given by `IEXT`. ([W3C][1])
 
 ---
 
-## References
+## What you *can* do (cleanly) in FOL
 
-[1] P. Hayes and C. Menzel, *A Semantics for the Knowledge Interchange Format*, manuscript / technical report, 2001 (and later revisions).
+* **Quantify over “predicates”** (really: over **names** of predicates).
+* Define meta-properties (reflexive, transitive, functional, …) using only `Holdsₙ`.
+* Keep Web-style naming (URIs/IRIs) first-class while retaining a **first-order model theory** (as in Common Logic). 
 
-[2] P. Hayes and C. Menzel, “A Logic for Ontologies,” in *Proceedings of IJCAI-01 Workshop on Ontologies and Information Sharing*, 2001.
+---
 
-[3] C. Menzel, “Knowledge Representation, the World Wide Web, and the Evolution of Logic,” *Synthese* 182(2), 2011.
+## Pitfalls & notes
 
-[4] ISO/IEC 24707, *Common Logic (CL): a Framework for a Family of Logic-Based Languages*, 2018.
+* You need one `Holdsₙ` **per arity** you use (a schema; any given theory uses finitely many). 
+* **Row/sequence variables** (variably-polyadic tricks) *do* push you beyond FOL; the FO story here is the `Holdsₙ` part. 
+* **Comprehension/λ** (creating new relation-names from formulas) isn’t automatic in FOL; CL handles this conservatively while **including full FOL with equality** and supporting **IRIs as names** for open networks. 
 
-[5] P. Hayes, *RDF Semantics*, W3C Recommendation, 2004.
+---
+
+## TL;DR
+
+Name relations (URIs/IRIs) = talk about **intensions** as first-order objects; use `Holdsₙ` to tie them to **extensions**. Then your “higher-order” quantification is **just FOL**. 
+
+---
+
+### References (handy pointers)
+
+* **Hayes & Menzel (2001), “A Semantics for the Knowledge Interchange Format (SKIF)”** — proves that **quantification over relations is possible in FOL** and gives the explicit **`Holdsₙ`/`Appₙ` translation**. See “Mapping SKIF into conventional logic.” 
+* **Menzel (2011), “Knowledge representation, the Web, and the evolution of logic,” Synthese** — explains the **type-free, name-centric** approach; separates **denotation vs relation-extension** (e.g., `rext('Married')`) and motivates the Web’s reliance on **URIs as names**. ([jfsowa.com][2])
+* **W3C RDF Semantics (2004)** — treats **URI references as logical constants** and models **properties as first-class objects** with extensions via `IEXT` (the intension/extension split for Web vocabularies). ([W3C][1])
+* **ISO/IEC 24707:2018 — Common Logic** — **includes full FOL with equality**, permits Web-friendly naming (**IRIs as names**), and supports open networks, while allowing “higher-order-looking” surface features without abandoning a **first-order model theory**. 
+* **Horrocks et al., “Three Theses of Representation in the Semantic Web” (2003)** — independent summary of the **Hayes–Menzel `Holdsₙ` translation** (how HO-looking syntax is embedded in FOL). 
+
+[1]: https://www.w3.org/TR/rdf-mt/ "RDF Semantics"
+[2]: https://www.jfsowa.com/ikl/Menzel11.pdf "Synthese-CL"
 
