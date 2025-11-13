@@ -37,17 +37,6 @@ Optional but common:
 
 ## Micro-examples
 
-### CLIF-style
-
-```lisp
-;; r is a first-order variable ranging over relation-names (intensions)
-(def Reflexive (r) (forall (x) (Holds2 r x x)))
-
-;; extensional vs intensional equality
-(forall (x y) (iff (Holds2 likes x y) (Holds2 admires x y)))   ; ExtEq2(likes,admires)
-(= likes admires)                                              ; intensional identity (different claim)
-```
-
 ### RDF intuition → FOL core
 
 RDF triple
@@ -82,13 +71,7 @@ since URIs are **constants** and **property extensions** are given by `IEXT`. ([
 
 ---
 
-## TL;DR
-
-Name relations (URIs/IRIs) = talk about **intensions** as first-order objects; use `Holdsₙ` to tie them to **extensions**. Then your “higher-order” quantification is **just FOL**. 
-
----
-
-### References (handy pointers)
+## References
 
 * **Hayes & Menzel (2001), “A Semantics for the Knowledge Interchange Format (SKIF)”** — proves that **quantification over relations is possible in FOL** and gives the explicit **`Holdsₙ`/`Appₙ` translation**. See “Mapping SKIF into conventional logic.” 
 * **Menzel (2011), “Knowledge representation, the Web, and the evolution of logic,” Synthese** — explains the **type-free, name-centric** approach; separates **denotation vs relation-extension** (e.g., `rext('Married')`) and motivates the Web’s reliance on **URIs as names**. ([jfsowa.com][2])
