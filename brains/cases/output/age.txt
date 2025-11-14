@@ -1,7 +1,12 @@
 Answer
 ------
-Derived: :patH :ageAbove 'P80Y'^^xsd:duration
-Numeric age (as of 2025-06-30): ~80.86 years
+Query 1: ?S :ageAbove "P80Y"^^xsd:duration
+  Answer: :patH
+  Approximate age (2026-01-31): ~81.45 years
+
+Query 2: ?S :ageAbove "P70Y"^^xsd:duration
+  1. :josD  (age ~70.06 years)
+  2. :patH  (age ~81.45 years)
 
 Reason why
 ----------
@@ -13,33 +18,40 @@ We use the rule:
   ?F math:greaterThan ?A .
 } .
 
-Instantiations here (for :patH and 2025-06-30):
+For the 80-year query we get:
  • ?S  = :patH
- • ?B  = '1944-08-21'
- • ?D  = '2025-06-30' (via time:localTime)
- • ?F  ≈ 80.86 (years from 1944-08-21 to 2025-06-30)
- • ?A  = 'P80Y' ⇒ threshold is 80 years
- • 80.86 > 80 ⇒ rule head fires, so :patH :ageAbove 'P80Y'
+ • ?A  = "P80Y" (threshold 80 years)
+ • ?B  = birthDay(?S)
+ • ?D  = '2026-01-31' (via time:localTime)
+ • ?F  = years(?D - ?B) (via math:difference)
+ • constraint: ?F > 80 (via math:greaterThan)
 
-Proof trace:
+Proof trace (for the first solution):
 Step 01: prove ('?S', ':ageAbove', 'P80Y')
 → via R-ageAbove
  Step 02: prove ('?S', ':birthDay', '?B')
- ✓ fact (':patH', ':birthDay', '1944-08-21')
+ ✓ fact (':josD', ':birthDay', '1956-01-10')
  Step 03: prove ('', 'time:localTime', '?D')
- ✓ built-in time:localTime → 2025-06-30
- Step 04: prove (('2025-06-30', '1944-08-21'), 'math:difference', '?F')
- ✓ built-in math:difference → 80.86y
- Step 05: prove (80.8586076373916, 'math:greaterThan', 'P80Y')
- ✓ built-in greaterThan: 80.8586076373916 > 80y
+ ✓ built-in time:localTime → 2026-01-31
+ Step 04: prove (('2026-01-31', '1956-01-10'), 'math:difference', '?F')
+ ✓ built-in math:difference → 70.06y
+ Step 05: prove (70.06030240182892, 'math:greaterThan', 'P80Y')
+ ✗ built-in greaterThan failed: 70.06030240182892 ≤ P80Y
+ ✓ fact (':patH', ':birthDay', '1944-08-21')
+ Step 06: prove ('', 'time:localTime', '?D')
+ ✓ built-in time:localTime → 2026-01-31
+ Step 07: prove (('2026-01-31', '1944-08-21'), 'math:difference', '?F')
+ ✓ built-in math:difference → 81.45y
+ Step 08: prove (81.44725764389412, 'math:greaterThan', 'P80Y')
+ ✓ built-in greaterThan: 81.44725764389412 > 80.0
 
 Check (harness)
 ---------------
-PASS 1: :patH satisfies :ageAbove 'P80Y'^^xsd:duration.
-PASS 2: No subject satisfies :ageAbove 'P100Y'^^xsd:duration.
-PASS 3: :patH also satisfies :ageAbove 'P79Y'^^xsd:duration.
-PASS 4: math:difference returns an age between 80 and 81 years.
-PASS 5: math:greaterThan behaves correctly around 'P80Y'/'P81Y'.
+PASS 1: only :patH satisfies :ageAbove 'P80Y'^^xsd:duration.
+PASS 2: no subject satisfies :ageAbove 'P100Y'^^xsd:duration.
+PASS 3: both :patH and :josD satisfy :ageAbove 'P70Y'^^xsd:duration.
+PASS 4: math:difference returns :patH age between 81 and 82 years.
+PASS 5: math:greaterThan behaves correctly around 'P80Y'/'P82Y' for :patH.
 PASS 6: rule head unification yields ?S=:patH and ?A='P80Y'.
 All checks passed.
 
