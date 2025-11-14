@@ -8,24 +8,26 @@ Result:
 
 Reason why
 ----------
-We run the meta-interpreter `mi/2` exactly as in the Prolog program,
-rewriting the leftmost goal each step using `head_body_/3`:
+We run the meta-interpreter via a fixed predicate holds2/2,
+interpreting atomic goals Fun('p', (args...)) as holds2(p, args):
 
-  1. factorial(s(N), F) ⇒ [factorial(N, F1), prod(s(N), F1, F)]
-  2. mi([G|Gs], []) ⇒ mi(Goals, []) where Goals = body(G) ++ Gs
-  3. mi([G|Gs], []) ⇒ mi(Goals, []) where Goals = body(G) ++ Gs
-  4. factorial(s(N), F) ⇒ [factorial(N, F1), prod(s(N), F1, F)]
-  5. mi([G|Gs], []) ⇒ mi(Goals, []) where Goals = body(G) ++ Gs
-  6. mi([G|Gs], []) ⇒ mi(Goals, []) where Goals = body(G) ++ Gs
-  7. factorial(s(N), F) ⇒ [factorial(N, F1), prod(s(N), F1, F)]
-  8. mi([G|Gs], []) ⇒ mi(Goals, []) where Goals = body(G) ++ Gs
-  9. mi([G|Gs], []) ⇒ mi(Goals, []) where Goals = body(G) ++ Gs
- 10. factorial(s(N), F) ⇒ [factorial(N, F1), prod(s(N), F1, F)]
- 11. mi([G|Gs], []) ⇒ mi(Goals, []) where Goals = body(G) ++ Gs
- 12. mi([G|Gs], []) ⇒ mi(Goals, []) where Goals = body(G) ++ Gs
+  1. holds2(factorial(s(N), F)) ⇒ [factorial(N, F1), prod(s(N), F1, F)]
+  2. holds2(mi([G|Gs], [])) ⇒ [mi(Goals, [])] where Goals = body(G) ++ Gs
+  3. holds2(mi([G|Gs], [])) ⇒ [mi(Goals, [])] where Goals = body(G) ++ Gs
+  4. holds2(factorial(s(N), F)) ⇒ [factorial(N, F1), prod(s(N), F1, F)]
+  5. holds2(mi([G|Gs], [])) ⇒ [mi(Goals, [])] where Goals = body(G) ++ Gs
+  6. holds2(mi([G|Gs], [])) ⇒ [mi(Goals, [])] where Goals = body(G) ++ Gs
+  7. holds2(factorial(s(N), F)) ⇒ [factorial(N, F1), prod(s(N), F1, F)]
+  8. holds2(mi([G|Gs], [])) ⇒ [mi(Goals, [])] where Goals = body(G) ++ Gs
+  9. holds2(mi([G|Gs], [])) ⇒ [mi(Goals, [])] where Goals = body(G) ++ Gs
+ 10. holds2(factorial(s(N), F)) ⇒ [factorial(N, F1), prod(s(N), F1, F)]
+ 11. holds2(mi([G|Gs], [])) ⇒ [mi(Goals, [])] where Goals = body(G) ++ Gs
+ 12. holds2(mi([G|Gs], [])) ⇒ [mi(Goals, [])] where Goals = body(G) ++ Gs
  … 963 more rewrite steps …
 
-Rules used (in order of matching):
+Rules used (in order of matching inside holds2):
+  mi([], []).
+  mi([G|Gs], []) → mi(Goals, []) via expansion of G.
   factorial(0, s(0)).
   factorial(s(N), F) → factorial(N, F1), prod(s(N), F1, F).
   prod(0, _, 0).

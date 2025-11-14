@@ -3,68 +3,89 @@ r"""
 meta_interpretation.py
 ======================
 
-What this file is
------------------
-This module is a small, self-contained Python reimplementation of a classic
-Prolog-style meta-interpreter. It does **not** depend on any external logic
-engine or Prolog runtime.
+Overview
+--------
+This module is a small, self-contained Python reconstruction of a classic
+Prolog-style **meta-interpreter** example. It interprets a tiny object
+program that defines factorial using Peano arithmetic and the predicates
 
-Instead, it explicitly encodes:
-  - a tiny first-order term language (variables, functors, lists),
-  - a simple unification algorithm, and
-  - a deterministic meta-interpreter for a specific object program.
+    factorial(N, F)
+    prod(N, M, P)
+    sum(N, M, P)
 
-The object program here is a factorial definition expressed using Peano
-arithmetic and three predicates:
-
-  factorial(N, F)
-  prod(N, M, P)
-  sum(N, M, P)
-
-The meta-interpreter `mi/2` runs over *lists of goals*, expanding the leftmost
-goal at each step according to these clauses.
+The original is written in N3/Prolog style. Here we rebuild it entirely in
+Python, without calling any external reasoner or Prolog engine.
 
 
-How it works (in one paragraph)
--------------------------------
-Terms are represented as Python objects (Var, Fun, lists). A small unifier
-operates on these terms to accumulate substitutions. The meta-interpreter
-maintains a list of goals; while the list is non-empty, it takes the leftmost
-goal, rewrites it using a Python version of the `head_body_/3` clauses, and
-splices the resulting body back into the goal list. This is a direct
-translation of the Prolog meta-interpreter but executed entirely in Python.
+Higher-order look, first-order core
+-----------------------------------
+We follow the idea of **“higher-order look, first-order core”**:
+
+* At the surface, we work with *goals as data*:
+    - atomic goals like `factorial(s(N), F)` are represented as terms,
+    - a meta-predicate `mi/2` takes a **list of goals** and interprets them,
+    - the object program (the clauses for factorial/2, prod/3, sum/3) is
+      “run” by a meta-interpreter rather than by Python directly.
+
+  This looks higher-order because goals and programs are themselves manipulated
+  as data (e.g. `mi([factorial(...), prod(...), ...], [])`).
+
+* Under the hood, everything is implemented with a **first-order core**:
+    - a tiny term language (`Var`, `Fun`, and Python lists),
+    - a small unification algorithm over these terms,
+    - and a fixed predicate
+
+          holds2(P, t1, ..., tn)
+
+      implemented as the Python function `holds2(goal, subst, trace)`, where
+      `goal` is a `Fun(pred, args...)`. For example:
+
+          factorial(N,F)   ~  Fun("factorial", (N,F))
+          mi(Goals,[])     ~  Fun("mi", (Goals, []))
+
+      The meta-interpreter loop repeatedly:
+        1. takes the leftmost goal G,
+        2. calls `holds2(G, subst, trace)` to rewrite it into new goals,
+        3. splices those new goals into the goal list.
+
+There is **no external Prolog engine**, no higher-order unification, and no
+quantification over predicate symbols. Predicate names like "factorial" or
+"sum" are just strings (first-order objects), and all “meta” behaviour is
+implemented as ordinary Python code over these first-order structures.
 
 
-What the program does by default
---------------------------------
-When you run this file as a script:
+What happens when you run it
+----------------------------
+Running this file as a script:
 
-  python meta_interpretation.py
+    python meta_interpretation.py
 
-it constructs the nested query:
+does the following:
 
-  mi([mi([factorial(5, F)], [])], [])
+1. Builds the nested query corresponding to the original meta-interpreter call:
 
-where 5 is encoded as the Peano term s(s(s(s(s(0))))). It then:
+       mi([mi([factorial(5, F)], [])], [])
 
-  1. Runs the meta-interpreter until the goal list is empty.
-  2. Prints the value of F both as a Peano term and as a Python integer.
-  3. Prints a short human-readable trace of the first rewrite steps
-     ("Reason why").
-  4. Runs a small test harness ("Check (harness)") that verifies several
-     factorial values (0, 1, 3, 5), checks determinism, and checks that the
-     number of rewrite steps grows with n.
+   where `5` is encoded as the Peano term `s(s(s(s(s(0)))))`.
 
+2. Executes the meta-interpreter until the goal list is exhausted, using
+   deterministic leftmost rewriting via `holds2`.
 
-Why this exists
----------------
-This file demonstrates how a Prolog meta-interpreter can be rebuilt in a
-"reasoner-free" way: all logical machinery (terms, unification, goal
-reduction) is encoded directly in Python, but the overall structure – a
-meta-interpreter that executes an object program – remains recognisably the
-same. It fits the idea of a "higher-order look, first-order core": meta-level
-constructs (`mi/2`, goal lists) are represented as first-order data operated
-on by a fixed algorithm.
+3. Prints:
+    - **Answer**:
+        - the value of `F` as a Peano term (e.g. `s^120(0)`),
+        - the same value as a Python integer (e.g. `120`).
+    - **Reason why**:
+        - a short trace of the first rewrite steps and a summary of the
+          object-level rules used.
+    - **Check (harness)**:
+        - several independent tests (factorial(0), factorial(1), factorial(3),
+          factorial(5), determinism, and a small sanity check on the growth of
+          rewrite steps with `n`).
+
+The harness ensures that the result of the meta-interpretation agrees with
+Python’s own `math.factorial` for the tested inputs and that the interpreter
+is deterministic for this program.
 """
 
 from __future__ import annotations
@@ -98,16 +119,21 @@ class Var:
 
 
 def V(name: str) -> Var:
-    """Convenience constructor for fresh variables."""
+    """Convenience constructor for a fresh logic variable."""
     return Var(name, _next_id())
 
 
 @dataclass(frozen=True)
 class Fun:
-    """Compound term f(t1,...,tn). Also used for Peano numerals."""
+    """
+    Compound term f(t1,...,tn).
+
+    Conceptually, an atomic goal `p(t1,...,tn)` is a `Fun("p", (t1,...,tn))`,
+    which we interpret via the fixed predicate `holds2`.
+    """
 
     functor: str
-    args: Tuple[Any, ...]  # Fun, Var, Python lists (for goal lists), or atoms
+    args: Tuple[Any, ...]  # Fun, Var, lists (for goal lists), or atoms
 
     def __repr__(self) -> str:
         if not self.args:
@@ -237,27 +263,39 @@ def apply_subst(t: Term, s: Subst) -> Term:
 
 
 # -----------------------------------------------------------------------------
-# Object program: head_body_/3 and mi/2 as Python rules
+# holds2: semantics of atomic goals
 # -----------------------------------------------------------------------------
 #
-# We don’t represent clauses as data; instead we mirror the clause order in
-# a single dispatcher `expand_goal`. This keeps the meta-interpreter simple:
+# We interpret each atomic goal `p(t1,...,tn)` as a `Fun("p", (t1,...,tn))`
+# and define its meaning via a fixed predicate:
 #
-#   • goals are Fun terms
-#   • the meta-interpreter keeps a list of goals
-#   • each step: take the leftmost goal, expand it with `head_body_`, splice.
+#     holds2 : GOAL × Subst → (BodyGoals, Subst)
+#
+# In the object language (the Prolog / N3 world), rules are:
+#
+#   mi([], []).
+#   mi([G|Gs], []) :-
+#       head_body_(G, Goals, Gs),
+#       mi(Goals, []).
+#
+#   head_body_(factorial(0, s(0)), Rs, Rs).
+#   head_body_(factorial(s(N), F), [factorial(N, F1), prod(s(N), F1, F)|Rs], Rs).
+#   head_body_(prod(0, _, 0), Rs, Rs).
+#   head_body_(prod(s(N), M, P), [prod(N, M, K), sum(K, M, P)|Rs], Rs).
+#   head_body_(sum(0, M, M), Rs, Rs).
+#   head_body_(sum(s(N), M, s(K)), [sum(N, M, K)|Rs], Rs).
+#
+# Here we inline the effect of `head_body_/3` directly into holds2 for the
+# object predicates factorial/2, prod/3, sum/3, and we interpret mi/2 as
+# operating over lists of Fun-goals.
 
 
-def expand_goal(goal: Fun, s: Subst, trace: List[str]) -> Tuple[List[Fun], Subst]:
+def holds2(goal: Fun, s: Subst, trace: List[str]) -> Tuple[List[Fun], Subst]:
     """
-    Given one goal (a Fun), return (body_goals, updated_subst).
+    Given a goal (a Fun predicate application), return (body_goals, updated_subst).
 
-    - `goal` is the current goal (already in head position).
-    - `body_goals` is the list of goals that replaces `goal`.
-    - `s` is the current substitution Π.
-
-    We mirror the order of clauses in the Prolog `head_body_/3` and the
-    implicit handling of `mi/2`.
+    This is the semantic core: it is our `holds2` in the sense of the
+    higher-order look, first-order core pattern.
     """
     goal = apply_subst(goal, s)
 
@@ -268,18 +306,16 @@ def expand_goal(goal: Fun, s: Subst, trace: List[str]) -> Tuple[List[Fun], Subst
         assert second == [], "mi/2 second argument must be [] in this program"
 
         if not goals_list:
-            trace.append("mi([], []) ⇒ []")
+            trace.append("holds2(mi([], [])) ⇒ []")
             return [], s
 
-        # mi([G|Gs], []) :-
-        #     head_body_(G, Goals, Gs),
-        #     mi(Goals, []).
+        # mi([G|Gs], []) :
         G = goals_list[0]
         Gs = goals_list[1:]
 
-        bodyG, s = expand_goal(G, s, trace)
+        bodyG, s = holds2(G, s, trace)
         new_mi = Fun("mi", (bodyG + Gs, []))
-        trace.append("mi([G|Gs], []) ⇒ mi(Goals, []) where Goals = body(G) ++ Gs")
+        trace.append("holds2(mi([G|Gs], [])) ⇒ [mi(Goals, [])] where Goals = body(G) ++ Gs")
         return [new_mi], s
 
     # ---- factorial/2 ------------------------------------------------------
@@ -288,7 +324,7 @@ def expand_goal(goal: Fun, s: Subst, trace: List[str]) -> Tuple[List[Fun], Subst
     pat = Fun("factorial", (ZERO, S(ZERO)))
     s_try = s.copy()
     if unify(goal, pat, s_try) is not None:
-        trace.append("factorial(0, s(0)) ⇒ []")
+        trace.append("holds2(factorial(0, s(0))) ⇒ []")
         return [], s_try
 
     # Rec: factorial(s(N), F) :-
@@ -304,7 +340,7 @@ def expand_goal(goal: Fun, s: Subst, trace: List[str]) -> Tuple[List[Fun], Subst
             Fun("prod", (S(N), F1, Fv)),
         ]
         body = [apply_subst(b, s_try) for b in body]
-        trace.append("factorial(s(N), F) ⇒ [factorial(N, F1), prod(s(N), F1, F)]")
+        trace.append("holds2(factorial(s(N), F)) ⇒ [factorial(N, F1), prod(s(N), F1, F)]")
         return body, s_try
 
     # ---- prod/3 -----------------------------------------------------------
@@ -314,7 +350,7 @@ def expand_goal(goal: Fun, s: Subst, trace: List[str]) -> Tuple[List[Fun], Subst
     pat = Fun("prod", (ZERO, M_, ZERO))
     s_try = s.copy()
     if unify(goal, pat, s_try) is not None:
-        trace.append("prod(0, _, 0) ⇒ []")
+        trace.append("holds2(prod(0, _, 0)) ⇒ []")
         return [], s_try
 
     # Rec: prod(s(N), M, P) :-
@@ -330,7 +366,7 @@ def expand_goal(goal: Fun, s: Subst, trace: List[str]) -> Tuple[List[Fun], Subst
             Fun("sum", (K, M, P)),
         ]
         body = [apply_subst(b, s_try) for b in body]
-        trace.append("prod(s(N), M, P) ⇒ [prod(N, M, K), sum(K, M, P)]")
+        trace.append("holds2(prod(s(N), M, P)) ⇒ [prod(N, M, K), sum(K, M, P)]")
         return body, s_try
 
     # ---- sum/3 ------------------------------------------------------------
@@ -340,7 +376,7 @@ def expand_goal(goal: Fun, s: Subst, trace: List[str]) -> Tuple[List[Fun], Subst
     pat = Fun("sum", (ZERO, M, M))
     s_try = s.copy()
     if unify(goal, pat, s_try) is not None:
-        trace.append("sum(0, M, M) ⇒ []")
+        trace.append("holds2(sum(0, M, M)) ⇒ []")
         return [], s_try
 
     # Rec: sum(s(N), M, s(K)) :-
@@ -351,7 +387,7 @@ def expand_goal(goal: Fun, s: Subst, trace: List[str]) -> Tuple[List[Fun], Subst
     if unify(goal, pat, s_try) is not None:
         body = [Fun("sum", (N, M, K))]
         body = [apply_subst(b, s_try) for b in body]
-        trace.append("sum(s(N), M, s(K)) ⇒ [sum(N, M, K)]")
+        trace.append("holds2(sum(s(N), M, s(K))) ⇒ [sum(N, M, K)]")
         return body, s_try
 
     # If we reach here, the goal does not match any clause
@@ -364,10 +400,10 @@ def expand_goal(goal: Fun, s: Subst, trace: List[str]) -> Tuple[List[Fun], Subst
 
 def solve(goals: List[Fun]) -> Tuple[Subst, List[str]]:
     """
-    Perform deterministic rewriting, mirroring mi/2:
+    Perform deterministic rewriting, mirroring the Prolog meta-interpreter:
 
       • While there are goals, take the leftmost goal G.
-      • Replace it by its body via expand_goal.
+      • Replace it by its body via holds2(G, subst, trace).
       • Stop when the goal list is empty.
 
     Returns:
@@ -379,7 +415,7 @@ def solve(goals: List[Fun]) -> Tuple[Subst, List[str]]:
 
     while goals:
         g = goals.pop(0)
-        body, s = expand_goal(g, s, trace)
+        body, s = holds2(g, s, trace)
         goals = body + goals  # leftmost rewriting
         steps += 1
 
@@ -444,8 +480,8 @@ def reason_text(trace: List[str], n: int, k_first: int = 10) -> str:
     """Human-readable explanation of the first few rewrite steps."""
     lines: List[str] = []
 
-    lines.append("We run the meta-interpreter `mi/2` exactly as in the Prolog program,")
-    lines.append("rewriting the leftmost goal each step using `head_body_/3`:\n")
+    lines.append("We run the meta-interpreter via a fixed predicate holds2/2,")
+    lines.append("interpreting atomic goals Fun('p', (args...)) as holds2(p, args):\n")
 
     for i, step in enumerate(trace[:k_first], 1):
         lines.append(f" {i:>2}. {step}")
@@ -453,7 +489,9 @@ def reason_text(trace: List[str], n: int, k_first: int = 10) -> str:
         lines.append(f" … {len(trace) - k_first} more rewrite steps …")
 
     lines.append("")
-    lines.append("Rules used (in order of matching):")
+    lines.append("Rules used (in order of matching inside holds2):")
+    lines.append("  mi([], []).")
+    lines.append("  mi([G|Gs], []) → mi(Goals, []) via expansion of G.")
     lines.append("  factorial(0, s(0)).")
     lines.append("  factorial(s(N), F) → factorial(N, F1), prod(s(N), F1, F).")
     lines.append("  prod(0, _, 0).")
