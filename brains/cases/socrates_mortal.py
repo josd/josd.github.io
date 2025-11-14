@@ -42,7 +42,7 @@ What the program prints
 
 How to run
 ----------
-    python3 holdsn_socrates_mortal.py
+    python3 socrates_mortal.py
 
 No external dependencies; output is deterministic.
 """

@@ -1,59 +1,65 @@
-{
-  "answer": {
-    "selected_path": [
-      "stabilize atoms-stable",
-      "stabilize chemistry-stable",
-      "stabilize communication-stable",
-      "stabilize gravity-stable",
-      "stabilize population-dynamics"
-    ],
-    "final_state": {
-      "laws": [
-        "atoms-stable",
-        "chemistry-stable",
-        "communication-stable",
-        "gravity-stable",
-        "population-dynamics"
-      ],
-      "features": [
-        "carbon-chemistry",
-        "culture",
-        "galaxies",
-        "language",
-        "life",
-        "many-minds",
-        "mind",
-        "observers",
-        "stars"
-      ]
-    }
-  },
-  "reason": [
-    "Goal: find a path that yields the observations.",
-    "Target observations: carbon-chemistry, culture, galaxies, language, life, many-minds, mind.",
-    "Explored 8846 order-distinct law paths (depth ≤ 8).",
-    "From these, 129 endpoints satisfied the goal.",
-    "Selected steps:",
-    "  1. stabilize atoms-stable → newly enabled features: —",
-    "  2. stabilize chemistry-stable → newly enabled features: carbon-chemistry",
-    "  3. stabilize communication-stable → newly enabled features: —",
-    "  4. stabilize gravity-stable → newly enabled features: galaxies, language, life, mind, observers, stars",
-    "  5. stabilize population-dynamics → newly enabled features: culture, many-minds",
-    "Final laws: atoms-stable, chemistry-stable, communication-stable, gravity-stable, population-dynamics.",
-    "Final features: carbon-chemistry, culture, galaxies, language, life, many-minds, mind, observers, stars."
-  ],
-  "check": {
-    "recomputed_features_match": true,
-    "observations_satisfied": true,
-    "monotonic_along_path": true,
-    "enabled_records_consistent": true,
-    "law_minimality": true,
-    "dispensable_laws": [],
-    "minimal_steps": true,
-    "shorter_path_example": [],
-    "acyclic_feature_dependencies": true,
-    "permutation_invariant": true,
-    "permutation_mismatches": [],
-    "passed": true
-  }
-}
+Answer
+------
+Target observations:
+  carbon-chemistry, culture, galaxies, language, life, many-minds, mind.
+
+Search explored 8846 distinct law-sets (nodes).
+Found 129 consistent endpoints.
+
+Chosen path (minimal number of law adoptions):
+ 1. stabilize atoms-stable         → enables: —
+ 2. stabilize chemistry-stable     → enables: carbon-chemistry
+ 3. stabilize communication-stable → enables: —
+ 4. stabilize gravity-stable       → enables: galaxies, language, life, mind, observers, stars
+ 5. stabilize population-dynamics  → enables: culture, many-minds
+
+Final laws:     atoms-stable, chemistry-stable, communication-stable, gravity-stable, population-dynamics.
+Final features: carbon-chemistry, culture, galaxies, language, life, many-minds, mind, observers, stars.
+
+Final world id (law-mask) = 199
+Via Holds₁ we have:
+  Holds1(feat:carbon-chemistry, 199) = True
+  Holds1(feat:culture, 199) = True
+  Holds1(feat:galaxies, 199) = True
+  Holds1(feat:language, 199) = True
+  Holds1(feat:life, 199) = True
+  Holds1(feat:many-minds, 199) = True
+  Holds1(feat:mind, 199) = True
+
+Reason why
+----------
+We imagine a tiny 'library' of candidate laws and a space of worlds:
+  • Worlds are subsets of CANDIDATE_LAWS, encoded as integers 0..2^N−1.
+  • Each law ℓ gives a unary predicate-name law:ℓ.
+  • Each emergent feature f gives a unary predicate-name feat:f.
+
+The higher-order-looking predicates are interpreted by a fixed FO core:
+  • Holds₁(P, w)  — the unary predicate named by P holds in world w.
+      - if P = law:ℓ, this means 'ℓ is among the laws of w';
+      - if P = feat:f, this means 'f is supported by all its prerequisites in w'.
+  • Holds₂(rel:requires, feat:f, Q)  — the intension Q is a direct prerequisite of f.
+
+Implementation-wise, the FO core is a closure operator on features:
+  starting from a law-mask, we repeatedly add any feature whose law
+  and feature prerequisites are already satisfied, until a fixed point.
+
+The search then explores law-adoption paths breadth-first from the empty world.
+Whenever a world w satisfies all observation features O (i.e.
+  for every o in O: Holds1(feat:o, w) is true), it is a candidate endpoint.
+Among all such endpoints we keep one with:
+  • minimal path length (fewest adoptions), and
+  • if there are ties, lexicographically smallest action sequence.
+
+The printed plan is therefore a shortest explanation, in terms of
+law adoptions, of how our observation-set can obtain given this library.
+
+Check (harness)
+---------------
+PASS 1: 'requires' relation encodes basic feature prerequisites.
+PASS 2: Holds1 behaves correctly for laws/features in tiny worlds.
+PASS 3: Final world satisfies all observation features via Holds1.
+PASS 4: Each adopted law is individually necessary for the observations.
+PASS 5: Features grow monotonically and enabled-features are consistent.
+PASS 6: infer_features and Holds1 agree on the final feature set.
+All checks passed.
+
