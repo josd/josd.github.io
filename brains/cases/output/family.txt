@@ -1,56 +1,57 @@
+Model
+=====
+People         = [Frans, Jo, Paul, Pieter-Jan, Tim, Bert, Bart, Maria, Maaike, Rita, Goedele, Veerle, Ann, Veer]
+MALE           = [Bart, Bert, Frans, Jo, Paul, Pieter-Jan, Tim]
+FEMALE         = [Ann, Goedele, Maaike, Maria, Rita, Veer, Veerle]
+Base parent    = [('Frans', 'Jo'), ('Frans', 'Rita'), ('Jo', 'Goedele'), ('Jo', 'Veerle'), ('Maaike', 'Goedele'), ('Maaike', 'Veerle'), ('Maria', 'Jo'), ('Maria', 'Rita'), ('Paul', 'Ann'), ('Paul', 'Bart'), ('Rita', 'Ann'), ('Rita', 'Bart')]
+Base+sym spouse= [('Ann', 'Bert'), ('Bart', 'Veer'), ('Bert', 'Ann'), ('Frans', 'Maria'), ('Goedele', 'Pieter-Jan'), ('Jo', 'Maaike'), ('Maaike', 'Jo'), ('Maria', 'Frans'), ('Paul', 'Rita'), ('Pieter-Jan', 'Goedele'), ('Rita', 'Paul'), ('Tim', 'Veerle'), ('Veer', 'Bart'), ('Veerle', 'Tim')]
+
+Question
+========
+Q1) children('Rita')
+Q2) siblings('Veerle')
+Q3) uncles('Veerle')
+Q4) aunts('Bart')
+Q5) father('Goedele'), mother('Goedele')
+
 Answer
-------
-children('Rita')   -> ['Ann', 'Bart']
-siblings('Veerle') -> ['Goedele']
-uncles('Veerle')   -> ['Paul']
-aunts('Bart')      -> ['Maaike']
-father('Goedele')  -> Jo
-mother('Goedele')  -> Maaike
-
-Proofs (selected):
-
---- Proof for ('Rita', 'aunt', 'Veerle') (θ = {}) ---
-('Rita', 'aunt', 'Veerle')   [via aunt-blood]
-  ('Rita', 'sister', 'Jo')   [via sister]
-    ('Rita', 'sibling', 'Jo')   [via sibling]
-      ('Frans', 'parent', 'Rita')   [fact]
-      ('Frans', 'parent', 'Jo')   [fact]
-    ('Rita', 'a', 'FEMALE')   [fact]
-  ('Jo', 'parent', 'Veerle')   [fact]
-
---- Proof for ('Paul', 'uncle', 'Veerle') (θ = {}) ---
-('Paul', 'uncle', 'Veerle')   [via uncle-mar]
-  ('Paul', 'spouse', 'Rita')   [fact]
-  ('Rita', 'aunt', 'Veerle')   [via aunt-blood]
-    ('Rita', 'sister', 'Jo')   [via sister]
-      ('Rita', 'sibling', 'Jo')   [via sibling]
-        ('Frans', 'parent', 'Rita')   [fact]
-        ('Frans', 'parent', 'Jo')   [fact]
-      ('Rita', 'a', 'FEMALE')   [fact]
-    ('Jo', 'parent', 'Veerle')   [fact]
-
---- Proof for ('Frans', 'grandfather', 'Goedele') (θ = {}) ---
-('Frans', 'grandfather', 'Goedele')   [via grandfather]
-  ('Frans', 'grandparent', 'Goedele')   [via grandparent]
-    ('Frans', 'parent', 'Jo')   [fact]
-    ('Jo', 'parent', 'Goedele')   [fact]
-  ('Frans', 'a', 'MALE')   [fact]
+======
+children('Rita')      -> [Ann, Bart]
+siblings('Veerle')    -> [Goedele]
+uncles('Veerle')      -> [Paul]
+aunts('Bart')         -> [Maaike]
+father('Goedele')     -> 'Jo'
+mother('Goedele')     -> 'Maaike'
 
 Reason why
-----------
-1) Fixed projection in children(): we now return the OBJECT (child) of parent facts.
-2) Sibling rule remains permissive (x may equal y), but 'uncle-blood' and 'aunt-blood'
-   include a guard (x ≠ p) so a parent isn't mis-classified as an uncle/aunt.
-3) User-facing siblings() excludes self; uncles()/aunts() exclude direct parents.
-4) Deterministic forward chaining with proof recording; facts are added once with a stable order.
+==========
+• Intensions are the *names* for relations and people (e.g., 'parent', 'Frans').
+  Extensions are plain sets of pairs; application is just membership in those sets.
+  Conceptually, Holds₂(parent, Frans, Jo) is implemented as ('Frans','Jo') ∈ parent.
+• spouse is made symmetric by a small closure: if spouse(x,y) then spouse(y,x).
+• siblings(x,y) is defined via a shared parent; the API hides the (x,x) cases.
+• brother/sister, father/mother, grandfather/grandmother are gender-specialised
+  views of sibling/parent/grandparent using the MALE/FEMALE sets.
+• uncle and aunt are the least fixpoint of:
+    – blood: a male/female sibling of a parent (x ≠ parent),
+    – by marriage: spouse of an uncle/aunt.
+  Direct parents are filtered out in the uncles()/aunts() helpers to avoid
+  misclassifying a parent as their own child's uncle/aunt.
+• No generic engine or unification is used; the whole model is computed
+  by specialized closures over a finite universe, with semantics that match
+  the rules.
 
 Check (harness)
-----------------
-children('Rita')   == ['Ann', 'Bart'] : True
-siblings('Veerle') == ['Goedele']     : True
-uncles('Veerle')   == ['Paul']        : True
-father('Goedele')  == 'Jo'            : True
-mother('Goedele')  == 'Maaike'        : True
-Fixpoint reached (no new facts)       : True
-
-ALL CHECKS PASS: True
+===============
+PASS 1: children('Rita') == ['Ann', 'Bart'].
+PASS 2: siblings('Veerle') == ['Goedele'].
+PASS 3: uncles('Veerle') == ['Paul'].
+PASS 4: father/mother of Goedele are Jo/Maaike.
+PASS 5: aunts('Bart') == ['Maaike'].
+PASS 6: Parents are not exposed as uncles/aunts of their own children.
+PASS 7: Spouse relation is symmetric.
+PASS 8: Sibling relation is symmetric (including self-pairs).
+PASS 9: brother/sister are specialisations of sibling.
+PASS 10: grandfather/grandmother specialise grandparent.
+PASS 11: Nobody is their own uncle/aunt.
+PASS 12: Model closure is stable under rebuild.
