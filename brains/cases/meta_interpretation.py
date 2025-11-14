@@ -1,95 +1,147 @@
 #!/usr/bin/env python3
 r"""
-Meta-interpretation — faithful Python translation of:
-  https://raw.githubusercontent.com/eyereasoner/arvol/refs/heads/main/input/meta-interpretation.pl
+meta_interpretation.py
+======================
 
-Program (condensed from the Prolog source):
+What this file is
+-----------------
+This module is a small, self-contained Python reimplementation of a classic
+Prolog-style meta-interpreter. It does **not** depend on any external logic
+engine or Prolog runtime.
 
-  :- op(1200, xfx, :+).
+Instead, it explicitly encodes:
+  - a tiny first-order term language (variables, functors, lists),
+  - a simple unification algorithm, and
+  - a deterministic meta-interpreter for a specific object program.
 
-  mi([], []).
-  mi([G|Gs], []) :- head_body_(G, Goals, Gs), mi(Goals, []).
+The object program here is a factorial definition expressed using Peano
+arithmetic and three predicates:
 
-  head_body_(mi([], []), Rs, Rs).
-  head_body_(mi([G|Gs], []), [head_body_(G, Goals, Gs), mi(Goals, [])|Rs], Rs).
-  head_body_(head_body_(Head, Goals0, Goals), Rs, Rs) :- head_body_(Head, Goals0, Goals).
+  factorial(N, F)
+  prod(N, M, P)
+  sum(N, M, P)
 
-  head_body_(factorial(0, s(0)), Rs, Rs).
-  head_body_(factorial(s(N), F), [factorial(N, F1), prod(s(N), F1, F)|Rs], Rs).
+The meta-interpreter `mi/2` runs over *lists of goals*, expanding the leftmost
+goal at each step according to these clauses.
 
-  head_body_(prod(0, _, 0), Rs, Rs).
-  head_body_(prod(s(N), M, P), [prod(N, M, K), sum(K, M, P)|Rs], Rs).
 
-  head_body_(sum(0, M, M), Rs, Rs).
-  head_body_(sum(s(N), M, s(K)), [sum(N, M, K)|Rs], Rs).
+How it works (in one paragraph)
+-------------------------------
+Terms are represented as Python objects (Var, Fun, lists). A small unifier
+operates on these terms to accumulate substitutions. The meta-interpreter
+maintains a list of goals; while the list is non-empty, it takes the leftmost
+goal, rewrites it using a Python version of the `head_body_/3` clauses, and
+splices the resulting body back into the goal list. This is a direct
+translation of the Prolog meta-interpreter but executed entirely in Python.
 
-  % query:
-  true :+ mi([mi([factorial(s(s(s(s(s(0))))), _)], [])], []).
 
-What this Python does
----------------------
-• Implements symbolic terms (variables, functors, and lists), a tiny unifier, and the same clause set.
-• Executes the Prolog *meta* logic: an outer `mi/2` that interprets an inner `mi/2`, which in turn interprets
-  `factorial/2`, `prod/3`, and `sum/3` over Peano numbers.
-• Produces ARC-style console sections:
-    - Answer: the computed value of F for factorial(5, F) (as Peano and as an integer)
-    - Reason why: which rules fired and how the meta-step rewrites proceed
-    - Check (harness): re-runs the derivation, verifies goal exhaustion and that F converts to 120
+What the program does by default
+--------------------------------
+When you run this file as a script:
+
+  python meta_interpretation.py
+
+it constructs the nested query:
+
+  mi([mi([factorial(5, F)], [])], [])
+
+where 5 is encoded as the Peano term s(s(s(s(s(0))))). It then:
+
+  1. Runs the meta-interpreter until the goal list is empty.
+  2. Prints the value of F both as a Peano term and as a Python integer.
+  3. Prints a short human-readable trace of the first rewrite steps
+     ("Reason why").
+  4. Runs a small test harness ("Check (harness)") that verifies several
+     factorial values (0, 1, 3, 5), checks determinism, and checks that the
+     number of rewrite steps grows with n.
+
+
+Why this exists
+---------------
+This file demonstrates how a Prolog meta-interpreter can be rebuilt in a
+"reasoner-free" way: all logical machinery (terms, unification, goal
+reduction) is encoded directly in Python, but the overall structure – a
+meta-interpreter that executes an object program – remains recognisably the
+same. It fits the idea of a "higher-order look, first-order core": meta-level
+constructs (`mi/2`, goal lists) are represented as first-order data operated
+on by a fixed algorithm.
 """
 
 from __future__ import annotations
-from dataclasses import dataclass
-from typing import Any, Dict, Iterable, List, Optional, Sequence, Tuple, Union
 
-# ----------------------------
-# Term representation
-# ----------------------------
+from dataclasses import dataclass
+from typing import Any, Dict, List, Optional, Tuple, Union
+
+
+# -----------------------------------------------------------------------------
+# Term representation (first-order core)
+# -----------------------------------------------------------------------------
 
 _unique_id = 0
+
+
 def _next_id() -> int:
     global _unique_id
     _unique_id += 1
     return _unique_id
 
+
 @dataclass(frozen=True)
 class Var:
+    """Logic variable (syntactic, not Python variable)."""
+
     name: str
     id: int
+
     def __repr__(self) -> str:
         return f"{self.name}_{self.id}"
 
+
 def V(name: str) -> Var:
+    """Convenience constructor for fresh variables."""
     return Var(name, _next_id())
+
 
 @dataclass(frozen=True)
 class Fun:
+    """Compound term f(t1,...,tn). Also used for Peano numerals."""
+
     functor: str
-    args: Tuple[Any, ...]  # args can be Fun, Var, or Python lists (for goal lists)
+    args: Tuple[Any, ...]  # Fun, Var, Python lists (for goal lists), or atoms
+
     def __repr__(self) -> str:
         if not self.args:
             return self.functor
         return f"{self.functor}({', '.join(map(_term_str, self.args))})"
 
-Term = Union[Var, Fun, List[Any], str]  # variables, compounds, Python lists (for goal lists), atoms as strings
+
+Term = Union[Var, Fun, List[Any], str]
+
 
 def _term_str(t: Term) -> str:
     if isinstance(t, list):
         return "[" + ", ".join(map(_term_str, t)) + "]"
     return repr(t)
 
-# Convenience atoms
+
+# Peano numerals: 0, s(0), s(s(0)), ...
 ZERO = Fun("0", ())
+
 
 def S(x: Term) -> Fun:
     return Fun("s", (x,))
 
+
 def peano(n: int) -> Term:
+    """Encode a Python int as a Peano numeral."""
     t: Term = ZERO
     for _ in range(n):
         t = S(t)
     return t
 
+
 def peano_to_int(t: Term) -> int:
+    """Decode a Peano numeral into a Python int (with a small sanity check)."""
     count = 0
     while isinstance(t, Fun) and t.functor == "s" and len(t.args) == 1:
         t = t.args[0]
@@ -98,18 +150,23 @@ def peano_to_int(t: Term) -> int:
         raise ValueError("Not a canonical Peano numeral")
     return count
 
-# ----------------------------
-# Unification
-# ----------------------------
+
+# -----------------------------------------------------------------------------
+# Unification (tiny, first-order, with a light occurs-check)
+# -----------------------------------------------------------------------------
 
 Subst = Dict[Var, Term]
 
+
 def deref(x: Term, s: Subst) -> Term:
+    """Follow a variable through the substitution until it stabilises."""
     while isinstance(x, Var) and x in s:
         x = s[x]
     return x
 
+
 def occurs(v: Var, t: Term, s: Subst) -> bool:
+    """Occurs-check to avoid infinite self-references."""
     t = deref(t, s)
     if v == t:
         return True
@@ -121,22 +178,30 @@ def occurs(v: Var, t: Term, s: Subst) -> bool:
         return any(occurs(v, ti, s) for ti in t.args)
     return False
 
+
 def unify(a: Term, b: Term, s: Subst) -> Optional[Subst]:
+    """Unify two terms under substitution s; return updated s or None."""
     a = deref(a, s)
     b = deref(b, s)
+
     if a == b:
         return s
+
+    # variable on the left
     if isinstance(a, Var):
-        if occurs(a, b, s):  # (light occurs-check)
+        if occurs(a, b, s):
             return None
         s[a] = b
         return s
+
+    # variable on the right
     if isinstance(b, Var):
         if occurs(b, a, s):
             return None
         s[b] = a
         return s
-    # Lists
+
+    # lists
     if isinstance(a, list) and isinstance(b, list):
         if len(a) != len(b):
             return None
@@ -144,7 +209,8 @@ def unify(a: Term, b: Term, s: Subst) -> Optional[Subst]:
             if (s := unify(x, y, s)) is None:
                 return None
         return s
-    # Functors
+
+    # functors
     if isinstance(a, Fun) and isinstance(b, Fun):
         if a.functor != b.functor or len(a.args) != len(b.args):
             return None
@@ -152,9 +218,13 @@ def unify(a: Term, b: Term, s: Subst) -> Optional[Subst]:
             if (s := unify(x, y, s)) is None:
                 return None
         return s
+
+    # atoms that differ, or mismatched shapes
     return None
 
+
 def apply_subst(t: Term, s: Subst) -> Term:
+    """Apply substitution s to a term (deeply)."""
     t = deref(t, s)
     if isinstance(t, Var):
         return t
@@ -162,71 +232,94 @@ def apply_subst(t: Term, s: Subst) -> Term:
         return Fun(t.functor, tuple(apply_subst(ai, s) for ai in t.args))
     if isinstance(t, list):
         return [apply_subst(ai, s) for ai in t]
-    return t  # atoms (strings) are immutable
+    # atoms (strings) are immutable
+    return t
 
-# ----------------------------
-# Object program as Python rules
-# ----------------------------
 
-# The meta-interpreter rewrites goal lists. We mirror the Prolog clause order.
+# -----------------------------------------------------------------------------
+# Object program: head_body_/3 and mi/2 as Python rules
+# -----------------------------------------------------------------------------
+#
+# We don’t represent clauses as data; instead we mirror the clause order in
+# a single dispatcher `expand_goal`. This keeps the meta-interpreter simple:
+#
+#   • goals are Fun terms
+#   • the meta-interpreter keeps a list of goals
+#   • each step: take the leftmost goal, expand it with `head_body_`, splice.
+
 
 def expand_goal(goal: Fun, s: Subst, trace: List[str]) -> Tuple[List[Fun], Subst]:
     """
-    Given a single goal (a Fun), return (body_goals, updated_subst).
-    'body_goals' are the goals that replace 'goal' (following the Prolog head_body_/3).
+    Given one goal (a Fun), return (body_goals, updated_subst).
+
+    - `goal` is the current goal (already in head position).
+    - `body_goals` is the list of goals that replaces `goal`.
+    - `s` is the current substitution Π.
+
+    We mirror the order of clauses in the Prolog `head_body_/3` and the
+    implicit handling of `mi/2`.
     """
     goal = apply_subst(goal, s)
 
-    # ---- mi/2 (meta) ----
+    # ---- meta-level: mi/2 -------------------------------------------------
     if goal.functor == "mi" and len(goal.args) == 2:
         goals_list, second = goal.args
         assert isinstance(goals_list, list), "mi/2 expects a list of goals as first arg"
         assert second == [], "mi/2 second argument must be [] in this program"
+
         if not goals_list:
-            trace.append("mi([], [])  ⇒  []")
+            trace.append("mi([], []) ⇒ []")
             return [], s
-        # [G|Gs]
+
+        # mi([G|Gs], []) :-
+        #     head_body_(G, Goals, Gs),
+        #     mi(Goals, []).
         G = goals_list[0]
         Gs = goals_list[1:]
-        bodyG, s = expand_goal(G, s, trace)  # compute 'Goals' (body of G)
+
+        bodyG, s = expand_goal(G, s, trace)
         new_mi = Fun("mi", (bodyG + Gs, []))
-        trace.append(f"mi([G|Gs], [])  ⇒  mi(Goals, []) where Goals = body({G}) ++ Gs")
+        trace.append("mi([G|Gs], []) ⇒ mi(Goals, []) where Goals = body(G) ++ Gs")
         return [new_mi], s
 
-    # ---- head_body_(head_body_(...)) "reified" case is inlined by expand_goal above ----
+    # ---- factorial/2 ------------------------------------------------------
 
-    # ---- factorial/2 ----
     # Base: factorial(0, s(0)).
     pat = Fun("factorial", (ZERO, S(ZERO)))
     s_try = s.copy()
     if unify(goal, pat, s_try) is not None:
-        trace.append("factorial(0, s(0))  ⇒  []")
+        trace.append("factorial(0, s(0)) ⇒ []")
         return [], s_try
 
-    # Rec: factorial(s(N), F) :- factorial(N, F1), prod(s(N), F1, F).
-    N, F = V("N"), V("F")
-    pat = Fun("factorial", (S(N), F))
+    # Rec: factorial(s(N), F) :-
+    #          factorial(N, F1),
+    #          prod(s(N), F1, F).
+    N, Fv = V("N"), V("F")
+    pat = Fun("factorial", (S(N), Fv))
     s_try = s.copy()
     if unify(goal, pat, s_try) is not None:
         F1 = V("F1")
         body = [
             Fun("factorial", (N, F1)),
-            Fun("prod",      (S(N), F1, F)),
+            Fun("prod", (S(N), F1, Fv)),
         ]
         body = [apply_subst(b, s_try) for b in body]
-        trace.append("factorial(s(N), F)  ⇒  [factorial(N, F1), prod(s(N), F1, F)]")
+        trace.append("factorial(s(N), F) ⇒ [factorial(N, F1), prod(s(N), F1, F)]")
         return body, s_try
 
-    # ---- prod/3 ----
+    # ---- prod/3 -----------------------------------------------------------
+
     # Base: prod(0, _, 0).
     M_ = V("_")
     pat = Fun("prod", (ZERO, M_, ZERO))
     s_try = s.copy()
     if unify(goal, pat, s_try) is not None:
-        trace.append("prod(0, _, 0)  ⇒  []")
+        trace.append("prod(0, _, 0) ⇒ []")
         return [], s_try
 
-    # Rec: prod(s(N), M, P) :- prod(N, M, K), sum(K, M, P).
+    # Rec: prod(s(N), M, P) :-
+    #          prod(N, M, K),
+    #          sum(K, M, P).
     N, M, P = V("N"), V("M"), V("P")
     pat = Fun("prod", (S(N), M, P))
     s_try = s.copy()
@@ -234,42 +327,51 @@ def expand_goal(goal: Fun, s: Subst, trace: List[str]) -> Tuple[List[Fun], Subst
         K = V("K")
         body = [
             Fun("prod", (N, M, K)),
-            Fun("sum",  (K, M, P)),
+            Fun("sum", (K, M, P)),
         ]
         body = [apply_subst(b, s_try) for b in body]
-        trace.append("prod(s(N), M, P)  ⇒  [prod(N, M, K), sum(K, M, P)]")
+        trace.append("prod(s(N), M, P) ⇒ [prod(N, M, K), sum(K, M, P)]")
         return body, s_try
 
-    # ---- sum/3 ----
+    # ---- sum/3 ------------------------------------------------------------
+
     # Base: sum(0, M, M).
     M = V("M")
     pat = Fun("sum", (ZERO, M, M))
     s_try = s.copy()
     if unify(goal, pat, s_try) is not None:
-        trace.append("sum(0, M, M)  ⇒  []")
+        trace.append("sum(0, M, M) ⇒ []")
         return [], s_try
 
-    # Rec: sum(s(N), M, s(K)) :- sum(N, M, K).
+    # Rec: sum(s(N), M, s(K)) :-
+    #          sum(N, M, K).
     N, M, K = V("N"), V("M"), V("K")
     pat = Fun("sum", (S(N), M, S(K)))
     s_try = s.copy()
     if unify(goal, pat, s_try) is not None:
         body = [Fun("sum", (N, M, K))]
         body = [apply_subst(b, s_try) for b in body]
-        trace.append("sum(s(N), M, s(K))  ⇒  [sum(N, M, K)]")
+        trace.append("sum(s(N), M, s(K)) ⇒ [sum(N, M, K)]")
         return body, s_try
 
+    # If we reach here, the goal does not match any clause
     raise ValueError(f"No matching clause for goal: {goal}")
 
-# ----------------------------
-# Meta-interpretation loop
-# ----------------------------
+
+# -----------------------------------------------------------------------------
+# Meta-interpretation loop (deterministic leftmost rewriting)
+# -----------------------------------------------------------------------------
 
 def solve(goals: List[Fun]) -> Tuple[Subst, List[str]]:
     """
-    Deterministic rewriting (mirrors mi/2).
-    At each step, take the leftmost goal and replace it by its 'body' (possibly empty).
-    Stops when the goal list becomes empty.
+    Perform deterministic rewriting, mirroring mi/2:
+
+      • While there are goals, take the leftmost goal G.
+      • Replace it by its body via expand_goal.
+      • Stop when the goal list is empty.
+
+    Returns:
+      (final_substitution, trace_of_rewrite_steps).
     """
     s: Subst = {}
     trace: List[str] = []
@@ -278,23 +380,27 @@ def solve(goals: List[Fun]) -> Tuple[Subst, List[str]]:
     while goals:
         g = goals.pop(0)
         body, s = expand_goal(g, s, trace)
-        goals = body + goals  # replace g by its body
+        goals = body + goals  # leftmost rewriting
         steps += 1
-        # (Safety) guard against runaway terms in case of editing mistakes:
+
+        # Safety guard in case someone edits the clauses into a non-terminating one
         if steps > 20000:
             raise RuntimeError("Too many steps; likely non-terminating.")
 
     return s, trace
 
-# ----------------------------
-# Build the exact Prolog query
-# ----------------------------
+
+# -----------------------------------------------------------------------------
+# Build the exact Prolog query as term structure
+# -----------------------------------------------------------------------------
 
 def make_query_for_factorial(n: int) -> Tuple[List[Fun], Var]:
     """
-    Build the exact nested query from the Prolog file:
-      mi([ mi([ factorial(s^n(0), F) ], []) ], [])
-    and return (initial_goals, F).
+    Build the nested query from the Prolog file:
+
+        true :+ mi([mi([factorial(s^n(0), F)], [])], []).
+
+    Returns (initial_goal_list, variable_F).
     """
     F = V("F")
     inner_list = [Fun("factorial", (peano(n), F))]
@@ -303,88 +409,158 @@ def make_query_for_factorial(n: int) -> Tuple[List[Fun], Var]:
     outer_mi = Fun("mi", (outer_goals, []))
     return [outer_mi], F
 
-# ----------------------------
-# ARC-style output + harness
-# ----------------------------
+
+def solve_factorial(n: int) -> Tuple[int, List[str]]:
+    """Helper: solve factorial(n, F) via the meta-interpreter and return (F_int, trace)."""
+    goals, F = make_query_for_factorial(n)
+    s, trace = solve(goals)
+    F_val = apply_subst(F, s)
+    k = peano_to_int(F_val)
+    return k, trace
+
+
+# -----------------------------------------------------------------------------
+# Pretty-printing and explanation
+# -----------------------------------------------------------------------------
 
 def fmt_peano(t: Term, max_s: int = 50) -> str:
-    """Compact pretty-printer: s^k(0) if many s/1 layers."""
-    # Count s-layers without expanding gigantic strings
+    """
+    Compact pretty-printer:
+
+        s^k(0)    if t is a Peano numeral with k layers
+        repr(t)   otherwise (possibly truncated)
+    """
     try:
         k = peano_to_int(t)
         return f"s^{k}(0)"
     except Exception:
-        # Fallback to structural repr with a cap
         s = repr(t)
         if len(s) > 200:
             return s[:200] + "..."
         return s
 
+
 def reason_text(trace: List[str], n: int, k_first: int = 10) -> str:
-    lines = []
+    """Human-readable explanation of the first few rewrite steps."""
+    lines: List[str] = []
+
     lines.append("We run the meta-interpreter `mi/2` exactly as in the Prolog program,")
-    lines.append("rewriting the leftmost goal each step using `head_body_/3`:")
+    lines.append("rewriting the leftmost goal each step using `head_body_/3`:\n")
+
     for i, step in enumerate(trace[:k_first], 1):
-        lines.append(f"  {i:>2}. {step}")
+        lines.append(f" {i:>2}. {step}")
     if len(trace) > k_first:
-        lines.append(f"  … {len(trace)-k_first} more rewrite steps …")
+        lines.append(f" … {len(trace) - k_first} more rewrite steps …")
+
     lines.append("")
     lines.append("Rules used (in order of matching):")
     lines.append("  factorial(0, s(0)).")
-    lines.append("  factorial(s(N), F)  →  factorial(N, F1), prod(s(N), F1, F).")
+    lines.append("  factorial(s(N), F) → factorial(N, F1), prod(s(N), F1, F).")
     lines.append("  prod(0, _, 0).")
-    lines.append("  prod(s(N), M, P)    →  prod(N, M, K), sum(K, M, P).")
+    lines.append("  prod(s(N), M, P) → prod(N, M, K), sum(K, M, P).")
     lines.append("  sum(0, M, M).")
-    lines.append("  sum(s(N), M, s(K))  →  sum(N, M, K).")
+    lines.append("  sum(s(N), M, s(K)) → sum(N, M, K).")
     lines.append("")
-    lines.append(f"This yields factorial({n}) by repeated unfolding into `prod` and `sum` over Peano numbers.")
+    lines.append(
+        f"This yields factorial({n}) by repeated unfolding into `prod` and `sum` over Peano numbers."
+    )
+
     return "\n".join(lines)
 
-def check_harness(n: int) -> None:
-    """Re-run, verify the goal list empties and F = 120 (for n=5)."""
-    goals, F = make_query_for_factorial(n)
-    s, _ = solve(goals)
-    F_val = apply_subst(F, s)
-    assert isinstance(F_val, Fun) and F_val.functor in {"s", "0"}, "F did not instantiate to a Peano numeral."
-    k = peano_to_int(F_val)
-    from math import factorial as fact
-    assert k == fact(n), f"peano_to_int(F)={k} but factorial({n})={fact(n)}"
-    # Also sanity-check re-running doesn't depend on destructive state
-    goals2, F2 = make_query_for_factorial(n)
-    s2, _ = solve(goals2)
-    k2 = peano_to_int(apply_subst(F2, s2))
-    assert k2 == k, "Second run produced a different result."
 
-def main():
-    n = 5  # the Prolog query uses s(s(s(s(s(0)))))
+# -----------------------------------------------------------------------------
+# Check (harness) — multiple independent tests
+# -----------------------------------------------------------------------------
+
+class CheckFailure(AssertionError):
+    pass
+
+
+def check(cond: bool, msg: str) -> None:
+    if not cond:
+        raise CheckFailure(msg)
+
+
+def run_checks() -> List[str]:
+    from math import factorial as fact
+
+    notes: List[str] = []
+
+    # 1) factorial(0) = 1
+    k0, _ = solve_factorial(0)
+    check(k0 == fact(0), f"factorial(0) should be {fact(0)}, got {k0}.")
+    notes.append("PASS 1: factorial(0) via meta-interpreter is 1.")
+
+    # 2) factorial(1) = 1
+    k1, _ = solve_factorial(1)
+    check(k1 == fact(1), f"factorial(1) should be {fact(1)}, got {k1}.")
+    notes.append("PASS 2: factorial(1) via meta-interpreter is 1.")
+
+    # 3) factorial(3) = 6
+    k3, _ = solve_factorial(3)
+    check(k3 == fact(3), f"factorial(3) should be {fact(3)}, got {k3}.")
+    notes.append("PASS 3: factorial(3) via meta-interpreter is 6.")
+
+    # 4) factorial(5) = 120 (the original query)
+    k5, trace5 = solve_factorial(5)
+    check(k5 == fact(5), f"factorial(5) should be {fact(5)}, got {k5}.")
+    notes.append("PASS 4: factorial(5) via meta-interpreter is 120.")
+
+    # 5) Determinism: running factorial(5) twice gives the same result and a non-empty trace
+    k5_2, trace5_2 = solve_factorial(5)
+    check(k5_2 == k5, "Second run for factorial(5) produced a different result.")
+    check(len(trace5) > 0 and len(trace5_2) > 0, "Traces for factorial(5) should be non-empty.")
+    notes.append("PASS 5: meta-interpreter is deterministic for factorial(5) (same result, non-empty traces).")
+
+    # 6) Monotone effort: more steps for larger n (rough sanity check on recursion shape)
+    k2, trace2 = solve_factorial(2)
+    k4, trace4 = solve_factorial(4)
+    check(len(trace2) < len(trace4) < len(trace5),
+          "Expected more rewrite steps for larger n (trace length monotonicity).")
+    notes.append("PASS 6: number of rewrite steps grows with n (2 < 4 < 5).")
+
+    return notes
+
+
+# -----------------------------------------------------------------------------
+# Main (ARC-style output)
+# -----------------------------------------------------------------------------
+
+def main() -> None:
+    n = 5  # the Prolog query uses s(s(s(s(s(0))))) i.e. factorial(5, F)
+
+    # Run once for Answer + Reason why
     goals, F = make_query_for_factorial(n)
     subst, trace = solve(goals)
     F_val = apply_subst(F, subst)
     k = peano_to_int(F_val)
 
-    # ----- ARC output -----
+    # ----- Answer -----
     print("Answer")
     print("------")
     print("Query:")
-    print("  true :+ mi([mi([factorial(s^5(0), F)], [])], []).")
+    print(" true :+ mi([mi([factorial(s^5(0), F)], [])], []).")
     print("Result:")
-    print(f"  F (Peano) : {fmt_peano(F_val)}")
-    print(f"  F (int)   : {k}")
+    print(f" F (Peano) : {fmt_peano(F_val)}")
+    print(f" F (int)   : {k}")
     print()
 
+    # ----- Reason why -----
     print("Reason why")
     print("----------")
     print(reason_text(trace, n, k_first=12))
     print()
 
+    # ----- Check (harness) -----
     print("Check (harness)")
     print("----------------")
     try:
-        check_harness(n)
-        print("OK: meta-derivation exhausted goals and F = 120 (matches Python math.factorial).")
-    except AssertionError as e:
-        print("FAILED:", e)
+        for note in run_checks():
+            print(note)
+    except CheckFailure as e:
+        print("FAIL:", e)
         raise
+
 
 if __name__ == "__main__":
     main()

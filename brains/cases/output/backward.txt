@@ -6,12 +6,12 @@ YES — instance: (5, ':moreInterestingThan', 3)
 Reason why
 ----------
 Proof tree:
-Goal: (5, ':moreInterestingThan', 3)  via R-moreInteresting
-  ✓ builtin (5, 'math:greaterThan', 3) (5 > 3)
+Goal: (5, ':moreInterestingThan', 3) via R-moreInteresting
+ ✓ builtin (5, 'math:greaterThan', 3) (5 > 3)
 ✓ Proven: (5, ':moreInterestingThan', 3)
 
-Check (harness)
----------------
+Check (per-query)
+-----------------
 OK.
 
 === Query 2 === (should fail)
@@ -22,11 +22,18 @@ NO — not derivable from the rule base.
 Reason why
 ----------
 Failure explanation:
-✗ (3, ':moreInterestingThan', 5)  — all applicable rules' bodies failed
-  ✗ (3, ':moreInterestingThan', 5)  — rule R-moreInteresting body not provable
-    ✗ (3, 'math:greaterThan', 5)  — builtin math:greaterThan failed: 3 > 5
+✗ (3, ':moreInterestingThan', 5) — all applicable rules' bodies failed
+ ✗ (3, ':moreInterestingThan', 5) — rule R-moreInteresting body not provable
+  ✗ (3, 'math:greaterThan', 5) — builtin math:greaterThan failed: 3 > 5
 
-Check (harness)
----------------
+Check (per-query)
+-----------------
 OK.
 
+Global Check (harness)
+======================
+PASS 1: (5, :moreInterestingThan, 3) succeeds via math:greaterThan(5,3).
+PASS 2: (3, :moreInterestingThan, 5) fails as math:greaterThan(3,5) is false.
+PASS 3: term and triple unification behave as expected.
+PASS 4: std_apart_rule produces fresh, non-overlapping variables per application.
+PASS 5: built-in detection and groundness checks behave correctly.
