@@ -8,8 +8,10 @@ Result:
 
 Reason why
 ----------
-We run the meta-interpreter via a fixed predicate holds2/2,
-interpreting atomic goals Fun('p', (args...)) as holds2(p, args):
+We run the meta-interpreter via a fixed family of predicates:
+  holds1  for goal lists (mi/2-level),
+  holds2  for atomic goals Fun('p', args),
+  holds3  for (predicate-name, argument-list) pairs.
 
   1. holds2(factorial(s(N), F)) ⇒ [factorial(N, F1), prod(s(N), F1, F)]
   2. holds2(mi([G|Gs], [])) ⇒ [mi(Goals, [])] where Goals = body(G) ++ Gs
@@ -25,7 +27,7 @@ interpreting atomic goals Fun('p', (args...)) as holds2(p, args):
  12. holds2(mi([G|Gs], [])) ⇒ [mi(Goals, [])] where Goals = body(G) ++ Gs
  … 963 more rewrite steps …
 
-Rules used (in order of matching inside holds2):
+Rules used (in the order they are matched inside holds2):
   mi([], []).
   mi([G|Gs], []) → mi(Goals, []) via expansion of G.
   factorial(0, s(0)).

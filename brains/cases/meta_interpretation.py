@@ -33,20 +33,29 @@ We follow the idea of **“higher-order look, first-order core”**:
 * Under the hood, everything is implemented with a **first-order core**:
     - a tiny term language (`Var`, `Fun`, and Python lists),
     - a small unification algorithm over these terms,
-    - and a fixed predicate
+    - and a fixed family of predicates
 
-          holds2(P, t1, ..., tn)
+          holds1(Goals)                -- lists of goals (whole queries)
+          holds2(Goal)                 -- single atomic goal p(t1,...,tn)
+          holds3(PredName, ArgList)    -- predicate name + explicit arg list
 
-      implemented as the Python function `holds2(goal, subst, trace)`, where
-      `goal` is a `Fun(pred, args...)`. For example:
+      implemented as the Python functions:
+          holds1(goals)        → (Subst, Trace)
+          holds2(goal, s, tr)  → (BodyGoals, Subst)
+          holds3(p, args, s,tr) = holds2(Fun(p,args), s, tr)
 
-          factorial(N,F)   ~  Fun("factorial", (N,F))
-          mi(Goals,[])     ~  Fun("mi", (Goals, []))
+      For example, the atomic goal
 
-      The meta-interpreter loop repeatedly:
-        1. takes the leftmost goal G,
-        2. calls `holds2(G, subst, trace)` to rewrite it into new goals,
-        3. splices those new goals into the goal list.
+          factorial(N,F)
+
+      is represented as `Fun("factorial", (N, F))` and interpreted by:
+
+          holds2(Fun("factorial", (N, F)), s, trace)
+          # equivalently:
+          holds3("factorial", [N, F], s, trace)
+
+      while the meta-interpreter over lists is `holds1`, corresponding to
+      `mi/2` in the original program.
 
 There is **no external Prolog engine**, no higher-order unification, and no
 quantification over predicate symbols. Predicate names like "factorial" or
@@ -69,7 +78,9 @@ does the following:
    where `5` is encoded as the Peano term `s(s(s(s(s(0)))))`.
 
 2. Executes the meta-interpreter until the goal list is exhausted, using
-   deterministic leftmost rewriting via `holds2`.
+   deterministic leftmost rewriting:
+
+       holds1([Fun("mi", ([Fun("factorial", (s^5(0), F))], []))])
 
 3. Prints:
     - **Answer**:
@@ -77,7 +88,7 @@ does the following:
         - the same value as a Python integer (e.g. `120`).
     - **Reason why**:
         - a short trace of the first rewrite steps and a summary of the
-          object-level rules used.
+          object-level rules used (as they appear inside `holds2`).
     - **Check (harness)**:
         - several independent tests (factorial(0), factorial(1), factorial(3),
           factorial(5), determinism, and a small sanity check on the growth of
@@ -263,31 +274,21 @@ def apply_subst(t: Term, s: Subst) -> Term:
 
 
 # -----------------------------------------------------------------------------
-# holds2: semantics of atomic goals
+# holds2 / holds3: semantics of atomic goals
 # -----------------------------------------------------------------------------
 #
 # We interpret each atomic goal `p(t1,...,tn)` as a `Fun("p", (t1,...,tn))`
-# and define its meaning via a fixed predicate:
+# and define its meaning via:
 #
-#     holds2 : GOAL × Subst → (BodyGoals, Subst)
+#   holds2(goal, s, trace) -> (BodyGoals, Subst)
 #
-# In the object language (the Prolog / N3 world), rules are:
+# and a thin, more explicitly “predicate-oriented” variant:
 #
-#   mi([], []).
-#   mi([G|Gs], []) :-
-#       head_body_(G, Goals, Gs),
-#       mi(Goals, []).
+#   holds3(pred_name, arg_list, s, trace)
+#       = holds2(Fun(pred_name, tuple(arg_list)), s, trace)
 #
-#   head_body_(factorial(0, s(0)), Rs, Rs).
-#   head_body_(factorial(s(N), F), [factorial(N, F1), prod(s(N), F1, F)|Rs], Rs).
-#   head_body_(prod(0, _, 0), Rs, Rs).
-#   head_body_(prod(s(N), M, P), [prod(N, M, K), sum(K, M, P)|Rs], Rs).
-#   head_body_(sum(0, M, M), Rs, Rs).
-#   head_body_(sum(s(N), M, s(K)), [sum(N, M, K)|Rs], Rs).
-#
-# Here we inline the effect of `head_body_/3` directly into holds2 for the
-# object predicates factorial/2, prod/3, sum/3, and we interpret mi/2 as
-# operating over lists of Fun-goals.
+# This is exactly the “Holds₂” idea in code: predicate names are first-order
+# objects, and their application is mediated by a fixed interpreter.
 
 
 def holds2(goal: Fun, s: Subst, trace: List[str]) -> Tuple[List[Fun], Subst]:
@@ -394,11 +395,32 @@ def holds2(goal: Fun, s: Subst, trace: List[str]) -> Tuple[List[Fun], Subst]:
     raise ValueError(f"No matching clause for goal: {goal}")
 
 
-# -----------------------------------------------------------------------------
-# Meta-interpretation loop (deterministic leftmost rewriting)
-# -----------------------------------------------------------------------------
+def holds3(pred: str, args: List[Term], s: Subst, trace: List[str]) -> Tuple[List[Fun], Subst]:
+    """
+    A more explicitly predicate-oriented entry point:
 
-def solve(goals: List[Fun]) -> Tuple[Subst, List[str]]:
+        holds3("factorial", [N, F], s, trace)
+
+    is just sugar for:
+
+        holds2(Fun("factorial", (N, F)), s, trace)
+
+    This makes the predicate symbol itself a first-order argument, which is
+    useful if you want to talk *about* predicate names as data.
+    """
+    goal = Fun(pred, tuple(args))
+    return holds2(goal, s, trace)
+
+
+# -----------------------------------------------------------------------------
+# holds1: meta-interpretation loop over lists of goals
+# -----------------------------------------------------------------------------
+#
+# holds1 corresponds to mi/2 at the level of whole goal lists. It repeatedly
+# applies holds2/holds3 to the leftmost goal until the list is empty.
+
+
+def holds1(goals: List[Fun]) -> Tuple[Subst, List[str]]:
     """
     Perform deterministic rewriting, mirroring the Prolog meta-interpreter:
 
@@ -426,6 +448,12 @@ def solve(goals: List[Fun]) -> Tuple[Subst, List[str]]:
     return s, trace
 
 
+# For backwards compatibility with earlier versions in this repo:
+def solve(goals: List[Fun]) -> Tuple[Subst, List[str]]:
+    """Alias for holds1(goals) to keep the old name used in other code."""
+    return holds1(goals)
+
+
 # -----------------------------------------------------------------------------
 # Build the exact Prolog query as term structure
 # -----------------------------------------------------------------------------
@@ -449,7 +477,7 @@ def make_query_for_factorial(n: int) -> Tuple[List[Fun], Var]:
 def solve_factorial(n: int) -> Tuple[int, List[str]]:
     """Helper: solve factorial(n, F) via the meta-interpreter and return (F_int, trace)."""
     goals, F = make_query_for_factorial(n)
-    s, trace = solve(goals)
+    s, trace = holds1(goals)
     F_val = apply_subst(F, s)
     k = peano_to_int(F_val)
     return k, trace
@@ -480,8 +508,10 @@ def reason_text(trace: List[str], n: int, k_first: int = 10) -> str:
     """Human-readable explanation of the first few rewrite steps."""
     lines: List[str] = []
 
-    lines.append("We run the meta-interpreter via a fixed predicate holds2/2,")
-    lines.append("interpreting atomic goals Fun('p', (args...)) as holds2(p, args):\n")
+    lines.append("We run the meta-interpreter via a fixed family of predicates:")
+    lines.append("  holds1  for goal lists (mi/2-level),")
+    lines.append("  holds2  for atomic goals Fun('p', args),")
+    lines.append("  holds3  for (predicate-name, argument-list) pairs.\n")
 
     for i, step in enumerate(trace[:k_first], 1):
         lines.append(f" {i:>2}. {step}")
@@ -489,7 +519,7 @@ def reason_text(trace: List[str], n: int, k_first: int = 10) -> str:
         lines.append(f" … {len(trace) - k_first} more rewrite steps …")
 
     lines.append("")
-    lines.append("Rules used (in order of matching inside holds2):")
+    lines.append("Rules used (in the order they are matched inside holds2):")
     lines.append("  mi([], []).")
     lines.append("  mi([G|Gs], []) → mi(Goals, []) via expansion of G.")
     lines.append("  factorial(0, s(0)).")
@@ -569,7 +599,7 @@ def main() -> None:
 
     # Run once for Answer + Reason why
     goals, F = make_query_for_factorial(n)
-    subst, trace = solve(goals)
+    subst, trace = holds1(goals)
     F_val = apply_subst(F, subst)
     k = peano_to_int(F_val)
 
