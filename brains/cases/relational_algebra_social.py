@@ -1,530 +1,69 @@
 # -*- coding: utf-8 -*-
 """
-Relational Algebra over Social Links (Union, Composition, Star)
-in the Hayes–Menzel Style
----------------------------------------------------------------
+Relational Algebra over Social Links
+(Union, Composition, Star) in the Hayes–Menzel Style
+----------------------------------------------------
 
-We work with *relation names* (intensions) like
+We work with *relation names* (intensions) like ex:Follows, ex:Mentors,
+ex:Collaborates, ex:Knows, and a fixed application predicate in the story:
 
-    ex:Follows, ex:Mentors, ex:Collaborates, ex:Knows, ...
+    holds2(R, x, y)   # ⟨x,y⟩ ∈ extension of relation-name R
 
-and a **fixed** predicate:
+Meta over **names**:
 
-    ex:holds2(R, x, y)
+    SubRelOf(P,Q)     — inclusion (P ⊆ Q)
+    Union(P,Q,R)      — R = P ∪ Q
+    Comp(P,Q,R)       — R = P ∘ Q (relational composition)
+    Star(P,R)         — R = P⁺ (non-reflexive transitive closure: length ≥ 1)
 
-meaning “⟨x,y⟩ is in the extension of the relation-name R”.
+We implement the induced semantics with **specialized Python closures**:
 
-We add meta-predicates over **names**:
+    - leq_strict: transitive closure of SubRelOf
+    - leq      : leq_strict plus reflexivity (R ⊆ R)
+    - holds2   : a map from relation-name → set of pairs (x,y)
+                 with explicit Union, Comp, Star operations
 
-    • ex:SubRelOf(P,Q)   — inclusion (P ⊆ Q)
-    • ex:Union(P,Q,R)    — R = P ∪ Q
-    • ex:Comp(P,Q,R)     — R = P ∘ Q (composition)
-    • ex:Star(P,R)       — R = P⁺ (non-reflexive transitive closure, length ≥ 1)
+Intended relations
+------------------
+Base social links:
 
-Rules (schematic)
------------------
+    Follows     : some “follows” edges
+    Mentors     : mentoring edges
+    Collaborates: collaboration edges
 
-1) leq_strict from SubRelOf, its transitive closure, and leq = reflexive ∪ leq_strict.
+Constructed:
 
-2) Lifting along inclusion of names:
+    Knows  : intended Follows ∪ Mentors ∪ Collaborates
+    TwoHop : intended Knows ∘ Knows
+    ReachK : intended Knows⁺ (length ≥ 1)
 
-       holds2(Q,x,y) :- holds2(P,x,y), leq_strict(P,Q).
-
-3) Union populates the target:
-
-       holds2(R,x,y) :- Union(P,Q,R), holds2(P,x,y).
-       holds2(R,x,y) :- Union(P,Q,R), holds2(Q,x,y).
-
-4) Composition populates its target:
-
-       holds2(R,x,z) :- Comp(P,Q,R), holds2(P,x,y), holds2(Q,y,z).
-
-5) Star (right-recursive, non-reflexive):
-
-       holds2(R,x,y) :- Star(P,R), holds2(P,x,y).
-       holds2(R,x,z) :- Star(P,R), holds2(P,x,y), holds2(R,y,z).
-
-Why this case?
---------------
-
-It stresses the engine on *several* higher-order constructors over relation
-names, requires propagation through multiple meta-predicates, and mixes
-top-down/tabled and bottom-up reasoning. We also quantify over relation
-names in the queries.
+Questions
+---------
+Q1) List all (X,Y) with holds2(TwoHop,X,Y).
+Q2) Witness relation-names R s.t. Comp(Knows,Knows,R) and holds2(R,Alice,Dave).
+Q3) Check universal property:
+        ∀R,y: (leq(R,Knows) ∧ holds2(R,Alice,y)) → holds2(ReachK,Alice,y).
 
 How to run
 ----------
-
     python relational_algebra_social.py
+
+Printed sections
+----------------
+Model → Question → Answer → Reason why → Check (harness)
 """
 
+from __future__ import annotations
+
 from dataclasses import dataclass
-from typing import Dict, Iterable, List, Optional, Set, Tuple, Union
-from collections import defaultdict, deque
-import itertools
-import inspect
+from typing import Dict, Iterable, List, Set, Tuple
 
-# ╔══════════════════════════════════════════════════════════════════════╗
-# ║ Embedded tiny logic engine                                           ║
-# ╚══════════════════════════════════════════════════════════════════════╝
-
-class Var:
-    """Logic variable with identity; standardized apart per rule use."""
-    __slots__ = ("name", "id")
-    _c = 0
-
-    def __init__(self, name: str):
-        Var._c += 1
-        self.name = name
-        self.id = Var._c
-
-    def __repr__(self):
-        return f"Var({self.name}_{self.id})"
-
-    def __hash__(self):
-        return hash(self.id)
-
-    def __eq__(self, other):
-        return isinstance(other, Var) and self.id == other.id
-
-
-Term = Union[str, Var]
-
-
-@dataclass
-class Atom:
-    pred: str
-    args: List[Term]
-
-
-@dataclass
-class Clause:
-    """Horn clause: head :- body1, body2, ...; body == [] means fact."""
-    head: Atom
-    body: List[Atom]
-
-
-def atom(pred: str, *args: Term) -> Atom:
-    return Atom(pred, list(args))
-
-
-def fact(pred: str, *args: Term) -> Clause:
-    return Clause(atom(pred, *args), [])
-
-
-# --- Unification / substitution ---------------------------------------------
-
-def deref(t: Term, subst: Dict[Var, Term]) -> Term:
-    """Dereference a term through a substitution."""
-    while isinstance(t, Var) and t in subst:
-        t = subst[t]
-    return t
-
-
-def unify(t1: Term, t2: Term, subst: Dict[Var, Term]) -> Optional[Dict[Var, Term]]:
-    """Unify two terms under subst; return extended subst or None."""
-    t1 = deref(t1, subst)
-    t2 = deref(t2, subst)
-
-    if t1 == t2:
-        return subst
-
-    if isinstance(t1, Var):
-        subst[t1] = t2
-        return subst
-    if isinstance(t2, Var):
-        subst[t2] = t1
-        return subst
-
-    return None
-
-
-def standardize_apart(cl: Clause) -> Clause:
-    """Freshen variables in a clause when it is used."""
-    mapping: Dict[Var, Var] = {}
-
-    def f(t: Term) -> Term:
-        if isinstance(t, Var):
-            if t not in mapping:
-                mapping[t] = Var(t.name)
-            return mapping[t]
-        return t
-
-    def fa(a: Atom) -> Atom:
-        return Atom(a.pred, [f(t) for t in a.args])
-
-    return Clause(fa(cl.head), [fa(a) for a in cl.body])
-
-
-def apply_s(a: Atom, subst: Dict[Var, Term]) -> Atom:
-    return Atom(a.pred, [deref(t, subst) for t in a.args])
-
-
-# --- Bottom-up least fixpoint engine ----------------------------------------
-
-NAME, IND = "NAME", "IND"
-Signature = Dict[str, Tuple[str, ...]]  # predicate -> sorts
-
-
-def _collect_domains(facts: Dict[str, Set[Tuple[str, ...]]],
-                     sig: Signature) -> Tuple[Set[str], Set[str]]:
-    """Compute NAME/IND domains from current ground facts."""
-    names: Set[str] = set()
-    inds: Set[str] = set()
-    for p, rows in facts.items():
-        if p not in sig:
-            continue
-        sorts = sig[p]
-        for row in rows:
-            for val, sort in zip(row, sorts):
-                if sort == NAME:
-                    names.add(val)
-                elif sort == IND:
-                    inds.add(val)
-    return names, inds
-
-
-_lfp_cache: Dict[Tuple, Tuple[Dict[str, Set[Tuple[str, ...]]], int]] = {}
-
-
-def _program_key(program: List[Clause]) -> Tuple:
-    """Stable key for memoizing LFP results."""
-    def term_repr(t: Term) -> Tuple[str, str]:
-        if isinstance(t, str):
-            return ("C", t)
-        else:
-            return ("V", t.name)
-
-    key = []
-    for c in program:
-        head = (c.head.pred, tuple(term_repr(t) for t in c.head.args))
-        body = tuple(
-            (b.pred, tuple(term_repr(t) for t in b.args))
-            for b in c.body
-        )
-        key.append((head, body))
-    return tuple(key)
-
-
-def _sig_key(sig: Signature) -> Tuple:
-    return tuple(sorted((p, tuple(sorts)) for p, sorts in sig.items()))
-
-
-def _seeds_key(names: Optional[Set[str]], inds: Optional[Set[str]]) -> Tuple:
-    return (tuple(sorted(names or ())), tuple(sorted(inds or ())))
-
-
-def _ground_head_from_domains(head: Atom,
-                              subst: Dict[Var, Term],
-                              sig: Signature,
-                              names_list: List[str],
-                              inds_list: List[str]) -> Iterable[Tuple[str, ...]]:
-    """Ground a (possibly unsafe) head over NAME/IND domains."""
-    sorts = sig.get(head.pred, tuple(NAME for _ in head.args))
-    positions: List[List[str]] = []
-
-    for t, sort in zip(head.args, sorts):
-        t = deref(t, subst)
-        if isinstance(t, str):
-            positions.append([t])
-        else:
-            dom_list = names_list if sort == NAME else inds_list
-            positions.append(dom_list)
-
-    for combo in itertools.product(*positions):
-        seen: Dict[Var, str] = {}
-        ok = True
-        for i, (t, _sort) in enumerate(zip(head.args, sorts)):
-            t = deref(t, subst)
-            if isinstance(t, Var):
-                prev = seen.get(t)
-                if prev is None:
-                    seen[t] = combo[i]
-                elif prev != combo[i]:
-                    ok = False
-                    break
-        if ok:
-            yield tuple(combo)
-
-
-def solve_bottomup(program: List[Clause],
-                   sig: Signature,
-                   seed_name_domain: Optional[Set[str]] = None,
-                   seed_ind_domain: Optional[Set[str]] = None
-                   ) -> Tuple[Dict[str, Set[Tuple[str, ...]]], int]:
-    """Generic bottom-up LFP over a finite program."""
-    key = ("BU", _program_key(program), _sig_key(sig),
-           _seeds_key(seed_name_domain, seed_ind_domain))
-    cached = _lfp_cache.get(key)
-    if cached is not None:
-        return cached
-
-    facts: Dict[str, Set[Tuple[str, ...]]] = defaultdict(set)
-    # initial ground facts
-    for cl in program:
-        if not cl.body and all(isinstance(t, str) for t in cl.head.args):
-            facts[cl.head.pred].add(tuple(cl.head.args))
-
-    rounds = 0
-    changed = True
-
-    while changed:
-        rounds += 1
-        changed = False
-
-        names, inds = _collect_domains(facts, sig)
-        if seed_name_domain:
-            names |= set(seed_name_domain)
-        if seed_ind_domain:
-            inds |= set(seed_ind_domain)
-        names_list = sorted(names)
-        inds_list = sorted(inds)
-
-        for cl in program:
-            if not cl.body:
-                # fact with head-only vars, possibly unsafe
-                if not all(isinstance(t, str) for t in cl.head.args):
-                    for tpl in _ground_head_from_domains(cl.head, {}, sig,
-                                                         names_list, inds_list):
-                        if tpl not in facts[cl.head.pred]:
-                            facts[cl.head.pred].add(tpl)
-                            changed = True
-                continue
-
-            partials: List[Dict[Var, Term]] = [dict()]
-            for b in cl.body:
-                new_partials: List[Dict[Var, Term]] = []
-                rows = facts.get(b.pred, set())
-                const_pos = [i for i, t in enumerate(b.args) if isinstance(t, str)]
-                for s in partials:
-                    b1 = apply_s(b, s)
-                    for row in rows:
-                        if len(row) != len(b1.args):
-                            continue
-                        bad = False
-                        for i in const_pos:
-                            if b1.args[i] != row[i]:
-                                bad = True
-                                break
-                        if bad:
-                            continue
-                        s2 = s.copy()
-                        ok = True
-                        for arg, val in zip(b1.args, row):
-                            s2 = unify(arg, val, s2)
-                            if s2 is None:
-                                ok = False
-                                break
-                        if ok:
-                            new_partials.append(s2)
-                partials = new_partials
-                if not partials:
-                    break
-
-            if not partials:
-                continue
-
-            for s in partials:
-                head = apply_s(cl.head, s)
-                if all(isinstance(t, str) for t in head.args):
-                    tpl = tuple(head.args)
-                    if tpl not in facts[cl.head.pred]:
-                        facts[cl.head.pred].add(tpl)
-                        changed = True
-                else:
-                    for tpl in _ground_head_from_domains(head, {}, sig,
-                                                         names_list, inds_list):
-                        if tpl not in facts[cl.head.pred]:
-                            facts[cl.head.pred].add(tpl)
-                            changed = True
-
-    _lfp_cache[key] = (facts, rounds)
-    return facts, rounds
-
-
-# --- Utilities ---------------------------------------------------------------
-
-def match_against_facts(goals: List[Atom],
-                        facts: Dict[str, Set[Tuple[str, ...]]]
-                        ) -> List[Dict[Var, Term]]:
-    """Conjunctive query evaluation against a ground fact-table."""
-    sols: List[Dict[Var, Term]] = [dict()]
-    for a in goals:
-        new_sols: List[Dict[Var, Term]] = []
-        rows = facts.get(a.pred, set())
-        const_pos = [i for i, t in enumerate(a.args) if isinstance(t, str)]
-        for s in sols:
-            for row in rows:
-                if len(row) != len(a.args):
-                    continue
-                bad = False
-                for i in const_pos:
-                    if a.args[i] != row[i]:
-                        bad = True
-                        break
-                if bad:
-                    continue
-                s2 = s.copy()
-                ok = True
-                for arg, val in zip(a.args, row):
-                    if isinstance(arg, Var):
-                        cur = deref(arg, s2)
-                        if isinstance(cur, Var):
-                            s2[cur] = val
-                        else:
-                            if cur != val:
-                                ok = False
-                                break
-                    else:
-                        if arg != val:
-                            ok = False
-                            break
-                if ok:
-                    new_sols.append(s2)
-        sols = new_sols
-        if not sols:
-            break
-    return sols
-
-
-def local(name: str) -> str:
-    return name.split(":", 1)[1] if ":" in name else name
-
-
-def fmt_pairs(pairs: Iterable[Tuple[str, str]]) -> str:
-    seq = sorted(pairs)
-    return "∅" if not seq else "{" + ", ".join(f"⟨{a},{b}⟩" for (a, b) in seq) + "}"
-
-
-def fmt_set(names: Iterable[str]) -> str:
-    seq = sorted(local(n) for n in set(names))
-    return "∅" if not seq else "{" + ", ".join(seq) + "}"
-
-
-# --- Top-down via restricted bottom-up on relevant subprogram ----------------
-
-def _dependency_graph(program: List[Clause]) -> Dict[str, Set[str]]:
-    g: Dict[str, Set[str]] = defaultdict(set)
-    for c in program:
-        h = c.head.pred
-        for b in c.body:
-            g[h].add(b.pred)
-        g.setdefault(h, g.get(h, set()))
-    return g
-
-
-def _reachable_preds(program: List[Clause], goal_preds: Set[str]) -> Set[str]:
-    g = _dependency_graph(program)
-    reach: Set[str] = set()
-    q = deque(goal_preds)
-    while q:
-        p = q.popleft()
-        if p in reach:
-            continue
-        reach.add(p)
-        for q2 in g.get(p, set()):
-            if q2 not in reach:
-                q.append(q2)
-    return reach
-
-
-def _filter_program(program: List[Clause], rel_preds: Set[str]) -> List[Clause]:
-    return [c for c in program if c.head.pred in rel_preds]
-
-
-def _collect_seed_domains_from_program(program: List[Clause],
-                                       sig: Signature
-                                       ) -> Tuple[Set[str], Set[str]]:
-    names: Set[str] = set()
-    inds: Set[str] = set()
-    for cl in program:
-        if cl.body:
-            continue
-        head = cl.head
-        if head.pred not in sig:
-            continue
-        sorts = sig[head.pred]
-        if any(isinstance(t, Var) for t in head.args):
-            continue
-        for val, sort in zip(head.args, sorts):
-            if isinstance(val, str):
-                if sort == NAME:
-                    names.add(val)
-                elif sort == IND:
-                    inds.add(val)
-    return names, inds
-
-
-def _collect_seed_domains_from_goals(goals: List[Atom],
-                                     sig: Signature
-                                     ) -> Tuple[Set[str], Set[str]]:
-    names: Set[str] = set()
-    inds: Set[str] = set()
-    for g in goals:
-        sorts = sig.get(g.pred)
-        if not sorts:
-            continue
-        for val, sort in zip(g.args, sorts):
-            if isinstance(val, str):
-                if sort == NAME:
-                    names.add(val)
-                elif sort == IND:
-                    inds.add(val)
-    return names, inds
-
-
-def solve_topdown(program: List[Clause],
-                  goals: List[Atom],
-                  step_limit: int = 10000
-                  ) -> Tuple[List[Dict[Var, Term]], int]:
-    """
-    Top-down evaluation via:
-      1) dependency closure from goal predicates,
-      2) bottom-up LFP on that relevant subprogram,
-      3) conjunctive matching over the resulting facts.
-    """
-    # Try to obtain a signature from the caller module, defaulting to NAME-only.
-    sig: Signature = {}
-    try:
-        caller_globals = inspect.currentframe().f_back.f_globals  # type: ignore
-        if 'SIGNATURE' in caller_globals:
-            sig = caller_globals['SIGNATURE']  # type: ignore
-    except Exception:
-        pass
-
-    if not sig:
-        preds = {c.head.pred for c in program}
-        for p in preds:
-            arity = len(next(c for c in program if c.head.pred == p).head.args)
-            sig[p] = tuple(NAME for _ in range(arity))  # type: ignore
-
-    goal_preds = {g.pred for g in goals}
-    rel = _reachable_preds(program, goal_preds)
-    subprog = _filter_program(program, rel)
-
-    names_prog, inds_prog = _collect_seed_domains_from_program(program, sig)
-    names_goals, inds_goals = _collect_seed_domains_from_goals(goals, sig)
-    seed_names = names_prog | names_goals
-    seed_inds = inds_prog | inds_goals
-
-    facts, rounds = solve_bottomup(subprog, sig,
-                                   seed_name_domain=seed_names,
-                                   seed_ind_domain=seed_inds)
-    sols = match_against_facts(goals, facts)
-    return sols, rounds
-
-
-# ╔══════════════════════════════════════════════════════════════════════╗
-# ║ Case: Relational algebra over social links                           ║
-# ╚══════════════════════════════════════════════════════════════════════╝
-
-from typing import List as _ListAlias, Tuple as _TupleAlias, Set as _SetAlias  # just to mirror original typings
 
 # -------------------------
 # Domain (individuals)
 # -------------------------
 
-D: _TupleAlias[str, ...] = (
+D: Tuple[str, ...] = (
     "Alice",
     "Bob",
     "Carol",
@@ -533,257 +72,317 @@ D: _TupleAlias[str, ...] = (
     "Frank",
 )
 
+
 # -------------------------
 # Relation names (intensions)
 # -------------------------
 
 EX = "ex:"
 
-Follows      = EX + "Follows"
-Mentors      = EX + "Mentors"
+Follows = EX + "Follows"
+Mentors = EX + "Mentors"
 Collaborates = EX + "Collaborates"
-Knows        = EX + "Knows"      # intended: Follows ∪ Mentors ∪ Collaborates
-TwoHop       = EX + "TwoHop"     # intended: Knows ∘ Knows
-ReachK       = EX + "ReachK"     # intended: Knows⁺ (length ≥ 1)
 
-# meta over names
-SubRelOf  = EX + "SubRelOf"
-Union     = EX + "Union"
-Comp      = EX + "Comp"
-Star      = EX + "Star"
-LeqStrict = EX + "leq_strict"
-Leq       = EX + "leq"
+Knows = EX + "Knows"       # intended: Follows ∪ Mentors ∪ Collaborates
+TwoHop = EX + "TwoHop"     # intended: Knows ∘ Knows
+ReachK = EX + "ReachK"     # intended: Knows⁺ (length ≥ 1)
 
-Holds2    = EX + "holds2"
+Role = str
+Pair = Tuple[str, str]
 
-# -------------------------------
-# Predicate signature (NAME/IND)
-# -------------------------------
-
-SIGNATURE: Signature = {
-    Holds2:    (NAME, IND, IND),
-    SubRelOf:  (NAME, NAME),
-    Union:     (NAME, NAME, NAME),
-    Comp:      (NAME, NAME, NAME),
-    Star:      (NAME, NAME),
-    LeqStrict: (NAME, NAME),
-    Leq:       (NAME, NAME),
+ROLE_NAMES: Set[Role] = {
+    Follows,
+    Mentors,
+    Collaborates,
+    Knows,
+    TwoHop,
+    ReachK,
 }
 
-# -----------------------------
-# PROGRAM (facts + rules)
-# -----------------------------
+# meta over names (we store as Python data, not facts)
+SUBRELOF_BASE: Dict[Role, Set[Role]] = {
+    Follows: {Knows},
+    Mentors: {Knows},
+    Collaborates: {Knows},
+}
 
-PROGRAM: List[Clause] = []
-
-# >>> USER SECTION: FACTS over holds2 (base edges)
-
-for a, b in [
-    # social links (no cycles to keep ReachK non-reflexive unless via longer loops)
-    ("Alice", "Bob"),
-    ("Bob", "Carol"),
-    ("Carol", "Dave"),
-    ("Bob", "Dave"),
-    ("Erin", "Frank"),
-]:
-    PROGRAM.append(fact(Holds2, Follows, a, b))
-
-for a, b in [
-    ("Alice", "Carol"),
-    ("Dave", "Erin"),
-]:
-    PROGRAM.append(fact(Holds2, Mentors, a, b))
-
-for a, b in [
-    ("Carol", "Erin"),
-    ("Bob", "Frank"),
-]:
-    PROGRAM.append(fact(Holds2, Collaborates, a, b))
-
-# Inclusion hints (not strictly needed if Union is used, but good for leq-tests)
-PROGRAM += [
-    fact(SubRelOf, Follows, Knows),
-    fact(SubRelOf, Mentors, Knows),
-    fact(SubRelOf, Collaborates, Knows),
+UNION_BASE: List[Tuple[Role, Role, Role]] = [
+    (Follows, Mentors, Knows),      # Knows gets Follows ∪ Mentors
+    (Knows, Collaborates, Knows),   # Knows also absorbs Collaborates
 ]
 
-# Union and constructors over names
-PROGRAM += [
-    fact(Union, Follows, Mentors, Knows),     # Knows gets Follows ∪ Mentors
-    fact(Union, Knows, Collaborates, Knows),  # Knows also absorbs Collaborates
-    fact(Comp, Knows, Knows, TwoHop),         # TwoHop = Knows ∘ Knows
-    fact(Star, Knows, ReachK),                # ReachK = Knows⁺
+COMP_BASE: List[Tuple[Role, Role, Role]] = [
+    (Knows, Knows, TwoHop),         # TwoHop = Knows ∘ Knows
 ]
 
-# >>> USER SECTION: RULES over names and application
+STAR_BASE: List[Tuple[Role, Role]] = [
+    (Knows, ReachK),                # ReachK = Knows⁺
+]
 
-# (1) Inclusion closure and leq
-
-P, Q, R = Var("P"), Var("Q"), Var("R")
-PROGRAM.append(Clause(atom(LeqStrict, P, Q), [atom(SubRelOf, P, Q)]))
-
-P, Q, R = Var("P"), Var("Q"), Var("R")
-PROGRAM.append(
-    Clause(
-        atom(LeqStrict, P, Q),
-        [atom(SubRelOf, P, R), atom(LeqStrict, R, Q)],
-    )
-)
-
-# leq reflexive (unsafe head; engine grounds NAME-domain)
-P = Var("P")
-PROGRAM.append(Clause(atom(Leq, P, P), []))
-
-# leq includes leq_strict
-P, Q = Var("P"), Var("Q")
-PROGRAM.append(Clause(atom(Leq, P, Q), [atom(LeqStrict, P, Q)]))
-
-# (2) Lifting along inclusion:
-# Put data-producing goal first (bind P), then check inclusion to Q (goal-directed).
-P, Q, X, Y = Var("P"), Var("Q"), Var("X"), Var("Y")
-PROGRAM.append(
-    Clause(
-        atom(Holds2, Q, X, Y),
-        [
-            atom(Holds2, P, X, Y),
-            atom(LeqStrict, P, Q),
-        ],
-    )
-)
-
-# (3) Union: both sides inject into R
-P, Q, R, X, Y = Var("P"), Var("Q"), Var("R"), Var("X"), Var("Y")
-PROGRAM.append(
-    Clause(
-        atom(Holds2, R, X, Y),
-        [
-            atom(Union, P, Q, R),
-            atom(Holds2, P, X, Y),
-        ],
-    )
-)
-
-P, Q, R, X, Y = Var("P"), Var("Q"), Var("R"), Var("X"), Var("Y")
-PROGRAM.append(
-    Clause(
-        atom(Holds2, R, X, Y),
-        [
-            atom(Union, P, Q, R),
-            atom(Holds2, Q, X, Y),
-        ],
-    )
-)
-
-# (4) Composition: R = P ∘ Q
-P, Q, R, X, Y, Z = Var("P"), Var("Q"), Var("R"), Var("X"), Var("Y"), Var("Z")
-PROGRAM.append(
-    Clause(
-        atom(Holds2, R, X, Z),
-        [
-            atom(Comp, P, Q, R),
-            atom(Holds2, P, X, Y),
-            atom(Holds2, Q, Y, Z),
-        ],
-    )
-)
-
-# (5) Star (non-reflexive, right-recursive)
-P, R, X, Y, Z = Var("P"), Var("R"), Var("X"), Var("Y"), Var("Z")
-PROGRAM.append(
-    Clause(
-        atom(Holds2, R, X, Y),
-        [
-            atom(Star, P, R),
-            atom(Holds2, P, X, Y),
-        ],
-    )
-)
-
-P, R, X, Y, Z = Var("P"), Var("R"), Var("X"), Var("Y"), Var("Z")
-PROGRAM.append(
-    Clause(
-        atom(Holds2, R, X, Z),
-        [
-            atom(Star, P, R),
-            atom(Holds2, P, X, Y),
-            atom(Holds2, R, Y, Z),
-        ],
-    )
-)
 
 # -------------------------
-# Case-specific engine glue
+# Formatting helpers
 # -------------------------
 
-def _is_var(t) -> bool:
-    return isinstance(t, Var)
+def local(name: str) -> str:
+    return name.split(":", 1)[1] if ":" in name else name
 
 
-def choose_engine(goals: List[Atom]) -> str:
+def fmt_pairs(pairs: Iterable[Pair]) -> str:
+    seq = sorted(set(pairs))
+    if not seq:
+        return "∅"
+    return "{" + ", ".join(f"⟨{x},{y}⟩" for (x, y) in seq) + "}"
+
+
+def fmt_set(names: Iterable[str]) -> str:
+    s = sorted(set(names))
+    if not s:
+        return "∅"
+    return "{" + ", ".join(local(n) for n in s) + "}"
+
+
+# -------------------------
+# Base holds2 facts
+# -------------------------
+
+def base_relation_extensions() -> Dict[Role, Set[Pair]]:
+    """Explicit social links for Follows, Mentors, Collaborates."""
+    rel: Dict[Role, Set[Pair]] = {r: set() for r in ROLE_NAMES}
+
+    # Follows edges
+    for a, b in [
+        ("Alice", "Bob"),
+        ("Bob", "Carol"),
+        ("Carol", "Dave"),
+        ("Bob", "Dave"),
+        ("Erin", "Frank"),
+    ]:
+        rel[Follows].add((a, b))
+
+    # Mentors edges
+    for a, b in [
+        ("Alice", "Carol"),
+        ("Dave", "Erin"),
+    ]:
+        rel[Mentors].add((a, b))
+
+    # Collaborates edges
+    for a, b in [
+        ("Carol", "Erin"),
+        ("Bob", "Frank"),
+    ]:
+        rel[Collaborates].add((a, b))
+
+    # Constructed relations start empty
+    rel[Knows] = set()
+    rel[TwoHop] = set()
+    rel[ReachK] = set()
+
+    return rel
+
+
+# -------------------------
+# Name-level closure
+# -------------------------
+
+def closure_subrel_of(subrel: Dict[Role, Set[Role]]) -> Dict[Role, Set[Role]]:
     """
-    Heuristic:
-      - Enumerations over TwoHop/ReachK → bottom-up
-      - Fully unbound conjuncts        → bottom-up
-      - Otherwise                      → top-down (tabled)
+    Compute transitive closure of SubRelOf:
+
+        leq_strict(P,Q)  ⇔  P ⊆ Q via a non-empty chain of SubRelOf.
     """
-    for g in goals:
-        if (
-            g.pred == Holds2
-            and len(g.args) == 3
-            and g.args[0] in (TwoHop, ReachK)
-            and (_is_var(g.args[1]) or _is_var(g.args[2]))
-        ):
-            return "bottomup"
-        if all(_is_var(t) for t in g.args):
-            return "bottomup"
-    return "topdown"
+    leq_strict: Dict[Role, Set[Role]] = {r: set() for r in ROLE_NAMES}
+    for p, qs in subrel.items():
+        leq_strict[p].update(qs)
+
+    changed = True
+    while changed:
+        changed = False
+        for p in ROLE_NAMES:
+            new: Set[Role] = set()
+            for q in leq_strict[p]:
+                new.update(leq_strict.get(q, set()))
+            if not new.issubset(leq_strict[p]):
+                leq_strict[p].update(new)
+                changed = True
+    return leq_strict
 
 
-def ask(goals: List[Atom],
-        step_limit: int = 10000,
-        fallback_threshold: int = 4000):
-    engine = choose_engine(goals)
-    if engine == "topdown":
-        sols, metric = solve_topdown(PROGRAM, goals, step_limit=step_limit)
-        return engine, sols, metric
-    else:
-        facts, rounds = solve_bottomup(PROGRAM, SIGNATURE)
-        sols = match_against_facts(goals, facts)
-        return engine, sols, rounds
+def closure_leq(leq_strict: Dict[Role, Set[Role]]) -> Dict[Role, Set[Role]]:
+    """Add reflexive pairs leq(R,R) on top of leq_strict."""
+    leq: Dict[Role, Set[Role]] = {}
+    for r in ROLE_NAMES:
+        leq[r] = set(leq_strict.get(r, set()))
+        leq[r].add(r)
+    return leq
+
+
+# -------------------------
+# Relation-level operations
+# -------------------------
+
+def apply_unions(rel: Dict[Role, Set[Pair]]) -> None:
+    """Apply UNION_BASE as a small fixpoint on relation extensions."""
+    changed = True
+    while changed:
+        changed = False
+        for P, Q, R in UNION_BASE:
+            out = rel[R]
+            before = len(out)
+            out |= rel[P]
+            out |= rel[Q]
+            if len(out) > before:
+                changed = True
+
+
+def compute_composition(pairs_p: Set[Pair], pairs_q: Set[Pair]) -> Set[Pair]:
+    """Relational composition P ∘ Q."""
+    out: Set[Pair] = set()
+    for (x, y1) in pairs_p:
+        for (y2, z) in pairs_q:
+            if y1 == y2:
+                out.add((x, z))
+    return out
+
+
+def transitive_closure(pairs: Set[Pair]) -> Set[Pair]:
+    """
+    Compute P⁺ (non-reflexive transitive closure):
+
+        closure = ⋃_{n≥1} Pⁿ
+
+    Here we do standard closure (allowing reflexives when cycles exist),
+    but in this acyclic dataset there will be no reflexive pairs.
+    """
+    closure: Set[Pair] = set(pairs)
+    changed = True
+    while changed:
+        changed = False
+        new_pairs: Set[Pair] = set()
+        # R := R ∘ P
+        for (x, y1) in closure:
+            for (y2, z) in pairs:
+                if y1 == y2 and (x, z) not in closure:
+                    new_pairs.add((x, z))
+        if new_pairs:
+            closure |= new_pairs
+            changed = True
+    return closure
+
+
+# -------------------------
+# Logical model
+# -------------------------
+
+@dataclass
+class RelAlgSocialModel:
+    individuals: Tuple[str, ...]
+    rel_ext: Dict[Role, Set[Pair]]
+    leq_strict: Dict[Role, Set[Role]]
+    leq: Dict[Role, Set[Role]]
+
+
+def build_model() -> RelAlgSocialModel:
+    # Base facts
+    rel_ext = base_relation_extensions()
+
+    # Name-level closure
+    leq_strict = closure_subrel_of(SUBRELOF_BASE)
+    leq = closure_leq(leq_strict)
+
+    # 1) Knows via unions and inclusion (in this case union is enough)
+    apply_unions(rel_ext)
+
+    # 2) TwoHop via composition Knows ∘ Knows
+    for P, Q, R in COMP_BASE:
+        if P == Knows and Q == Knows and R == TwoHop:
+            rel_ext[TwoHop] = compute_composition(rel_ext[Knows], rel_ext[Knows])
+
+    # 3) ReachK as Knows⁺
+    for P, R in STAR_BASE:
+        if P == Knows and R == ReachK:
+            rel_ext[ReachK] = transitive_closure(rel_ext[Knows])
+
+    return RelAlgSocialModel(
+        individuals=D,
+        rel_ext=rel_ext,
+        leq_strict=leq_strict,
+        leq=leq,
+    )
+
+
+# -------------------------
+# Questions Q1–Q3
+# -------------------------
+
+def q1_twohop_pairs(m: RelAlgSocialModel) -> List[Pair]:
+    """Q1: list all (X,Y) with holds2(TwoHop,X,Y)."""
+    return sorted(m.rel_ext.get(TwoHop, set()))
+
+
+def q2_witness_relations(m: RelAlgSocialModel) -> List[Role]:
+    """
+    Q2: witness R such that:
+
+        Comp(Knows,Knows,R) ∧ holds2(R,Alice,Dave)
+    """
+    witnesses: Set[Role] = set()
+    for P, Q, R in COMP_BASE:
+        if P == Knows and Q == Knows and ("Alice", "Dave") in m.rel_ext.get(R, set()):
+            witnesses.add(R)
+    return sorted(witnesses)
+
+
+def q3_universal_property(m: RelAlgSocialModel) -> bool:
+    """
+    Q3: universal property:
+
+        ∀R,y: (leq(R,Knows) ∧ holds2(R,Alice,y)) → holds2(ReachK,Alice,y)
+
+    We only quantify over a small set of relation names, just like the original.
+    """
+    candidates = [Follows, Mentors, Collaborates, Knows, TwoHop]
+    for R in candidates:
+        # leq(R,Knows) must hold
+        if Knows not in m.leq.get(R, set()):
+            continue
+        for y in m.individuals:
+            if ("Alice", y) in m.rel_ext.get(R, set()) and ("Alice", y) not in m.rel_ext[ReachK]:
+                return False
+    return True
 
 
 # -------------------------
 # Presentation (printing)
 # -------------------------
 
-def print_model() -> None:
+def print_model(m: RelAlgSocialModel) -> None:
     print("Model")
     print("=====")
-    print(f"Individuals D = {list(D)}\n")
+    print(f"Individuals D = {list(m.individuals)}\n")
 
-    print("Fixed predicates (signature)")
+    print("Fixed predicates (informal)")
     print("----------------------------")
-    print("• ex:holds2(R,x,y) — application (⟨x,y⟩ ∈ ext(R)); sorts: (NAME, IND, IND)")
-    print("• ex:SubRelOf(P,Q), ex:Union(P,Q,R), ex:Comp(P,Q,R), ex:Star(P,R)")
-    print("• ex:leq_strict / ex:leq — ⊆* with/without reflex on names; sorts: (NAME, NAME)\n")
+    print("• holds2(R,x,y)  — application (⟨x,y⟩ ∈ ext(R))")
+    print("• SubRelOf(P,Q)  — inclusion over relation names (P ⊆ Q)")
+    print("• Union(P,Q,R)   — R = P ∪ Q")
+    print("• Comp(P,Q,R)    — R = P ∘ Q")
+    print("• Star(P,R)      — R = P⁺ (non-reflexive transitive closure)")
+    print("• leq_strict / leq — ⊆* with/without reflex on names\n")
 
-    print("Named relations (with facts)")
-    print("----------------------------")
-    print("Follows      =",
-          fmt_pairs([("Alice", "Bob"),
-                     ("Bob", "Carol"),
-                     ("Carol", "Dave"),
-                     ("Bob", "Dave"),
-                     ("Erin", "Frank")]))
-    print("Mentors      =",
-          fmt_pairs([("Alice", "Carol"),
-                     ("Dave", "Erin")]))
-    print("Collaborates =",
-          fmt_pairs([("Carol", "Erin"),
-                     ("Bob", "Frank")]))
-    print("Knows   = derived; intended Follows ∪ Mentors ∪ Collaborates")
-    print("TwoHop  = derived; intended Knows ∘ Knows")
-    print("ReachK  = derived; intended Knows⁺ (length ≥ 1)\n")
+    print("Named relations (with base facts)")
+    print("---------------------------------")
+    print("Follows     =",
+          fmt_pairs([("Alice","Bob"), ("Bob","Carol"), ("Carol","Dave"),
+                     ("Bob","Dave"), ("Erin","Frank")]))
+    print("Mentors     =",
+          fmt_pairs([("Alice","Carol"), ("Dave","Erin")]))
+    print("Collaborates=",
+          fmt_pairs([("Carol","Erin"), ("Bob","Frank")]))
+    print("Knows       = derived; intended Follows ∪ Mentors ∪ Collaborates")
+    print("TwoHop      = derived; intended Knows ∘ Knows")
+    print("ReachK      = derived; intended Knows⁺ (length ≥ 1)\n")
 
     print("Inclusions over names:")
     print("  Follows ⊆ Knows, Mentors ⊆ Knows, Collaborates ⊆ Knows")
@@ -795,80 +394,51 @@ def print_model() -> None:
 def print_question() -> None:
     print("Question")
     print("========")
-    print("Q1) List all (X,Y) with holds2(TwoHop,X,Y). [auto engine]")
-    print("Q2) ∃R: Comp(Knows,Knows,R) ∧ holds2(R,Alice,Dave) ? "
-          "(witness relation-names) [auto engine]")
-    print("Q3) ∀R,y: (leq(R,Knows) ∧ holds2(R,Alice,y)) → holds2(ReachK,Alice,y) ? "
-          "[auto engine]")
+    print("Q1) List all (X,Y) with holds2(TwoHop,X,Y).")
+    print("Q2) ∃R: Comp(Knows,Knows,R) ∧ holds2(R,Alice,Dave) ? (witness relation-names).")
+    print("Q3) ∀R,y: (leq(R,Knows) ∧ holds2(R,Alice,y)) → holds2(ReachK,Alice,y) ?")
     print()
 
 
-def run_queries():
-    # Q1: enumerate TwoHop pairs
-    Xv, Yv = Var("X"), Var("Y")
-    eng1, sols1, m1 = ask([atom(Holds2, TwoHop, Xv, Yv)])
-    pairs = sorted({(deref(Xv, s), deref(Yv, s)) for s in sols1})  # type: ignore
-
-    # Q2: witness relation-names R for (Alice, Dave) under Comp(Knows,Knows,R)
-    Rv = Var("R")
-    eng2, sols2, m2 = ask([
-        atom(Comp, Knows, Knows, Rv),
-        atom(Holds2, Rv, "Alice", "Dave"),
-    ])
-    witnesses = sorted({
-        deref(Rv, s) for s in sols2
-        if isinstance(deref(Rv, s), str)
-    })
-
-    # Q3: universal property
-    ok = True
-    for R in [Follows, Mentors, Collaborates, Knows, TwoHop]:
-        for y in D:
-            cond = ask([
-                atom(Leq, R, Knows),
-                atom(Holds2, R, "Alice", y),
-            ])[1]
-            if cond and not ask([atom(Holds2, ReachK, "Alice", y)])[1]:
-                ok = False
-                break
-        if not ok:
-            break
+def run_queries(m: RelAlgSocialModel):
+    pairs = q1_twohop_pairs(m)
+    witnesses = q2_witness_relations(m)
+    ok = q3_universal_property(m)
 
     return (
-        ("Q1", eng1, pairs, m1),
-        ("Q2", eng2, witnesses, m2),
-        ("Q3", "mixed", ok, 0),
+        ("Q1", pairs),
+        ("Q2", witnesses),
+        ("Q3", ok),
     )
 
 
 def print_answer(res1, res2, res3) -> None:
     print("Answer")
     print("======")
-    tag1, eng1, pairs, _ = res1
-    tag2, eng2, wits, _ = res2
-    tag3, eng3, ok, _ = res3
 
-    print(f"{tag1}) Engine: {eng1} → TwoHop = {fmt_pairs(pairs)}")
-    print(f"{tag2}) Engine: {eng2} → Witness relation-names R = "
-          + (fmt_set(wits) if wits else "∅"))
-    print(f"{tag3}) Engine: {eng3} → Universal statement holds: "
-          f"{'Yes' if ok else 'No'}\n")
+    tag1, pairs = res1
+    tag2, wits = res2
+    tag3, ok = res3
+
+    print(f"{tag1}) TwoHop =", fmt_pairs(pairs))
+    print(f"{tag2}) Witness relation-names R = " + (fmt_set(wits) if wits else "∅"))
+    print(f"{tag3}) Universal statement holds: {'Yes' if ok else 'No'}\n")
 
 
-def print_reason(eng1, eng2) -> None:
+def print_reason() -> None:
     print("Reason why")
     print("==========")
     print("• Knows is both the union of base links and a superrelation via SubRelOf;")
-    print("  lifting moves base facts upward. Comp(Knows,Knows,TwoHop) materializes")
-    print("  2-hop links.")
-    print("• Star(Knows,ReachK) closes paths of length ≥ 1 (non-reflexive).")
-    print("• Queries quantify over relation names (e.g., ∃R with Comp(Knows,Knows,R)).")
-    print("• Auto-chooser: big TwoHop/ReachK enumerations → bottom-up; targeted ground")
-    print("  checks → tabled top-down.\n")
+    print("  we materialize it by applying Union over relation extensions.")
+    print("• TwoHop = Knows ∘ Knows is computed via relational composition.")
+    print("• ReachK = Knows⁺ is computed as the transitive closure (length ≥ 1) of Knows.")
+    print("• leq_strict and leq are closures over SubRelOf, entirely at the NAME level.")
+    print("• Q2 quantifies over relation names to find R with Comp(Knows,Knows,R).")
+    print("• Q3 states that any R below Knows cannot add new Alice-targets beyond ReachK.\n")
 
 
 # -------------------
-# Check (12 tests)
+# Check (harness)
 # -------------------
 
 class CheckFailure(AssertionError):
@@ -880,11 +450,9 @@ def check(c: bool, msg: str):
         raise CheckFailure(msg)
 
 
-def run_checks() -> List[str]:
-    notes: List[str] = []
-
-    # Expected TwoHop (compute procedurally for the small model)
-    base = {
+def _expected_knows_and_twohop() -> Tuple[Set[Pair], Set[Pair]]:
+    """Reference oracle for Knows and TwoHop, derived directly from the base."""
+    base: Set[Tuple[Role, str, str]] = {
         (Follows, "Alice", "Bob"),
         (Follows, "Bob", "Carol"),
         (Follows, "Carol", "Dave"),
@@ -899,128 +467,92 @@ def run_checks() -> List[str]:
     knows = {(x, y) for (r, x, y) in base
              if r in (Follows, Mentors, Collaborates)}
 
-    # Build TwoHop procedurally from Knows ∘ Knows
-    def comp2(pairs):
-        idx = {}
-        for (x, y) in pairs:
-            idx.setdefault(x, set()).add(y)
-        out = set()
-        for (x, y) in pairs:
-            for z in idx.get(y, ()):
-                out.add((x, z))
+    # Relational composition Knows ∘ Knows
+    def comp2(pairs: Set[Pair]) -> Set[Pair]:
+        out: Set[Pair] = set()
+        for (x, y1) in pairs:
+            for (y2, z) in pairs:
+                if y1 == y2:
+                    out.add((x, z))
         return out
 
-    exp_twohop = comp2(knows)
+    twohop = comp2(knows)
+    return knows, twohop
 
-    # 1) Bottom-up TwoHop
-    facts, _ = solve_bottomup(PROGRAM, SIGNATURE)
-    X, Y = Var("X"), Var("Y")
-    bu = match_against_facts([atom(Holds2, TwoHop, X, Y)], facts)
-    twohop_bu = {(deref(X, s), deref(Y, s)) for s in bu}
-    check(twohop_bu == exp_twohop, "Bottom-up TwoHop enumeration mismatch.")
-    notes.append("PASS 1: Bottom-up TwoHop enumeration is correct.")
 
-    # 2) Tabled top-down TwoHop
-    td, _ = solve_topdown(PROGRAM, [atom(Holds2, TwoHop, X, Y)])
-    twohop_td = {(deref(X, s), deref(Y, s)) for s in td}
-    check(twohop_td == exp_twohop, "Top-down TwoHop enumeration mismatch.")
-    notes.append("PASS 2: Tabled top-down TwoHop enumeration is correct.")
+def _expected_reachk(knows: Set[Pair]) -> Set[Pair]:
+    """Reference oracle for ReachK = Knows⁺."""
+    return transitive_closure(knows)
 
-    # 3) ∃R witness for Alice→Dave under Comp(Knows,Knows,R) is exactly {TwoHop}
-    R = Var("R")
-    bu_w = match_against_facts(
-        [atom(Comp, Knows, Knows, R),
-         atom(Holds2, R, "Alice", "Dave")],
-        facts,
-    )
-    td_w, _ = solve_topdown(
-        PROGRAM,
-        [atom(Comp, Knows, Knows, R),
-         atom(Holds2, R, "Alice", "Dave")],
-    )
-    w1 = {deref(R, s) for s in bu_w}
-    w2 = {deref(R, s) for s in td_w}
-    check(w1 == w2 == {TwoHop},
-          f"Witness set mismatch: {w1} vs {w2}")
-    notes.append(
-        "PASS 3: Witness set for Alice→Dave under composition is {TwoHop}."
-    )
 
-    # 4) Universal: if R ≤ Knows and R(Alice,y) then ReachK(Alice,y)
-    ok = True
-    for r in [Follows, Mentors, Collaborates, Knows, TwoHop]:
-        for y in D:
-            cond = ask([
-                atom(Leq, r, Knows),
-                atom(Holds2, r, "Alice", y),
-            ])[1]
-            if cond and not ask([atom(Holds2, ReachK, "Alice", y)])[1]:
-                ok = False
-                break
-        if not ok:
-            break
-    check(ok, "Universal property failed.")
-    notes.append("PASS 4: Universal property holds.")
+def run_checks(m: RelAlgSocialModel) -> List[str]:
+    notes: List[str] = []
 
-    # 5) TwoHop has no reflexives in this acyclic dataset
+    knows_ref, twohop_ref = _expected_knows_and_twohop()
+
+    # 1) Knows extension is exactly the union of base relations
+    check(m.rel_ext[Knows] == knows_ref, "Knows extension mismatch.")
+    notes.append("PASS 1: Knows = Follows ∪ Mentors ∪ Collaborates.")
+
+    # 2) TwoHop matches reference composition
+    twohop_actual = m.rel_ext[TwoHop]
+    check(twohop_actual == twohop_ref, "TwoHop composition mismatch.")
+    notes.append("PASS 2: TwoHop = Knows ∘ Knows is correct.")
+
+    # 3) Witness set for Alice→Dave under composition is {TwoHop}
+    wits = set(q2_witness_relations(m))
+    check(wits == {TwoHop}, f"Witness set mismatch: {wits}")
+    notes.append("PASS 3: Witness set for Alice→Dave under Comp(Knows,Knows,R) is {TwoHop}.")
+
+    # 4) Universal property holds
+    check(q3_universal_property(m), "Universal property failed.")
+    notes.append("PASS 4: Universal property (R ≤ Knows ⇒ ReachK covers Alice-targets) holds.")
+
+    # 5) TwoHop has no reflexive pairs in this acyclic dataset
     for v in D:
-        check(
-            not ask([atom(Holds2, TwoHop, v, v)])[1],
-            f"Unexpected TwoHop reflexive at {v}.",
-        )
+        check((v, v) not in m.rel_ext[TwoHop], f"Unexpected reflexive TwoHop at {v}.")
     notes.append("PASS 5: TwoHop is non-reflexive here.")
 
-    # 6) ReachK non-reflexive unless cycles exist (none here)
+    # 6) ReachK has no reflexive pairs (dataset is acyclic)
     for v in D:
-        check(
-            not ask([atom(Holds2, ReachK, v, v)])[1],
-            f"Unexpected ReachK reflexive at {v}.",
-        )
+        check((v, v) not in m.rel_ext[ReachK], f"Unexpected reflexive ReachK at {v}.")
     notes.append("PASS 6: ReachK is non-reflexive here.")
 
-    # 7) Engine chooser behavior
-    e1, _, _ = ask([atom(Holds2, TwoHop, Var("X"), Var("Y"))])          # big enumeration
-    e2, _, _ = ask([atom(Holds2, TwoHop, "Alice", "Dave")])            # ground check
-    check(e1 == "bottomup" and e2 == "topdown", "Engine chooser mismatch.")
-    notes.append("PASS 7: Engine chooser behaves as intended.")
+    # 7) leq is reflexive on all relation names
+    for r in ROLE_NAMES:
+        check(r in m.leq.get(r, set()), f"Reflexivity of leq failed for {local(r)}.")
+    notes.append("PASS 7: leq reflexivity holds for all relation names.")
 
-    # 8) leq reflexive on names
-    for r in [Follows, Mentors, Collaborates, Knows, TwoHop, ReachK]:
-        check(
-            ask([atom(Leq, r, r)])[1],
-            f"Reflexivity of leq failed for {local(r)}.",
-        )
-    notes.append("PASS 8: leq reflexivity holds for all relation names.")
+    # 8) Inclusion basics: base relations are ≤ Knows in leq_strict
+    for r in (Follows, Mentors, Collaborates):
+        check(Knows in m.leq_strict.get(r, set()),
+              f"leq_strict {local(r)} ⊆ Knows failed.")
+    notes.append("PASS 8: leq_strict inclusions Follows/Mentors/Collaborates ⊆ Knows hold.")
 
-    # 9) Inclusion basics: base relations are ≤ Knows
-    for r in [Follows, Mentors, Collaborates]:
-        check(
-            ask([atom(LeqStrict, r, Knows)])[1],
-            f"leq_strict {local(r)} ⊆ Knows failed.",
-        )
-    notes.append("PASS 9: leq_strict inclusions hold.")
+    # 9) Composition really yields a 2-hop edge Alice→Dave
+    check(("Alice", "Dave") in m.rel_ext[TwoHop], "Expected Alice→Dave in TwoHop.")
+    notes.append("PASS 9: TwoHop contains Alice→Dave as a 2-hop path.")
 
-    # 10) Composition really yields a 2-hop edge: Alice→Dave ∈ TwoHop
+    # 10) ReachK equals Knows⁺ according to reference closure
+    reachk_ref = _expected_reachk(knows_ref)
+    check(m.rel_ext[ReachK] == reachk_ref, "ReachK closure mismatch.")
+    notes.append("PASS 10: ReachK = Knows⁺ matches reference transitive closure.")
+
+    # 11) Building the model twice yields identical closure
+    m2 = build_model()
     check(
-        ask([atom(Holds2, TwoHop, "Alice", "Dave")])[1],
-        "Expected Alice→Dave in TwoHop.",
+        m.rel_ext == m2.rel_ext
+        and m.leq_strict == m2.leq_strict
+        and m.leq == m2.leq,
+        "Model closure not stable across rebuilds.",
     )
-    notes.append("PASS 10: TwoHop contains Alice→Dave.")
+    notes.append("PASS 11: Model rebuilding is stable (same holds2 and leq).")
 
-    # 11) Bottom-up closure idempotence
-    f1, _ = solve_bottomup(PROGRAM, SIGNATURE)
-    f2, _ = solve_bottomup(PROGRAM, SIGNATURE)
-    check(
-        f1[Holds2] == f2[Holds2],
-        "Bottom-up closure not idempotent.",
-    )
-    notes.append("PASS 11: Bottom-up closure is stable.")
-
-    # 12) Deterministic printing
-    s1 = fmt_pairs(sorted(exp_twohop))
-    s2 = fmt_pairs(sorted(list(exp_twohop)))
+    # 12) Pretty-printing is deterministic
+    s1 = fmt_pairs(sorted(twohop_ref))
+    s2 = fmt_pairs(sorted(list(twohop_ref)))
     check(s1 == s2, "Pretty-printer determinism failed.")
-    notes.append("PASS 12: Pretty printing deterministic.")
+    notes.append("PASS 12: Pretty printing is deterministic.")
 
     return notes
 
@@ -1030,16 +562,18 @@ def run_checks() -> List[str]:
 # -------------------
 
 def main():
-    print_model()
+    m = build_model()
+
+    print_model(m)
     print_question()
-    res1, res2, res3 = run_queries()
+    res1, res2, res3 = run_queries(m)
     print_answer(res1, res2, res3)
-    print_reason(res1[1], res2[1])
+    print_reason()
 
     print("Check (harness)")
     print("===============")
     try:
-        for note in run_checks():
+        for note in run_checks(m):
             print(note)
     except CheckFailure as e:
         print("FAIL:", e)
