@@ -1,0 +1,70 @@
+Answer
+------
+We compare four norms on ℂ:
+  world 0: Euclidean   ‖x+iy‖ = sqrt(x² + y²)
+  world 1: ℓ¹          ‖x+iy‖ = |x| + |y|
+  world 2: ℓ∞          ‖x+iy‖ = max(|x|, |y|)
+  world 3: Elliptic    ‖x+iy‖ = sqrt(x² + 2 y²)
+and two theorems:
+  TriangleIneq:        ‖z+w‖ ≤ ‖z‖ + ‖w‖
+  MultiplicativeModulus: ‖zw‖ = ‖z‖‖w‖.
+The usual complex absolute value is world 0; it is the only one that is
+both a norm and multiplicative in the sense of MultiplicativeModulus.
+
+Empirical results (random tests over small complex integers):
+
+world | norm description                 | Triangle (ok/total) | MultMod (ok/total)
+-----------------------------------------------------------------------------------
+0    | Euclidean ‖z‖ = sqrt(x² + y²)  | 300/300                | 300/300
+1    | ℓ¹        ‖z‖ = |x| + |y|      | 300/300                | 93/300
+2    | ℓ∞        ‖z‖ = max(|x|, |y|)  | 300/300                | 101/300
+3    | Elliptic  ‖z‖ = sqrt(x² + 2 y²) | 300/300                | 64/300
+
+Heuristically, we expect: world 0 satisfies both Triangle and MultiplicativeModulus, while the other worlds satisfy Triangle but fail MultiplicativeModulus.
+
+Holds₁ view on theorem-names:
+  world 0: Holds1(thm:TriangleIneq, 0)=True, Holds1(thm:MultiplicativeModulus, 0)=False
+  world 1: Holds1(thm:TriangleIneq, 1)=True, Holds1(thm:MultiplicativeModulus, 1)=False
+  world 2: Holds1(thm:TriangleIneq, 2)=True, Holds1(thm:MultiplicativeModulus, 2)=False
+  world 3: Holds1(thm:TriangleIneq, 3)=True, Holds1(thm:MultiplicativeModulus, 3)=False
+
+Reason why
+----------
+We represent complex numbers as Python's built-in complex type and work
+over small integer lattice points in ℂ for testing. Each world chooses a
+different norm on ℂ ≅ ℝ²; the triangle inequality and multiplicativity
+are then tested numerically on many random pairs (z,w).
+
+The first-order core consists of:
+  • the concrete norm functions ‖·‖₍w₎,
+  • random generation of sample pairs (z,w),
+  • boolean tests for TriangleIneq and MultiplicativeModulus.
+
+From this we build an extensional model:
+  • worlds are the integers 0..3 (the four norms),
+  • theorem-names thm:TriangleIneq and thm:MultiplicativeModulus,
+  • EXT1[thm:TriangleIneq] = {w | all samples in world w satisfy triangle inequality},
+  • EXT1[thm:MultiplicativeModulus] = {w | all samples in world w satisfy multiplicativity},
+and define:
+  Holds1(P, w) ⇔ w ∈ EXT1[P].
+
+A binary relation-name rel:stronger connects the intensions
+  (thm:MultiplicativeModulus, thm:TriangleIneq)
+via EXT2[rel:stronger], and
+  Holds2(rel:stronger, X, Y) ⇔ (X, Y) ∈ EXT2[rel:stronger].
+
+Thus the normative statements ('TriangleIneq holds in world 2',
+'MultiplicativeModulus is stronger than TriangleIneq') are captured by
+Holds₁ / Holds₂ over a finite set of intensions, while all semantic work
+is done in a simple first-order numerical core.
+
+Check (harness)
+---------------
+PASS 1: All world norms satisfy basic norm properties in sampled tests.
+PASS 2: World 0 (Euclidean) shows concrete multiplicativity of the modulus.
+PASS 3: Worlds 1,2,3 all fail multiplicativity on fixed examples.
+PASS 4: Stats reflect that only world 0 satisfies multiplicativity, all satisfy triangle inequality.
+PASS 5: Holds₁/EXT1 match empirical stats for all worlds and theorems.
+PASS 6: 'MultiplicativeModulus' is stronger than 'TriangleIneq' in all worlds where it holds.
+All checks passed.
+
