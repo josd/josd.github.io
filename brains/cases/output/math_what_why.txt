@@ -1,76 +1,67 @@
-{
-  "answer": {
-    "selected_path": [
-      "adopt algebra-operations",
-      "adopt classical-logic",
-      "adopt function-formation",
-      "adopt natural-induction",
-      "adopt order-completeness",
-      "adopt set-existence",
-      "adopt symmetry-axioms",
-      "adopt topology-axioms"
-    ],
-    "final_state": {
-      "axioms": [
-        "algebra-operations",
-        "classical-logic",
-        "function-formation",
-        "natural-induction",
-        "order-completeness",
-        "set-existence",
-        "symmetry-axioms",
-        "topology-axioms"
-      ],
-      "concepts": [
-        "analysis",
-        "arithmetic",
-        "calculus",
-        "category-theory",
-        "explanatory-power",
-        "fields",
-        "functions",
-        "geometry",
-        "groups",
-        "invariants",
-        "naturals",
-        "proofs",
-        "reals",
-        "rings",
-        "sets",
-        "topology",
-        "transfer-principle"
-      ]
-    }
-  },
-  "reason": [
-    "Goal: achieve the WHAT (core concepts) and the WHY (explanations and transfer).",
-    "Target observations: arithmetic, calculus, category-theory, explanatory-power, geometry, invariants, topology, transfer-principle.",
-    "Explored 109601 order-distinct axiom paths (depth ≤ 8).",
-    "From these, 40320 endpoints satisfied the goal.",
-    "Selected steps:",
-    "  1. adopt algebra-operations → newly enabled concepts: —",
-    "  2. adopt classical-logic → newly enabled concepts: proofs",
-    "  3. adopt function-formation → newly enabled concepts: —",
-    "  4. adopt natural-induction → newly enabled concepts: —",
-    "  5. adopt order-completeness → newly enabled concepts: —",
-    "  6. adopt set-existence → newly enabled concepts: analysis, arithmetic, calculus, category-theory, fields, functions, naturals, reals, rings, sets, transfer-principle",
-    "  7. adopt symmetry-axioms → newly enabled concepts: geometry, groups",
-    "  8. adopt topology-axioms → newly enabled concepts: explanatory-power, invariants, topology",
-    "Final axioms: algebra-operations, classical-logic, function-formation, natural-induction, order-completeness, set-existence, symmetry-axioms, topology-axioms.",
-    "Final concepts: analysis, arithmetic, calculus, category-theory, explanatory-power, fields, functions, geometry, groups, invariants, naturals, proofs, reals, rings, sets, topology, transfer-principle."
-  ],
-  "check": {
-    "recomputed_concepts_match": true,
-    "observations_satisfied": true,
-    "monotonic_along_path": true,
-    "enabled_records_consistent": true,
-    "axiom_minimality": true,
-    "dispensable_axioms": [],
-    "minimal_steps": true,
-    "shorter_path_example": [],
-    "acyclic_concept_dependencies": true,
-    "permutation_invariant": true,
-    "permutation_mismatches": [],
-    "passed": true
-  }
-}
+Answer
+------
+Target observation concepts:
+  arithmetic, calculus, category-theory, explanatory-power, geometry, invariants, topology, transfer-principle.
+
+Search explored 109601 distinct axiom-sets (nodes).
+Found 40320 consistent endpoints.
+
+Chosen plan (minimal number of axiom adoptions):
+ 1. adopt algebra-operations       → enables: —
+ 2. adopt classical-logic          → enables: proofs
+ 3. adopt function-formation       → enables: —
+ 4. adopt natural-induction        → enables: —
+ 5. adopt order-completeness       → enables: —
+ 6. adopt set-existence            → enables: analysis, arithmetic, calculus, category-theory, fields, functions, naturals, reals, rings, sets, transfer-principle
+ 7. adopt symmetry-axioms          → enables: geometry, groups
+ 8. adopt topology-axioms          → enables: explanatory-power, invariants, topology
+
+Final axioms:   algebra-operations, classical-logic, function-formation, natural-induction, order-completeness, set-existence, symmetry-axioms, topology-axioms.
+Final concepts: analysis, arithmetic, calculus, category-theory, explanatory-power, fields, functions, geometry, groups, invariants, naturals, proofs, reals, rings, sets, topology, transfer-principle.
+
+Final world id (axiom-mask) = 255
+Sample Holds₁ judgements for the final world:
+  Holds1(cx:arithmetic, 255) = True
+  Holds1(cx:calculus, 255) = True
+  Holds1(cx:category-theory, 255) = True
+  Holds1(cx:explanatory-power, 255) = True
+
+Reason why
+----------
+We model mathematics at two levels:
+  • A *world* is a set of adopted axioms, encoded as an integer 0..2^N−1.
+  • Each axiom a has a unary predicate-name ax:a, each concept c has cx:c.
+    The fixed predicate Holds₁(ax:a, w) says “a is adopted in world w”.
+    The fixed predicate Holds₁(cx:c, w) says “c is available in world w”.
+
+Direct dependencies between intensions are recorded by Holds₂:
+  Holds₂(rel:requires, cx:c, Q) means that Q (an ax:… or cx:…) is a
+  direct prerequisite of concept c. We compile these from PREREQUISITES.
+
+The real semantic work is done by a first-order closure operator:
+  infer_concepts(ax_mask) repeatedly adds any concept whose axiom
+  and concept prerequisites are already satisfied, until a fixed point.
+This operator induces EXT1 and therefore all Holds₁ facts.
+
+The search then explores axiom-adoption paths breadth-first, starting
+from the empty world (no axioms). Whenever a world w satisfies all
+observation concepts, it is a candidate endpoint. Among these:
+  • we keep a world with the smallest number of adopted axioms, and
+  • if there are ties, the lexicographically smallest action sequence.
+
+The printed plan is therefore a shortest explanation, in terms of
+axiom adoptions, of how our chosen WHAT/WHY concepts can obtain.
+
+Check (harness)
+---------------
+PASS 1: Holds₂(rel:requires, …) encodes key dependencies.
+PASS 2: Holds₁ behaves correctly in small toy worlds.
+PASS 3: Final world satisfies all observation concepts via Holds₁.
+PASS 4: infer_concepts and Holds₁ agree on the final concept set.
+PASS 5: Concepts grow monotonically and enabled-concepts are consistent.
+PASS 6: Each adopted axiom is individually necessary for the observations.
+PASS 7: Chosen plan is shortest with respect to this search space.
+PASS 8: Concept dependency graph is acyclic (no circular definitions).
+PASS 9: Permutation robustness trivially holds (no trials requested).
+All checks passed.
+
