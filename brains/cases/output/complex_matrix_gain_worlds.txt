@@ -1,0 +1,80 @@
+Answer
+------
+We compare four safety tests for 2×2 complex system matrices with respect to
+a gain limit G_max = 1:
+  world 0: true spectral norm (||A||₂) via eigenvalues of A* A,
+  world 1: Frobenius norm bound (||A||_F ≤ 1 ⇒ safe),
+  world 2: column-length heuristic (max column norm ≤ 1 ⇒ safe),
+  world 3: max-entry heuristic (max |a_ij| ≤ 1 ⇒ safe),
+and two theorem-names:
+  CorrectSafetyTest:  world w's 'safe' predicate agrees with the true one,
+  NoFalseSafe:        world w never declares an unsafe matrix safe.
+In engineering terms, world 0 corresponds to the ideal spectral-gain check,
+world 1 is a conservative upper bound, and worlds 2 and 3 are cheap but
+potentially dangerous shortcuts.
+
+Empirical results (random tests over small complex matrices):
+
+world | test description                 | Correct (ok/total) | NoFalseSafe (ok/total)
+--------------------------------------------------------------------------------------
+0    | true spectral norm (ground truth) | 200/200                 | 1/1
+1    | Frobenius norm bound (conservative) | 200/201                 | 1/1
+2    | column-length heuristic          | 200/201                 | 1/2
+3    | max-entry heuristic              | 200/201                 | 1/3
+
+Heuristically, we expect: world 0 (true spectral norm) to satisfy both CorrectSafetyTest and NoFalseSafe; world 1 (Frobenius bound) to satisfy NoFalseSafe but not CorrectSafetyTest; worlds 2 and 3 (column-length and max-entry heuristics) to fail both properties due to false safe decisions.
+
+Holds₁ view on theorem-names:
+  world 0: Holds1(thm:CorrectSafetyTest, 0)=True, Holds1(thm:NoFalseSafe, 0)=True
+  world 1: Holds1(thm:CorrectSafetyTest, 1)=False, Holds1(thm:NoFalseSafe, 1)=True
+  world 2: Holds1(thm:CorrectSafetyTest, 2)=False, Holds1(thm:NoFalseSafe, 2)=False
+  world 3: Holds1(thm:CorrectSafetyTest, 3)=False, Holds1(thm:NoFalseSafe, 3)=False
+
+Reason why
+----------
+In the first-order core, we represent 2×2 complex matrices as pairs of
+Python complex numbers. We compute the operator 2-norm ||A||₂ by forming
+the Gram matrix A* A, which is 2×2 Hermitian, and then taking the square
+root of its largest eigenvalue. This gives an exact worst-case gain for
+the linear map u ↦ A u under Euclidean norms. The true safety predicate
+safe_true(A) requires ||A||₂ ≤ 1.
+
+Each world defines a simpler or restricted safety test safe_world(w, A):
+  • world 0 uses safe_true itself;
+  • world 1 uses the inequality ||A||₂ ≤ ||A||_F and insists ||A||_F ≤ 1,
+    which is conservative but can reject safe matrices;
+  • world 2 tests only the lengths of the columns, ignoring combinations
+    of columns that can produce larger gains (e.g. two equal columns give
+    a spectral norm of sqrt(2) even though each column has norm 1);
+  • world 3 tests only the largest individual entry, ignoring how entries
+    cooperate to amplify certain directions.
+
+We test two meta-properties over many random matrices and some deliberate
+examples: CorrectSafetyTest (no mismatches with safe_true) and NoFalseSafe
+(no unsafe matrix ever declared safe). From the results we build an
+extensional model:
+  • worlds: w ∈ {0,1,2,3},
+  • theorem-names: thm:CorrectSafetyTest, thm:NoFalseSafe,
+  • EXT1[thm:CorrectSafetyTest] = { w | safe_world(w,·) matches safe_true on all samples },
+  • EXT1[thm:NoFalseSafe]       = { w | safe_world(w,·) has no observed false-safe decisions }.
+
+We interpret Holds₁(P, w) as membership of w in EXT1[P]. At the binary
+level, we set EXT2[rel:stronger] = { (thm:CorrectSafetyTest,
+thm:NoFalseSafe) } and define Holds₂ by membership in EXT2. This captures
+the idea that a fully correct safety test is stronger than a merely
+one-sided (no false safe) test: in any world where CorrectSafetyTest holds
+(here, world 0), NoFalseSafe holds as well. The logical layer is thus a
+thin wrapper over the concrete numerical behaviour of different gain
+tests, turning a very practical question—“Is this 2×2 complex system safe
+under my gain limit?”—into a clean higher-order-looking story.
+
+Check (harness)
+---------------
+PASS 1: spectral_norm behaves as expected and is ≤ Frobenius norm on tested matrices.
+PASS 2: World 0 safety classification matches true safety on explicit examples.
+PASS 3: World 1 is strictly more conservative than world 0 (Frobenius bound).
+PASS 4: Worlds 2 and 3 have clear false-safe matrices.
+PASS 5: Statistics match the intended pattern across all worlds.
+PASS 6: Holds₁/EXT1 are consistent and CorrectSafetyTest is stronger than NoFalseSafe.
+All checks passed.
+
