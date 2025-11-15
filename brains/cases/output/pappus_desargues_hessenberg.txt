@@ -1,40 +1,41 @@
-Answer:
+Answer
+------
 Hessenberg’s theorem (1905): In any projective plane, if Pappus’ theorem holds for all appropriate configurations (i.e., the plane is Pappian), then Desargues’ theorem also holds for all configurations (i.e., the plane is Desarguesian).
 
-Reason:
-Modern algebraic reason (4 lines):
-  (1) A projective plane with Pappus can be coordinatized by a commutative division ring (a field).
-  (2) Projective planes over any division ring (commutative or not) satisfy Desargues.
-  (3) Every field is a division ring.
-  (4) Therefore Pappus ⇒ Desargues.
+Empirical check in finite projective planes PG(2, p):
 
-Hessenberg’s synthetic reconstruction (outline, no coordinates):
-  • Setup: Work in a projective plane where Pappus holds. Study central collineations
-    (elations/homologies: collineations fixing an 'axis' line pointwise and a 'center' point).
-  • Translations and shears: Using Pappus, show that the composition of two elations with
-    parallel axes is again an elation and that such elations commute. This yields an abelian
-    'translation group' acting freely on an affine patch (remove a line at infinity).
-  • Parallelogram law: The commuting translations induce a commutative, associative 'addition'
-    on each affine line (constructible purely by incidence). Pappus is precisely the geometric
-    statement ensuring commutativity of this addition.
-  • Homotheties and products: By combining a fixed triangle and central perspectivities,
-    define 'dilations'; their composition rules are controlled by Pappus-configurations.
-    This gives a commutative 'scalar' multiplication compatible with the additive structure.
-  • Projectivities from a point: With this structure in hand, compare any two triangles that
-    are perspective from a point O. One can map one triangle to the other by a composition of
-    elations/dilations whose axis is a fixed line. The fixed line becomes the 'axis of
-    perspectivity', and the three intersections of corresponding sides lie on it—this is
-    exactly Desargues’ theorem. Thus Desargues follows from the Pappus-driven behavior of
-    central collineations, without coordinatization.
-  • Moral: Pappus forces the plane’s collineation group to behave like the affine/projective
-    groups over a field; Desargues is a consequent property of such geometry.
-
-Check (harness):
-p | Pappus (ok/total) | Desargues (ok/total)
---------------------------------------------
-3 | 120/120           | 120/120
-5 | 120/120           | 120/120
-7 | 120/120           | 120/120
+p  | Pappus (ok/total) | Desargues (ok/total)
+---------------------------------------------
+3  | 120/120           | 120/120
+5  | 120/120           | 120/120
+7  | 120/120           | 120/120
 11 | 120/120           | 120/120
 
-Note: Over GF(p) both theorems are true, so we expect 100% success.
+Note: PG(2, p) over a field GF(p) is known to satisfy both Pappus and Desargues exactly; the statistics above should therefore show 100% success.
+
+Reason why
+----------
+Modern algebraic perspective (very compressed):
+  (1) A Pappian projective plane can be coordinatized by a commutative division ring, i.e. a field.
+  (2) Projective planes over any division ring (commutative or not) satisfy Desargues.
+  (3) Every field is a division ring.
+  (4) Hence, in field planes, Pappus ⇒ Desargues.
+
+Hessenberg’s synthetic route (outline, no coordinates):
+  • Work in a projective plane where Pappus holds. Study central collineations (elations and homologies: collineations fixing an 'axis' line pointwise and a 'center' point).
+  • Using Pappus, show that compositions of suitable elations behave like translations on an affine patch; these translations commute, giving a commutative 'addition' on each affine line.
+  • Still synthetically, construct 'dilations' (homotheties) from a chosen triangle and central perspectivities. Their composition rules, controlled by Pappus configurations, provide a scalar-like multiplication.
+  • This additive and multiplicative structure behaves like that of a field; the plane’s collineation group begins to look like the usual affine/projective group over a field.
+  • In this setting, if two triangles are perspective from a point O, one can synthetically construct a perspectivity with axis ℓ taking one triangle to the other, forcing the intersections of corresponding sides to lie on ℓ. This is exactly Desargues’ theorem.
+  • Thus Pappus, via the behavior of central collineations, enforces the Desargues property without explicit coordinatization.
+
+Check (harness)
+---------------
+PASS 1: Basic projective primitives (line_through/dot) behave as expected.
+PASS 2: Pappus holds in sampled configurations in PG(2, 3).
+PASS 3: Desargues holds in sampled configurations in PG(2, 3).
+PASS 4: All nondegenerate sampled configurations satisfy Pappus and Desargues.
+PASS 5: Holds₁/EXT1 match the empirical theorem statistics for each world.
+PASS 6: The Holds₂-level implication Pappus ⇒ Desargues matches all worlds.
+All checks passed.
+
