@@ -20,7 +20,7 @@ The big question engineers ask is:
 
 That’s the notion of **stability**.
 
-Our case is a tiny, [self-contained Python “laboratory”](./complex_matrix_stability_worlds.py) for that question. It does three things:
+Our case is a tiny, [self-contained Python “laboratory”](https://github.com/josd/josd.github.io/blob/master/brains/cases/complex_matrix_stability_worlds.py) for that question. It does three things:
 
 1. It implements the *true* mathematical test for stability of 2×2 complex matrices.
 2. It implements **three approximate tests**, each representing a different compromise between accuracy and simplicity.
