@@ -103,12 +103,12 @@ If a check fails, the program reports a specific violation. That failure is trea
 
 ---
 
-## The Tree of Insights
+## The The Cognitive Cortex
 
-As these cases accumulate, they form a growing “tree of insights.”
+As these cases accumulate, they weave together to form a **Cognitive Cortex**.
 
 * **Answers** from earlier cases can serve as inputs or assumptions in later cases.
 * **Reasons and checks** maintain a consistent level of rigor, helping ensure that the overall structure remains coherent and trustworthy.
 
-In this way, `Branches of Insights – brains` supports the gradual construction of a transparent, testable network of computational insights, where each branch documents not only what is concluded, but also why and how it has been verified.
+In this way, `Branches of Insights – brains` supports the gradual construction of a transparent, testable **network of computational thought**, where each branch documents not only what is concluded, but also why and how it has been verified.
 
