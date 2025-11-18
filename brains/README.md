@@ -103,7 +103,7 @@ If a check fails, the program reports a specific violation. That failure is trea
 
 ---
 
-## The The Cognitive Cortex
+## The Cognitive Cortex
 
 As these cases accumulate, they weave together to form a **Cognitive Cortex**.
 
