@@ -8,10 +8,9 @@ light_eaters.py
 What is this?
 -------------
 A tiny, auditable Python program that answers the main question at the heart of
-Zoë Schlanger’s *The Light Eaters*: “Are plants intelligent?” It follows the
-EYE “branches of insights – brains” discipline: the script computes an Answer,
-emits a formally constrained “Reason why” in mathematical English, and then
-runs a Check (harness) with multiple falsifiable tests.
+Zoë Schlanger’s *The Light Eaters*: “Are plants intelligent?” The script computes
+an Answer, emits a formally constrained “Reason why” in mathematical English,
+and then runs a Check (harness) with multiple falsifiable tests.
 
 How does it define “intelligence”?
 ----------------------------------
@@ -58,8 +57,7 @@ How to extend
 Attributions
 ------------
 - Main question context drawn from Schlanger’s *The Light Eaters* (2024).
-- The program’s structure is inspired by the EYE “branches of insights – brains”
-  style: compute an answer, state reasons, run checks.
+- The program’s structure is: compute an answer, state reasons, run checks.
 """
 
 from dataclasses import dataclass

@@ -1,14 +1,13 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-README (plain text)
-===================
+README
+======
 Purpose
 -------
-A small “branch of insights” (in the spirit of https://eyereasoner.github.io/eye/brains/)
-that *quantifies over binary predicates* while keeping a first-order core via the
-Hayes–Menzel idea. Binary predicates (relations) are **named objects** (intensions
-like "ex:ParentOf"), and we use a single fixed predicate style:
+A small Python program that *quantifies over binary predicates* while keeping a first-order
+core via the Hayes–Menzel idea. Binary predicates (relations) are **named objects**
+(intensions like "ex:ParentOf"), and we use a single fixed predicate style:
 
   • Holds₂(R, a, b)           — membership: ⟨a,b⟩ is in the extension of relation-name R
   • Holds₂(SubRelOf, P, Q)    — inclusion:   extension(P) ⊆ extension(Q) (over *names* P, Q)

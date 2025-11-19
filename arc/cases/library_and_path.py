@@ -6,7 +6,7 @@ library_and_path.py
 
 Overview
 --------
-This script is a self-contained Python reconstruction of the Brains example
+This script is a self-contained Python reconstruction of the example
 “library-and-path”. It searches for a *short* sequence of “law adoptions”
 
     stabilize gravity-stable

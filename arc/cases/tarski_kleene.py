@@ -1,13 +1,12 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-README (plain text)
-===================
+README
+======
 Purpose
 -------
-This single-file program is a “branch of insights” in the spirit of
-https://eyereasoner.github.io/eye/brains/ . It demonstrates how a problem that
-*looks* like Second-Order Logic (SOL)—because it quantifies over **sets** and
+This single-file program demonstrates how a problem that *looks* like
+Second-Order Logic (SOL)—because it quantifies over **sets** and
 **set-operators**—can be modeled with a **first-order core** using a small,
 fixed set of predicates. This follows the core idea of Hayes–Menzel.
 

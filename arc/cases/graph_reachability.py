@@ -1,13 +1,12 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-README (plain text)
-===================
+README
+======
 Purpose
 -------
-A small, self-contained “branch of insights” (in the spirit of
-https://eyereasoner.github.io/eye/brains/) for **graph reachability**. It answers a
-*typical* question on one concrete graph and explains the result in mathematical English.
+A small, self-contained program for **graph reachability**. It answers a *typical*
+question on one concrete graph and explains the result in mathematical English.
 
 Core idea (Hayes–Menzel)
 ------------------------

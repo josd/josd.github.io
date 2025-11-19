@@ -1,16 +1,15 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-README (plain text)
-===================
+README
+======
 Purpose
 -------
-This single-file program is a “branch of insights” (in the spirit of
-https://eyereasoner.github.io/eye/brains/) that illustrates the **Fundamental
-Theorem of Arithmetic (FTA)**—existence and uniqueness of prime factorization—
-while showcasing the Hayes–Menzel idea: treat *predicates* like "is prime" or
-"divides" as **named objects** (intensions), and use fixed predicates
-`Holds₁`/`Holds₂` to relate those names to their extensions.
+This single-file program illustrates the **Fundamental Theorem of Arithmetic
+(FTA)**—existence and uniqueness of prime factorization—while showcasing the
+Hayes–Menzel idea: treat *predicates* like "is prime" or "divides" as
+**named objects** (intensions), and use fixed predicates `Holds₁`/`Holds₂`
+to relate those names to their extensions.
 
 Core idea (Hayes–Menzel)
 ------------------------

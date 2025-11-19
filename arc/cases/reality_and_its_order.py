@@ -14,8 +14,7 @@ Werner Heisenberg’s *Reality and Its Order* (English trans. 2019 of a 1941/42 
    requires complementary descriptions (quantum/classical etc.) rather
    than a single universal classical picture?”
 
-It follows the EYE “branches of insights – brains” discipline:
-the script computes an Answer, emits a formally constrained “Reason why”
+The script computes an Answer, emits a formally constrained “Reason why”
 in mathematical English, and then runs a Check (harness) with multiple
 falsifiable tests.
 

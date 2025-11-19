@@ -14,8 +14,7 @@ Principia Mathematica and Related Systems I*:
   “Is every consistent, effectively axiomatized, sufficiently arithmetic
    formal theory incomplete?”
 
-It follows the EYE “branches of insights – brains” discipline:
-the script computes an Answer, emits a formally constrained “Reason why”
+The script computes an Answer, emits a formally constrained “Reason why”
 in mathematical English, and then runs a Check (harness) with multiple
 falsifiable tests.
 

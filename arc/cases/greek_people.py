@@ -1,14 +1,13 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-README (plain text)
-===================
+README
+======
 Purpose
 -------
-A small “branch of insights” (in the spirit of https://eyereasoner.github.io/eye/brains/)
-that *quantifies over predicates* while keeping a first-order core via the
-Hayes–Menzel idea. Predicates (classes) are **named objects** (intensions like
-"ex:Greek"), and we use fixed predicates:
+A small Python program that *quantifies over predicates* while keeping a first-order
+core via the Hayes–Menzel idea. Predicates (classes) are **named objects** (intensions
+like "ex:Greek"), and we use fixed predicates:
 
   • Holds₁(C, a)   — membership: a is in the extension of class-name C
   • Holds₂(SubClassOf, P, Q) — subclass: class-name P’s extension is included in Q’s

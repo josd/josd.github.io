@@ -10,10 +10,9 @@ What is this?
 A tiny, auditable Python program that answers a central question of
 Thomas Hertog’s *On the Origin of Time* (2023): “Do the fundamental laws of
 physics co-emerge and evolve with the universe rather than being timeless and
-fixed?” It follows the EYE “branches of insights – brains” discipline: the
-script computes an Answer, emits a formally constrained “Reason why” in
-mathematical English, and then runs a Check (harness) with multiple falsifiable
-tests.
+fixed?”. The script computes an Answer, emits a formally constrained “Reason why”
+in mathematical English, and then runs a Check (harness) with multiple
+falsifiable tests.
 
 How does it formalize the question?
 -----------------------------------

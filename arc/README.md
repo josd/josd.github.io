@@ -86,4 +86,5 @@ Part B
 
 Part C
 
-  - [Python test cases](https://josd.github.io/arc/cases/)
+  - [**Python test cases**](https://github.com/josd/josd.github.io/tree/master/arc/cases/)
+

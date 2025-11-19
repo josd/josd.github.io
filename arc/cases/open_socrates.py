@@ -14,8 +14,7 @@ Agnes Callard’s *Open Socrates: The Case for a Philosophical Life* (2025):
    intellectual humility, rigorous self-examination, and willingness to be
    transformed by better reasons?”
 
-It follows the EYE “branches of insights – brains” discipline:
-the script computes an Answer, emits a formally constrained “Reason why”
+The script computes an Answer, emits a formally constrained “Reason why”
 in mathematical English, and then runs a Check (harness) with multiple
 falsifiable tests.
 

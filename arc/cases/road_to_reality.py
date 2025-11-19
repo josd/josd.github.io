@@ -13,8 +13,7 @@ Roger Penrose’s *The Road to Reality* (2004):
   “Is physical reality fundamentally governed by deep, objective
    mathematical structures (a strong mathematical realism)?”
 
-It follows the EYE “branches of insights – brains” discipline:
-the script computes an Answer, emits a formally constrained “Reason why”
+The script computes an Answer, emits a formally constrained “Reason why”
 in mathematical English, and then runs a Check (harness) with multiple
 falsifiable tests.
 
