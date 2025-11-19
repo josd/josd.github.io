@@ -86,5 +86,5 @@ Part B
 
 Part C
 
-  - [**Python test cases**](https://github.com/josd/josd.github.io/tree/master/arc/cases/)
+  - [**Python cases**](https://github.com/josd/josd.github.io/tree/master/arc/cases/) — Self-contained Python cases that chain together over a bus.
 
