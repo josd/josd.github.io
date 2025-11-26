@@ -37,7 +37,7 @@ Part A
   - [**Building Performance**](https://josd.github.io/arc/building-performance.html) — Reason about energy/comfort metrics and verify rule-based outcomes.
   - [**Clinical Care Planning**](https://josd.github.io/arc/clinical-care.html) — Derive care plans from observations, guidelines, and policy constraints.
   - [**Control System**](https://josd.github.io/arc/control-system.html) — Model simple feedback loops and verify stability/response conditions.
-  - [**Delfour**](https://josd.github.io/arc/control-system.html) — Ruben Verborgh's Insight ecomomy case.
+  - [**Delfour**](https://josd.github.io/arc/delfour.html) — Ruben Verborgh's Insight ecomomy case.
   - [**Easter**](https://josd.github.io/arc/easter.html) — Derive Easter dates from calendrical rules with verifiable steps.
   - [**Eco-Route**](https://josd.github.io/arc/eco-route.html) — Pick lower-emission routes by fusing traffic, grade, and policy goals.
   - [**Family Logic**](https://josd.github.io/arc/family.html) — Infer kinship from base relations (parent, spouse) with consistency checks.
