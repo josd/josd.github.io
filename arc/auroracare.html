@@ -1,0 +1,680 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>AuroraCare — Purpose-based Medical Data Exchange</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- Pyodide runtime (Python in the browser) -->
+  <script src="https://cdn.jsdelivr.net/pyodide/v0.26.3/full/pyodide.js"></script>
+
+  <style>
+    :root {
+      --bg: #f5f5f7;
+      --card-bg: #ffffff;
+      --accent: #2563eb;
+      --accent-soft: rgba(37, 99, 235, 0.1);
+      --danger: #dc2626;
+      --danger-soft: rgba(220, 38, 38, 0.08);
+      --ok: #15803d;
+      --text-main: #111827;
+      --text-muted: #6b7280;
+      --radius-xl: 18px;
+      --shadow-sm: 0 4px 12px rgba(15, 23, 42, 0.06);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
+        sans-serif;
+      background: var(--bg);
+      color: var(--text-main);
+      line-height: 1.5;
+    }
+
+    .app {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 1.2rem 1rem 2.4rem;
+    }
+
+    header.top-header {
+      margin-bottom: 1.2rem;
+    }
+
+    header.top-header h1 {
+      font-size: 1.4rem;
+      font-weight: 700;
+      margin-bottom: 0.25rem;
+    }
+
+    header.top-header p {
+      font-size: 0.92rem;
+      color: var(--text-muted);
+      margin-bottom: 0.6rem;
+    }
+
+    .status-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      padding: 0.2rem 0.7rem;
+      border-radius: 999px;
+      background: #e5e7eb;
+      color: #374151;
+    }
+
+    .status-dot {
+      width: 0.55rem;
+      height: 0.55rem;
+      border-radius: 999px;
+      background: #9ca3af;
+    }
+
+    .status-pill.ready .status-dot {
+      background: var(--accent);
+    }
+
+    .status-pill.error .status-dot {
+      background: var(--danger);
+    }
+
+    .section {
+      margin-bottom: 1.2rem;
+    }
+
+    .section-title {
+      font-size: 1.05rem;
+      font-weight: 600;
+      margin-bottom: 0.15rem;
+    }
+
+    .section-subtitle {
+      font-size: 0.86rem;
+      color: var(--text-muted);
+      margin-bottom: 0.6rem;
+    }
+
+    .card {
+      background: var(--card-bg);
+      border-radius: var(--radius-xl);
+      box-shadow: var(--shadow-sm);
+      padding: 0.9rem 0.9rem 0.85rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 0.3rem;
+    }
+
+    .scenario-name {
+      font-weight: 600;
+      font-size: 0.96rem;
+    }
+
+    .chip {
+      font-size: 0.72rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      padding: 0.15rem 0.5rem;
+      border-radius: 999px;
+      background: #eef2ff;
+      color: #3730a3;
+      white-space: nowrap;
+    }
+
+    .scenario-desc {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      margin-bottom: 0.45rem;
+    }
+
+    .pill-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.25rem;
+      margin-bottom: 0.55rem;
+    }
+
+    .pill {
+      font-size: 0.76rem;
+      padding: 0.2rem 0.55rem;
+      border-radius: 999px;
+      background: #f3f4f6;
+      color: #374151;
+    }
+
+    button.run-btn {
+      -webkit-tap-highlight-color: transparent;
+      width: 100%;
+      border: none;
+      outline: none;
+      border-radius: 999px;
+      padding: 0.6rem 0.9rem;
+      font-size: 0.95rem;
+      font-weight: 600;
+      background: var(--accent);
+      color: #fff;
+      box-shadow: 0 4px 10px rgba(37, 99, 235, 0.35);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.4rem;
+      cursor: pointer;
+    }
+
+    button.run-btn span.btn-icon {
+      font-size: 1rem;
+    }
+
+    button.run-btn:active {
+      transform: scale(0.98);
+    }
+
+    button.run-btn[disabled] {
+      opacity: 0.6;
+      box-shadow: none;
+      cursor: default;
+    }
+
+    .result-card {
+      margin-top: 0.2rem;
+    }
+
+    .result-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem;
+      margin-bottom: 0.6rem;
+      flex-wrap: wrap;
+    }
+
+    .status-line {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+    }
+
+    .answer-pill {
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      padding: 0.25rem 0.75rem;
+      border-radius: 999px;
+      text-transform: uppercase;
+    }
+
+    .answer-permit {
+      background: var(--accent-soft);
+      color: #1d4ed8;
+    }
+
+    .answer-deny {
+      background: var(--danger-soft);
+      color: var(--danger);
+    }
+
+    .reason {
+      font-size: 0.9rem;
+      color: var(--text-main);
+      margin-bottom: 0.5rem;
+    }
+
+    details {
+      border-radius: 14px;
+      background: #f9fafb;
+      padding: 0.55rem 0.75rem;
+    }
+
+    summary {
+      list-style: none;
+      cursor: pointer;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text-muted);
+    }
+
+    summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .check-list {
+      margin-top: 0.4rem;
+      max-height: 260px;
+      overflow-y: auto;
+      padding-right: 0.2rem;
+    }
+
+    .check-row {
+      font-size: 0.8rem;
+      padding: 0.12rem 0;
+      border-bottom: 1px solid #e5e7eb;
+    }
+
+    .check-row:last-child {
+      border-bottom: none;
+    }
+
+    .check-key {
+      font-weight: 600;
+      margin-right: 0.25rem;
+    }
+
+    .status-error {
+      color: var(--danger);
+    }
+
+    .status-ok {
+      color: var(--ok);
+    }
+
+    code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+        "Liberation Mono", "Courier New", monospace;
+      font-size: 0.85em;
+      background: #e5e7eb;
+      padding: 0.08rem 0.25rem;
+      border-radius: 0.25rem;
+    }
+
+    @media (min-width: 640px) {
+      header.top-header h1 {
+        font-size: 1.6rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="app">
+    <header class="top-header">
+      <h1>AuroraCare — Purpose-based Medical Data Exchange</h1>
+      <p>
+        Fully client-side demo using <code>auroracare.py</code> (ODRL/DPV + DPV-Health)
+        running in Pyodide. Pick a scenario and see
+        <strong>Answer</strong>, <strong>Reason why</strong>, and
+        <strong>C1–C10 checks</strong>.
+      </p>
+      <div id="python-status" class="status-pill">
+        <span class="status-dot"></span>
+        <span class="status-text">Setting up…</span>
+      </div>
+    </header>
+
+    <section class="section">
+      <h2 class="section-title">Scenarios</h2>
+      <p class="section-subtitle">
+        Vertical, phone-friendly list mirroring the CLI demo in
+        <code>auroracare.py</code>.
+      </p>
+      <div id="scenario-list"></div>
+    </section>
+
+    <section class="section">
+      <h2 class="section-title">Decision</h2>
+      <p class="section-subtitle">
+        Result from the AuroraCare PDP for the selected scenario.
+      </p>
+      <article id="result" class="card result-card" hidden></article>
+    </section>
+  </main>
+
+  <script>
+    // ----- Scenario metadata (for UI only) -----
+    const scenarios = [
+      {
+        id: "A_primary",
+        label: "A – Primary care visit",
+        description:
+          "Clinician in the patient's care team accessing the patient summary for primary care management.",
+        tags: ["Primary care", "Clinician", "Care-team linked"],
+      },
+      {
+        id: "B_qi_in_scope",
+        label: "B – Quality improvement (in scope)",
+        description:
+          "QI analyst using lab results + summary in a secure environment.",
+        tags: ["Quality & safety", "Secure environment"],
+      },
+      {
+        id: "C_qi_out_scope",
+        label: "C – Quality improvement (out of scope)",
+        description:
+          "QI analyst with only lab results; policy expects labs + summary.",
+        tags: ["Quality & safety", "Category out of scope"],
+      },
+      {
+        id: "D_insurance_prohibited",
+        label: "D – Insurance management",
+        description:
+          "Insurance bot attempting to use health data for insurance management (prohibited purpose).",
+        tags: ["Insurance", "Prohibited"],
+      },
+      {
+        id: "E_gp_checks_labs",
+        label: "E – GP checks labs",
+        description:
+          "GP for the same patient checking lab results via the API gateway.",
+        tags: ["Primary care", "Clinician", "Care-team linked"],
+      },
+      {
+        id: "F_research_anonymised",
+        label: "F – Research on anonymised dataset",
+        description:
+          "Researcher using anonymised labs + summary in a secure environment, with opt-in.",
+        tags: ["Research", "Anonymised", "Opt-in"],
+      },
+      {
+        id: "G_ai_training_optout",
+        label: "G – AI training (opt-out)",
+        description:
+          "Data user wants to train AI, but the subject opted out of AI training.",
+        tags: ["AI training", "Opt-out"],
+      },
+    ];
+
+    const scenarioListEl = document.getElementById("scenario-list");
+    const resultEl = document.getElementById("result");
+    const pythonStatusEl = document.getElementById("python-status");
+    const pythonStatusTextEl = pythonStatusEl.querySelector(".status-text");
+    const pythonStatusDotEl = pythonStatusEl.querySelector(".status-dot");
+
+    let pyodideReadyPromise = null;
+    let pyodideInstance = null;
+    let isBusy = false;
+
+    // ----- UI helpers -----
+    function setStatus(kind, text) {
+      pythonStatusEl.classList.remove("ready", "error");
+      pythonStatusDotEl.style.background = "#9ca3af";
+      if (kind === "ready") {
+        pythonStatusEl.classList.add("ready");
+        pythonStatusDotEl.style.background = "var(--accent)";
+      } else if (kind === "error") {
+        pythonStatusEl.classList.add("error");
+        pythonStatusDotEl.style.background = "var(--danger)";
+      }
+      pythonStatusTextEl.textContent = text;
+    }
+
+    function renderScenarioCards() {
+      scenarioListEl.innerHTML = "";
+      scenarios.forEach((s) => {
+        const card = document.createElement("article");
+        card.className = "card scenario-card";
+
+        const header = document.createElement("div");
+        header.className = "card-header";
+
+        const name = document.createElement("div");
+        name.className = "scenario-name";
+        name.textContent = s.label;
+
+        const chip = document.createElement("div");
+        chip.className = "chip";
+        chip.textContent = s.id;
+
+        header.appendChild(name);
+        header.appendChild(chip);
+
+        const desc = document.createElement("p");
+        desc.className = "scenario-desc";
+        desc.textContent = s.description;
+
+        const pillGroup = document.createElement("div");
+        pillGroup.className = "pill-group";
+        s.tags.forEach((t) => {
+          const pill = document.createElement("span");
+          pill.className = "pill";
+          pill.textContent = t;
+          pillGroup.appendChild(pill);
+        });
+
+        const btn = document.createElement("button");
+        btn.type = "button";
+        btn.className = "run-btn";
+        btn.innerHTML =
+          '<span class="btn-icon">▶</span><span class="btn-label">Run scenario</span>';
+        btn.addEventListener("click", () => runScenario(s.id, btn));
+
+        card.appendChild(header);
+        card.appendChild(desc);
+        card.appendChild(pillGroup);
+        card.appendChild(btn);
+
+        scenarioListEl.appendChild(card);
+      });
+    }
+
+    // ----- Pyodide + auroracare.py wiring -----
+    async function initPythonIfNeeded() {
+      if (pyodideReadyPromise) {
+        return pyodideReadyPromise;
+      }
+
+      pyodideReadyPromise = (async () => {
+        try {
+          setStatus("loading", "Loading Python runtime…");
+          const py = await loadPyodide({
+            indexURL: "https://cdn.jsdelivr.net/pyodide/v0.26.3/full/",
+          });
+          pyodideInstance = py;
+
+          // load from local ./cases/auroracare.py
+          setStatus("loading", "Loading ./cases/auroracare.py…");
+          let code;
+          try {
+            const resp = await fetch("./cases/auroracare.py");
+            if (!resp.ok) {
+              throw new Error(
+                "HTTP " + resp.status + " loading ./cases/auroracare.py"
+              );
+            }
+            code = await resp.text();
+          } catch (e) {
+            console.error("Failed to load ./cases/auroracare.py", e);
+            setStatus(
+              "error",
+              "Could not load ./cases/auroracare.py (check filename and that you're serving over HTTP)."
+            );
+            throw e;
+          }
+
+          py.runPython(code);
+
+          // Small glue layer on top of auroracare.py
+          const glueCode = `
+import json
+
+POLICIES = build_policies()
+PDP_INSTANCE = PDP(POLICIES)
+
+_SCENARIOS_RAW = {
+    "A_primary": ("clinician_alba", "clinician", "ruben", "PRIMARY_CARE", ["PATIENT_SUMMARY"], "api_gateway", False),
+    "B_qi_in_scope": ("qi_analyst", "data_user", "ruben", "QI", ["LAB_RESULTS", "PATIENT_SUMMARY"], "secure_env", False),
+    "C_qi_out_scope": ("qi_analyst", "data_user", "ruben", "QI", ["LAB_RESULTS"], "secure_env", False),
+    "D_insurance_prohibited": ("insurer_bot", "data_user", "ruben", "INSURANCE", ["PATIENT_SUMMARY"], "secure_env", False),
+    "E_gp_checks_labs": ("gp_ruben", "clinician", "ruben", "PRIMARY_CARE", ["LAB_RESULTS"], "api_gateway", False),
+    "F_research_anonymised": ("researcher_aurora", "data_user", "ruben", "RESEARCH", ["PATIENT_SUMMARY", "LAB_RESULTS"], "secure_env", True),
+    "G_ai_training_optout": ("ml_ops", "data_user", "ruben", "AI_TRAINING", ["PATIENT_SUMMARY", "LAB_RESULTS"], "secure_env", False),
+}
+
+def _reset_services():
+    ConsentService.store.clear()
+    CareTeamService.links = {"clinician_alba|ruben", "gp_ruben|ruben"}
+    ConsentService.set("ruben", PURPOSE["RESEARCH"], True)
+    ConsentService.set("ruben", PURPOSE["AI_TRAINING"], False)
+
+def make_request_from_key(name):
+    r_id, role, subj, purpose_key, cats, env, anonymised = _SCENARIOS_RAW[name]
+    return build_request(
+        requester_id=r_id,
+        requester_role=role,
+        subject_id=subj,
+        purpose_iri=PURPOSE[purpose_key],
+        categories=list(cats),
+        environment=env,
+        anonymised=anonymised,
+    )
+
+def run_named_scenario(name):
+    _reset_services()
+    req = make_request_from_key(name)
+    dec = PDP_INSTANCE.decide(req)
+    return json.dumps(dec)
+`;
+          py.runPython(glueCode);
+
+          setStatus("ready", "Python ready. Tap a scenario to run it.");
+          return py;
+        } catch (err) {
+          console.error(err);
+          if (!pythonStatusEl.classList.contains("error")) {
+            setStatus("error", "Error loading Python demo (see console).");
+          }
+          throw err;
+        }
+      })();
+
+      return pyodideReadyPromise;
+    }
+
+    // ----- Run scenario and render result -----
+    async function runScenario(id, button) {
+      if (isBusy) return;
+      isBusy = true;
+      const originalLabel = button.innerHTML;
+      button.innerHTML =
+        '<span class="btn-icon">⏳</span><span class="btn-label">Running…</span>';
+      button.disabled = true;
+
+      try {
+        const py = await initPythonIfNeeded();
+        const jsonText = await py.runPythonAsync(
+          "run_named_scenario(" + JSON.stringify(id) + ")"
+        );
+        const data = JSON.parse(jsonText);
+        renderResult(id, data);
+      } catch (err) {
+        console.error(err);
+        renderError(id, err);
+      } finally {
+        button.innerHTML = originalLabel;
+        button.disabled = false;
+        isBusy = false;
+      }
+    }
+
+    function renderResult(id, data) {
+      const answer = data["Answer"] || "UNKNOWN";
+      const reason =
+        data["Reason why"] || data["Reason"] || "No explanation returned.";
+      const checks = data["Check"] || {};
+      const permit = String(answer).toUpperCase() === "PERMIT";
+
+      resultEl.hidden = false;
+      resultEl.innerHTML = "";
+
+      const header = document.createElement("div");
+      header.className = "result-header";
+
+      const titleBox = document.createElement("div");
+      titleBox.innerHTML =
+        '<div class="scenario-name">' +
+        id +
+        "</div>" +
+        '<div class="status-line">' +
+        (permit ? "Request permitted" : "Request denied") +
+        " by AuroraCare PDP.</div>";
+
+      const pill = document.createElement("div");
+      pill.className =
+        "answer-pill " + (permit ? "answer-permit" : "answer-deny");
+      pill.textContent = permit ? "PERMIT" : "DENY";
+
+      header.appendChild(titleBox);
+      header.appendChild(pill);
+
+      const reasonEl = document.createElement("p");
+      reasonEl.className = "reason";
+      reasonEl.textContent = reason;
+
+      const details = document.createElement("details");
+      // always expanded
+      details.open = true;
+
+      const summary = document.createElement("summary");
+      summary.textContent = "C1–C10 checks";
+
+      const list = document.createElement("div");
+      list.className = "check-list";
+
+      Object.entries(checks).forEach(([key, value]) => {
+        const row = document.createElement("div");
+        row.className = "check-row";
+
+        const keySpan = document.createElement("span");
+        keySpan.className = "check-key";
+        keySpan.textContent = key.replace(/_/g, " ");
+
+        const valSpan = document.createElement("span");
+        valSpan.textContent = value;
+
+        if (typeof value === "string") {
+          if (value.startsWith("FAIL")) {
+            valSpan.classList.add("status-error");
+          } else if (value.startsWith("OK")) {
+            valSpan.classList.add("status-ok");
+          }
+        }
+
+        row.appendChild(keySpan);
+        row.appendChild(valSpan);
+        list.appendChild(row);
+      });
+
+      details.appendChild(summary);
+      details.appendChild(list);
+
+      resultEl.appendChild(header);
+      resultEl.appendChild(reasonEl);
+      resultEl.appendChild(details);
+
+      resultEl.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+
+    function renderError(id, err) {
+      resultEl.hidden = false;
+      resultEl.innerHTML =
+        '<div class="result-header">' +
+        '<div><div class="scenario-name">' +
+        id +
+        "</div>" +
+        '<div class="status-line status-error">Error running scenario (see browser console for details).</div></div>' +
+        "</div>" +
+        '<p class="reason">The browser could not complete the call into <code>auroracare.py</code>. ' +
+        "Check that the page can reach <code>./cases/auroracare.py</code> and that it is served over HTTP.</p>";
+    }
+
+    // ----- Boot -----
+    document.addEventListener("DOMContentLoaded", () => {
+      renderScenarioCards();
+      // Kick off Python load in the background so it's ready when the user taps.
+      initPythonIfNeeded();
+    });
+  </script>
+</body>
+</html>
+
