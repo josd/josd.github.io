@@ -1,0 +1,693 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Delfour Insight Economy — Phone ↔ Scanner</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- Pyodide runtime (Python in the browser) -->
+  <script src="https://cdn.jsdelivr.net/pyodide/v0.26.3/full/pyodide.js"></script>
+
+  <style>
+    :root {
+      --bg: #f5f5f7;
+      --card-bg: #ffffff;
+      --accent: #2563eb;
+      --accent-soft: rgba(37, 99, 235, 0.12);
+      --danger: #dc2626;
+      --ok: #16a34a;
+      --text-main: #111827;
+      --text-muted: #6b7280;
+      --radius-xl: 18px;
+      --shadow-sm: 0 4px 12px rgba(15, 23, 42, 0.06);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
+        sans-serif;
+      background: var(--bg);
+      color: var(--text-main);
+      line-height: 1.5;
+    }
+
+    .app {
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 1.2rem 1rem 2.4rem;
+    }
+
+    header.top-header {
+      margin-bottom: 1.3rem;
+    }
+
+    header.top-header h1 {
+      font-size: 1.45rem;
+      font-weight: 700;
+      margin-bottom: 0.3rem;
+    }
+
+    header.top-header p {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      margin-bottom: 0.6rem;
+    }
+
+    .status-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      padding: 0.2rem 0.7rem;
+      border-radius: 999px;
+      background: #e5e7eb;
+      color: #374151;
+    }
+
+    .status-dot {
+      width: 0.55rem;
+      height: 0.55rem;
+      border-radius: 999px;
+      background: #9ca3af;
+    }
+
+    .status-pill.ready .status-dot {
+      background: var(--accent);
+    }
+
+    .status-pill.error .status-dot {
+      background: var(--danger);
+    }
+
+    .section {
+      margin-bottom: 1.2rem;
+    }
+
+    .section-title {
+      font-size: 1.05rem;
+      font-weight: 600;
+      margin-bottom: 0.2rem;
+    }
+
+    .section-subtitle {
+      font-size: 0.86rem;
+      color: var(--text-muted);
+      margin-bottom: 0.6rem;
+    }
+
+    .card {
+      background: var(--card-bg);
+      border-radius: var(--radius-xl);
+      box-shadow: var(--shadow-sm);
+      padding: 0.9rem 0.9rem 0.85rem;
+      margin-bottom: 0.8rem;
+    }
+
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.6rem;
+      margin-bottom: 0.35rem;
+      flex-wrap: wrap;
+    }
+
+    .card-title {
+      font-weight: 600;
+      font-size: 0.98rem;
+    }
+
+    .chip {
+      font-size: 0.72rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      padding: 0.15rem 0.55rem;
+      border-radius: 999px;
+      background: #eef2ff;
+      color: #3730a3;
+      white-space: nowrap;
+    }
+
+    .card-body {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      margin-bottom: 0.6rem;
+    }
+
+    button {
+      -webkit-tap-highlight-color: transparent;
+      width: 100%;
+      border: none;
+      outline: none;
+      border-radius: 999px;
+      padding: 0.6rem 0.9rem;
+      font-size: 0.95rem;
+      font-weight: 600;
+      background: var(--accent);
+      color: #fff;
+      box-shadow: 0 4px 10px rgba(37, 99, 235, 0.35);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.4rem;
+      cursor: pointer;
+    }
+
+    button span.btn-icon {
+      font-size: 1rem;
+    }
+
+    button:active {
+      transform: scale(0.98);
+    }
+
+    button[disabled] {
+      opacity: 0.6;
+      box-shadow: none;
+      cursor: default;
+    }
+
+    .status-line {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-top: 0.4rem;
+    }
+
+    .status-line.ok {
+      color: var(--ok);
+    }
+
+    .status-line.err {
+      color: var(--danger);
+    }
+
+    .files-list {
+      margin-top: 0.5rem;
+      border-radius: 14px;
+      background: #f9fafb;
+      padding: 0.5rem 0.55rem;
+    }
+
+    .file-item {
+      padding: 0.3rem 0.25rem;
+      border-bottom: 1px solid #e5e7eb;
+    }
+
+    .file-item:last-child {
+      border-bottom: none;
+    }
+
+    .file-name {
+      font-size: 0.84rem;
+      font-weight: 600;
+      margin-bottom: 0.15rem;
+    }
+
+    .file-tag {
+      display: inline-block;
+      font-size: 0.72rem;
+      padding: 0.1rem 0.45rem;
+      border-radius: 999px;
+      background: #e5e7eb;
+      color: #374151;
+      margin-left: 0.25rem;
+    }
+
+    .file-content {
+      font-size: 0.78rem;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+        "Liberation Mono", "Courier New", monospace;
+      white-space: pre-wrap;
+      word-break: break-word;
+      color: #4b5563;
+    }
+
+    .file-content.json {
+      background: #f3f4f6;
+      border-radius: 0.4rem;
+      padding: 0.35rem 0.4rem;
+    }
+
+    .hint {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-top: 0.4rem;
+    }
+
+    code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+        "Liberation Mono", "Courier New", monospace;
+      font-size: 0.85em;
+      background: #e5e7eb;
+      padding: 0.08rem 0.25rem;
+      border-radius: 0.25rem;
+    }
+
+    @media (min-width: 640px) {
+      header.top-header h1 {
+        font-size: 1.6rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="app">
+    <header class="top-header">
+      <h1>Delfour Insight Economy — Phone ↔ Scanner</h1>
+      <p>
+        Fully client-side demo: Python orchestration in <strong>Pyodide</strong>.
+        <br />
+        <code>delfour_phone.py</code> writes a neutral Insight + Policy into a
+        bus folder, <code>delfour_scanner.py</code> consumes it.
+      </p>
+      <div id="python-status" class="status-pill">
+        <span class="status-dot"></span>
+        <span class="status-text">Setting up…</span>
+      </div>
+    </header>
+
+    <!-- PHONE CARD -->
+    <section class="section">
+      <h2 class="section-title">Phone → Insight + Policy</h2>
+      <p class="section-subtitle">
+        Shopper’s phone turns a sensitive profile into a neutral, scoped, expiring Insight.
+      </p>
+
+      <article class="card">
+        <div class="card-header">
+          <div class="card-title">Phone (shopper)</div>
+          <div class="chip">delfour_phone.py</div>
+        </div>
+        <p class="card-body">
+          Runs <code>delfour_phone.py</code> inside Pyodide and writes an
+          <code>envelope.json</code>, signature, and a private
+          <code>reason.txt</code> into <code>/cases/bus/delfour</code>.
+        </p>
+        <button id="run-phone-btn" type="button">
+          <span class="btn-icon">📱</span>
+          <span class="btn-label">Run phone step</span>
+        </button>
+        <div id="phone-status" class="status-line"></div>
+      </article>
+    </section>
+
+    <!-- SCANNER CARD -->
+    <section class="section">
+      <h2 class="section-title">Scanner → Apply Insight</h2>
+      <p class="section-subtitle">
+        Retailer self-scanner reads the same bus session and derives local artifacts
+        (banner, audit, checks… whatever <code>delfour_scanner.py</code> decides).
+      </p>
+
+      <article class="card">
+        <div class="card-header">
+          <div class="card-title">Scanner (retailer)</div>
+          <div class="chip">delfour_scanner.py</div>
+        </div>
+        <p class="card-body">
+          Runs <code>delfour_scanner.py</code> in the same Python environment,
+          reading from the bus folder and writing its own files into
+          <code>/cases/bus/delfour</code>.
+        </p>
+        <button id="run-scanner-btn" type="button" disabled>
+          <span class="btn-icon">🛒</span>
+          <span class="btn-label">Run scanner step</span>
+        </button>
+        <div id="scanner-status" class="status-line"></div>
+      </article>
+    </section>
+
+    <!-- BUS VIEW -->
+    <section class="section">
+      <h2 class="section-title">Bus session: <code>/cases/bus/delfour</code></h2>
+      <p class="section-subtitle">
+        Files currently on the bus, after the last phone/scanner run.
+      </p>
+
+      <article class="card">
+        <div class="card-header">
+          <div class="card-title">Bus contents</div>
+          <div class="chip">./cases/bus</div>
+        </div>
+        <div id="bus-files" class="files-list">
+          <div class="file-item">
+            <div class="file-name">No files yet</div>
+            <div class="file-content">
+              Run the phone step to generate an Insight + Policy, then the scanner.
+            </div>
+          </div>
+        </div>
+        <p class="hint">
+          Hint: this view is generic on purpose — whatever
+          <code>delfour_phone.py</code> and <code>delfour_scanner.py</code> write
+          into the session directory will show up here.
+        </p>
+      </article>
+    </section>
+  </main>
+
+  <script>
+    const pythonStatusEl = document.getElementById("python-status");
+    const pythonStatusTextEl = pythonStatusEl.querySelector(".status-text");
+    const pythonStatusDotEl = pythonStatusEl.querySelector(".status-dot");
+    const runPhoneBtn = document.getElementById("run-phone-btn");
+    const runScannerBtn = document.getElementById("run-scanner-btn");
+    const phoneStatusEl = document.getElementById("phone-status");
+    const scannerStatusEl = document.getElementById("scanner-status");
+    const busFilesEl = document.getElementById("bus-files");
+
+    const PHONE_MODULE = "delfour_phone";
+    const SCANNER_MODULE = "delfour_scanner";
+
+    const PHONE_URLS = [
+      "./cases/delfour_phone.py",
+      "https://raw.githubusercontent.com/josd/josd.github.io/refs/heads/master/arc/cases/delfour_phone.py",
+    ];
+
+    const SCANNER_URLS = [
+      "./cases/delfour_scanner.py",
+      "https://raw.githubusercontent.com/josd/josd.github.io/refs/heads/master/arc/cases/delfour_scanner.py",
+    ];
+
+    let pyodideInstance = null;
+    let pyodideReadyPromise = null;
+    let isBusy = false;
+
+    function setPythonStatus(kind, text) {
+      pythonStatusEl.classList.remove("ready", "error");
+      pythonStatusDotEl.style.background = "#9ca3af";
+      if (kind === "ready") {
+        pythonStatusEl.classList.add("ready");
+        pythonStatusDotEl.style.background = "var(--accent)";
+      } else if (kind === "error") {
+        pythonStatusEl.classList.add("error");
+        pythonStatusDotEl.style.background = "var(--danger)";
+      }
+      pythonStatusTextEl.textContent = text;
+    }
+
+    function setInlineStatus(el, text, type) {
+      el.textContent = text;
+      el.classList.remove("ok", "err");
+      if (type === "ok") el.classList.add("ok");
+      if (type === "err") el.classList.add("err");
+    }
+
+    async function loadPythonIfNeeded() {
+      if (pyodideReadyPromise) {
+        return pyodideReadyPromise;
+      }
+
+      pyodideReadyPromise = (async () => {
+        try {
+          setPythonStatus("loading", "Loading Python runtime…");
+          const py = await loadPyodide({
+            indexURL: "https://cdn.jsdelivr.net/pyodide/v0.26.3/full/",
+          });
+          pyodideInstance = py;
+
+          // Prepare /cases and /cases/bus inside Pyodide FS
+          py.FS.mkdir("/cases");
+          py.FS.mkdir("/cases/bus");
+          await py.runPythonAsync(`
+import sys, os
+if "/cases" not in sys.path:
+    sys.path.append("/cases")
+`);
+
+          // Load phone + scanner modules
+          setPythonStatus("loading", "Loading delfour_phone.py…");
+          await loadPythonModule(PHONE_MODULE, PHONE_URLS);
+
+          setPythonStatus("loading", "Loading delfour_scanner.py…");
+          await loadPythonModule(SCANNER_MODULE, SCANNER_URLS);
+
+          setPythonStatus(
+            "ready",
+            "Python ready. Run the phone step, then the scanner."
+          );
+          runScannerBtn.disabled = false;
+          return py;
+        } catch (err) {
+          console.error("Python init error", err);
+          setPythonStatus("error", "Error loading Python demo (see console).");
+          throw err;
+        }
+      })();
+
+      return pyodideReadyPromise;
+    }
+
+    async function loadPythonModule(modName, urls) {
+      const py = pyodideInstance;
+      let lastError = null;
+
+      for (const url of urls) {
+        try {
+          const resp = await fetch(url);
+          if (!resp.ok) {
+            lastError = new Error("HTTP " + resp.status + " for " + url);
+            continue;
+          }
+          const code = await resp.text();
+          const path = `/cases/${modName}.py`;
+          py.FS.writeFile(path, code);
+          await py.runPythonAsync(
+            `import importlib, sys; ` +
+              `importlib.invalidate_caches(); ` +
+              `import ${modName}`
+          );
+          return;
+        } catch (err) {
+          console.warn("Failed to load", modName, "from", url, err);
+          lastError = err;
+        }
+      }
+
+      throw lastError || new Error("Could not load module " + modName);
+    }
+
+    async function runPhone() {
+      if (isBusy) return;
+      isBusy = true;
+
+      const originalLabel = runPhoneBtn.innerHTML;
+      runPhoneBtn.innerHTML =
+        '<span class="btn-icon">⏳</span><span class="btn-label">Running…</span>';
+      runPhoneBtn.disabled = true;
+      setInlineStatus(phoneStatusEl, "", null);
+
+      try {
+        const py = await loadPythonIfNeeded();
+
+        await py.runPythonAsync(`
+import os, ${PHONE_MODULE}
+cwd = os.getcwd()
+try:
+    os.chdir("/cases")
+    ${PHONE_MODULE}.main()
+finally:
+    os.chdir(cwd)
+`);
+        setInlineStatus(
+          phoneStatusEl,
+          "Phone step completed — envelope + signature + reason written.",
+          "ok"
+        );
+        await refreshBusView();
+      } catch (err) {
+        console.error("Phone step error", err);
+        setInlineStatus(
+          phoneStatusEl,
+          "Error running delfour_phone.py (check console).",
+          "err"
+        );
+      } finally {
+        runPhoneBtn.innerHTML = originalLabel;
+        runPhoneBtn.disabled = false;
+        isBusy = false;
+      }
+    }
+
+    async function runScanner() {
+      if (isBusy) return;
+      isBusy = true;
+
+      const originalLabel = runScannerBtn.innerHTML;
+      runScannerBtn.innerHTML =
+        '<span class="btn-icon">⏳</span><span class="btn-label">Running…</span>';
+      runScannerBtn.disabled = true;
+      setInlineStatus(scannerStatusEl, "", null);
+
+      try {
+        const py = await loadPythonIfNeeded();
+
+        await py.runPythonAsync(`
+import os, ${SCANNER_MODULE}
+cwd = os.getcwd()
+try:
+    os.chdir("/cases")
+    ${SCANNER_MODULE}.main()
+finally:
+    os.chdir(cwd)
+`);
+        setInlineStatus(
+          scannerStatusEl,
+          "Scanner step completed — bus folder updated.",
+          "ok"
+        );
+        await refreshBusView();
+      } catch (err) {
+        console.error("Scanner step error", err);
+        setInlineStatus(
+          scannerStatusEl,
+          "Error running delfour_scanner.py (check console).",
+          "err"
+        );
+      } finally {
+        runScannerBtn.innerHTML = originalLabel;
+        runScannerBtn.disabled = false;
+        isBusy = false;
+      }
+    }
+
+    function detectFileTag(name) {
+      const lower = name.toLowerCase();
+      if (lower.includes("envelope") && lower.endsWith(".json"))
+        return "envelope";
+      if (lower.includes("sig") && lower.endsWith(".json"))
+        return "signature";
+      if (lower.includes("banner") && lower.endsWith(".json"))
+        return "banner";
+      if (lower.includes("audit"))
+        return "audit";
+      if (lower.includes("check"))
+        return "checks";
+      if (lower.includes("reason"))
+        return "reason";
+      if (lower.endsWith(".json")) return "json";
+      if (lower.endsWith(".ttl")) return "ttl";
+      return "";
+    }
+
+    function prettySnippet(name, content) {
+      const maxChars = 800;
+      let snippet = content || "";
+      if (snippet.length > maxChars) {
+        snippet = snippet.slice(0, maxChars) + "\n…";
+      }
+
+      const looksJson =
+        name.toLowerCase().endsWith(".json") ||
+        snippet.trim().startsWith("{") ||
+        snippet.trim().startsWith("[");
+      if (!looksJson) return { text: snippet, isJson: false };
+
+      try {
+        const parsed = JSON.parse(content);
+        return {
+          text: JSON.stringify(parsed, null, 2),
+          isJson: true,
+        };
+      } catch {
+        return { text: snippet, isJson: false };
+      }
+    }
+
+    async function refreshBusView() {
+      const py = pyodideInstance;
+      if (!py) return;
+
+      let snapshotText;
+      try {
+        snapshotText = await py.runPythonAsync(`
+import json, os
+
+base = "/cases/bus"
+session = "delfour"
+session_dir = os.path.join(base, session)
+out = {}
+if os.path.isdir(session_dir):
+    for name in sorted(os.listdir(session_dir)):
+        full = os.path.join(session_dir, name)
+        if os.path.isfile(full):
+            try:
+                with open(full, "r", encoding="utf-8", errors="ignore") as f:
+                    out[name] = f.read()
+            except Exception:
+                out[name] = "<binary or unreadable>"
+json.dumps(out)
+`);
+      } catch (err) {
+        console.error("Bus snapshot error", err);
+        busFilesEl.innerHTML = `
+          <div class="file-item">
+            <div class="file-name">Error reading bus folder</div>
+            <div class="file-content">
+              Check the console for details.
+            </div>
+          </div>`;
+        return;
+      }
+
+      const files = JSON.parse(snapshotText || "{}");
+      const entries = Object.entries(files);
+
+      if (!entries.length) {
+        busFilesEl.innerHTML = `
+          <div class="file-item">
+            <div class="file-name">No files yet</div>
+            <div class="file-content">
+              Run the phone step to generate an Insight + Policy, then the scanner.
+            </div>
+          </div>`;
+        return;
+      }
+
+      busFilesEl.innerHTML = "";
+      for (const [name, content] of entries) {
+        const item = document.createElement("div");
+        item.className = "file-item";
+
+        const nameEl = document.createElement("div");
+        nameEl.className = "file-name";
+        nameEl.textContent = name;
+
+        const tag = detectFileTag(name);
+        if (tag) {
+          const tagEl = document.createElement("span");
+          tagEl.className = "file-tag";
+          tagEl.textContent = tag;
+          nameEl.appendChild(tagEl);
+        }
+
+        const body = document.createElement("div");
+        const { text, isJson } = prettySnippet(name, content);
+        body.className = "file-content" + (isJson ? " json" : "");
+        body.textContent = text;
+
+        item.appendChild(nameEl);
+        item.appendChild(body);
+        busFilesEl.appendChild(item);
+      }
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      // Kick off Python loading in the background
+      loadPythonIfNeeded().catch(() => {});
+
+      runPhoneBtn.addEventListener("click", runPhone);
+      runScannerBtn.addEventListener("click", runScanner);
+    });
+  </script>
+</body>
+</html>
+
