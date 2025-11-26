@@ -30,8 +30,8 @@ Each link below opens a self-contained page that presents the ARC triad in place
 
 Part A
 
-  - [**Auroracare**](https://josd.github.io/arc/auroracare.html) — AuroraCare Purpose-based Medical Data Exchange.
-  - [**Barbara**](https://josd.github.io/arc/barbara.html) — Barbara Term Logic example proved using Resolution.
+  - [**Auroracare**](https://josd.github.io/arc/auroracare.html) — Purpose-based Medical Data Exchange.
+  - [**Barbara**](https://josd.github.io/arc/barbara.html) — Term Logic example proved using Resolution.
   - [**Bike Trip Planning**](https://josd.github.io/arc/bike-trip.html) — Route priorities from hazards, preferences, and declarative JSON rules.
   - [**Body Mass Index**](https://josd.github.io/arc/bmi.html) — Compute BMI categories with explainable thresholds and sanity checks.
   - [**Building Performance**](https://josd.github.io/arc/building-performance.html) — Reason about energy/comfort metrics and verify rule-based outcomes.
