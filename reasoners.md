@@ -4,7 +4,8 @@
 | Cwm | Python | [https://github.com/linkeddata/swap](https://github.com/linkeddata/swap) |
 | eye | SWI-Prolog/C | [https://github.com/eyereasoner/eye](https://github.com/eyereasoner/eye) |
 | eye-js | SWI-Prolog/Wasm | [https://github.com/eyereasoner/eye-js](https://github.com/eyereasoner/eye-js) |
-| eye3 | Trealla Prolog/C | [https://github.com/eyereasoner/eye3](https://github.com/eyereasoner/eye3) |
+| eyelet | Trealla Prolog/C | [https://github.com/eyereasoner/eyelet](https://github.com/eyereasoner/eyelet) |
+| eyeling | JavaScript | [https://github.com/eyereasoner/eyeling](https://github.com/eyereasoner/eyeling) |
 | jen3 | Java | [https://github.com/william-vw/jen3](https://github.com/william-vw/jen3) |
 | Latar | SWI-Prolog/C | [https://github.com/KNowledgeOnWebScale/Latar](https://github.com/KNowledgeOnWebScale/Latar) |
 | lingua | SWI-Prolog/C | [https://github.com/eyereasoner/lingua](https://github.com/eyereasoner/lingua) |
