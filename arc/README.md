@@ -83,10 +83,4 @@ Part B
   - [**Primes**](https://josd.github.io/arc/prime.html) — Generate/test primes; log certs (trial factors or proofs) as checks.
   - [**Pythagorean Theorem**](https://josd.github.io/arc/pythagorean-theorem.html) — Compute legs/hypotenuse and confirm with algebraic or area proofs.
   - [**Roots of Unity**](https://josd.github.io/arc/roots-of-unity.html) — Place complex n‑th roots on the unit circle; check spacing and sums/products.
-  - [**Vandermonde’s Identity**](https://josd.github.io/arc/vandermonde-identity.html) — Binomial‑convolution equals a single binomial.
-  - [**Wilson’s Theorem**](https://josd.github.io/arc/wilson-theorem.html) — A property of primes.
-
-Part C
-
-  - [**Python cases**](https://github.com/josd/josd.github.io/tree/master/arc/cases/) — Self-contained Python cases that chain together over a bus.
 
