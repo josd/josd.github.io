@@ -43,7 +43,7 @@ popd > /dev/null
 export CTEST_OUTPUT_ON_FAILURE=y
 pushd ~/github.com/SWI-Prolog/swipl-devel > /dev/null
 git pull
-git submodule update --init
+git submodule update --init --recursive
 mkdir -p build
 pushd build > /dev/null
 cmake -G Ninja ..
