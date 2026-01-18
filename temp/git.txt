@@ -124,6 +124,9 @@ git branch -d lingua
 
 git checkout tags/v1.0.6
 
+git apply handbook-lib-coverage.patch
+
+
 curl -H "Accept: application/vnd.github.v3+json" https://api.github.com/repos/josd/treadle/stargazers
  
  
