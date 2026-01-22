@@ -9,3 +9,14 @@ do
     echo ""
 done
 popd > /dev/null
+
+pushd ~/codeberg.org > /dev/null
+for dir in */*
+do
+    pushd "${dir}" > /dev/null
+    pwd
+    git pull --all
+    popd > /dev/null
+    echo ""
+done
+popd > /dev/null

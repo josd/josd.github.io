@@ -295,6 +295,7 @@ grep 'processor\|name' /proc/cpuinfo
 grep 'MemTotal' /proc/meminfo
 uname -a
 cat /etc/issue
+cat /etc/os-release
 ip addr
 ip route
 df -T
