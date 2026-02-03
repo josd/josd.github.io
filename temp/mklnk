@@ -14,6 +14,7 @@ sudo ln -sf ~/github.com/eyereasoner/eyelet/eyelet-trealla /usr/local/bin
 sudo ln -sf ~/github.com/eyereasoner/eyelet/mkeyelet /usr/local/bin
 sudo ln -sf ~/github.com/eyereasoner/eyeling/eyeling.js /usr/local/bin/eyeling
 sudo ln -sf ~/github.com/eyereasoner/eyeling/tools/n3gen.js /usr/local/bin/n3gen
+sudo ln -sf ~/github.com/eyereasoner/eyeling/tools/runfiles.js /usr/local/bin/runfiles
 sudo ln -sf ~/github.com/eyereasoner/lingua/lingua /usr/local/bin
 sudo ln -sf ~/github.com/eyereasoner/lingua/mklingua /usr/local/bin
 sudo ln -sf ~/github.com/eyereasoner/rdfsurfaces-tests/script/rs2fol.sh /usr/local/bin/rs2fol
