@@ -26,3 +26,7 @@ sudo crontab -e
 
 netsh wlan show profiles
 netsh wlan show profile name="deroo" key=clear
+
+PS C:\Users\josde> cat .wslconfig
+[wsl2]
+memory=6GB
