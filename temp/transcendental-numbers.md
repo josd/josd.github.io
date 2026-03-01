@@ -101,7 +101,7 @@ This instantly proves the transcendence of several “nice-looking” constants,
 
 ---
 
-## A delightful example: i^i (written `i**i`) is real — and transcendental
+## A delightful example: i^i is real — and transcendental
 
 At first glance, i^i looks like it should be an exotic complex number. But complex exponentiation reveals something charming: a standard (principal) value is
 
@@ -127,7 +127,7 @@ A subtle point (and a great conversation starter) is that complex exponentiation
 | e·π | Unknown | Not known to be irrational; not known to be transcendental. |
 | e^π | Transcendental | Proven using Gelfond–Schneider (via the identity e^π = (-1)^(-i)). |
 | π^e | Unknown | Not known to be irrational; not known to be transcendental. |
-| i^i (`i**i`) | Transcendental | One value equals e^(-π/2); transcendence follows from Gelfond–Schneider. |
+| i^i | Transcendental | One value equals e^(-π/2); transcendence follows from Gelfond–Schneider. |
 
 A neat “in-between” fact you can prove with high-school algebra (plus one key field-theory idea) is:
 
