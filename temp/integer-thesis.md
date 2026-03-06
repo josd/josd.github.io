@@ -104,7 +104,7 @@ That is a major civilizational gain. It turns mathematical insight into engineer
 
 ## Why this matters for Eyeling
 
-This is exactly the spirit behind the `examples/` directory in Eyeling.
+This is exactly the spirit behind the [examples/](https://github.com/eyereasoner/eyeling/tree/main/examples) directory in Eyeling.
 
 The point of these examples is not just to show that a certain answer can be obtained. The point is to show that a trustworthy answer can be **built** from finite pieces: explicit facts, transparent rules, simple arithmetic, bounded refinement, and compact output certificates.
 
@@ -123,7 +123,7 @@ Some examples are tiny. Some are more ambitious. But they share the same thesis:
 
 **reliable reasoning does not have to begin with black boxes. It can begin with simple symbolic structure, exact discrete steps, and carefully controlled approximation.**
 
-In that sense, the `examples/` directory is not separate from the integer thesis. It is one of its clearest practical expressions.
+In that sense, the [examples/](https://github.com/eyereasoner/eyeling/tree/main/examples) directory is not separate from the integer thesis. It is one of its clearest practical expressions.
 
 ## Quantum computation and the integer thesis
 
