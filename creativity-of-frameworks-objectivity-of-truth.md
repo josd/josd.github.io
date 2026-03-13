@@ -85,3 +85,40 @@ It is not uncreative because it is objective.
 Rather, its special nature lies in the fact that it joins both:
 we create the space of thought,  
 and then within that space we encounter truths that are no longer ours to make.
+
+Yes — here is a ready-to-paste **Appendix A** in the same tone as the essay.
+
+## Appendix A. Five small examples in Notation3
+
+The main claim of this essay is that in pure mathematics the creative step lies primarily in the choice of a framework, while objectivity appears in what follows once that framework has been fixed. The following five examples make that contrast explicit in a rule language. [Notation3](https://w3c.github.io/N3/spec/) extends RDF with variables, nested graphs, and logical implication, so it can be used to write rules in a compact and readable way; its builtins provide predefined semantic operations when needed.
+
+In each case, the pattern is the same. First a structure is introduced by axioms or defining conditions. Then a theorem is shown to follow from that structure. The point is not that the examples are deep. It is that they display, in a very transparent form, the distinction between what is chosen and what is forced. This is exactly the distinction emphasized in the main text: we choose the starting points, but we do not choose the consequences.
+
+### A.1 Monoid: the identity element is unique
+
+[The first example](https://eyereasoner.github.io/eyeling/demo?url=https://raw.githubusercontent.com/eyereasoner/eyeling/refs/heads/main/examples/monoid-identity-uniqueness.n3), a monoid is presented by an associative operation together with left and right identity laws. Once those assumptions are in place, the uniqueness of the identity element follows. If some element behaves as an identity as well, it must coincide with the designated identity. The philosophical point is immediate: one may choose to study monoids rather than some other structure, but once that choice is made, the uniqueness of identity is no longer a matter of convention.
+
+### A.2 Group: inverses are unique
+
+[The second example](https://eyereasoner.github.io/eyeling/demo?url=https://raw.githubusercontent.com/eyereasoner/eyeling/refs/heads/main/examples/group-inverse-uniqueness.n3) strengthens the monoid framework to a group framework by adding inverses. Once that framework is fixed, the inverse of an element is not something that can vary arbitrarily. If two elements both satisfy the inverse conditions for the same element, they must be equal. Again the creative step lies in choosing the framework of groups; the uniqueness theorem is discovered within it rather than legislated from outside.
+
+### A.3 Equivalence relations: overlapping classes are the same class
+
+[The third example](https://eyereasoner.github.io/eyeling/demo?url=https://raw.githubusercontent.com/eyereasoner/eyeling/refs/heads/main/examples/equivalence-classes-overlap-implies-same-class.n3) moves away from algebra and into elementary set-theoretic structure. An equivalence relation is introduced by reflexivity, symmetry, and transitivity. From those assumptions it follows that if two equivalence classes share an element, then they are the same class. So here too the freedom lies in selecting these axioms as the framework of study. Once that is done, the partition-like behavior of equivalence classes is forced by the structure itself.
+
+### A.4 Order theory: greatest lower bounds are unique
+
+[The fourth example](https://eyereasoner.github.io/eyeling/demo?url=https://raw.githubusercontent.com/eyereasoner/eyeling/refs/heads/main/examples/greatest-lower-bound-uniqueness.n3) concerns partial orders. A greatest lower bound of two elements is defined as a lower bound that is above every other lower bound. From reflexivity, transitivity, and antisymmetry it follows that if two greatest lower bounds of the same pair exist, then they must be the same. This example is especially helpful because the theorem is not merely about a special element such as an identity; it arises from a layered definition inside the framework of order theory. That makes the dependence on structure even clearer.
+
+### A.5 Function theory: the composition of injective functions is injective
+
+[The fifth example](https://eyereasoner.github.io/eyeling/demo?url=https://raw.githubusercontent.com/eyereasoner/eyeling/refs/heads/main/examples/composition-of-injective-functions-is-injective.n3) comes from the theory of functions. One begins with functions, application, composition, and the notion of injectivity. From that framework it follows that if two functions are injective, then their composition is injective as well. This illustrates the same general pattern in a different idiom. The theorem is not stipulated by fiat. It is a consequence of the chosen concepts and the relations between them.
+
+### A.6 Why these examples matter
+
+Taken together, these five examples show the same philosophical structure across several areas of mathematics: algebra, set theory, order theory, and function theory. In each case there is an initial act of conceptual creation. A language is introduced, a structure is specified, and certain axioms or defining conditions are adopted. But once this has been done, the resulting truths are not freely made. They must be proved, and they hold whether or not we would have preferred otherwise. That is precisely the sense in which mathematics is both creative and objective. The frameworks are introduced by us; the consequences are not. This is the same tension described in the main body of the essay, where the freedom of mathematics lies before the proof, while necessity emerges within the proof once the framework is fixed.
+
+### A.7 A note on formal representation
+
+These examples are written in [Notation3](https://w3c.github.io/N3/spec/) because it makes the distinction between assumptions and consequences visually explicit. A rule has a body and a head, connected by implication. In that respect, the syntax itself mirrors the philosophical point of the essay: a framework is laid down on the left, and a necessary consequence appears on the right. Notation3 is therefore not only a convenient technical language here; it is also a fitting illustration of the contrast between creative setup and objective result.
+
