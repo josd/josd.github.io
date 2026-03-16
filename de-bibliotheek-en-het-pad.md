@@ -18,9 +18,9 @@ Tijd behoort tot het Pad. Ze stroomt niet door de Bibliotheek. In plaats daarvan
 
 Langs het Pad worden voortdurend sporen van eerdere toestanden vastgelegd: kosmische achtergrondstraling, fossielen, geologische lagen, herinneringen, meetgegevens. Deze sporen vormen een corridor van duurzame registraties waardoor latere toestanden worden begrensd door eerdere.
 
-Maar er is nog een ingrediënt: **Observerschap**.
+Maar er is nog een ingrediënt: **Waarnemerschap**.
 
-Observerschap is geen extra plank in de Bibliotheek. Het lijkt eerder op **het lezen van de Bibliotheek van binnenuit het Pad**.
+Waarnemerschap is geen extra plank in de Bibliotheek. Het lijkt eerder op **het lezen van de Bibliotheek van binnenuit het Pad**.
 
 Waarnemers zijn wezens die registraties maken en interpreteren terwijl ze zich binnen de evoluerende corridor van sporen bevinden. Ze staan niet buiten de Bibliotheek om alle mogelijkheden te overzien. In plaats daarvan leven ze in een smalle buis (tube) van opgebouwde registraties en gebruiken die om een samenhangende geschiedenis af te leiden.
 
@@ -34,7 +34,7 @@ Leven ontwikkelt zintuigen die de complexiteit van de omgeving samendrukken tot 
 
 De menselijke cultuur versterkt dit proces sterk. Taal bewaart observaties buiten individuele herinnering. Instrumenten breiden de zintuigen uit. Wetenschappelijke methoden stabiliseren feiten tussen verschillende waarnemers. Wiskunde biedt symbolische talen waarmee patronen kunnen worden uitgedrukt die geen enkel individu volledig kan bevatten.
 
-Door deze ontwikkelingen wordt Observerschap krachtiger: het Pad ontwikkelt steeds geavanceerdere manieren om zichzelf te lezen.
+Door deze ontwikkelingen wordt Waarnemerschap krachtiger: het Pad ontwikkelt steeds geavanceerdere manieren om zichzelf te lezen.
 
 De moderne kosmologie voegt nog een nuance toe. Sommige benaderingen suggereren dat de geschiedenissen die we relevant achten gedeeltelijk afhangen van de observaties waarop we vandaag conditioneren. In plaats van uitsluitend van een verondersteld verleden vooruit te redeneren, redeneren we soms **van boven naar beneden**: gegeven het universum dat we nu observeren, welke geschiedenissen in de Bibliotheek zouden tot dit heden kunnen leiden?
 
@@ -46,7 +46,7 @@ In dit beeld vallen drie ideeën natuurlijk op hun plaats.
 
 **Het Pad** is één gerealiseerde geschiedenis door die ruimte, beginnend met Oorsprong en zich ontvouwend door Evolutie.
 
-**Observerschap** is de gesitueerde activiteit van het lezen van de Bibliotheek vanuit het Pad — het maken en interpreteren van registraties waardoor één geschiedenis begrijpelijk wordt.
+**Waarnemerschap** is de gesitueerde activiteit van het lezen van de Bibliotheek vanuit het Pad — het maken en interpreteren van registraties waardoor één geschiedenis begrijpelijk wordt.
 
 Zo gezien vullen deze perspectieven elkaar aan in plaats van elkaar tegen te spreken.
 
@@ -54,11 +54,11 @@ De Bibliotheek beschrijft de structuur van mogelijkheden.
 
 Het Pad beschrijft het ontvouwen van een daadwerkelijke geschiedenis.
 
-Observerschap beschrijft hoe wezens die in die geschiedenis leven haar kunnen begrijpen.
+Waarnemerschap beschrijft hoe wezens die in die geschiedenis leven haar kunnen begrijpen.
 
 Of eenvoudiger gezegd:
 
 **De Bibliotheek is de kaart.**
 **Het Pad is de reis.**
-**Observerschap is het vinden van de weg.** 🌌
+**Waarnemerschap is het vinden van de weg.** 🌌
 
