@@ -57,7 +57,7 @@ if [ -n "$force_color_prompt" ]; then
 fi
 
 if [ "$color_prompt" = yes ]; then
-    PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
+    PS1='${debian_chroot:+($debian_chroot)}\[\033[0;32m\]\u@\h\[\033[00m\]:\[\033[0;34m\]\w\[\033[00m\]\$ '
 else
     PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
 fi
@@ -122,8 +122,31 @@ alias df='df -Th'
 alias dir='ls -altrh --full-time'
 alias ff='find . | grep'
 alias h='history'
+alias pip="python -m pip"
 alias rs='rsync -azv'
+alias t='/usr/bin/time -f "%es"'
+alias tm='/usr/bin/time -f "%E real, %M KB"'
+alias sld='npx solid-bashlib'
 
 . "$HOME/.cargo/env"
 sudo mount -t drvfs G: /mnt/g
 chmod 700 /run/user/1000
+
+# Add rzup to PATH
+export PATH="$PATH:/home/jdroo/.risc0/bin"
+
+# @begin(37642250)@ - Do not edit these lines - added automatically!
+# You should customize CIAOPATH before this chunk if you place bundles in
+# places other than ~/.ciao
+if [ -x /home/jdroo/.ciaoroot/v1.24.0-m1/build/bin/ciao-env ] ; then
+  eval "$(/home/jdroo/.ciaoroot/v1.24.0-m1/build/bin/ciao-env --sh)"
+fi
+# @end(37642250)@ - End of automatically added lines.
+
+[ -f "/home/jdroo/.ghcup/env" ] && . "/home/jdroo/.ghcup/env" # ghcup-env
+
+# nim
+export PATH="$home/.nimble/bin:$PATH"
+
+# lean
+export PATH="$HOME/.elan/bin:$PATH"
