@@ -1,0 +1,10 @@
+Here are some eyereasoner references:
+- Drawing Conclusions from Linked Data on the Web: The EYE Reasoner
+  https://ieeexplore.ieee.org/document/7093047
+- EYE JS : a client-side reasoning engine supporting Notation3, RDF Surfaces and RDF Lingua
+  https://biblio.ugent.be/publication/01JDHEY1P1263T5Z3AWMQ0JQGE
+- eye-js: A distribution of EYE reasoner in the JavaScript ecosystem using Webassembly.
+  https://zenodo.org/records/18132300
+- Eyeling: A compact Notation3 (N3) reasoner in JavaScript.
+  https://zenodo.org/records/19068087
+
