@@ -125,7 +125,7 @@ alias h='history'
 alias pip="python -m pip"
 alias rs='rsync -azv'
 alias t='/usr/bin/time -f "%es"'
-alias tm='/usr/bin/time -f "%E real, %M KB"'
+alias tm='bash -c '\''f=$(mktemp); s=$(date +%s%N); /usr/bin/time -f "%M" -o "$f" "$@"; r=$?; e=$(date +%s%N); ms=$((((e-s)+500000)/1000000)); printf "%d.%03d sec, %s kB\n" $((ms/1000)) $((ms%1000)) "$(cat "$f")"; rm -f "$f"; exit $r'\'' _'
 alias sld='npx solid-bashlib'
 
 . "$HOME/.cargo/env"
