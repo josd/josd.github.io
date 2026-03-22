@@ -39,6 +39,7 @@ Each link below opens a self-contained page that presents the ARC triad in place
 
 ### Science
 - [**Body Mass Index**](https://josd.github.io/arc/bmi.html) — Compute BMI categories with explainable thresholds and sanity checks.
+- [**Exoplanet Transit**](https://josd.github.io/arc/exoplanet-transit.html) — Infer a planet’s size and orbit from a transit light curve, with explainable formulas and consistency checks.
 - [**Grass Seed Germination**](https://josd.github.io/arc/grass-molecular.html) — Model germination states and transitions with rule checks.
 - [**Leg Length Discrepancy Measurement**](https://josd.github.io/arc/lldm.html) — Leg Length Discrepancy Measurement from four landmarks.
 
