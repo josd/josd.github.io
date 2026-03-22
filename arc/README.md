@@ -69,6 +69,7 @@ Each link below opens a self-contained page that presents the ARC triad in place
 - [**Complex Identities**](https://josd.github.io/arc/complex.html) — Symbolic steps for complex-number equalities with auditable reasoning.
 - [**Euclid’s Infinitude of Primes**](https://josd.github.io/arc/euclid-infinitude.html) — Restate the theorem, explain Euclid’s one-line proof, and run computational checks.
 - [**Euler’s Identity**](https://josd.github.io/arc/euler-identity.html) — The most beautiful equation in mathematics.
+- [**Faltings' Theorem**](https://josd.github.io/arc/faltings-theorem.html) — Explore genus 0, 1, and 2 curves; contrast infinite and finite rational-point behaviour.
 - [**Fibonacci**](https://josd.github.io/arc/fibonacci.html) — Compute big Fₙ with fast-doubling recurrences and proof-style checks.
 - [**Fundamental Theorem of Arithmetic**](https://josd.github.io/arc/fundamental-theorem-arithmetic.html) — Every integer factors as a product of primes.
 - [**Gödel Numbering**](https://josd.github.io/arc/godel-numbering.html) — A classic Gödel numbering demonstrator.
