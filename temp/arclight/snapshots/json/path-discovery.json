@@ -1,0 +1,114 @@
+{
+  "case": "path-discovery",
+  "answer": [
+    {
+      "kind": "text",
+      "text": "The path-discovery case finds every simple route from Ostend-Bruges International Airport to Václav Havel Airport Prague with at most two stopovers."
+    },
+    {
+      "kind": "field",
+      "label": "case",
+      "value": "path-discovery"
+    },
+    {
+      "kind": "field",
+      "label": "routes found",
+      "value": "3"
+    }
+  ],
+  "reason_why": [
+    {
+      "kind": "text",
+      "text": "The airport graph is built from the full source dataset, then a depth-limited DFS enumerates simple paths that respect the stopover limit."
+    },
+    {
+      "kind": "field",
+      "label": "airports",
+      "value": "7698"
+    },
+    {
+      "kind": "field",
+      "label": "flights",
+      "value": "37274"
+    },
+    {
+      "kind": "field",
+      "label": "source",
+      "value": "Ostend-Bruges International Airport"
+    },
+    {
+      "kind": "field",
+      "label": "destination",
+      "value": "Václav Havel Airport Prague"
+    },
+    {
+      "kind": "field",
+      "label": "max stopovers",
+      "value": "2"
+    },
+    {
+      "kind": "text",
+      "text": "Route #1"
+    },
+    {
+      "kind": "field",
+      "label": "Stopovers",
+      "value": "2"
+    },
+    {
+      "kind": "field",
+      "label": "Airports",
+      "value": "Ostend-Bruges International Airport -> Liège Airport -> Heraklion International Nikos Kazantzakis Airport -> Václav Havel Airport Prague"
+    },
+    {
+      "kind": "text",
+      "text": "Route #2"
+    },
+    {
+      "kind": "field",
+      "label": "Stopovers",
+      "value": "2"
+    },
+    {
+      "kind": "field",
+      "label": "Airports",
+      "value": "Ostend-Bruges International Airport -> Liège Airport -> Diagoras Airport -> Václav Havel Airport Prague"
+    },
+    {
+      "kind": "text",
+      "text": "Route #3"
+    },
+    {
+      "kind": "field",
+      "label": "Stopovers",
+      "value": "2"
+    },
+    {
+      "kind": "field",
+      "label": "Airports",
+      "value": "Ostend-Bruges International Airport -> Liège Airport -> Palma De Mallorca Airport -> Václav Havel Airport Prague"
+    }
+  ],
+  "check": [
+    {
+      "kind": "field",
+      "label": "all routes within stopover bound",
+      "value": "yes"
+    },
+    {
+      "kind": "field",
+      "label": "all routes are simple paths",
+      "value": "yes"
+    },
+    {
+      "kind": "field",
+      "label": "all routes match endpoints",
+      "value": "yes"
+    },
+    {
+      "kind": "field",
+      "label": "route set matches known answer",
+      "value": "yes"
+    }
+  ]
+}

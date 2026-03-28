@@ -1,0 +1,87 @@
+{
+  "case": "collatz-1000",
+  "answer": [
+    {
+      "kind": "text",
+      "text": "For starts 1..=10000, every tested value reaches 1 under the Collatz map."
+    },
+    {
+      "kind": "field",
+      "label": "case",
+      "value": "collatz-1000"
+    },
+    {
+      "kind": "field",
+      "label": "range checked",
+      "value": "1..=10000"
+    },
+    {
+      "kind": "field",
+      "label": "method",
+      "value": "exhaustive verification"
+    }
+  ],
+  "reason_why": [
+    {
+      "kind": "text",
+      "text": "We apply the standard Collatz rule step by step, memoize stopping times, and summarize the hardest witness in the tested range."
+    },
+    {
+      "kind": "field",
+      "label": "starts checked",
+      "value": "10000"
+    },
+    {
+      "kind": "field",
+      "label": "max steps",
+      "value": "261"
+    },
+    {
+      "kind": "field",
+      "label": "max-steps start",
+      "value": "6171"
+    },
+    {
+      "kind": "field",
+      "label": "highest peak",
+      "value": "27114424"
+    },
+    {
+      "kind": "field",
+      "label": "peak start",
+      "value": "9663"
+    },
+    {
+      "kind": "field",
+      "label": "trace(27) steps",
+      "value": "111"
+    },
+    {
+      "kind": "field",
+      "label": "trace(27) peak",
+      "value": "9232"
+    }
+  ],
+  "check": [
+    {
+      "kind": "field",
+      "label": "all reach 1",
+      "value": "yes"
+    },
+    {
+      "kind": "field",
+      "label": "trace(27) follows rule",
+      "value": "yes"
+    },
+    {
+      "kind": "field",
+      "label": "max-steps witness ok",
+      "value": "yes"
+    },
+    {
+      "kind": "field",
+      "label": "peak witness ok",
+      "value": "yes"
+    }
+  ]
+}

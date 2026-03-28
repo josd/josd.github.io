@@ -1,0 +1,21 @@
+=== Answer ===
+For starts 1..=10000, every tested value reaches 1 under the Collatz map.
+case                : collatz-1000
+range checked       : 1..=10000
+method              : exhaustive verification
+
+=== Reason Why ===
+We apply the standard Collatz rule step by step, memoize stopping times, and summarize the hardest witness in the tested range.
+starts checked      : 10000
+max steps           : 261
+max-steps start     : 6171
+highest peak        : 27114424
+peak start          : 9663
+trace(27) steps    : 111
+trace(27) peak     : 9232
+
+=== Check ===
+all reach 1         : yes
+trace(27) follows rule : yes
+max-steps witness ok: yes
+peak witness ok     : yes

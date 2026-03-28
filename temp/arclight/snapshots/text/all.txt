@@ -1,0 +1,299 @@
+=== Answer ===
+For starts 1..=10000, every tested value reaches 1 under the Collatz map.
+case                : collatz-1000
+range checked       : 1..=10000
+method              : exhaustive verification
+
+=== Reason Why ===
+We apply the standard Collatz rule step by step, memoize stopping times, and summarize the hardest witness in the tested range.
+starts checked      : 10000
+max steps           : 261
+max-steps start     : 6171
+highest peak        : 27114424
+peak start          : 9663
+trace(27) steps    : 111
+trace(27) peak     : 9232
+
+=== Check ===
+all reach 1         : yes
+trace(27) follows rule : yes
+max-steps witness ok: yes
+peak witness ok     : yes
+
+------------------------------------------------------------------------
+
+=== Answer ===
+The control query is satisfied: the source facts derive concrete outputs for actuator1 and actuator2.
+case                 : control-system
+controls found       : 2
+query satisfied      : yes
+
+=== Reason Why ===
+The helper rule measurement10(input1) is derived first, then both control rules are evaluated from the available measurements, observations, and target.
+measurement10(input1): 2.236068
+actuator1            : 39.273462
+actuator2            : 26.080000
+
+=== Check ===
+derived both controls: yes
+unique actuators     : yes
+actuator1 formula ok : yes
+actuator2 formula ok : yes
+
+------------------------------------------------------------------------
+
+=== Answer ===
+The deep taxonomy chain reaches the goal from the seed fact after deriving the full class ladder up to N(100000).
+case          : deep-taxonomy-100000
+goal reached  : yes
+
+=== Reason Why ===
+Starting from Ind : N(0), each N(i) derives N(i+1), I(i+1), and J(i+1); N(100000) then derives A2, which derives the goal.
+seed facts    : 1
+rules         : 100002
+derived facts : 300003
+type facts    : 300002
+
+=== Check ===
+rule count ok : yes
+N(100000) seen: yes
+A2 derived    : yes
+count formula ok: yes
+
+------------------------------------------------------------------------
+
+=== Answer ===
+The scanner is allowed to use a neutral shopping insight and recommends Low-Sugar Tea Biscuits instead of Classic Tea Biscuits.
+case                 : delfour
+decision             : Allowed
+scanned product      : Classic Tea Biscuits
+suggested alternative: Low-Sugar Tea Biscuits
+
+=== Reason Why ===
+The phone desensitizes a diabetes-related household condition into a scoped low-sugar need, wraps it in an expiring Insight + Policy envelope, signs it, and the scanner consumes that envelope for shopping assistance.
+metric               : sugar_g_per_serving
+threshold            : 10.0
+scope                : self-scanner @ pick_up_scanner
+retailer             : Delfour
+signature alg        : HMAC-SHA256
+banner headline      : Track sugar per serving while you scan
+expires at           : 2025-10-05T22:33:48.907185+00:00
+reason.txt           : Household requires low-sugar guidance (diabetes in POD). A neutral Insight is scoped to device 'self-scanner', event 'pick_up_scanner', retailer 'Delfour', and expires soon; the policy confines use to shopping assistance.
+audit entries        : 1
+bus files written    : 6
+
+=== Check ===
+signature verifies              : yes
+payload hash matches            : yes
+minimization strips sensitive terms: yes
+scope complete                  : yes
+authorization allowed           : yes
+high-sugar banner               : yes
+alternative lowers sugar        : yes
+duty timing consistent          : yes
+marketing prohibited            : yes
+
+------------------------------------------------------------------------
+
+=== Answer ===
+Euler's identity holds exactly in this model: exp(i*pi) + 1 = 0.
+case              : euler-identity
+formula           : exp(i*pi) + 1 = 0
+identity holds    : yes
+
+=== Reason Why ===
+We represent exp(i*pi) exactly as (-1, 0), add (1, 0), and compare the result with exact zero in integer complex arithmetic.
+exp(i*pi) exact   : (-1, 0)
+lhs + 1 exact     : (0, 0)
+rhs zero exact    : (0, 0)
+
+=== Check ===
+phase = -1        : yes
+phase modulus^2    : 1
+sum real part = 0 : yes
+sum imag part = 0 : yes
+phase modulus ok  : yes
+
+------------------------------------------------------------------------
+
+=== Answer ===
+The requested Fibonacci values are computed exactly, up to F(1000).
+case          : fibonacci
+targets       : 0, 1, 10, 100, 1000
+
+=== Reason Why ===
+The program uses the defining recurrence F(n+1) = F(n) + F(n-1) with arbitrary-precision integers, so each reported value is exact.
+F(0   ) = 0
+F(1   ) = 1
+F(10  ) = 55
+F(100 ) = 354224848179261915075
+F(1000) = 43466557686937456435688527675040625802564660517371780402481729089536555417949051890403879840079255169295922593080322634775209689623239873322471161642996440906533187938298969649928516003704476137795166849228875
+
+=== Check ===
+F(10) = 55          : yes
+digits in F(1000)   : 209
+fast-doubling agrees: yes
+Cassini at n=100    : yes
+
+------------------------------------------------------------------------
+
+=== Answer ===
+Every even integer from 4 through 1000 has at least one Goldbach decomposition in the tested range.
+case                 : goldbach-1000
+range checked        : even integers 4..=1000
+method               : exhaustive verification
+
+=== Reason Why ===
+We generate all primes up to the range limit, enumerate unordered prime pairs p + q = n for each even target, and summarize the sparsest and richest cases.
+even targets checked : 499
+total decompositions : 8222
+fewest decompositions: 1
+hardest targets      : 4, 6, 8, 12
+most decompositions  : 52
+richest target       : 990
+primes ≤ 1000       : 168
+balanced pair(1000) : 491 + 509
+
+=== Check ===
+all represented      : yes
+prime count known    : yes
+balanced pair valid  : yes
+richest target ok    : yes
+hardest targets ok   : yes
+
+------------------------------------------------------------------------
+
+=== Answer ===
+The GPS case finds all goal routes from Gent to Oostende that satisfy the route constraints.
+case      : gps
+routes    : 2
+
+=== Reason Why ===
+Routes are built compositionally from direct descriptions, with duration and cost added and belief and comfort combined multiplicatively.
+Route #1
+ Steps    : 2
+ Duration : 2400 s (≤ 5000)
+ Cost     : 0.010 (≤ 5.0)
+ Belief   : 0.941 (≥ 0.2)
+ Comfort  : 0.990 (≥ 0.4)
+ Stages   : 1 (≤ 1)
+   1. drive_gent_brugge
+   2. drive_brugge_oostende
+
+Route #2
+ Steps    : 3
+ Duration : 4100 s (≤ 5000)
+ Cost     : 0.018 (≤ 5.0)
+ Belief   : 0.903 (≥ 0.2)
+ Comfort  : 0.980 (≥ 0.4)
+ Stages   : 1 (≤ 1)
+   1. drive_gent_kortrijk
+   2. drive_kortrijk_brugge
+   3. drive_brugge_oostende
+
+=== Check ===
+all routes satisfy constraints : yes
+all routes hit goal endpoints  : yes
+metrics recompute from steps   : yes
+expected route count (= 2)     : yes
+
+------------------------------------------------------------------------
+
+=== Answer ===
+Every valid four-digit start tested reaches 6174, and all of them do so within seven iterations.
+case                : kaprekar-6174
+constant            : 6174
+method              : exhaustive verification
+
+=== Reason Why ===
+We apply Kaprekar's routine to every non-repdigit four-digit start, record the full iteration counts, and keep concrete witness traces for the worst and leading-zero cases.
+valid starts checked: 9990
+repdigits excluded  : 10
+max iterations      : 7
+worst-case starts   : 2184
+step histogram      : 0->1, 1->383, 2->576, 3->2400, 4->1272, 5->1518, 6->1656, 7->2184
+worst-case trace    : 0014 -> 4086 -> 8172 -> 7443 -> 3996 -> 6264 -> 4176 -> 6174
+leading-zero trace  : 2111 -> 0999 -> 8991 -> 8082 -> 8532 -> 6174
+
+=== Check ===
+6174 fixed point    : yes
+all starts reach it : yes
+bound <= 7 verified : yes
+histogram total ok  : yes
+worst trace valid   : yes
+leading-zero valid  : yes
+
+------------------------------------------------------------------------
+
+=== Answer ===
+The path-discovery case finds every simple route from Ostend-Bruges International Airport to Václav Havel Airport Prague with at most two stopovers.
+case          : path-discovery
+routes found  : 3
+
+=== Reason Why ===
+The airport graph is built from the full source dataset, then a depth-limited DFS enumerates simple paths that respect the stopover limit.
+airports      : 7698
+flights       : 37274
+source        : Ostend-Bruges International Airport
+destination   : Václav Havel Airport Prague
+max stopovers : 2
+
+Route #1
+ Stopovers    : 2
+ Airports     : Ostend-Bruges International Airport -> Liège Airport -> Heraklion International Nikos Kazantzakis Airport -> Václav Havel Airport Prague
+
+Route #2
+ Stopovers    : 2
+ Airports     : Ostend-Bruges International Airport -> Liège Airport -> Diagoras Airport -> Václav Havel Airport Prague
+
+Route #3
+ Stopovers    : 2
+ Airports     : Ostend-Bruges International Airport -> Liège Airport -> Palma De Mallorca Airport -> Václav Havel Airport Prague
+
+=== Check ===
+all routes within stopover bound : yes
+all routes are simple paths      : yes
+all routes match endpoints       : yes
+route set matches known answer   : yes
+
+------------------------------------------------------------------------
+
+=== Answer ===
+Both polynomial examples are solved consistently: the computed roots satisfy the source polynomials and reconstruct the original coefficients.
+case                 : polynomial
+examples solved      : 2
+all examples valid   : yes
+
+=== Reason Why ===
+For each source polynomial, we solve for the roots numerically, substitute them back to measure the residuals, and rebuild the polynomial from those roots.
+
+Example #1
+label                : real quartic
+degree               : 4
+coefficients         : [[1, 0], [-10, 0], [35, 0], [-50, 0], [24, 0]]
+roots found          : 4
+roots calculated     : 4, 3, 2, 1
+residuals            : [[0, 0], [0, 0], [0, 0], [0, 0]]
+reconstructed        : [[1, 0], [-10, 0], [35, 0], [-50, 0], [24, 0]]
+reconstruction ok    : yes
+roots valid          : yes
+degree/root count ok : yes
+Vieta sum ok         : yes
+Vieta product ok     : yes
+
+Example #2
+label                : complex quartic
+degree               : 4
+coefficients         : [[1, 0], [-9, -5], [14, 33], [24, -44], [-26, 0]]
+roots found          : 4
+roots calculated     : 3 + 2i, 5 + i, 1 + i, i
+residuals            : [[0, 0], [0, 0], [0, 0], [0, 0]]
+reconstructed        : [[1, 0], [-9, -5], [14, 33], [24, -44], [-26, 0]]
+reconstruction ok    : yes
+roots valid          : yes
+degree/root count ok : yes
+Vieta sum ok         : yes
+Vieta product ok     : yes
+
+=== Check ===
+all examples valid   : yes

@@ -1,0 +1,1107 @@
+[
+  {
+    "case": "collatz-1000",
+    "answer": [
+      {
+        "kind": "text",
+        "text": "For starts 1..=10000, every tested value reaches 1 under the Collatz map."
+      },
+      {
+        "kind": "field",
+        "label": "case",
+        "value": "collatz-1000"
+      },
+      {
+        "kind": "field",
+        "label": "range checked",
+        "value": "1..=10000"
+      },
+      {
+        "kind": "field",
+        "label": "method",
+        "value": "exhaustive verification"
+      }
+    ],
+    "reason_why": [
+      {
+        "kind": "text",
+        "text": "We apply the standard Collatz rule step by step, memoize stopping times, and summarize the hardest witness in the tested range."
+      },
+      {
+        "kind": "field",
+        "label": "starts checked",
+        "value": "10000"
+      },
+      {
+        "kind": "field",
+        "label": "max steps",
+        "value": "261"
+      },
+      {
+        "kind": "field",
+        "label": "max-steps start",
+        "value": "6171"
+      },
+      {
+        "kind": "field",
+        "label": "highest peak",
+        "value": "27114424"
+      },
+      {
+        "kind": "field",
+        "label": "peak start",
+        "value": "9663"
+      },
+      {
+        "kind": "field",
+        "label": "trace(27) steps",
+        "value": "111"
+      },
+      {
+        "kind": "field",
+        "label": "trace(27) peak",
+        "value": "9232"
+      }
+    ],
+    "check": [
+      {
+        "kind": "field",
+        "label": "all reach 1",
+        "value": "yes"
+      },
+      {
+        "kind": "field",
+        "label": "trace(27) follows rule",
+        "value": "yes"
+      },
+      {
+        "kind": "field",
+        "label": "max-steps witness ok",
+        "value": "yes"
+      },
+      {
+        "kind": "field",
+        "label": "peak witness ok",
+        "value": "yes"
+      }
+    ]
+  },
+  {
+    "case": "control-system",
+    "answer": [
+      {
+        "kind": "text",
+        "text": "The control query is satisfied: the source facts derive concrete outputs for actuator1 and actuator2."
+      },
+      {
+        "kind": "field",
+        "label": "case",
+        "value": "control-system"
+      },
+      {
+        "kind": "field",
+        "label": "controls found",
+        "value": "2"
+      },
+      {
+        "kind": "field",
+        "label": "query satisfied",
+        "value": "yes"
+      }
+    ],
+    "reason_why": [
+      {
+        "kind": "text",
+        "text": "The helper rule measurement10(input1) is derived first, then both control rules are evaluated from the available measurements, observations, and target."
+      },
+      {
+        "kind": "field",
+        "label": "measurement10(input1)",
+        "value": "2.236068"
+      },
+      {
+        "kind": "field",
+        "label": "actuator1",
+        "value": "39.273462"
+      },
+      {
+        "kind": "field",
+        "label": "actuator2",
+        "value": "26.080000"
+      }
+    ],
+    "check": [
+      {
+        "kind": "field",
+        "label": "derived both controls",
+        "value": "yes"
+      },
+      {
+        "kind": "field",
+        "label": "unique actuators",
+        "value": "yes"
+      },
+      {
+        "kind": "field",
+        "label": "actuator1 formula ok",
+        "value": "yes"
+      },
+      {
+        "kind": "field",
+        "label": "actuator2 formula ok",
+        "value": "yes"
+      }
+    ]
+  },
+  {
+    "case": "deep-taxonomy-100000",
+    "answer": [
+      {
+        "kind": "text",
+        "text": "The deep taxonomy chain reaches the goal from the seed fact after deriving the full class ladder up to N(100000)."
+      },
+      {
+        "kind": "field",
+        "label": "case",
+        "value": "deep-taxonomy-100000"
+      },
+      {
+        "kind": "field",
+        "label": "goal reached",
+        "value": "yes"
+      }
+    ],
+    "reason_why": [
+      {
+        "kind": "text",
+        "text": "Starting from Ind : N(0), each N(i) derives N(i+1), I(i+1), and J(i+1); N(100000) then derives A2, which derives the goal."
+      },
+      {
+        "kind": "field",
+        "label": "seed facts",
+        "value": "1"
+      },
+      {
+        "kind": "field",
+        "label": "rules",
+        "value": "100002"
+      },
+      {
+        "kind": "field",
+        "label": "derived facts",
+        "value": "300003"
+      },
+      {
+        "kind": "field",
+        "label": "type facts",
+        "value": "300002"
+      }
+    ],
+    "check": [
+      {
+        "kind": "field",
+        "label": "rule count ok",
+        "value": "yes"
+      },
+      {
+        "kind": "field",
+        "label": "N(100000) seen",
+        "value": "yes"
+      },
+      {
+        "kind": "field",
+        "label": "A2 derived",
+        "value": "yes"
+      },
+      {
+        "kind": "field",
+        "label": "count formula ok",
+        "value": "yes"
+      }
+    ]
+  },
+  {
+    "case": "delfour",
+    "answer": [
+      {
+        "kind": "text",
+        "text": "The scanner is allowed to use a neutral shopping insight and recommends Low-Sugar Tea Biscuits instead of Classic Tea Biscuits."
+      },
+      {
+        "kind": "field",
+        "label": "case",
+        "value": "delfour"
+      },
+      {
+        "kind": "field",
+        "label": "decision",
+        "value": "Allowed"
+      },
+      {
+        "kind": "field",
+        "label": "scanned product",
+        "value": "Classic Tea Biscuits"
+      },
+      {
+        "kind": "field",
+        "label": "suggested alternative",
+        "value": "Low-Sugar Tea Biscuits"
+      }
+    ],
+    "reason_why": [
+      {
+        "kind": "text",
+        "text": "The phone desensitizes a diabetes-related household condition into a scoped low-sugar need, wraps it in an expiring Insight + Policy envelope, signs it, and the scanner consumes that envelope for shopping assistance."
+      },
+      {
+        "kind": "field",
+        "label": "metric",
+        "value": "sugar_g_per_serving"
+      },
+      {
+        "kind": "field",
+        "label": "threshold",
+        "value": "10.0"
+      },
+      {
+        "kind": "field",
+        "label": "scope",
+        "value": "self-scanner @ pick_up_scanner"
+      },
+      {
+        "kind": "field",
+        "label": "retailer",
+        "value": "Delfour"
+      },
+      {
+        "kind": "field",
+        "label": "signature alg",
+        "value": "HMAC-SHA256"
+      },
+      {
+        "kind": "field",
+        "label": "banner headline",
+        "value": "Track sugar per serving while you scan"
+      },
+      {
+        "kind": "field",
+        "label": "expires at",
+        "value": "2025-10-05T22:33:48.907185+00:00"
+      },
+      {
+        "kind": "field",
+        "label": "reason.txt",
+        "value": "Household requires low-sugar guidance (diabetes in POD). A neutral Insight is scoped to device 'self-scanner', event 'pick_up_scanner', retailer 'Delfour', and expires soon; the policy confines use to shopping assistance."
+      },
+      {
+        "kind": "field",
+        "label": "audit entries",
+        "value": "1"
+      },
+      {
+        "kind": "field",
+        "label": "bus files written",
+        "value": "6"
+      }
+    ],
+    "check": [
+      {
+        "kind": "field",
+        "label": "signature verifies",
+        "value": "yes"
+      },
+      {
+        "kind": "field",
+        "label": "payload hash matches",
+        "value": "yes"
+      },
+      {
+        "kind": "field",
+        "label": "minimization strips sensitive terms",
+        "value": "yes"
+      },
+      {
+        "kind": "field",
+        "label": "scope complete",
+        "value": "yes"
+      },
+      {
+        "kind": "field",
+        "label": "authorization allowed",
+        "value": "yes"
+      },
+      {
+        "kind": "field",
+        "label": "high-sugar banner",
+        "value": "yes"
+      },
+      {
+        "kind": "field",
+        "label": "alternative lowers sugar",
+        "value": "yes"
+      },
+      {
+        "kind": "field",
+        "label": "duty timing consistent",
+        "value": "yes"
+      },
+      {
+        "kind": "field",
+        "label": "marketing prohibited",
+        "value": "yes"
+      }
+    ]
+  },
+  {
+    "case": "euler-identity",
+    "answer": [
+      {
+        "kind": "text",
+        "text": "Euler's identity holds exactly in this model: exp(i*pi) + 1 = 0."
+      },
+      {
+        "kind": "field",
+        "label": "case",
+        "value": "euler-identity"
+      },
+      {
+        "kind": "field",
+        "label": "formula",
+        "value": "exp(i*pi) + 1 = 0"
+      },
+      {
+        "kind": "field",
+        "label": "identity holds",
+        "value": "yes"
+      }
+    ],
+    "reason_why": [
+      {
+        "kind": "text",
+        "text": "We represent exp(i*pi) exactly as (-1, 0), add (1, 0), and compare the result with exact zero in integer complex arithmetic."
+      },
+      {
+        "kind": "field",
+        "label": "exp(i*pi) exact",
+        "value": "(-1, 0)"
+      },
+      {
+        "kind": "field",
+        "label": "lhs + 1 exact",
+        "value": "(0, 0)"
+      },
+      {
+        "kind": "field",
+        "label": "rhs zero exact",
+        "value": "(0, 0)"
+      }
+    ],
+    "check": [
+      {
+        "kind": "field",
+        "label": "phase = -1",
+        "value": "yes"
+      },
+      {
+        "kind": "field",
+        "label": "phase modulus^2",
+        "value": "1"
+      },
+      {
+        "kind": "field",
+        "label": "sum real part = 0",
+        "value": "yes"
+      },
+      {
+        "kind": "field",
+        "label": "sum imag part = 0",
+        "value": "yes"
+      },
+      {
+        "kind": "field",
+        "label": "phase modulus ok",
+        "value": "yes"
+      }
+    ]
+  },
+  {
+    "case": "fibonacci",
+    "answer": [
+      {
+        "kind": "text",
+        "text": "The requested Fibonacci values are computed exactly, up to F(1000)."
+      },
+      {
+        "kind": "field",
+        "label": "case",
+        "value": "fibonacci"
+      },
+      {
+        "kind": "field",
+        "label": "targets",
+        "value": "0, 1, 10, 100, 1000"
+      }
+    ],
+    "reason_why": [
+      {
+        "kind": "text",
+        "text": "The program uses the defining recurrence F(n+1) = F(n) + F(n-1) with arbitrary-precision integers, so each reported value is exact."
+      },
+      {
+        "kind": "field",
+        "label": "F(0)",
+        "value": "0"
+      },
+      {
+        "kind": "field",
+        "label": "F(1)",
+        "value": "1"
+      },
+      {
+        "kind": "field",
+        "label": "F(10)",
+        "value": "55"
+      },
+      {
+        "kind": "field",
+        "label": "F(100)",
+        "value": "354224848179261915075"
+      },
+      {
+        "kind": "field",
+        "label": "F(1000)",
+        "value": "43466557686937456435688527675040625802564660517371780402481729089536555417949051890403879840079255169295922593080322634775209689623239873322471161642996440906533187938298969649928516003704476137795166849228875"
+      }
+    ],
+    "check": [
+      {
+        "kind": "field",
+        "label": "F(10) = 55",
+        "value": "yes"
+      },
+      {
+        "kind": "field",
+        "label": "digits in F(1000)",
+        "value": "209"
+      },
+      {
+        "kind": "field",
+        "label": "fast-doubling agrees",
+        "value": "yes"
+      },
+      {
+        "kind": "field",
+        "label": "Cassini at n=100",
+        "value": "yes"
+      }
+    ]
+  },
+  {
+    "case": "goldbach-1000",
+    "answer": [
+      {
+        "kind": "text",
+        "text": "Every even integer from 4 through 1000 has at least one Goldbach decomposition in the tested range."
+      },
+      {
+        "kind": "field",
+        "label": "case",
+        "value": "goldbach-1000"
+      },
+      {
+        "kind": "field",
+        "label": "range checked",
+        "value": "even integers 4..=1000"
+      },
+      {
+        "kind": "field",
+        "label": "method",
+        "value": "exhaustive verification"
+      }
+    ],
+    "reason_why": [
+      {
+        "kind": "text",
+        "text": "We generate all primes up to the range limit, enumerate unordered prime pairs p + q = n for each even target, and summarize the sparsest and richest cases."
+      },
+      {
+        "kind": "field",
+        "label": "even targets checked",
+        "value": "499"
+      },
+      {
+        "kind": "field",
+        "label": "total decompositions",
+        "value": "8222"
+      },
+      {
+        "kind": "field",
+        "label": "fewest decompositions",
+        "value": "1"
+      },
+      {
+        "kind": "field",
+        "label": "hardest targets",
+        "value": "4, 6, 8, 12"
+      },
+      {
+        "kind": "field",
+        "label": "most decompositions",
+        "value": "52"
+      },
+      {
+        "kind": "field",
+        "label": "richest target",
+        "value": "990"
+      },
+      {
+        "kind": "field",
+        "label": "primes ≤ 1000",
+        "value": "168"
+      },
+      {
+        "kind": "field",
+        "label": "balanced pair(1000)",
+        "value": "491 + 509"
+      }
+    ],
+    "check": [
+      {
+        "kind": "field",
+        "label": "all represented",
+        "value": "yes"
+      },
+      {
+        "kind": "field",
+        "label": "prime count known",
+        "value": "yes"
+      },
+      {
+        "kind": "field",
+        "label": "balanced pair valid",
+        "value": "yes"
+      },
+      {
+        "kind": "field",
+        "label": "richest target ok",
+        "value": "yes"
+      },
+      {
+        "kind": "field",
+        "label": "hardest targets ok",
+        "value": "yes"
+      }
+    ]
+  },
+  {
+    "case": "gps",
+    "answer": [
+      {
+        "kind": "text",
+        "text": "The GPS case finds all goal routes from Gent to Oostende that satisfy the route constraints."
+      },
+      {
+        "kind": "field",
+        "label": "case",
+        "value": "gps"
+      },
+      {
+        "kind": "field",
+        "label": "routes",
+        "value": "2"
+      }
+    ],
+    "reason_why": [
+      {
+        "kind": "text",
+        "text": "Routes are built compositionally from direct descriptions, with duration and cost added and belief and comfort combined multiplicatively."
+      },
+      {
+        "kind": "text",
+        "text": "Route #1"
+      },
+      {
+        "kind": "field",
+        "label": "Steps",
+        "value": "2"
+      },
+      {
+        "kind": "field",
+        "label": "Duration",
+        "value": "2400 s (≤ 5000)"
+      },
+      {
+        "kind": "field",
+        "label": "Cost",
+        "value": "0.010 (≤ 5.0)"
+      },
+      {
+        "kind": "field",
+        "label": "Belief",
+        "value": "0.941 (≥ 0.2)"
+      },
+      {
+        "kind": "field",
+        "label": "Comfort",
+        "value": "0.990 (≥ 0.4)"
+      },
+      {
+        "kind": "field",
+        "label": "Stages",
+        "value": "1 (≤ 1)"
+      },
+      {
+        "kind": "text",
+        "text": "  1. drive_gent_brugge"
+      },
+      {
+        "kind": "text",
+        "text": "  2. drive_brugge_oostende"
+      },
+      {
+        "kind": "text",
+        "text": "Route #2"
+      },
+      {
+        "kind": "field",
+        "label": "Steps",
+        "value": "3"
+      },
+      {
+        "kind": "field",
+        "label": "Duration",
+        "value": "4100 s (≤ 5000)"
+      },
+      {
+        "kind": "field",
+        "label": "Cost",
+        "value": "0.018 (≤ 5.0)"
+      },
+      {
+        "kind": "field",
+        "label": "Belief",
+        "value": "0.903 (≥ 0.2)"
+      },
+      {
+        "kind": "field",
+        "label": "Comfort",
+        "value": "0.980 (≥ 0.4)"
+      },
+      {
+        "kind": "field",
+        "label": "Stages",
+        "value": "1 (≤ 1)"
+      },
+      {
+        "kind": "text",
+        "text": "  1. drive_gent_kortrijk"
+      },
+      {
+        "kind": "text",
+        "text": "  2. drive_kortrijk_brugge"
+      },
+      {
+        "kind": "text",
+        "text": "  3. drive_brugge_oostende"
+      }
+    ],
+    "check": [
+      {
+        "kind": "field",
+        "label": "all routes satisfy constraints",
+        "value": "yes"
+      },
+      {
+        "kind": "field",
+        "label": "all routes hit goal endpoints",
+        "value": "yes"
+      },
+      {
+        "kind": "field",
+        "label": "metrics recompute from steps",
+        "value": "yes"
+      },
+      {
+        "kind": "field",
+        "label": "expected route count (= 2)",
+        "value": "yes"
+      }
+    ]
+  },
+  {
+    "case": "kaprekar-6174",
+    "answer": [
+      {
+        "kind": "text",
+        "text": "Every valid four-digit start tested reaches 6174, and all of them do so within seven iterations."
+      },
+      {
+        "kind": "field",
+        "label": "case",
+        "value": "kaprekar-6174"
+      },
+      {
+        "kind": "field",
+        "label": "constant",
+        "value": "6174"
+      },
+      {
+        "kind": "field",
+        "label": "method",
+        "value": "exhaustive verification"
+      }
+    ],
+    "reason_why": [
+      {
+        "kind": "text",
+        "text": "We apply Kaprekar's routine to every non-repdigit four-digit start, record the full iteration counts, and keep concrete witness traces for the worst and leading-zero cases."
+      },
+      {
+        "kind": "field",
+        "label": "valid starts checked",
+        "value": "9990"
+      },
+      {
+        "kind": "field",
+        "label": "repdigits excluded",
+        "value": "10"
+      },
+      {
+        "kind": "field",
+        "label": "max iterations",
+        "value": "7"
+      },
+      {
+        "kind": "field",
+        "label": "worst-case starts",
+        "value": "2184"
+      },
+      {
+        "kind": "field",
+        "label": "step histogram",
+        "value": "0->1, 1->383, 2->576, 3->2400, 4->1272, 5->1518, 6->1656, 7->2184"
+      },
+      {
+        "kind": "field",
+        "label": "worst-case trace",
+        "value": "0014 -> 4086 -> 8172 -> 7443 -> 3996 -> 6264 -> 4176 -> 6174"
+      },
+      {
+        "kind": "field",
+        "label": "leading-zero trace",
+        "value": "2111 -> 0999 -> 8991 -> 8082 -> 8532 -> 6174"
+      }
+    ],
+    "check": [
+      {
+        "kind": "field",
+        "label": "6174 fixed point",
+        "value": "yes"
+      },
+      {
+        "kind": "field",
+        "label": "all starts reach it",
+        "value": "yes"
+      },
+      {
+        "kind": "field",
+        "label": "bound <= 7 verified",
+        "value": "yes"
+      },
+      {
+        "kind": "field",
+        "label": "histogram total ok",
+        "value": "yes"
+      },
+      {
+        "kind": "field",
+        "label": "worst trace valid",
+        "value": "yes"
+      },
+      {
+        "kind": "field",
+        "label": "leading-zero valid",
+        "value": "yes"
+      }
+    ]
+  },
+  {
+    "case": "path-discovery",
+    "answer": [
+      {
+        "kind": "text",
+        "text": "The path-discovery case finds every simple route from Ostend-Bruges International Airport to Václav Havel Airport Prague with at most two stopovers."
+      },
+      {
+        "kind": "field",
+        "label": "case",
+        "value": "path-discovery"
+      },
+      {
+        "kind": "field",
+        "label": "routes found",
+        "value": "3"
+      }
+    ],
+    "reason_why": [
+      {
+        "kind": "text",
+        "text": "The airport graph is built from the full source dataset, then a depth-limited DFS enumerates simple paths that respect the stopover limit."
+      },
+      {
+        "kind": "field",
+        "label": "airports",
+        "value": "7698"
+      },
+      {
+        "kind": "field",
+        "label": "flights",
+        "value": "37274"
+      },
+      {
+        "kind": "field",
+        "label": "source",
+        "value": "Ostend-Bruges International Airport"
+      },
+      {
+        "kind": "field",
+        "label": "destination",
+        "value": "Václav Havel Airport Prague"
+      },
+      {
+        "kind": "field",
+        "label": "max stopovers",
+        "value": "2"
+      },
+      {
+        "kind": "text",
+        "text": "Route #1"
+      },
+      {
+        "kind": "field",
+        "label": "Stopovers",
+        "value": "2"
+      },
+      {
+        "kind": "field",
+        "label": "Airports",
+        "value": "Ostend-Bruges International Airport -> Liège Airport -> Heraklion International Nikos Kazantzakis Airport -> Václav Havel Airport Prague"
+      },
+      {
+        "kind": "text",
+        "text": "Route #2"
+      },
+      {
+        "kind": "field",
+        "label": "Stopovers",
+        "value": "2"
+      },
+      {
+        "kind": "field",
+        "label": "Airports",
+        "value": "Ostend-Bruges International Airport -> Liège Airport -> Diagoras Airport -> Václav Havel Airport Prague"
+      },
+      {
+        "kind": "text",
+        "text": "Route #3"
+      },
+      {
+        "kind": "field",
+        "label": "Stopovers",
+        "value": "2"
+      },
+      {
+        "kind": "field",
+        "label": "Airports",
+        "value": "Ostend-Bruges International Airport -> Liège Airport -> Palma De Mallorca Airport -> Václav Havel Airport Prague"
+      }
+    ],
+    "check": [
+      {
+        "kind": "field",
+        "label": "all routes within stopover bound",
+        "value": "yes"
+      },
+      {
+        "kind": "field",
+        "label": "all routes are simple paths",
+        "value": "yes"
+      },
+      {
+        "kind": "field",
+        "label": "all routes match endpoints",
+        "value": "yes"
+      },
+      {
+        "kind": "field",
+        "label": "route set matches known answer",
+        "value": "yes"
+      }
+    ]
+  },
+  {
+    "case": "polynomial",
+    "answer": [
+      {
+        "kind": "text",
+        "text": "Both polynomial examples are solved consistently: the computed roots satisfy the source polynomials and reconstruct the original coefficients."
+      },
+      {
+        "kind": "field",
+        "label": "case",
+        "value": "polynomial"
+      },
+      {
+        "kind": "field",
+        "label": "examples solved",
+        "value": "2"
+      },
+      {
+        "kind": "field",
+        "label": "all examples valid",
+        "value": "yes"
+      }
+    ],
+    "reason_why": [
+      {
+        "kind": "text",
+        "text": "For each source polynomial, we solve for the roots numerically, substitute them back to measure the residuals, and rebuild the polynomial from those roots."
+      },
+      {
+        "kind": "text",
+        "text": "Example #1"
+      },
+      {
+        "kind": "field",
+        "label": "label",
+        "value": "real quartic"
+      },
+      {
+        "kind": "field",
+        "label": "degree",
+        "value": "4"
+      },
+      {
+        "kind": "field",
+        "label": "coefficients",
+        "value": "[[1, 0], [-10, 0], [35, 0], [-50, 0], [24, 0]]"
+      },
+      {
+        "kind": "field",
+        "label": "roots found",
+        "value": "4"
+      },
+      {
+        "kind": "field",
+        "label": "roots calculated",
+        "value": "4, 3, 2, 1"
+      },
+      {
+        "kind": "field",
+        "label": "residuals",
+        "value": "[[0, 0], [0, 0], [0, 0], [0, 0]]"
+      },
+      {
+        "kind": "field",
+        "label": "reconstructed",
+        "value": "[[1, 0], [-10, 0], [35, 0], [-50, 0], [24, 0]]"
+      },
+      {
+        "kind": "field",
+        "label": "reconstruction ok",
+        "value": "yes"
+      },
+      {
+        "kind": "field",
+        "label": "roots valid",
+        "value": "yes"
+      },
+      {
+        "kind": "field",
+        "label": "degree/root count ok",
+        "value": "yes"
+      },
+      {
+        "kind": "field",
+        "label": "Vieta sum ok",
+        "value": "yes"
+      },
+      {
+        "kind": "field",
+        "label": "Vieta product ok",
+        "value": "yes"
+      },
+      {
+        "kind": "text",
+        "text": "Example #2"
+      },
+      {
+        "kind": "field",
+        "label": "label",
+        "value": "complex quartic"
+      },
+      {
+        "kind": "field",
+        "label": "degree",
+        "value": "4"
+      },
+      {
+        "kind": "field",
+        "label": "coefficients",
+        "value": "[[1, 0], [-9, -5], [14, 33], [24, -44], [-26, 0]]"
+      },
+      {
+        "kind": "field",
+        "label": "roots found",
+        "value": "4"
+      },
+      {
+        "kind": "field",
+        "label": "roots calculated",
+        "value": "3 + 2i, 5 + i, 1 + i, i"
+      },
+      {
+        "kind": "field",
+        "label": "residuals",
+        "value": "[[0, 0], [0, 0], [0, 0], [0, 0]]"
+      },
+      {
+        "kind": "field",
+        "label": "reconstructed",
+        "value": "[[1, 0], [-9, -5], [14, 33], [24, -44], [-26, 0]]"
+      },
+      {
+        "kind": "field",
+        "label": "reconstruction ok",
+        "value": "yes"
+      },
+      {
+        "kind": "field",
+        "label": "roots valid",
+        "value": "yes"
+      },
+      {
+        "kind": "field",
+        "label": "degree/root count ok",
+        "value": "yes"
+      },
+      {
+        "kind": "field",
+        "label": "Vieta sum ok",
+        "value": "yes"
+      },
+      {
+        "kind": "field",
+        "label": "Vieta product ok",
+        "value": "yes"
+      }
+    ],
+    "check": [
+      {
+        "kind": "field",
+        "label": "all examples valid",
+        "value": "yes"
+      }
+    ]
+  }
+]

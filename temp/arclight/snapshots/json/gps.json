@@ -1,0 +1,135 @@
+{
+  "case": "gps",
+  "answer": [
+    {
+      "kind": "text",
+      "text": "The GPS case finds all goal routes from Gent to Oostende that satisfy the route constraints."
+    },
+    {
+      "kind": "field",
+      "label": "case",
+      "value": "gps"
+    },
+    {
+      "kind": "field",
+      "label": "routes",
+      "value": "2"
+    }
+  ],
+  "reason_why": [
+    {
+      "kind": "text",
+      "text": "Routes are built compositionally from direct descriptions, with duration and cost added and belief and comfort combined multiplicatively."
+    },
+    {
+      "kind": "text",
+      "text": "Route #1"
+    },
+    {
+      "kind": "field",
+      "label": "Steps",
+      "value": "2"
+    },
+    {
+      "kind": "field",
+      "label": "Duration",
+      "value": "2400 s (≤ 5000)"
+    },
+    {
+      "kind": "field",
+      "label": "Cost",
+      "value": "0.010 (≤ 5.0)"
+    },
+    {
+      "kind": "field",
+      "label": "Belief",
+      "value": "0.941 (≥ 0.2)"
+    },
+    {
+      "kind": "field",
+      "label": "Comfort",
+      "value": "0.990 (≥ 0.4)"
+    },
+    {
+      "kind": "field",
+      "label": "Stages",
+      "value": "1 (≤ 1)"
+    },
+    {
+      "kind": "text",
+      "text": "  1. drive_gent_brugge"
+    },
+    {
+      "kind": "text",
+      "text": "  2. drive_brugge_oostende"
+    },
+    {
+      "kind": "text",
+      "text": "Route #2"
+    },
+    {
+      "kind": "field",
+      "label": "Steps",
+      "value": "3"
+    },
+    {
+      "kind": "field",
+      "label": "Duration",
+      "value": "4100 s (≤ 5000)"
+    },
+    {
+      "kind": "field",
+      "label": "Cost",
+      "value": "0.018 (≤ 5.0)"
+    },
+    {
+      "kind": "field",
+      "label": "Belief",
+      "value": "0.903 (≥ 0.2)"
+    },
+    {
+      "kind": "field",
+      "label": "Comfort",
+      "value": "0.980 (≥ 0.4)"
+    },
+    {
+      "kind": "field",
+      "label": "Stages",
+      "value": "1 (≤ 1)"
+    },
+    {
+      "kind": "text",
+      "text": "  1. drive_gent_kortrijk"
+    },
+    {
+      "kind": "text",
+      "text": "  2. drive_kortrijk_brugge"
+    },
+    {
+      "kind": "text",
+      "text": "  3. drive_brugge_oostende"
+    }
+  ],
+  "check": [
+    {
+      "kind": "field",
+      "label": "all routes satisfy constraints",
+      "value": "yes"
+    },
+    {
+      "kind": "field",
+      "label": "all routes hit goal endpoints",
+      "value": "yes"
+    },
+    {
+      "kind": "field",
+      "label": "metrics recompute from steps",
+      "value": "yes"
+    },
+    {
+      "kind": "field",
+      "label": "expected route count (= 2)",
+      "value": "yes"
+    }
+  ]
+}

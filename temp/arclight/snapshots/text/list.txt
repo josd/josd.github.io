@@ -1,0 +1,11 @@
+collatz-1000
+control-system
+deep-taxonomy-100000
+delfour
+euler-identity
+fibonacci
+goldbach-1000
+gps
+kaprekar-6174
+path-discovery
+polynomial

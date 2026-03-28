@@ -1,0 +1,165 @@
+{
+  "case": "polynomial",
+  "answer": [
+    {
+      "kind": "text",
+      "text": "Both polynomial examples are solved consistently: the computed roots satisfy the source polynomials and reconstruct the original coefficients."
+    },
+    {
+      "kind": "field",
+      "label": "case",
+      "value": "polynomial"
+    },
+    {
+      "kind": "field",
+      "label": "examples solved",
+      "value": "2"
+    },
+    {
+      "kind": "field",
+      "label": "all examples valid",
+      "value": "yes"
+    }
+  ],
+  "reason_why": [
+    {
+      "kind": "text",
+      "text": "For each source polynomial, we solve for the roots numerically, substitute them back to measure the residuals, and rebuild the polynomial from those roots."
+    },
+    {
+      "kind": "text",
+      "text": "Example #1"
+    },
+    {
+      "kind": "field",
+      "label": "label",
+      "value": "real quartic"
+    },
+    {
+      "kind": "field",
+      "label": "degree",
+      "value": "4"
+    },
+    {
+      "kind": "field",
+      "label": "coefficients",
+      "value": "[[1, 0], [-10, 0], [35, 0], [-50, 0], [24, 0]]"
+    },
+    {
+      "kind": "field",
+      "label": "roots found",
+      "value": "4"
+    },
+    {
+      "kind": "field",
+      "label": "roots calculated",
+      "value": "4, 3, 2, 1"
+    },
+    {
+      "kind": "field",
+      "label": "residuals",
+      "value": "[[0, 0], [0, 0], [0, 0], [0, 0]]"
+    },
+    {
+      "kind": "field",
+      "label": "reconstructed",
+      "value": "[[1, 0], [-10, 0], [35, 0], [-50, 0], [24, 0]]"
+    },
+    {
+      "kind": "field",
+      "label": "reconstruction ok",
+      "value": "yes"
+    },
+    {
+      "kind": "field",
+      "label": "roots valid",
+      "value": "yes"
+    },
+    {
+      "kind": "field",
+      "label": "degree/root count ok",
+      "value": "yes"
+    },
+    {
+      "kind": "field",
+      "label": "Vieta sum ok",
+      "value": "yes"
+    },
+    {
+      "kind": "field",
+      "label": "Vieta product ok",
+      "value": "yes"
+    },
+    {
+      "kind": "text",
+      "text": "Example #2"
+    },
+    {
+      "kind": "field",
+      "label": "label",
+      "value": "complex quartic"
+    },
+    {
+      "kind": "field",
+      "label": "degree",
+      "value": "4"
+    },
+    {
+      "kind": "field",
+      "label": "coefficients",
+      "value": "[[1, 0], [-9, -5], [14, 33], [24, -44], [-26, 0]]"
+    },
+    {
+      "kind": "field",
+      "label": "roots found",
+      "value": "4"
+    },
+    {
+      "kind": "field",
+      "label": "roots calculated",
+      "value": "3 + 2i, 5 + i, 1 + i, i"
+    },
+    {
+      "kind": "field",
+      "label": "residuals",
+      "value": "[[0, 0], [0, 0], [0, 0], [0, 0]]"
+    },
+    {
+      "kind": "field",
+      "label": "reconstructed",
+      "value": "[[1, 0], [-9, -5], [14, 33], [24, -44], [-26, 0]]"
+    },
+    {
+      "kind": "field",
+      "label": "reconstruction ok",
+      "value": "yes"
+    },
+    {
+      "kind": "field",
+      "label": "roots valid",
+      "value": "yes"
+    },
+    {
+      "kind": "field",
+      "label": "degree/root count ok",
+      "value": "yes"
+    },
+    {
+      "kind": "field",
+      "label": "Vieta sum ok",
+      "value": "yes"
+    },
+    {
+      "kind": "field",
+      "label": "Vieta product ok",
+      "value": "yes"
+    }
+  ],
+  "check": [
+    {
+      "kind": "field",
+      "label": "all examples valid",
+      "value": "yes"
+    }
+  ]
+}

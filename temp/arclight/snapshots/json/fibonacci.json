@@ -1,0 +1,72 @@
+{
+  "case": "fibonacci",
+  "answer": [
+    {
+      "kind": "text",
+      "text": "The requested Fibonacci values are computed exactly, up to F(1000)."
+    },
+    {
+      "kind": "field",
+      "label": "case",
+      "value": "fibonacci"
+    },
+    {
+      "kind": "field",
+      "label": "targets",
+      "value": "0, 1, 10, 100, 1000"
+    }
+  ],
+  "reason_why": [
+    {
+      "kind": "text",
+      "text": "The program uses the defining recurrence F(n+1) = F(n) + F(n-1) with arbitrary-precision integers, so each reported value is exact."
+    },
+    {
+      "kind": "field",
+      "label": "F(0)",
+      "value": "0"
+    },
+    {
+      "kind": "field",
+      "label": "F(1)",
+      "value": "1"
+    },
+    {
+      "kind": "field",
+      "label": "F(10)",
+      "value": "55"
+    },
+    {
+      "kind": "field",
+      "label": "F(100)",
+      "value": "354224848179261915075"
+    },
+    {
+      "kind": "field",
+      "label": "F(1000)",
+      "value": "43466557686937456435688527675040625802564660517371780402481729089536555417949051890403879840079255169295922593080322634775209689623239873322471161642996440906533187938298969649928516003704476137795166849228875"
+    }
+  ],
+  "check": [
+    {
+      "kind": "field",
+      "label": "F(10) = 55",
+      "value": "yes"
+    },
+    {
+      "kind": "field",
+      "label": "digits in F(1000)",
+      "value": "209"
+    },
+    {
+      "kind": "field",
+      "label": "fast-doubling agrees",
+      "value": "yes"
+    },
+    {
+      "kind": "field",
+      "label": "Cassini at n=100",
+      "value": "yes"
+    }
+  ]
+}
