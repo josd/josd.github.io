@@ -1,0 +1,79 @@
+Answer
+------
+We compare four unitarity tests for 2×2 complex matrices:
+  world 0: true unitarity (U*U ≈ I),
+  world 1: special unitary (U*U ≈ I and det ≈ 1),
+  world 2: columns have unit norm (no orthogonality check),
+  world 3: |det(A)| ≈ 1 (determinant-magnitude heuristic),
+and two theorem-names:
+  CorrectUnitaryTest:  world w's test agrees with true unitarity,
+  NoFalseUnitary:      world w never labels a non-unitary matrix as unitary.
+Intuitively, world 0 is the ideal reference, world 1 is a stricter
+special-unitary view, and worlds 2 and 3 are cheap but unreliable heuristics.
+
+Empirical results (random tests over small complex matrices):
+
+world | test description                 | Correct (ok/total) | Sound (ok/total)
+--------------------------------------------------------------------------------
+0    | true unitarity (U*U ≈ I)         | 200/200                 | 1/1
+1    | special unitary (U*U ≈ I and det ≈ 1) | 201/202                 | 1/1
+2    | columns have unit norm           | 200/201                 | 0/1
+3    | determinant has modulus 1        | 196/201                 | 0/11
+
+Heuristically, we expect: world 0 (true unitarity) to satisfy both CorrectUnitaryTest and NoFalseUnitary; world 1 (special unitary) to satisfy NoFalseUnitary but not CorrectUnitaryTest; worlds 2 and 3 to violate both properties due to false positives.
+
+Holds₁ view on theorem-names:
+  world 0: Holds1(thm:CorrectUnitaryTest, 0)=True, Holds1(thm:NoFalseUnitary, 0)=True
+  world 1: Holds1(thm:CorrectUnitaryTest, 1)=False, Holds1(thm:NoFalseUnitary, 1)=True
+  world 2: Holds1(thm:CorrectUnitaryTest, 2)=False, Holds1(thm:NoFalseUnitary, 2)=False
+  world 3: Holds1(thm:CorrectUnitaryTest, 3)=False, Holds1(thm:NoFalseUnitary, 3)=False
+
+Reason why
+----------
+In the first-order core, we represent 2×2 complex matrices as pairs of
+Python complex numbers and implement basic operations: multiplication,
+conjugate transpose, determinant, and norms. The true unitarity predicate
+unitary_true(A) checks whether A* A is equal to the identity matrix.
+
+Each world w defines its own is_unitary_w(A):
+  • world 0 uses the true unitarity condition directly;
+  • world 1 additionally insists that det(A) is numerically 1, so it only
+    recognises special unitary matrices;
+  • world 2 checks only that both columns have length 1, ignoring whether
+    they are orthogonal;
+  • world 3 checks only that |det(A)| is 1, a very weak necessary condition.
+
+We then test two meta-properties over many random matrices and some
+carefully chosen examples:
+  CorrectUnitaryTest: is_unitary_w(A) always matches unitary_true(A),
+  NoFalseUnitary:     whenever is_unitary_w(A) is True, unitary_true(A)
+                      is also True (no false positives).
+
+From the empirical results we build an extensional model:
+  • worlds: w ∈ {0,1,2,3},
+  • theorem-names: thm:CorrectUnitaryTest, thm:NoFalseUnitary,
+  • EXT1[thm:CorrectUnitaryTest] = { w | world w's test is always correct },
+  • EXT1[thm:NoFalseUnitary]     = { w | world w's test has no false positives }.
+
+We define Holds₁(P, w) to mean w ∈ EXT1[P]. At the binary level, we
+introduce a relation-name rel:stronger with EXT2[rel:stronger] =
+  { (thm:CorrectUnitaryTest, thm:NoFalseUnitary) },
+and let Holds₂ be membership in EXT2. This captures the intuitive idea
+that a fully correct test is stronger than a merely sound one: in every
+world where CorrectUnitaryTest holds, NoFalseUnitary holds as well.
+
+All the 'higher-order' talk about theorems and their relationships is
+handled extensionally through Holds₁ and Holds₂, while the actual
+mathematical content lives in a simple complex-matrix engine in the
+first-order core.
+
+Check (harness)
+---------------
+PASS 1: unitary_true correctly classifies several explicit matrices.
+PASS 2: World 1 is strictly more restrictive than world 0 (special unitary).
+PASS 3: World 2 has a clear false positive for unitarity.
+PASS 4: World 3 has a clear false positive for unitarity.
+PASS 5: Statistics match the intended pattern across all worlds.
+PASS 6: Holds₁/EXT1 are consistent and CorrectUnitaryTest is stronger than NoFalseUnitary.
+All checks passed.
+

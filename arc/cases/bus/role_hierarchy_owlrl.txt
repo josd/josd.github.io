@@ -1,0 +1,55 @@
+Model
+=====
+Individuals D = ['Alice', 'Bob', 'Carol', 'Dave', 'Erin', 'Frank', 'Grace', 'Helen']
+
+Relations and typing (after closure)
+------------------------------------
+parentOf  = {⟨Alice,Bob⟩, ⟨Bob,Carol⟩, ⟨Carol,Dave⟩}
+childOf   = {⟨Bob,Alice⟩, ⟨Carol,Bob⟩, ⟨Dave,Carol⟩}
+ancestorOf= {⟨Alice,Bob⟩, ⟨Alice,Carol⟩, ⟨Alice,Dave⟩, ⟨Bob,Carol⟩, ⟨Bob,Dave⟩, ⟨Carol,Dave⟩}
+marriedTo = {⟨Erin,Frank⟩, ⟨Frank,Erin⟩}
+teaches   = {⟨Grace,Carol⟩, ⟨Grace,Dave⟩}
+supervises= {⟨Grace,Erin⟩}
+advises   = {⟨Grace,Carol⟩, ⟨Grace,Dave⟩, ⟨Grace,Erin⟩} 
+
+Class extensions:
+  Person    = ['Carol', 'Dave', 'Erin', 'Grace']
+  Professor = ['Grace']
+  Student   = ['Carol', 'Dave', 'Erin']
+
+Question
+========
+Q1) List all (x,y) with holds2(ancestorOf,x,y).
+Q2) ∃R: leq(R,advises) ∧ holds2(R,Grace,Erin) ? (witness names)
+Q3) ∀y: holds2(advises,Grace,y) → Professor(Grace) ∧ Student(y) ?
+Q4) Inverse check: list (x,y) with childOf(x,y) and compare to parentOf⁻¹.
+Q5) Symmetry check: marriedTo(Erin,Frank) ⇒ marriedTo(Frank,Erin).
+
+Answer
+======
+Q1) ancestorOf = {⟨Alice,Bob⟩, ⟨Alice,Carol⟩, ⟨Alice,Dave⟩, ⟨Bob,Carol⟩, ⟨Bob,Dave⟩, ⟨Carol,Dave⟩}
+Q2) Witness role-names R = {advises, supervises}
+Q3) Typing statement holds: Yes
+Q4) childOf pairs         = {⟨Bob,Alice⟩, ⟨Carol,Bob⟩, ⟨Dave,Carol⟩}
+    parentOf⁻¹ expected   = {⟨Bob,Alice⟩, ⟨Carol,Bob⟩, ⟨Dave,Carol⟩}
+Q5) Symmetry consequence Frank↔Erin: Yes
+
+Reason why
+==========
+• Role inclusions (SubRelOf) are closed transitively and used to lift pairs.
+• Inverses & symmetry are handled by explicit pair-generation over role_ext.
+• Transitivity on ancestorOf closes ancestor chains; parentOf∘parentOf ⊆ ancestorOf
+  is handled via a dedicated property-chain step.
+• Domain/Range typing and SubClassOf propagate unary class membership.
+• No generic logic engine is used: just specialized set/dict closures.
+
+Check (harness)
+===============
+PASS 1: ancestorOf closure is correct.
+PASS 2: Witness set for Grace→Erin under advises is {supervises, advises}.
+PASS 3: Typing property holds for advises (Professor/Student).
+PASS 4: childOf = parentOf⁻¹ holds.
+PASS 5: Symmetry of marriedTo holds.
+PASS 6: SubClassOf propagation to Person holds.
+PASS 7: Domain/Range propagate down role hierarchy.
+PASS 8: Pretty printing is deterministic.

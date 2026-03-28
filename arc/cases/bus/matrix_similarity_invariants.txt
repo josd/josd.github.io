@@ -1,0 +1,67 @@
+Answer
+------
+We compare four scalar-valued functions on 2×2 matrices:
+  world 0: det(A),
+  world 1: permanent(A) = a11 a22 + a12 a21,
+  world 2: diag_prod(A) = a11 a22,
+  world 3: trace(A) = a11 + a22,
+and two theorem-names:
+  MultThm:   f(AB) = f(A) f(B),
+  SimInvThm: f(SAS⁻¹) = f(A) for invertible S.
+Only the determinant (world 0) satisfies both; the trace (world 3) is
+similarity-invariant but not multiplicative; and the other two fail both.
+
+Empirical results (random tests over small integer matrices):
+
+world | f description                    | Mult (ok/total) | SimInv (ok/total)
+------------------------------------------------------------------------------
+0    | det(A)                         | 200/200             | 200/200
+1    | permanent(A) = a11 a22 + a12 a21 | 40/201             | 32/201
+2    | diag_prod(A) = a11 a22         | 37/201             | 26/201
+3    | trace(A) = a11 + a22           | 6/201             | 200/200
+
+Heuristically, we expect: world 0 (det) to satisfy both multiplicativity and similarity invariance; world 3 (trace) to satisfy only similarity invariance; and worlds 1 (permanent) and 2 (diag_prod) to satisfy neither.
+
+Holds₁ view on theorem-names:
+  world 0: Holds1(thm:MultThm, 0)=True, Holds1(thm:SimInvThm, 0)=True
+  world 1: Holds1(thm:MultThm, 1)=False, Holds1(thm:SimInvThm, 1)=False
+  world 2: Holds1(thm:MultThm, 2)=False, Holds1(thm:SimInvThm, 2)=False
+  world 3: Holds1(thm:MultThm, 3)=False, Holds1(thm:SimInvThm, 3)=True
+
+Reason why
+----------
+The first-order core of this script is standard 2×2 matrix arithmetic:
+  • matrices are tuples of floats,
+  • we use the usual matrix product and an explicit inverse formula,
+  • scalar functions are simple formulas in the entries.
+
+For each world we test the equations
+  MultThm:   f(AB) = f(A) f(B),
+  SimInvThm: f(SAS⁻¹) = f(A),
+on many random samples over small integer matrices (and random invertible
+S). From the results we form an extensional model:
+  • worlds: w ∈ {0,1,2,3},
+  • theorem-names: thm:MultThm, thm:SimInvThm,
+  • EXT1[thm:MultThm] = { w | all sampled pairs satisfy multiplicativity },
+  • EXT1[thm:SimInvThm] = { w | all sampled pairs satisfy similarity invariance }.
+
+We then define Holds₁(P,w) ↔ w ∈ EXT1[P], and introduce a binary relation
+rel:stronger with EXT2[rel:stronger] = { (thm:MultThm, thm:SimInvThm) }.
+Thus Holds₂(rel:stronger, X, Y) simply reports membership in EXT2; in this
+tiny universe, every world where MultThm holds (only world 0) is also one
+where SimInvThm holds.
+
+This fits the 'higher-order look, first-order core' pattern: talk about
+theorems and their relationships is handled extensionally by Holds₁ and
+    Holds₂, while all mathematical content stays in a simple matrix engine.
+
+Check (harness)
+---------------
+PASS 1: Determinant is multiplicative and similarity-invariant on fixed examples (world 0).
+PASS 2: Trace is similarity-invariant but not multiplicative on fixed examples (world 3).
+PASS 3: Permanent and diag_prod fail both multiplicativity and similarity invariance on fixed examples.
+PASS 4: Statistics match the expected pattern for all four worlds.
+PASS 5: Holds₁/EXT1 match the empirical statistics for all worlds and theorems.
+PASS 6: 'MultThm' is stronger than 'SimInvThm' in all worlds where it holds.
+All checks passed.
+

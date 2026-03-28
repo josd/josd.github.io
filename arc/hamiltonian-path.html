@@ -1,0 +1,289 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Hamiltonian Path via ∃ M ⊆ E</title>
+  <style>
+    :root{--bg:#f7f7fb;--card:#fff;--text:#14151a;--muted:#62636a;--border:#e7e7ef;--accent:#1f6feb;--pass:#1a7f37;--fail:#b42318}
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0;background:var(--bg);color:var(--text);
+      font:16px/1.5 system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,Helvetica,Arial}
+    .container{max-width:900px;margin:32px auto;padding:0 16px;display:flex;flex-direction:column;gap:16px}
+    h1{margin:0 0 4px;font-size:1.6rem}
+    .subtle{color:var(--muted);font-size:.95rem;margin:0 0 12px}
+    .card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:16px 18px;
+      box-shadow:0 1px 0 rgba(10,10,20,.03);display:flex;flex-direction:column;gap:10px}
+    .row{display:flex;flex-direction:column;gap:4px}
+    .mono{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace;font-size:.95rem}
+    .btn{align-self:start;background:var(--accent);color:#fff;border:none;border-radius:10px;padding:10px 14px;font-weight:600;cursor:pointer;box-shadow:0 2px 0 rgba(0,0,0,.05)}
+    .btn[disabled]{opacity:.6;cursor:not-allowed}
+    ol.checks{padding-left:1.2rem;margin:0;display:flex;flex-direction:column;gap:8px}
+    .checks li{list-style:decimal}
+    .pass{color:var(--pass)} .fail{color:var(--fail)}
+    .badge{display:inline-block;font-size:.75rem;padding:2px 8px;border-radius:999px;border:1px solid var(--border);margin-left:8px;background:#f2f8f0}
+    .fail .badge{background:#fff3f2}
+    code.k{background:#f0f3fb;padding:2px 6px;border-radius:6px;border:1px solid var(--border)}
+    .pair{border:1px dashed var(--border);padding:4px 8px;border-radius:10px;background:#fafafe;margin-right:6px;margin-bottom:6px;display:inline-block}
+    .chip{border:1px solid var(--border);padding:2px 8px;border-radius:999px;background:#f9f9ff;margin-right:6px}
+    .diag{font-size:.9rem;color:var(--muted)}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header class="row">
+      <h1>Hamiltonian Path via ∃ M ⊆ E</h1>
+      <button id="run" class="btn">Run</button>
+    </header>
+
+    <section class="card" id="prompt">
+      <h2>Prompt (Question • Data • Logic)</h2>
+      <div class="row">
+        <strong>Question.</strong>
+        <div>Does the undirected graph <code class="k">G=(V,E)</code> have a Hamiltonian path?</div>
+      </div>
+      <div class="row">
+        <strong>Data.</strong>
+        <div class="mono">V = {a,b,c,d,e,f}</div>
+        <div class="mono">E = { a—b, b—c, c—d, d—e, e—f, b—d }</div>
+      </div>
+      <div class="row">
+        <strong>Logic (Second-Order).</strong>
+        <div class="mono">∃ M ⊆ E. |M|=|V|−1 ∧ connected(M) ∧ deg_M endpoints = {1,1} ∧ others = {2}</div>
+        <div>The witness <code class="k">M</code> is a subset of edges (a second-order variable).</div>
+      </div>
+    </section>
+
+    <section class="card" id="answer">
+      <h2>Answer</h2>
+      <div class="mono" id="answer-body">—</div>
+      <div id="witness-pairs"></div>
+      <div class="subtle" id="edges-view"></div>
+    </section>
+
+    <section class="card" id="reason">
+      <h2>Reason Why</h2>
+      <div id="reason-body">—</div>
+    </section>
+
+    <section class="card" id="checks">
+      <h2>Checks (at least 5)</h2>
+      <ol class="checks" id="checks-list"><li>—</li></ol>
+    </section>
+
+    <section class="card">
+      <h2>Diagnostics</h2>
+      <div id="diag" class="diag">No errors yet.</div>
+    </section>
+  </div>
+
+  <script>
+    // ===== Data (undirected) =====
+    const V = ['a','b','c','d','e','f'];
+    // Store each undirected edge with u < v by index
+    const idx = Object.fromEntries(V.map((v,i)=>[v,i]));
+    const E = [
+      [idx.a, idx.b],
+      [idx.b, idx.c],
+      [idx.c, idx.d],
+      [idx.d, idx.e],
+      [idx.e, idx.f],
+      [idx.b, idx.d]
+    ].map(([u,v]) => u < v ? [u,v] : [v,u]);
+
+    // ===== UI helpers =====
+    const $ = (id) => document.getElementById(id);
+    const write = (id, html) => { const el = $(id); if (el) el.innerHTML = html; };
+    const diag = (msg) => write("diag", msg);
+    const edgeName = ([u,v]) => `${V[u]}—${V[v]}`;
+    const renderEdges = () => $("edges-view").innerHTML =
+      `Edges E: ${E.map(e => `<span class="chip mono">${edgeName(e)}</span>`).join(" ")}`;
+
+    // ===== Core helpers =====
+    const key = (u,v) => u < v ? `${u}|${v}` : `${v}|${u}`;
+    const hasEdge = (edges, u, v) => {
+      if (u === v) return false;
+      const k = key(u,v);
+      for (const [a,b] of edges) if (key(a,b) === k) return true;
+      return false;
+    };
+    const bitCount = (x) => { let c=0; while(x){ x&=x-1; c++; } return c; };
+
+    // Build adjacency for a specific edge set
+    function buildAdj(n, edges){
+      const adj = Array.from({length:n}, () => []);
+      for (const [u,v] of edges){ adj[u].push(v); adj[v].push(u); }
+      return adj;
+    }
+
+    // Check that a set M is a single path over all vertices (Hamiltonian path)
+    function isHamiltonianPathWitness(n, Eall, M){
+      if (M.length !== n-1) return { ok:false };
+      // edges must be subset of E
+      for (const [u,v] of M) if (!hasEdge(Eall,u,v)) return { ok:false };
+
+      const deg = Array(n).fill(0);
+      for (const [u,v] of M){ deg[u]++; deg[v]++; }
+
+      const ends = [];
+      for (let i=0;i<n;i++){
+        if (deg[i] === 1) ends.push(i);
+        else if (deg[i] !== 2) return { ok:false };
+      }
+      if (ends.length !== 2) return { ok:false };
+
+      // connectivity: DFS from one endpoint must visit all vertices
+      const adj = buildAdj(n, M);
+      const seen = Array(n).fill(false);
+      let count = 0;
+      (function dfs(u){
+        seen[u] = true; count++;
+        for (const v of adj[u]) if (!seen[v]) dfs(v);
+      })(ends[0]);
+      if (count !== n) return { ok:false };
+
+      // extract ordered path for display
+      const order = [];
+      const used = new Array(n).fill(false);
+      let cur = ends[0], prev = -1;
+      for (let i=0;i<n;i++){
+        order.push(cur); used[cur] = true;
+        const nxts = adj[cur].filter(w => w !== prev);
+        if (i < n-1){
+          if (nxts.length !== 1) return { ok:false };
+          prev = cur; cur = nxts[0];
+        }
+      }
+      return { ok:true, order, ends };
+    }
+
+    // SECOND-ORDER search: ∃ M ⊆ E  (enumerate subsets of edges)
+    function findHamiltonianWitness(n, Eall){
+      const m = Eall.length;
+      for (let mask=0; mask < (1<<m); mask++){
+        if (bitCount(mask) !== n-1) continue;
+        const M = [];
+        for (let i=0;i<m;i++) if (mask & (1<<i)) M.push(Eall[i]);
+        const res = isHamiltonianPathWitness(n, Eall, M);
+        if (res.ok) return { found:true, M, order: res.order, ends: res.ends, mask };
+      }
+      return { found:false };
+    }
+
+    // Independent oracle: permutation-based search (∃ ordering v0..vn-1 with all consecutive edges present)
+    function* permutations(arr){
+      const a = arr.slice(); const n = a.length;
+      const c = Array(n).fill(0); yield a.slice();
+      let i = 1; while (i < n) {
+        if (c[i] < i) {
+          const k = i % 2 ? c[i] : 0;
+          [a[i], a[k]] = [a[k], a[i]];
+          yield a.slice();
+          c[i]++; i = 1;
+        } else { c[i] = 0; i++; }
+      }
+    }
+    function hamiltonianOrderByPermutation(n, Eall){
+      const verts = Array.from({length:n}, (_,i)=>i);
+      for (const p of permutations(verts)){
+        let ok = true;
+        for (let i=0;i<n-1 && ok;i++) ok = hasEdge(Eall, p[i], p[i+1]);
+        if (ok) return { found:true, order:p };
+      }
+      return { found:false };
+    }
+
+    // ===== Runner =====
+    function run(){
+      const btn = $("run"); btn.disabled = true; btn.textContent = "Running…";
+      try{
+        renderEdges();
+
+        // SOL search for M
+        const sol = findHamiltonianWitness(V.length, E);
+        if (!sol.found) throw new Error("No Hamiltonian path found (unexpected for this graph).");
+
+        // ----- Answer -----
+        const orderNames = sol.order.map(i => V[i]).join(" ≺ ");
+        write("answer-body", `Hamiltonian path = <strong>YES</strong>. One path is: ${orderNames}`);
+        $("witness-pairs").innerHTML = sol.order.slice(0,-1).map((uIdx, i) => {
+          const vIdx = sol.order[i+1];
+          const pair = [uIdx, vIdx]; pair.sort((x,y)=>x-y);
+          return `<span class="pair mono">${edgeName(pair)}</span>`;
+        }).join("");
+
+        // ----- Reason Why -----
+        write("reason-body", `
+          <ol>
+            <li>We quantify over a subset of edges <code class="k">M ⊆ E</code> (second-order).</li>
+            <li><code class="k">M</code> has size <code class="k">|V|-1</code>, is connected, and yields degrees (1 at two endpoints, 2 elsewhere).</li>
+            <li>Those constraints force <code class="k">M</code> to be a single simple path that visits every vertex exactly once.</li>
+          </ol>
+        `);
+
+        // ----- Checks (6) -----
+        const checks = [];
+
+        // 1 — Witness satisfies the Hamiltonian path constraints
+        checks.push({ title:"Witness satisfies size/degree/connectivity constraints",
+                      ok: isHamiltonianPathWitness(V.length, E, sol.order.slice(0,-1).map((u,i)=>[Math.min(u,sol.order[i+1]), Math.max(u,sol.order[i+1])])).ok });
+
+        // 2 — Independent oracle (permutation) agrees on existence
+        const perm = hamiltonianOrderByPermutation(V.length, E);
+        checks.push({ title:"Permutation oracle agrees (∃ ordering with consecutive edges)",
+                      ok: perm.found });
+
+        // 3 — Endpoints are exactly a and f (forced by degrees in E)
+        const endNames = sol.ends.map(i=>V[i]).sort().join(",");
+        checks.push({ title:"Endpoints are exactly {a,f}",
+                      ok: endNames === ['a','f'].join(",") });
+
+        // 4 — Removing the critical edge c—d destroys all Hamiltonian paths
+        const Eminus = E.filter(([u,v]) => !( (u===idx.c && v===idx.d) || (u===idx.d && v===idx.c) ));
+        const solMinus = findHamiltonianWitness(V.length, Eminus);
+        checks.push({ title:"Dropping edge c—d makes it unsatisfiable",
+                      ok: !solMinus.found });
+
+        // 5 — Classic negative: star K1,5 has no Hamiltonian path
+        const Vstar = 6, center = 0;
+        const Estar = []; for (let i=1;i<Vstar;i++) Estar.push([center, i].sort((a,b)=>a-b));
+        const starHasPath = findHamiltonianWitness(Vstar, Estar).found || hamiltonianOrderByPermutation(Vstar, Estar).found;
+        checks.push({ title:"Star graph K1,5 has no Hamiltonian path",
+                      ok: !starHasPath });
+
+        // 6 — Meta-equivalence across all 4-vertex graphs (64 cases)
+        const V4 = [0,1,2,3];
+        const allEdges4 = [[0,1],[0,2],[0,3],[1,2],[1,3],[2,3]];
+        let metaOK = true;
+        for (let mask=0; mask < (1<<allEdges4.length) && metaOK; mask++){
+          const E4 = [];
+          for (let i=0;i<allEdges4.length;i++) if (mask & (1<<i)) E4.push(allEdges4[i]);
+          const a1 = findHamiltonianWitness(4, E4).found;
+          const a2 = hamiltonianOrderByPermutation(4, E4).found;
+          if (a1 !== a2) metaOK = false;
+        }
+        checks.push({ title:"For all 4-node graphs: ∃ M ⊆ E path ⇔ ∃ permutation path",
+                      ok: metaOK });
+
+        $("checks-list").innerHTML = checks.map((c,i)=>`<li class="${c.ok?"pass":"fail"}">
+          <strong>Check ${i+1}:</strong> ${c.title} <span class="badge">${c.ok?"PASS":"FAIL"}</span>
+        </li>`).join("");
+
+        diag(`Witness mask 0b${sol.mask.toString(2).padStart(E.length,'0')} • Path: ${orderNames} • Permutations tried ≤ 720`);
+
+      } catch (e){
+        write("answer-body", `<span class="fail">Error</span>`);
+        write("reason-body", "—");
+        write("checks-list", `<li class="fail">Run failed</li>`);
+        diag(e && (e.stack || e.message) ? (e.stack || e.message) : String(e));
+      } finally {
+        const btn = $("run"); btn.disabled = false; btn.textContent = "Run again";
+      }
+    }
+
+    $("run").addEventListener("click", run);
+    run();
+  </script>
+</body>
+</html>
+

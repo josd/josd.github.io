@@ -1,0 +1,244 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Evenness via Fixed-Point-Free Involution</title>
+  <style>
+    :root {
+      --bg:#f7f7fb; --card:#fff; --text:#14151a; --muted:#62636a; --border:#e7e7ef;
+      --accent:#1f6feb; --pass:#1a7f37; --fail:#b42318;
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0;background:var(--bg);color:var(--text);
+      font:16px/1.5 system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,Helvetica,Arial}
+    .container{max-width:900px;margin:32px auto;padding:0 16px;display:flex;flex-direction:column;gap:16px}
+    h1{margin:0 0 4px;font-size:1.6rem}
+    .subtle{color:var(--muted);font-size:.95rem;margin:0 0 12px}
+    .card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:16px 18px;
+      box-shadow:0 1px 0 rgba(10,10,20,.03);display:flex;flex-direction:column;gap:10px}
+    .row{display:flex;flex-direction:column;gap:4px}
+    .mono{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace;font-size:.95rem}
+    .btn{align-self:start;background:var(--accent);color:#fff;border:none;border-radius:10px;padding:10px 14px;font-weight:600;cursor:pointer;box-shadow:0 2px 0 rgba(0,0,0,.05)}
+    .btn[disabled]{opacity:.6;cursor:not-allowed}
+    ol.checks{padding-left:1.2rem;margin:0;display:flex;flex-direction:column;gap:8px}
+    .checks li{list-style:decimal}
+    .pass{color:var(--pass)} .fail{color:var(--fail)}
+    .badge{display:inline-block;font-size:.75rem;padding:2px 8px;border-radius:999px;border:1px solid var(--border);margin-left:8px;background:#f2f8f0}
+    .fail .badge{background:#fff3f2}
+    code.k{background:#f0f3fb;padding:2px 6px;border-radius:6px;border:1px solid var(--border)}
+    .diag{font-size:.9rem;color:var(--muted)}
+    .pairs{display:flex;flex-wrap:wrap;gap:8px}
+    .chip{border:1px solid var(--border);padding:2px 8px;border-radius:999px;background:#f9f9ff}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header class="row">
+      <h1>Evenness via Fixed-Point-Free Involution</h1>
+      <button id="run" class="btn">Run</button>
+    </header>
+
+    <section class="card" id="prompt">
+      <h2>Prompt (Question • Data • Logic)</h2>
+      <div class="row">
+        <strong>Question.</strong>
+        <div>Given a finite set <code class="k">U = {a,b,c,d}</code>, is <em>|U|</em> even?</div>
+      </div>
+      <div class="row"><strong>Data.</strong> <div>Universe <code class="k">U</code> of 4 distinct elements.</div></div>
+      <div class="row">
+        <strong>Logic (Second-Order).</strong>
+        <div>
+          Decide evenness via the SOL formula:
+          <div class="mono">∃f: U→U. (∀x. f(f(x)) = x) ∧ (∀x. f(x) ≠ x)</div>
+          i.e., a fixed-point-free involution that pairs elements into 2-cycles.
+        </div>
+      </div>
+    </section>
+
+    <section class="card" id="answer">
+      <h2>Answer</h2>
+      <div class="mono" id="answer-body">—</div>
+      <div class="pairs" id="answer-pairs"></div>
+    </section>
+
+    <section class="card" id="reason">
+      <h2>Reason Why</h2>
+      <div id="reason-body">—</div>
+    </section>
+
+    <section class="card" id="checks">
+      <h2>Checks (at least 5)</h2>
+      <ol class="checks" id="checks-list">
+        <li>—</li>
+      </ol>
+    </section>
+
+    <section class="card">
+      <h2>Diagnostics</h2>
+      <div id="diag" class="diag">No errors yet.</div>
+    </section>
+  </div>
+
+  <script>
+    const $ = (id) => document.getElementById(id);
+    const write = (id, html) => { const el = $(id); if (el) el.innerHTML = html; };
+    const diag = (msg) => write("diag", msg);
+
+    // Utilities
+    const names = (n) => Array.from({length:n}, (_,i)=> String.fromCharCode(97+i)); // a,b,c,...
+    const showPairs = (id, pairs, label="") => {
+      const el = $(id); if (!el) return;
+      el.innerHTML = (label?`<div class="subtle">${label}</div>`:"")
+        + pairs.map(([i,j]) => `<span class="chip">(${i}, ${j})</span>`).join("");
+    };
+
+    // --- Second-order search: enumerate all functions f: U -> U and test the SOL constraints
+    function findInvolutionNoFixed(n, opts={}) {
+      // opts.forceFixedPointIndex: if provided, constrain f[idx] = idx (used in a negative check)
+      const total = Math.pow(n, n);
+      const f = new Array(n).fill(0);
+
+      const decode = (code) => {
+        // Decode code in base-n into f[0..n-1]
+        for (let i=0, x=code; i<n; i++) { f[i] = x % n; x = (x / n) | 0; }
+      };
+
+      const isGood = () => {
+        // Optional constraint: force a fixed point at a given index
+        if (typeof opts.forceFixedPointIndex === "number") {
+          const k = opts.forceFixedPointIndex;
+          if (f[k] !== k) return false;
+        }
+        // Involution & no fixed points
+        for (let x=0; x<n; x++) {
+          const fx = f[x];
+          if (fx === x) return false;         // no fixed points
+          if (f[fx] !== x) return false;      // involution
+        }
+        return true;
+      };
+
+      for (let code = 0; code < total; code++) {
+        decode(code);
+        if (isGood()) {
+          // Build unordered pairs (2-cycles)
+          const seen = new Array(n).fill(false);
+          const pairs = [];
+          for (let i=0; i<n; i++) if (!seen[i]) {
+            const j = f[i];
+            if (j === i) return { found:false }; // shouldn't happen due to checks
+            seen[i] = true; seen[j] = true;
+            // present with letter names
+            pairs.push([names(n)[i], names(n)[j]]);
+          }
+          return { found:true, f: f.slice(), pairs, totalSearched: code+1, totalSpace: total };
+        }
+      }
+      return { found:false, totalSearched: total, totalSpace: total };
+    }
+
+    // Validate that derived relation M is a perfect matching
+    function isPerfectMatching(n, f) {
+      for (let x=0; x<n; x++) {
+        const y = f[x];
+        if (y === x) return false;     // irreflexive
+        if (f[y] !== x) return false;  // symmetry/involution
+      }
+      // Degree = 1 holds automatically for an involution without fixed points
+      return true;
+    }
+
+    function run() {
+      const btn = $("run"); btn.disabled = true; btn.textContent = "Running…";
+      try {
+        // Base universe U of size 4
+        const n = 4, U = names(n);
+        const res = findInvolutionNoFixed(n);
+
+        if (!res.found) throw new Error("No fixed-point-free involution found (unexpected for n=4).");
+
+        // ----- Answer -----
+        const pairText = res.pairs.map(p => `(${p[0]} ↔ ${p[1]})`).join(", ");
+        write("answer-body", `|U| = ${n} ⇒ even = <strong>YES</strong>. One witness f pairs: ${pairText}`);
+        showPairs("answer-pairs", res.pairs);
+
+        // ----- Reason Why -----
+        write("reason-body", `
+          <ol>
+            <li>Second-order witness: a function <code class="k">f:U→U</code> with <code class="k">f(f(x)) = x</code> and <code class="k">f(x) ≠ x</code>.</li>
+            <li>This partitions <code class="k">U</code> into 2-cycles (disjoint pairs), so <code class="k">|U|</code> is even.</li>
+            <li>We search over all functions <code class="k">U→U</code> (that’s the second-order part) and stop at the first witness.</li>
+          </ol>
+        `);
+
+        // ----- Checks (6) -----
+        const checks = [];
+
+        // 1 — Witness really is a fixed-point-free involution
+        checks.push({
+          title: "Witness satisfies SOL constraints",
+          ok: isPerfectMatching(n, res.f)
+        });
+
+        // 2 — Odd |U| = 5 cannot have such an f (no perfect matching of singletons)
+        const res5 = findInvolutionNoFixed(5);
+        checks.push({
+          title: "Odd universe (size 5) has no witness",
+          ok: !res5.found
+        });
+
+        // 3 — Even |U| = 6 does have a witness
+        const res6 = findInvolutionNoFixed(6);
+        checks.push({
+          title: "Even universe (size 6) has a witness",
+          ok: !!res6.found
+        });
+
+        // 4 — Derived relation is a perfect matching over U
+        const pmOK = isPerfectMatching(n, res.f);
+        checks.push({
+          title: "Derived relation forms a perfect matching",
+          ok: pmOK
+        });
+
+        // 5 — Necessity: if we force a fixed point (say, a→a), constraints are inconsistent
+        const forceFixed = findInvolutionNoFixed(n, { forceFixedPointIndex: 0 });
+        checks.push({
+          title: "Forcing a fixed point makes the spec unsatisfiable",
+          ok: !forceFixed.found
+        });
+
+        // 6 — Parity equivalence meta-check: (∃f as above) ⇔ (|U| is even)
+        const parityOK = (m) => {
+          const r = findInvolutionNoFixed(m);
+          const isEven = (m % 2) === 0;
+          return (!!r.found) === isEven;
+        };
+        checks.push({
+          title: "Equivalence holds across sizes 1..8",
+          ok: [1,2,3,4,5,6,7,8].every(parityOK)
+        });
+
+        $("checks-list").innerHTML = checks.map((c,i)=>`<li class="${c.ok?"pass":"fail"}">
+          <strong>Check ${i+1}:</strong> ${c.title} <span class="badge">${c.ok?"PASS":"FAIL"}</span>
+        </li>`).join("");
+
+        diag(`Searched ${res.totalSearched} / ${res.totalSpace} functions for |U|=4. Also checked sizes 5 and 6.`);
+
+      } catch (e) {
+        write("answer-body", `<span class="fail">Error</span>`);
+        write("reason-body", "—");
+        write("checks-list", `<li class="fail">Run failed</li>`);
+        diag(e && (e.stack || e.message) ? (e.stack || e.message) : String(e));
+      } finally {
+        btn.disabled = false; btn.textContent = "Run again";
+      }
+    }
+
+    $("run").addEventListener("click", run);
+    run();
+  </script>
+</body>
+</html>
+

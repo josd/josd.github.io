@@ -1,0 +1,71 @@
+Answer
+------
+We model four different stability tests for 2×2 complex system matrices:
+  world 0: exact spectral radius (eigenvalues),
+  world 1: Gershgorin-circle bound,
+  world 2: diagonal-only heuristic,
+  world 3: tiny Frobenius-norm heuristic,
+and two theorem-names:
+  CorrectStable:  world w's 'stable' predicate agrees with true stability,
+  CorrectDamped:  world w's 'damped' predicate agrees with true damping.
+Only world 0 represents the ideal engineer's check; the others are
+approximations of varying quality.
+
+Empirical results (random tests over small complex matrices):
+
+world | test description                 | Stable (ok/total) | Damped (ok/total)
+--------------------------------------------------------------------------------
+0    | exact spectral radius (ground truth) | 200/200                | 200/200
+1    | Gershgorin discs (conservative bound) | 197/201                | 200/201
+2    | diagonal-only heuristic          | 195/201                | 200/201
+3    | tiny Frobenius norm heuristic    | 198/201                | 199/201
+
+Heuristically, we expect: world 0 (exact spectral radius) to satisfy both CorrectStable and CorrectDamped; worlds 1, 2, and 3 to violate both, due to their coarse or overly conservative heuristics.
+
+Holds₁ view on theorem-names:
+  world 0: Holds1(thm:CorrectStable, 0)=True, Holds1(thm:CorrectDamped, 0)=True
+  world 1: Holds1(thm:CorrectStable, 1)=False, Holds1(thm:CorrectDamped, 1)=False
+  world 2: Holds1(thm:CorrectStable, 2)=False, Holds1(thm:CorrectDamped, 2)=False
+  world 3: Holds1(thm:CorrectStable, 3)=False, Holds1(thm:CorrectDamped, 3)=False
+
+Reason why
+----------
+In the first-order core, we represent 2×2 complex matrices as tuples of
+Python complex numbers and compute eigenvalues analytically from the
+characteristic polynomial. True stability and damping are determined from
+the spectral radius: max |λ| ≤ 1 for stability, and ≤ 0.9 for damping.
+
+Each world defines its own approximate (stable, damped) classification:
+  • world 0 uses the true spectral-radius tests;
+  • world 1 uses a Gershgorin-disc bound in the complex plane;
+  • world 2 looks only at the diagonal entries;
+  • world 3 relies on a very small Frobenius-norm threshold.
+
+For each world we sample many random matrices and compare its decisions
+with the exact ones, building an extensional model:
+  • worlds: w ∈ {0,1,2,3},
+  • theorem-names: thm:CorrectStable, thm:CorrectDamped,
+  • EXT1[thm:CorrectStable] = { w | all samples satisfy stable_w(A)=stable_true(A) },
+  • EXT1[thm:CorrectDamped] = { w | all samples satisfy damped_w(A)=damped_true(A) }.
+
+We then define Holds₁(P, w) to mean w ∈ EXT1[P]. A binary relation-name
+rel:stronger is given by EXT2[rel:stronger] = { (thm:CorrectDamped,
+thm:CorrectStable) }, and Holds₂ is just membership in EXT2. In this small
+universe, whenever a world gets all damping decisions right (only world 0),
+it also gets all stability decisions right.
+
+Thus, a concrete real-world question — 'Is this 2×2 complex system stable
+or damped?' — is answered in the core by the exact eigenvalue test, while
+the higher-order structure (Holds₁/Holds₂) organises which approximate
+tests are globally reliable across the sampled systems.
+
+Check (harness)
+---------------
+PASS 1: Eigenvalues and spectral radius behave as expected on simple examples.
+PASS 2: World 0 matches the true stability tests on several examples.
+PASS 3: Worlds 1,2,3 each misclassify at least one matrix for stability.
+PASS 4: Worlds 1,2,3 each misclassify at least one matrix for damping.
+PASS 5: Statistics match the expected pattern across all worlds.
+PASS 6: Holds₁/EXT1 are consistent with stats and 'CorrectDamped' is stronger than 'CorrectStable'.
+All checks passed.
+

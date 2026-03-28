@@ -1,0 +1,65 @@
+Answer
+------
+We study four adjoint-like operations A ↦ A★ on 2×2 complex matrices:
+  world 0: A★ = conj(A)ᵀ  (Hermitian adjoint),
+  world 1: A★ = Aᵀ        (transpose only),
+  world 2: A★ = conj(A)   (entrywise conjugation),
+  world 3: A★ = A         (identity, deliberately broken),
+and two theorem-names:
+  AdjointInvolution:   (A★)★ = A,
+  AdjointConjLin:      (λA)★ = conjugate(λ) · A★.
+In the intended C*-algebra picture, a genuine adjoint should satisfy both.
+
+Empirical results (random tests over small complex matrices):
+
+world | star description                 | Invol (ok/total) | ConjLin (ok/total)
+--------------------------------------------------------------------------------
+0    | A★ = conj(A)ᵀ  (Hermitian adjoint) | 250/250               | 250/250
+1    | A★ = Aᵀ        (transpose only) | 250/250               | 42/251
+2    | A★ = conj(A)   (entrywise conjugate) | 250/250               | 250/250
+3    | A★ = A         (identity, broken) | 250/250               | 33/251
+
+Heuristically, we expect: AdjointInvolution to hold in all worlds (taking star twice returns the original matrix), and AdjointConjLin to hold only in worlds 0 (Hermitian adjoint) and 2 (entrywise conjugation).
+
+Holds₁ view on theorem-names:
+  world 0: Holds1(thm:AdjointInvolution, 0)=True, Holds1(thm:AdjointConjLin, 0)=True
+  world 1: Holds1(thm:AdjointInvolution, 1)=True, Holds1(thm:AdjointConjLin, 1)=False
+  world 2: Holds1(thm:AdjointInvolution, 2)=True, Holds1(thm:AdjointConjLin, 2)=True
+  world 3: Holds1(thm:AdjointInvolution, 3)=True, Holds1(thm:AdjointConjLin, 3)=False
+
+Reason why
+----------
+The first-order core of this script is straightforward complex matrix
+arithmetic: 2×2 matrices as pairs of Python complex numbers, entrywise
+addition, and four concrete definitions of A★. For each world, we sample
+many random matrices A and complex scalars λ and test the equations
+  (A★)★ = A          (AdjointInvolution),
+  (λA)★ = conjugate(λ) · A★ (AdjointConjLin).
+
+From the test results we build an extensional model:
+  • worlds: w ∈ {0,1,2,3},
+  • theorem-names: thm:AdjointInvolution, thm:AdjointConjLin,
+  • EXT1[thm:AdjointInvolution] = { w | all sampled A satisfy (A★)★ = A },
+  • EXT1[thm:AdjointConjLin]    = { w | all sampled (λ,A) satisfy (λA)★ = conjugate(λ) · A★ }.
+
+We then set Holds₁(P, w) ↔ w ∈ EXT1[P]. A binary relation-name
+rel:stronger is given by EXT2[rel:stronger] = { (thm:AdjointConjLin,
+thm:AdjointInvolution) }, and Holds₂ is defined by membership in EXT2.
+Thus, in this tiny universe, whenever AdjointConjLin holds in a world
+(only worlds 0 and 2), AdjointInvolution holds there as well.
+
+All the 'higher-order' talk about which adjoint axioms hold where is
+implemented via Holds₁/Holds₂ on a finite set of intensions, while all
+the actual mathematical content lives in the concrete star-operations and
+numeric tests on complex matrices.
+
+Check (harness)
+---------------
+PASS 1: matrix_star behaves as advertised in all worlds on a concrete matrix.
+PASS 2: AdjointInvolution holds concretely in all worlds.
+PASS 3: AdjointConjLin holds concretely in worlds 0,2 and fails in worlds 1,3.
+PASS 4: Empirical statistics match the expected pattern across worlds.
+PASS 5: Holds₁/EXT1 match the empirical statistics for all worlds and theorems.
+PASS 6: 'AdjointConjLin' is stronger than 'AdjointInvolution' in all worlds where it holds.
+All checks passed.
+

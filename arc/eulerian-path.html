@@ -1,0 +1,312 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Eulerian Path via ∃ edge-order</title>
+  <style>
+    :root{--bg:#f7f7fb;--card:#fff;--text:#14151a;--muted:#62636a;--border:#e7e7ef;--accent:#1f6feb;--pass:#1a7f37;--fail:#b42318}
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0;background:var(--bg);color:var(--text);
+      font:16px/1.5 system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,Helvetica,Arial}
+    .container{max-width:900px;margin:32px auto;padding:0 16px;display:flex;flex-direction:column;gap:16px}
+    h1{margin:0 0 4px;font-size:1.6rem}
+    .subtle{color:var(--muted);font-size:.95rem;margin:0 0 12px}
+    .card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:16px 18px;
+      box-shadow:0 1px 0 rgba(10,10,20,.03);display:flex;flex-direction:column;gap:10px}
+    .row{display:flex;flex-direction:column;gap:4px}
+    .mono{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace;font-size:.95rem}
+    .btn{align-self:start;background:var(--accent);color:#fff;border:none;border-radius:10px;padding:10px 14px;font-weight:600;cursor:pointer;box-shadow:0 2px 0 rgba(0,0,0,.05)}
+    .btn[disabled]{opacity:.6;cursor:not-allowed}
+    ol.checks{padding-left:1.2rem;margin:0;display:flex;flex-direction:column;gap:8px}
+    .checks li{list-style:decimal}
+    .pass{color:var(--pass)} .fail{color:var(--fail)}
+    .badge{display:inline-block;font-size:.75rem;padding:2px 8px;border-radius:999px;border:1px solid var(--border);margin-left:8px;background:#f2f8f0}
+    .fail .badge{background:#fff3f2}
+    code.k{background:#f0f3fb;padding:2px 6px;border-radius:6px;border:1px solid var(--border)}
+    .chip{border:1px solid var(--border);padding:2px 8px;border-radius:999px;background:#f9f9ff;margin-right:6px}
+    .step{border:1px dashed var(--border);padding:4px 8px;border-radius:10px;background:#fafafe;margin-right:6px;margin-bottom:6px;display:inline-block}
+    .diag{font-size:.9rem;color:var(--muted)}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header class="row">
+      <h1>Eulerian Path via ∃ edge-order</h1>
+      <button id="run" class="btn">Run</button>
+    </header>
+
+    <section class="card" id="prompt">
+      <h2>Prompt (Question • Data • Logic)</h2>
+      <div class="row">
+        <strong>Question.</strong>
+        <div>Does the directed graph <code class="k">G=(V,E)</code> admit an Eulerian path (a trail using every arc exactly once)?</div>
+      </div>
+      <div class="row">
+        <strong>Data.</strong>
+        <div class="mono">V = {a,b,c,d,e,f}</div>
+        <div class="mono">E = { a→b, b→c, c→d, d→a, a→e } &nbsp; (f is isolated)</div>
+      </div>
+      <div class="row">
+        <strong>Logic (Second-Order).</strong>
+        <div class="mono">∃ order : {0..|E|-1} → E (bijection) s.t. head(order[i]) = tail(order[i+1]).</div>
+        <div>This quantifies over a total order of edges — a genuine second-order witness.</div>
+      </div>
+    </section>
+
+    <section class="card" id="answer">
+      <h2>Answer</h2>
+      <div class="mono" id="answer-body">—</div>
+      <div id="witness-steps"></div>
+      <div class="subtle" id="edges-view"></div>
+    </section>
+
+    <section class="card" id="reason">
+      <h2>Reason Why</h2>
+      <div id="reason-body">—</div>
+    </section>
+
+    <section class="card" id="checks">
+      <h2>Checks (at least 5)</h2>
+      <ol class="checks" id="checks-list"><li>—</li></ol>
+    </section>
+
+    <section class="card">
+      <h2>Diagnostics</h2>
+      <div id="diag" class="diag">No errors yet.</div>
+    </section>
+  </div>
+
+  <script>
+    // ===== Data (directed simple graph) =====
+    const V = ['a','b','c','d','e','f']; // 'f' is isolated (zero degree)
+    const nameToIdx = Object.fromEntries(V.map((v,i)=>[v,i]));
+    // E as ordered pairs (u,v)
+    const E = [
+      ['a','b'], ['b','c'], ['c','d'], ['d','a'], ['a','e']
+    ].map(([x,y]) => [nameToIdx[x], nameToIdx[y]]);
+
+    // ===== UI helpers =====
+    const $ = (id) => document.getElementById(id);
+    const write = (id, html) => { const el = $(id); if (el) el.innerHTML = html; };
+    const diag = (msg) => write("diag", msg);
+    const edgeName = ([u,v]) => `${V[u]}→${V[v]}`;
+    const renderEdges = () => $("edges-view").innerHTML =
+      `Edges E: ${E.map(e => `<span class="chip mono">${edgeName(e)}</span>`).join(" ")}`;
+
+    // ===== Graph helpers =====
+    const key = (u,v) => `${u}|${v}`;
+    function degsDirected(n, edges){
+      const indeg = Array(n).fill(0), outdeg = Array(n).fill(0);
+      for (const [u,v] of edges){ outdeg[u]++; indeg[v]++; }
+      return {indeg, outdeg};
+    }
+    function weaklyConnectedNonzero(n, edges){
+      const {indeg, outdeg} = degsDirected(n, edges);
+      const present = []; for (let i=0;i<n;i++) if (indeg[i]+outdeg[i]>0) present.push(i);
+      if (present.length === 0) return true;
+      const adjU = Array.from({length:n}, ()=>[]);
+      for (const [u,v] of edges){ adjU[u].push(v); adjU[v].push(u); } // undirected view
+      const seen = new Set([present[0]]); const q=[present[0]];
+      while(q.length){
+        const x=q.shift();
+        for(const y of adjU[x]) if(!seen.has(y)){ seen.add(y); q.push(y); }
+      }
+      return present.every(v => seen.has(v));
+    }
+    function eulerCriterionDirected(n, edges){
+      const {indeg, outdeg} = degsDirected(n, edges);
+      let start=0, end=0;
+      for (let i=0;i<n;i++){
+        const diff = outdeg[i] - indeg[i];
+        if (diff === 1) start++;
+        else if (diff === -1) end++;
+        else if (diff !== 0) return false;
+      }
+      const okCounts = (start===1 && end===1) || (start===0 && end===0);
+      return okCounts && weaklyConnectedNonzero(n, edges);
+    }
+
+    // ===== Hierholzer for directed graphs (constructive witness) =====
+    function findEulerWitnessDirected(n, edges){
+      const m = edges.length;
+      if (m===0) return {found:true, order: [0]}; // degenerate
+      if (!eulerCriterionDirected(n, edges)) return {found:false};
+
+      // adjacency of outgoing edges with ids + pointer per vertex
+      const adj = Array.from({length:n}, ()=>[]);
+      for (let id=0; id<m; id++){
+        const [u,v] = edges[id];
+        adj[u].push({to:v, id});
+      }
+      const used = Array(m).fill(false);
+      const ptr = Array(n).fill(0);
+      const {indeg, outdeg} = degsDirected(n, edges);
+
+      // choose start
+      let start = -1;
+      for (let i=0;i<n;i++) if (outdeg[i] - indeg[i] === 1){ start = i; break; }
+      if (start === -1){
+        for (let i=0;i<n;i++) if (outdeg[i] > 0){ start = i; break; }
+      }
+      if (start === -1) return {found:false};
+
+      const stack=[start], path=[];
+      while (stack.length){
+        const v = stack[stack.length-1];
+        // advance over used edges
+        while (ptr[v] < adj[v].length && used[adj[v][ptr[v]].id]) ptr[v]++;
+        if (ptr[v] < adj[v].length){
+          const {to, id} = adj[v][ptr[v]];
+          used[id] = true;
+          stack.push(to);
+        } else {
+          path.push(v);
+          stack.pop();
+        }
+      }
+      path.reverse();
+      // validate
+      if (path.length !== m+1) return {found:false};
+      if (used.some(u => !u)) return {found:false};
+      return {found:true, order:path};
+    }
+
+    // ===== Independent Oracle (backtracking over edges) =====
+    function existsEulerByBacktrackDirected(n, edges){
+      const m = edges.length;
+      if (m===0) return true;
+      const outIDs = Array.from({length:n}, ()=>[]);
+      for (let id=0; id<m; id++){ const [u] = edges[id]; outIDs[u].push(id); }
+      function dfs(u, usedMask, usedCnt){
+        if (usedCnt === m) return true;
+        for (const id of outIDs[u]){
+          if ((usedMask>>id)&1) continue;
+          const [a,b]=edges[id];
+          if (dfs(b, usedMask|(1<<id), usedCnt+1)) return true;
+        }
+        return false;
+      }
+      // try any start with outdeg>0
+      for (let s=0;s<n;s++) if (outIDs[s].length>0 && dfs(s, 0, 0)) return true;
+      return false;
+    }
+
+    // ===== Witness validation =====
+    function isEulerWitnessDirected(n, edges, vertexOrder){
+      const m = edges.length;
+      if (m===0) return vertexOrder.length===1;
+      if (vertexOrder.length !== m+1) return false;
+      // multiset of arcs
+      const mult = new Map();
+      for (const [u,v] of edges){
+        const k = key(u,v); mult.set(k, (mult.get(k)||0)+1);
+      }
+      for (let i=0;i<m;i++){
+        const u = vertexOrder[i], v = vertexOrder[i+1];
+        const k = key(u,v);
+        if (!mult.has(k) || mult.get(k)===0) return false;
+        mult.set(k, mult.get(k)-1);
+      }
+      return Array.from(mult.values()).every(x => x===0);
+    }
+
+    // ===== Runner =====
+    function run(){
+      const btn = $("run"); btn.disabled = true; btn.textContent = "Running…";
+      try{
+        renderEdges();
+
+        const wit = findEulerWitnessDirected(V.length, E);
+        if (!wit.found) throw new Error("No directed Eulerian path found (unexpected for this graph).");
+
+        const steps = [];
+        for (let i=0;i<wit.order.length-1;i++){
+          steps.push([wit.order[i], wit.order[i+1]]);
+        }
+
+        // ----- Answer -----
+        const vertexSeq = wit.order.map(i=>V[i]).join(" → ");
+        write("answer-body", `Directed Eulerian path = <strong>YES</strong>. One traversal is: ${vertexSeq}`);
+        $("witness-steps").innerHTML = steps
+          .map(([u,v]) => `<span class="step mono">${V[u]} → ${V[v]}</span>`).join("");
+
+        // ----- Reason Why -----
+        write("reason-body", `
+          <ol>
+            <li>We quantify over a total order of arcs (a successor on edges) so consecutive arcs connect.</li>
+            <li>The order uses <em>every</em> arc exactly once — that’s our second-order witness.</li>
+            <li>By the directed Euler theorem, such a path exists iff all nonzero-degree vertices are weakly connected and
+                indegree/outdegree counts are equal everywhere except possibly one start (out=in+1) and one end (in=out+1).</li>
+          </ol>
+        `);
+
+        // Diagnostics
+        const {indeg, outdeg} = degsDirected(V.length, E);
+        const diffs = V.map((name,i)=>`${name}:${outdeg[i]-indeg[i]}`).join("  ");
+        diag(`Degree diffs (out−in): ${diffs}`);
+
+        // ----- Checks (6) -----
+        const checks = [];
+
+        // 1 — Witness covers every arc exactly once and respects direction
+        checks.push({ title:"Witness uses each arc exactly once (directions respected)",
+                      ok: isEulerWitnessDirected(V.length, E, wit.order) });
+
+        // 2 — Criterion (weak connectivity + degree balance) matches witness existence
+        const crit = eulerCriterionDirected(V.length, E);
+        checks.push({ title:"Directed Euler criterion holds and matches witness",
+                      ok: crit === true });
+
+        // 3 — Independent oracle (backtracking) agrees on existence
+        checks.push({ title:"Backtracking oracle also finds a directed Euler traversal",
+                      ok: existsEulerByBacktrackDirected(V.length, E) });
+
+        // 4 — Add e→a to balance degrees ⇒ Eulerian CYCLE (start==end)
+        const Ecycle = E.concat([[nameToIdx.e, nameToIdx.a]]);
+        const cyc = findEulerWitnessDirected(V.length, Ecycle);
+        const cycOK = cyc.found && degsDirected(V.length, Ecycle).indeg.every((d,i)=>d===degsDirected(V.length, Ecycle).outdeg[i])
+                       && (cyc.order[0] === cyc.order[cyc.order.length-1]);
+        checks.push({ title:"Adding e→a yields an Eulerian cycle (all indeg=outdeg, start=end)",
+                      ok: cycOK });
+
+        // 5 — Add b→e (breaks degree condition: e gets in−out = 2) ⇒ unsat
+        const Ebad = E.concat([[nameToIdx.b, nameToIdx.e]]);
+        const badOK = !eulerCriterionDirected(V.length, Ebad) && !findEulerWitnessDirected(V.length, Ebad).found;
+        checks.push({ title:"Adding b→e violates degree balance (no Euler path)",
+                      ok: badOK });
+
+        // 6 — Meta-check on all 3-node digraphs (2^6 = 64): criterion ⇔ brute ⇔ constructive
+        const allArcs3 = [[0,1],[1,0],[0,2],[2,0],[1,2],[2,1]];
+        let metaOK = true;
+        for (let mask=0; mask<64 && metaOK; mask++){
+          const E3 = [];
+          for (let i=0;i<6;i++) if (mask & (1<<i)) E3.push(allArcs3[i]);
+          const c = eulerCriterionDirected(3, E3);
+          const b = existsEulerByBacktrackDirected(3, E3);
+          const w = findEulerWitnessDirected(3, E3).found;
+          if (!(c === b && b === w)) metaOK = false;
+        }
+        checks.push({ title:"For all 3-node digraphs: criterion ⇔ brute force ⇔ witness",
+                      ok: metaOK });
+
+        $("checks-list").innerHTML = checks.map((c,i)=>`<li class="${c.ok?"pass":"fail"}">
+          <strong>Check ${i+1}:</strong> ${c.title} <span class="badge">${c.ok?"PASS":"FAIL"}</span>
+        </li>`).join("");
+
+      } catch (e){
+        write("answer-body", `<span class="fail">Error</span>`);
+        write("reason-body", "—");
+        write("checks-list", `<li class="fail">Run failed</li>`);
+        diag(e && (e.stack || e.message) ? (e.stack || e.message) : String(e));
+      } finally {
+        const btn = $("run"); btn.disabled = false; btn.textContent = "Run again";
+      }
+    }
+
+    $("run").addEventListener("click", run);
+    run();
+  </script>
+</body>
+</html>
+

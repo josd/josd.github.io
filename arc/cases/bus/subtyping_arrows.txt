@@ -1,0 +1,55 @@
+Model
+=====
+Base types (names): Top, Int, Bool
+Arrow types (names): Arr_Top_Top, Arr_Top_Int, Arr_Top_Bool, Arr_Int_Top, Arr_Int_Int, Arr_Int_Bool, Arr_Bool_Top, Arr_Bool_Int, Arr_Bool_Bool
+
+Fixed predicates (informal)
+----------------------------
+• ex:SubType(T,U)       — subtyping over *names*; sorts: (NAME, NAME)
+• ex:ArrowOf(A1,A2,T)   — T is the *name* of arrow A1→A2; (NAME,NAME,NAME)
+
+Rules (implemented by specialized closure)
+------------------------------------------
+1) Reflexive: SubType(T,T).
+2) Transitive: SubType(T,U) if SubType(T,V) and SubType(V,U).
+3) Base facts: Int ≤ Top, Bool ≤ Top.
+4) Arrow: (A1→A2) ≤ (B1→B2) if B1 ≤ A1 and A2 ≤ B2 (contra/co-variance).
+
+Question
+========
+Q1) Enumerate all subtyping pairs SubType(T,U).
+Q2) Witness TB such that SubType(Arr_Int_Bool, TB).
+Q3) ∀X∈{Top,Int,Bool}: SubType(Arr_Top_X, Arr_Top_Top)?
+Q4) ∀X∈{Top,Int,Bool}: SubType(Arr_Top_Top, Arr_X_Top)?
+
+Answer
+======
+Q1) {Arr_Bool_Bool ≤ Arr_Bool_Bool, Arr_Bool_Bool ≤ Arr_Bool_Top, Arr_Bool_Int ≤ Arr_Bool_Int, Arr_Bool_Int ≤ Arr_Bool_Top, Arr_Bool_Top ≤ Arr_Bool_Top, Arr_Int_Bool ≤ Arr_Int_Bool, Arr_Int_Bool ≤ Arr_Int_Top, Arr_Int_Int ≤ Arr_Int_Int, Arr_Int_Int ≤ Arr_Int_Top, Arr_Int_Top ≤ Arr_Int_Top, Arr_Top_Bool ≤ Arr_Bool_Bool, Arr_Top_Bool ≤ Arr_Bool_Top, Arr_Top_Bool ≤ Arr_Int_Bool, Arr_Top_Bool ≤ Arr_Int_Top, Arr_Top_Bool ≤ Arr_Top_Bool, Arr_Top_Bool ≤ Arr_Top_Top, Arr_Top_Int ≤ Arr_Bool_Int, Arr_Top_Int ≤ Arr_Bool_Top, Arr_Top_Int ≤ Arr_Int_Int, Arr_Top_Int ≤ Arr_Int_Top, Arr_Top_Int ≤ Arr_Top_Int, Arr_Top_Int ≤ Arr_Top_Top, Arr_Top_Top ≤ Arr_Bool_Top, Arr_Top_Top ≤ Arr_Int_Top, Arr_Top_Top ≤ Arr_Top_Top, Bool ≤ Bool, Bool ≤ Top, Int ≤ Int, Int ≤ Top, Top ≤ Top}
+Q2) Witness TB with Arr_Int_Bool ≤ TB = {Arr_Int_Bool, Arr_Int_Top}
+Q3) Universal (covariant result) holds: Yes
+Q4) Universal (contravariant arg) holds: Yes
+
+Reason why
+==========
+• Types are *names*; subtyping is a binary relation on those names.
+• ArrowOf is implemented by a canonical naming scheme Arr_A_B.
+• The arrow rule encodes classic function subtyping:
+      (A1→A2) ≤ (B1→B2)  iff  B1 ≤ A1  and  A2 ≤ B2
+  i.e., contravariant in the argument and covariant in the result.
+• All reasoning is done by a small fixpoint over a finite universe of
+  type names—no generic logic engine is used.
+
+Check (harness)
+===============
+PASS 1: SubType includes expected base & arrow pairs.
+PASS 2: Sample arrow subtyping Arr_Int_Bool ≤ Arr_Int_Top holds.
+PASS 3: Witness set for Arr_Int_Bool ≤ TB is correct.
+PASS 4: Covariance universal holds.
+PASS 5: Contravariance universal holds.
+PASS 6: Deterministic formatting of results.
+PASS 7: Reflexivity holds for all types.
+PASS 8: No bogus base subtypings.
+PASS 9: Negative arrow subtyping blocked as expected.
+PASS 10: Non-trivial arrow subtyping Arr_Top_Bool ≤ Arr_Int_Top holds.
+PASS 11: Subtyping closure is stable (idempotent).
+PASS 12: Contravariant sample Arr_Top_Top ≤ Arr_Bool_Top holds.

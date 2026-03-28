@@ -1,0 +1,67 @@
+Answer
+------
+Ceva and Menelaus (field-plane versions):
+  • Ceva: For a triangle ABC with points D∈BC, E∈CA, F∈AB, the cevians
+      AD, BE, CF are concurrent ⇔ (BD/DC)·(CE/EA)·(AF/FB) = 1.
+  • Menelaus: For a triangle ABC with D∈BC, E∈CA, F∈AB, the points
+      D, E, F are collinear ⇔ (BD/DC)·(CE/EA)·(AF/FB) = -1.
+Over a field, these are purely algebraic statements about ratios, and
+hold in finite projective planes PG(2, p) over GF(p).
+
+Empirical checks in PG(2, p):
+
+p  | Ceva (ok/total) | Menelaus (ok/total)
+------------------------------------------
+5  | 120/120            | 120/120
+7  | 120/120            | 120/120
+11 | 120/120            | 120/120
+
+Note: In field planes PG(2, p), the algebraic forms of Ceva and Menelaus hold exactly, so the stats should show 100% success for nondegenerate samples.
+
+Holds₁ view on theorem-names:
+  p=5: Holds1(thm:Ceva, 5)=True, Holds1(thm:Menelaus, 5)=True
+  p=7: Holds1(thm:Ceva, 7)=True, Holds1(thm:Menelaus, 7)=True
+  p=11: Holds1(thm:Ceva, 11)=True, Holds1(thm:Menelaus, 11)=True
+
+Reason why
+----------
+We model PG(2, p) with homogeneous coordinates over GF(p):
+  • Points and lines are 3-component vectors modulo p, up to scalar.
+  • Incidence is dot product; joins/meets are cross products.
+  • Triangles, cevians, and intersections are all first-order data.
+
+On each side of a triangle, we introduce a 1D coordinate s with the
+endpoints mapped to 0 and 1. Any interior or exterior point P has a
+coordinate s(P) in GF(p), and the signed segment ratio is then
+
+      (UP / PV) = s(P) / (1 - s(P)).
+
+The Ceva and Menelaus products are just products of these ratios. For
+each sampled configuration in PG(2, p), we compute:
+  • concurrency or collinearity (via incidence), and
+  • the corresponding product in GF(p).
+
+The first-order core is the exact projective and algebraic computation.
+From it we extract a higher-order-looking model:
+  • worlds w are primes p,
+  • theorem names P∈{thm:Ceva, thm:Menelaus},
+  • Holds₁(P, w) is true iff every sampled config in PG(2, w) satisfies
+    the equivalence for P,
+  • Holds₂(rel:dual, thm:Ceva, thm:Menelaus) and its converse record
+    that we are treating them as dual theorems at the intensional level.
+
+Thus the whole story fits the 'higher-order look, first-order core'
+paradigm: theorem-names and their duality relation live in an intensional
+layer, while all semantic content is computed by a single first-order
+engine over GF(p)-geometry.
+
+Check (harness)
+---------------
+PASS 1: Basic projective primitives (line_through/dot) behave as expected.
+PASS 2: Ceva equivalence holds in sampled configurations in PG(2, 5).
+PASS 3: Menelaus equivalence holds in sampled configurations in PG(2, 5).
+PASS 4: All sampled configurations satisfy Ceva and Menelaus for each tested p.
+PASS 5: Holds₁/EXT1 match the empirical theorem statistics per world.
+PASS 6: Holds₂-level duality between Ceva and Menelaus is present and symmetric.
+All checks passed.
+

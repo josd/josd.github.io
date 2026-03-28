@@ -1,0 +1,67 @@
+Answer
+------
+We compare four argument branches on ℂ:
+  world 0: Arg₀(z) principal in (-π, π]
+  world 1: Arg₁(z) in [0, 2π)
+  world 2: Arg₂(z) in (-π/2, 3π/2]
+  world 3: Arg₃(z) naive atan(y/x) (broken)
+and two theorem-names:
+  AdditiveArg:      Arg(zw) ≡ Arg(z) + Arg(w)  (mod 2π)
+  RangeOk:          Arg(z) lies in the intended interval.
+Worlds 0–2 are proper branches built from the principal Arg; world 3 is
+intentionally flawed to illustrate how additivity can fail.
+
+Empirical results (random tests over small complex integers):
+
+world | branch description           | Additive (ok/total) | RangeOk (ok/total)
+-------------------------------------------------------------------------------
+0    | principal Arg ∈ (-π, π]     | 395/395                 | 397/397
+1    | branch Arg ∈ [0, 2π)        | 396/396                 | 397/397
+2    | branch Arg ∈ (-π/2, 3π/2]   | 393/393                 | 395/395
+3    | naive atan(y/x) (broken)    | 296/394                 | 397/397
+
+Heuristically, we expect worlds 0,1,2 (well-defined branches) to satisfy both AdditiveArg and RangeOk on all samples, while world 3 (naive atan) will fail AdditiveArg on some samples (and is not a genuine branch in the geometric sense).
+
+Holds₁ view on theorem-names:
+  world 0: Holds1(thm:AdditiveArg, 0)=True, Holds1(thm:RangeOk, 0)=True
+  world 1: Holds1(thm:AdditiveArg, 1)=True, Holds1(thm:RangeOk, 1)=True
+  world 2: Holds1(thm:AdditiveArg, 2)=True, Holds1(thm:RangeOk, 2)=True
+  world 3: Holds1(thm:AdditiveArg, 3)=False, Holds1(thm:RangeOk, 3)=True
+
+Reason why
+----------
+We represent complex numbers by Python's complex type and define, for
+each world, a concrete real-valued function Arg₍w₎ on ℂ\{0}. The first-
+order core consists of:
+  • numerical definitions of Arg₍w₎ for w=0,1,2,3,
+  • a modular difference check for additivity (via wrap_pi),
+  • range checks for the intended branch intervals, and
+  • random sampling of integer points in ℂ.
+
+From this we build an extensional model:
+  • worlds: w ∈ {0,1,2,3},
+  • theorem-names: thm:AdditiveArg and thm:RangeOk,
+  • EXT1[thm:AdditiveArg] = { w | all non-zero samples obey additivity },
+  • EXT1[thm:RangeOk]     = { w | all non-zero samples lie in the range },
+and define Holds₁(P,w) ↔ w ∈ EXT1[P].
+
+A binary relation-name rel:stronger relates these intensions by setting
+  EXT2[rel:stronger] = { (thm:AdditiveArg, thm:RangeOk) },
+so that Holds₂(rel:stronger, X, Y) simply reports whether (X,Y) is in
+that set. In the resulting model, every world where AdditiveArg holds is
+one where RangeOk holds as well.
+
+In this way, the potentially 'higher-order' talk about branches and
+theorems is handled via a single first-order core over ℂ, with all
+intensional structure carried by Holds₁ and Holds₂.
+
+Check (harness)
+---------------
+PASS 1: Canonical Arg values behave as expected in each world.
+PASS 2: AdditiveArg holds in worlds 0–2 but fails in world 3 for a concrete pair.
+PASS 3: RangeOk behaves coherently with the intended intervals in worlds 0–2.
+PASS 4: Stats match expectations for AdditiveArg and RangeOk across worlds.
+PASS 5: Holds₁/EXT1 match the empirical stats for all worlds and theorems.
+PASS 6: 'AdditiveArg' is stronger than 'RangeOk' in all worlds where it holds.
+All checks passed.
+

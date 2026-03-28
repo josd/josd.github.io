@@ -1,0 +1,59 @@
+Model
+=====
+Elements (individuals) D = ['0', '1', '2', '3', '4', '5'] (Z₆, written as strings)
+
+Fixed schema (informal)
+------------------------
+• holds2(R,x,y)  — application: ⟨x,y⟩ ∈ ext(R)
+• SubRelOf(P,Q)  — inclusion over relation *names* (intensions)
+• leq_strict(P,Q), leq(P,Q) — induced ⊆* on names (with/without reflex)
+
+Base step-relations (Addk)
+--------------------------
+Add1 = {⟨0,1⟩, ⟨1,2⟩, ⟨2,3⟩, ⟨3,4⟩, ⟨4,5⟩, ⟨5,0⟩}
+Add2 = {⟨0,2⟩, ⟨1,3⟩, ⟨2,4⟩, ⟨3,5⟩, ⟨4,0⟩, ⟨5,1⟩}
+Add3 = {⟨0,3⟩, ⟨1,4⟩, ⟨2,5⟩, ⟨3,0⟩, ⟨4,1⟩, ⟨5,2⟩} 
+
+Generated reachability relations (Genk)
+--------------------------------------
+Gen1 = {⟨0,0⟩, ⟨0,1⟩, ⟨0,2⟩, ⟨0,3⟩, ⟨0,4⟩, ⟨0,5⟩, ⟨1,0⟩, ⟨1,1⟩, ⟨1,2⟩, ⟨1,3⟩, ⟨1,4⟩, ⟨1,5⟩, ⟨2,0⟩, ⟨2,1⟩, ⟨2,2⟩, ⟨2,3⟩, ⟨2,4⟩, ⟨2,5⟩, ⟨3,0⟩, ⟨3,1⟩, ⟨3,2⟩, ⟨3,3⟩, ⟨3,4⟩, ⟨3,5⟩, ⟨4,0⟩, ⟨4,1⟩, ⟨4,2⟩, ⟨4,3⟩, ⟨4,4⟩, ⟨4,5⟩, ⟨5,0⟩, ⟨5,1⟩, ⟨5,2⟩, ⟨5,3⟩, ⟨5,4⟩, ⟨5,5⟩}
+Gen2 = {⟨0,0⟩, ⟨0,2⟩, ⟨0,4⟩, ⟨1,1⟩, ⟨1,3⟩, ⟨1,5⟩, ⟨2,0⟩, ⟨2,2⟩, ⟨2,4⟩, ⟨3,1⟩, ⟨3,3⟩, ⟨3,5⟩, ⟨4,0⟩, ⟨4,2⟩, ⟨4,4⟩, ⟨5,1⟩, ⟨5,3⟩, ⟨5,5⟩}
+Gen3 = {⟨0,0⟩, ⟨0,3⟩, ⟨1,1⟩, ⟨1,4⟩, ⟨2,2⟩, ⟨2,5⟩, ⟨3,0⟩, ⟨3,3⟩, ⟨4,1⟩, ⟨4,4⟩, ⟨5,2⟩, ⟨5,5⟩} 
+
+Inclusions over names (SubRelOf)
+--------------------------------
+Add1 ⊆ Gen1
+Add2 ⊆ Gen2
+Add3 ⊆ Gen3
+
+Question
+========
+Q1) List all (x,y) with holds2(Gen2,x,y).
+Q2) ∃R: holds2(R,0,3) ∧ leq(R,Gen3) ? (witness relation-names).
+Q3) ∀R,y: (leq(R,Gen2) ∧ holds2(R,0,y)) → holds2(Gen2,0,y) ?
+
+Answer
+======
+Q1) Gen2 = {⟨0,0⟩, ⟨0,2⟩, ⟨0,4⟩, ⟨1,1⟩, ⟨1,3⟩, ⟨1,5⟩, ⟨2,0⟩, ⟨2,2⟩, ⟨2,4⟩, ⟨3,1⟩, ⟨3,3⟩, ⟨3,5⟩, ⟨4,0⟩, ⟨4,2⟩, ⟨4,4⟩, ⟨5,1⟩, ⟨5,3⟩, ⟨5,5⟩}
+Q2) Witness relation-names R = {Add3, Gen3}
+Q3) Universal statement holds: Yes
+
+Reason why
+==========
+• In Z₆, ⟨1⟩ = Z₆, ⟨2⟩ = {0,2,4}, ⟨3⟩ = {0,3}.
+• We encode “generated-by-k” as reachability under Addk steps using BFS.
+• SubRelOf(Addk,Genk) induces leq_strict and leq over relation *names*.
+• Q2 quantifies over relation names R with R ⊆ Gen3.
+• Q3 states that any R below Gen2 cannot add new pairs beyond Gen2 itself.
+
+Check (harness)
+===============
+PASS 1: Gen2 enumeration is correct.
+PASS 2: Gen3 enumeration is correct.
+PASS 3: Witness set for (0,3) under Gen3 is {Add3, Gen3}.
+PASS 4: Universal property holds for Gen2 at source 0.
+PASS 5: Gen2 excludes cross-parity pair (0,3).
+PASS 6: Gen3 excludes cross-coset pair (1,0).
+PASS 7: leq reflexivity holds for all relation names.
+PASS 8: leq_strict inclusions Addk ⊆ Genk hold.
+PASS 9: Pretty printing is deterministic.
