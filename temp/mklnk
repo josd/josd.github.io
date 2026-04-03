@@ -18,6 +18,7 @@ sudo ln -sf ~/github.com/eyereasoner/eyeling/tools/n3gen.js /usr/local/bin/n3gen
 sudo ln -sf ~/github.com/eyereasoner/lingua/lingua /usr/local/bin
 sudo ln -sf ~/github.com/eyereasoner/lingua/mklingua /usr/local/bin
 sudo ln -sf ~/github.com/eyereasoner/rdfsurfaces-tests/script/rs2fol.sh /usr/local/bin/rs2fol
+sudo ln -sf ~/github.com/josd/arcproof/target/release/arcproof /usr/local/bin
 sudo ln -sf ~/github.com/josd/josd.github.io/temp/cwm /usr/local/bin
 sudo ln -sf ~/github.com/josd/josd.github.io/temp/card /usr/local/bin
 sudo ln -sf ~/github.com/josd/josd.github.io/temp/f /usr/local/bin

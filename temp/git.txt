@@ -132,6 +132,8 @@ npm ci
 npm test
 npm version patch   # or minor/major
 
+git reset --hard origin/main
+
 
 curl -H "Accept: application/vnd.github.v3+json" https://api.github.com/repos/josd/treadle/stargazers
  
