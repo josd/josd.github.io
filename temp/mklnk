@@ -6,7 +6,6 @@ sudo ln -sf ~/github.com/KNowledgeOnWebScale/brow/brow /usr/local/bin
 sudo ln -sf ~/github.com/KNowledgeOnWebScale/retina/mkretina /usr/local/bin
 sudo ln -sf ~/github.com/KNowledgeOnWebScale/retina/retina /usr/local/bin
 sudo ln -sf ~/github.com/KNowledgeOnWebScale/retina/retinae /usr/local/bin
-sudo ln -sf ~/github.com/eyereasoner/arcmix/target/release/arcmix /usr/local/bin
 sudo ln -sf ~/github.com/eyereasoner/eye/eyering /usr/local/bin
 sudo ln -sf ~/github.com/eyereasoner/eye/mkeye /usr/local/bin
 sudo ln -sf ~/github.com/eyereasoner/eye/proofcheck /usr/local/bin
@@ -14,7 +13,7 @@ sudo ln -sf ~/github.com/eyereasoner/eyelet/eyelet-swipl /usr/local/bin
 sudo ln -sf ~/github.com/eyereasoner/eyelet/eyelet-scryer /usr/local/bin
 sudo ln -sf ~/github.com/eyereasoner/eyelet/eyelet-trealla /usr/local/bin
 sudo ln -sf ~/github.com/eyereasoner/eyelet/mkeyelet /usr/local/bin
-sudo ln -sf ~/github.com/eyereasoner/eyeling/eyeling.js /usr/local/bin/eyeling
+sudo ln -sf ~/github.com/eyereasoner/eyeling/eyeling /usr/local/bin
 sudo ln -sf ~/github.com/eyereasoner/eyeling/tools/n3gen.js /usr/local/bin/n3gen
 sudo ln -sf ~/github.com/eyereasoner/lingua/lingua /usr/local/bin
 sudo ln -sf ~/github.com/eyereasoner/lingua/mklingua /usr/local/bin
