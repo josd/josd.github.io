@@ -18,51 +18,51 @@ The theory begins with a few primitive notions.
 
 A **substrate** is any physical system that can undergo transformations. A qubit, a molecule, a gas in a box, a memory register, or a living cell can all serve as substrates.
 
-An **attribute** is a set of physical states of a substrate that are regarded as equivalent for the purpose at hand. One may denote attributes by symbols such as $x$, $y$, or $z$. For example, the attribute $x$ might mean “the spin is up along $z$,” or more coarsely “the gas occupies the left half of the box.” An attribute is therefore not necessarily a single microstate; it is a property.
+An **attribute** is a set of physical states of a substrate that are regarded as equivalent for the purpose at hand. One may denote attributes by symbols such as `x`, `y`, or `z`. For example, the attribute `x` might mean “the spin is up along `z`,” or more coarsely “the gas occupies the left half of the box.” An attribute is therefore not necessarily a single microstate; it is a property.
 
 A **variable** is a set of pairwise disjoint attributes of the same substrate:
 
-$$
-X = \{x_1, x_2, \dots, x_n\}.
-$$
+```text
+X = {x1, x2, ..., xn}
+```
 
-The intended interpretation is that the substrate can have one value of the variable at a time. A classical bit may be represented by a variable $X = \{0,1\}$; a trit by $X = \{0,1,2\}$.
+The intended interpretation is that the substrate can have one value of the variable at a time. A classical bit may be represented by a variable `X = {0, 1}`; a trit by `X = {0, 1, 2}`.
 
 A **task** is an abstract specification of allowed input-output pairs on attributes. In the simplest notation,
 
-$$
-\mathcal{A} = \{x_1 \to y_1,\; x_2 \to y_2,\; \dots\}.
-$$
+```text
+A = {x1 -> y1, x2 -> y2, ...}
+```
 
-One should read this as: whenever the substrate has attribute $x_i$, the task requires the output to have attribute $y_i$. A NOT operation on a bit is the task
+One should read this as: whenever the substrate has attribute `xi`, the task requires the output to have attribute `yi`. A NOT operation on a bit is the task
 
-$$
-\mathcal{N} = \{0 \to 1,\; 1 \to 0\}.
-$$
+```text
+N = {0 -> 1, 1 -> 0}
+```
 
 A resetting operation is the task
 
-$$
-\mathcal{R}_0 = \{0 \to 0,\; 1 \to 0\}.
-$$
+```text
+R0 = {0 -> 0, 1 -> 0}
+```
 
-A **constructor** for a task $\mathcal{A}$ is a physical system that, when presented with substrates in the allowed input attributes, brings about the corresponding output attributes and retains the ability to do so again. This “again” condition is essential. A constructor need not remain literally unchanged in every microscopic detail; it need only preserve its ability to keep performing the task to arbitrary accuracy.
+A **constructor** for a task `A` is a physical system that, when presented with substrates in the allowed input attributes, brings about the corresponding output attributes and retains the ability to do so again. This “again” condition is essential. A constructor need not remain literally unchanged in every microscopic detail; it need only preserve its ability to keep performing the task to arbitrary accuracy.
 
 ## Possible and impossible tasks
 
 The central distinction is between tasks that are **possible** and tasks that are **impossible**.
 
-A task $\mathcal{A}$ is written as possible,
+A task `A` is written as possible,
 
-$$
-\mathcal{A}^{\checkmark},
-$$
+```text
+A✓
+```
 
-when the laws of physics permit arbitrarily accurate and reliable approximations to a constructor for $\mathcal{A}$. A task is written as impossible,
+when the laws of physics permit arbitrarily accurate and reliable approximations to a constructor for `A`. A task is written as impossible,
 
-$$
-\mathcal{A}^{\times},
-$$
+```text
+A×
+```
 
 when no such arbitrarily accurate constructor can exist under the laws of physics.
 
@@ -70,15 +70,15 @@ This notation is deliberately stronger than saying that a task happens spontaneo
 
 This shift from trajectories to tasks is the core mathematical principle of constructor theory. Ordinary physics often answers the question
 
-$$
-\text{given } s(0), \text{ what is } s(t)?
-$$
+```text
+given s(0), what is s(t)?
+```
 
 Constructor theory asks instead:
 
-$$
-\text{given a task } \mathcal{A}, \text{ is } \mathcal{A}^{\checkmark} \text{ or } \mathcal{A}^{\times}?
-$$
+```text
+given a task A, is A✓ or A×?
+```
 
 The idea is that much of fundamental physics can be reformulated in this second style.
 
@@ -88,39 +88,41 @@ A framework about tasks needs rules for building complicated tasks out of simple
 
 If two tasks act on independent substrates, one can form their **parallel composition**:
 
-$$
-\mathcal{A} \otimes \mathcal{B}.
-$$
+```text
+A ⊗ B
+```
 
 If
 
-$$
-\mathcal{A} = \{x_i \to y_i\}, \qquad \mathcal{B} = \{u_j \to v_j\},
-$$
+```text
+A = {xi -> yi}
+B = {uj -> vj}
+```
 
 then their parallel composition acts on the composite substrate and is informally given by
 
-$$
-\mathcal{A} \otimes \mathcal{B} = \{(x_i,u_j) \to (y_i,v_j)\}.
-$$
+```text
+A ⊗ B = {(xi, uj) -> (yi, vj)}
+```
 
 If the output attributes of one task match the input attributes of another, one can form a **serial composition**:
 
-$$
-\mathcal{B} \circ \mathcal{A}.
-$$
+```text
+B ∘ A
+```
 
 If
 
-$$
-\mathcal{A} = \{x \to y\}, \qquad \mathcal{B} = \{y \to z\},
-$$
+```text
+A = {x -> y}
+B = {y -> z}
+```
 
 then
 
-$$
-\mathcal{B} \circ \mathcal{A} = \{x \to z\}.
-$$
+```text
+B ∘ A = {x -> z}
+```
 
 The underlying principle is that if two tasks are possible, then suitably composed networks of them should also be possible, provided the relevant substrates and side conditions are available. Constructor theory sometimes calls these arrangements **regular networks** of tasks. This is one reason it connects naturally to computation: algorithms and circuits are structured compositions of tasks.
 
@@ -130,41 +132,41 @@ One of the most developed parts of constructor theory is the **constructor theor
 
 A variable
 
-$$
-X = \{x_1,\dots,x_n\}
-$$
+```text
+X = {x1, ..., xn}
+```
 
-is an **information variable** if permutations of its attributes are possible and if the variable can be copied in the right sense. The permutation requirement says that for any permutation $\pi$ on the labels,
+is an **information variable** if permutations of its attributes are possible and if the variable can be copied in the right sense. The permutation requirement says that for any permutation `pi` on the labels,
 
-$$
-\Pi_\pi(X) = \{x \to \pi(x) : x \in X\}^{\checkmark}.
-$$
+```text
+Pi_pi(X) = {x -> pi(x) : x in X}✓
+```
 
-Informally, the substrate can faithfully support reversible relabellings of the values of $X$.
+Informally, the substrate can faithfully support reversible relabellings of the values of `X`.
 
-The copying task for a variable $X$ is the task
+The copying task for a variable `X` is the task
 
-$$
-\mathcal{C}(X) = \{(x,x_0) \to (x,x) : x \in X\},
-$$
+```text
+C(X) = {(x, x0) -> (x, x) : x in X}
+```
 
-where $x_0$ is a receptive blank attribute. If this task is possible, then one can replicate the value of the variable onto another instance of the substrate. A substrate possessing at least one information variable is an **information medium**.
+where `x0` is a receptive blank attribute. If this task is possible, then one can replicate the value of the variable onto another instance of the substrate. A substrate possessing at least one information variable is an **information medium**.
 
 This already captures a large part of what one wants from physical information: a physically instantiated variable whose values can be reliably transformed, copied, and used compositionally. Classical bits are straightforward examples. Quantum systems are subtler: not every set of states forms a clonable variable, and this limitation is precisely the kind of law constructor theory is meant to express.
 
-A variable $X$ is **distinguishable** if there is a possible task that maps each attribute in $X$ to a distinct value of some information variable. In loose notation,
+A variable `X` is **distinguishable** if there is a possible task that maps each attribute in `X` to a distinct value of some information variable. In loose notation,
 
-$$
-\mathcal{D}(X) = \{x_i \to i\}^{\checkmark}.
-$$
+```text
+D(X) = {xi -> i}✓
+```
 
 Distinguishability is therefore itself a task-theoretic notion, not an extra primitive imported from elsewhere.
 
-The no-cloning principle in quantum theory appears naturally in this language. For generic quantum states $\{\psi_i\}$ that are not mutually orthogonal, the universal cloning task
+The no-cloning principle in quantum theory appears naturally in this language. For generic quantum states `{psi_i}` that are not mutually orthogonal, the universal cloning task
 
-$$
-\{(\psi_i,\psi_0) \to (\psi_i,\psi_i)\}
-$$
+```text
+{(psi_i, psi_0) -> (psi_i, psi_i)}
+```
 
 is impossible. Constructor theory treats this not as a quirk of a Hilbert-space proof alone, but as a law about the impossibility of a certain task.
 
@@ -172,13 +174,13 @@ is impossible. Constructor theory treats this not as a quirk of a Hilbert-space 
 
 Constructor theory has also been applied to thermodynamics, where the goal is to state the laws as exact statements about tasks rather than as approximate statistical regularities.
 
-The general idea is that one identifies classes of tasks corresponding to work-like transformations, heat-like transformations, and adiabatically possible transformations. Instead of saying only that entropy tends to increase in typical macroscopic evolutions, one says that certain tasks and their transposes do not stand on the same footing. In particular, there can exist tasks $\mathcal{A}$ such that $\mathcal{A}^{\checkmark}$ while the transpose or reverse task $\mathcal{A}^{\mathrm{T}}$ is impossible under the relevant adiabatic conditions.
+The general idea is that one identifies classes of tasks corresponding to work-like transformations, heat-like transformations, and adiabatically possible transformations. Instead of saying only that entropy tends to increase in typical macroscopic evolutions, one says that certain tasks and their transposes do not stand on the same footing. In particular, there can exist tasks `A` such that `A✓` while the transpose or reverse task `A^T` is impossible under the relevant adiabatic conditions.
 
 In schematic form,
 
-$$
-\mathcal{A}^{\checkmark} \not\Rightarrow (\mathcal{A}^{\mathrm{T}})^{\checkmark}.
-$$
+```text
+A✓ does not imply (A^T)✓
+```
 
 That asymmetry is the task-theoretic expression of irreversibility. It is not the whole of thermodynamics, but it shows how the second law can be reformulated as a sharp asymmetry in the space of possible transformations.
 
@@ -216,53 +218,58 @@ That makes it best understood not as a competitor to ordinary mathematical physi
 
 For reference, the minimal mathematical skeleton can be collected in one place.
 
-A substrate $S$ has attributes $x,y,\dots$ and variables $X = \{x_i\}$.
+A substrate `S` has attributes `x, y, ...` and variables `X = {xi}`.
 
 A task is a relation on attributes,
 
-$$
-\mathcal{A} = \{x_i \to y_i\}.
-$$
+```text
+A = {xi -> yi}
+```
 
-A constructor for $\mathcal{A}$ is a system that performs $\mathcal{A}$ while retaining the ability to do so again.
+A constructor for `A` is a system that performs `A` while retaining the ability to do so again.
 
 A task is possible if arbitrarily accurate constructors are allowed by physical law,
 
-$$
-\mathcal{A}^{\checkmark},
-$$
+```text
+A✓
+```
 
 and impossible otherwise,
 
-$$
-\mathcal{A}^{\times}.
-$$
+```text
+A×
+```
 
 Tasks compose in parallel and series,
 
-$$
-\mathcal{A} \otimes \mathcal{B}, \qquad \mathcal{B} \circ \mathcal{A}.
-$$
+```text
+A ⊗ B
+B ∘ A
+```
 
-An information variable $X$ supports all permutations,
+An information variable `X` supports all permutations,
 
-$$
-\{x \to \pi(x): x \in X\}^{\checkmark},
-$$
+```text
+{x -> pi(x) : x in X}✓
+```
 
 and supports copying,
 
-$$
-\{(x,x_0) \to (x,x): x \in X\}^{\checkmark}.
-$$
+```text
+{(x, x0) -> (x, x) : x in X}✓
+```
 
 Distinguishability is the possibility of mapping distinct attributes to distinct information values,
 
-$$
-\{x_i \to i\}^{\checkmark}.
-$$
+```text
+{xi -> i}✓
+```
 
 Many important laws then take the form of impossibility statements about classes of tasks.
+
+## Notes on notation and portability
+
+This version avoids LaTeX delimiters such as `$...$`, `$$...$$`, `\(...\)`, and `\[...\]` so that it renders cleanly in plain GitHub Markdown, GitHub Pages setups without math support, static-site generators, and Markdown previewers that do not load MathJax or KaTeX. The notation is therefore written in plain text and code blocks rather than in TeX.
 
 ## References
 
