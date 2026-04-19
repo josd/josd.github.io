@@ -25,12 +25,3 @@ These traces remain within the tube of the path. Earlier states do not stay full
 The relation between the two is intimate.
 
 The library stands for observership and questions. The path stands for origin and evolution, for boundary conditions and dynamics. They are not separate compartments. The library is there within the path, asking from inside the tube what kind of beginning this was and what kind of unfolding it has become. The path is there within the library’s reach only through traces, only through what can be read, remembered, measured, and compared. One names the universe in its becoming; the other names the universe in its legibility from within. Together they form a single entwined scheme in which the world unfolds and, from somewhere inside that unfolding, is also questioned, observed, and read.
-
-### A theological note
-
-In a spirit akin to Georges Lemaître: God does not stand in the library, nor walk along the path as one thing among things. God is the reason there is a path that unfolds, and a library from which that path can be read.
-
-### A logical note
-
-There also seems to be a certain affinity between the library and backward chaining, and between the path and forward chaining. The library begins with a question, a sign, a trace, and reasons back toward what might make the given understandable. The path moves in the other direction: it unfolds from what is already there, carrying it forward into new forms, new states, and new consequences. In that sense, the library reads backward, while the path moves forward. The one is reconstructive; the other unfolds.
-

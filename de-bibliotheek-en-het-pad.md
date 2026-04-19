@@ -23,12 +23,3 @@ Die sporen blijven binnen de tube van het pad. Eerdere toestanden blijven niet v
 ## Hun verhouding
 
 De verhouding tussen beide is innig. De bibliotheek staat voor waarnemerschap en vragen. Het pad staat voor oorsprong en evolutie, voor randvoorwaarden en dynamica. Het zijn geen gescheiden compartimenten. De bibliotheek is aanwezig binnen het pad en stelt, van binnenuit de tube, de vraag wat voor begin dit is geweest en tot wat voor ontvouwing het is gekomen. Het pad ligt binnen het bereik van de bibliotheek alleen via sporen, alleen via wat gelezen, herinnerd, gemeten en vergeleken kan worden. Het ene benoemt het universum in zijn wording; het andere benoemt het universum in zijn leesbaarheid van binnenuit. Samen vormen zij één vervlochten geheel waarin de wereld zich ontvouwt en, ergens binnen die ontvouwing, ook wordt bevraagd, waargenomen en gelezen.
-
-### Een theologische noot
-
-In een geest verwant aan Georges Lemaître: God staat niet in de bibliotheek en loopt niet mee op het pad als één ding onder de dingen. God is de reden waarom er een pad is dat zich ontvouwt, en een bibliotheek van waaruit dat pad gelezen kan worden.
-
-### Een logische noot
-
-Er lijkt ook een zekere verwantschap te bestaan ​​tussen de bibliotheek en backward chaining, en tussen het pad en forward chaining. De bibliotheek begint met een vraag, een teken, een spoor, en redeneert terug naar wat het gegeven begrijpelijk zou kunnen maken. Het pad beweegt in de andere richting: het ontvouwt zich vanuit wat er al is, en voert het verder naar nieuwe vormen, nieuwe toestanden en nieuwe consequenties. In die zin leest de bibliotheek achterwaarts, terwijl het pad voorwaarts beweegt. De ene is reconstructief; de andere ontvouwt.
-
