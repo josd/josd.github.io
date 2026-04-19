@@ -1,6 +1,6 @@
 # De bibliotheek en het pad
 
-Wij bevinden ons in een tube. Daar begint het denken. Wij staan niet buiten de wereld om haar als een afgewerkt geheel te bekijken. Wij treffen onszelf altijd al binnenin aan: meegedragen door de tijd, begrensd door perspectief, omgeven door dingen die wij niet hebben gemaakt en nooit in één keer volledig kunnen overzien. Wat wij ook weten, wij weten het van binnenuit, vanuit de doorgang.
+Wij bevinden ons in de tube. Daar begint het denken. Wij staan niet buiten de wereld om haar als een afgewerkt geheel te bekijken. Wij treffen onszelf altijd al binnenin aan: meegedragen door de tijd, begrensd door perspectief, omgeven door dingen die wij niet hebben gemaakt en nooit in één keer volledig kunnen overzien. Wat wij ook weten, wij weten het van binnenuit, vanuit de doorgang.
 
 Het pad is de wereld in haar wording. Het is niet zomaar een keten van gebeurtenissen die zich afspeelt binnen een vooraf klaarliggende container die tijd heet. Het is het ontstaan van de wereld en van de termen waarin de wereld begrepen kan worden. De orde der dingen ontvouwt zich niet eenvoudigweg binnen de tijd; de tijd zelf behoort tot die ontvouwing. De wereld is geen script dat van tevoren volledig is uitgeschreven. Haar geschiedenis omvat ook het geleidelijke ontstaan van de regelmatigheden waardoor zij begrijpelijk wordt.
 
