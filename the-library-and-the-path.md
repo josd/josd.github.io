@@ -1,4 +1,4 @@
-# The Library and the Path
+# The library and the path
 
 ## The library
 
