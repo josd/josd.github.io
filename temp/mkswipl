@@ -30,6 +30,7 @@ sudo apt install \
     libyaml-dev \
     default-jdk \
     junit \
+    libutf8proc-dev \
     texlive-latex-extra \
     texlive-font-utils \
     texlive-fonts-extra \
