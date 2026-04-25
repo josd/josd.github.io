@@ -1,2 +1,38 @@
-#!/bin/bash
-echo -e "CPU: $(lscpu | grep 'Model name:' | sed 's/Model name: *//')\nRAM: $(grep 'MemTotal' /proc/meminfo | sed 's/MemTotal: *//')\nOS:  $(lsb_release -d | cut -f2-)"
+#!/usr/bin/env bash
+
+label_width=14
+
+linux_name() {
+  lsb_release -ds 2>/dev/null ||
+    awk -F= '/^PRETTY_NAME=/ {gsub(/"/, "", $2); print $2}' /etc/os-release
+}
+
+print_row() {
+  printf "%-${label_width}s %s\n" "$1:" "$2"
+}
+
+cpu="$(lscpu | awk -F: '/Model name/ {gsub(/^[ \t]+/, "", $2); print $2; exit}')"
+memory="$(awk '/MemTotal/ {printf "%.2f GB", $2 / 1024 / 1024}' /proc/meminfo)"
+linux="$(linux_name)"
+kernel_release="$(uname -r)"
+
+print_row "Processor" "$cpu"
+print_row "Memory" "$memory"
+print_row "Linux" "$linux"
+
+if grep -qiE 'microsoft|wsl' /proc/sys/kernel/osrelease 2>/dev/null; then
+  if [[ "$kernel_release" == *WSL2* || "$kernel_release" == *microsoft-standard* ]]; then
+    environment="WSL2"
+  else
+    environment="WSL1"
+  fi
+
+  if command -v cmd.exe >/dev/null 2>&1; then
+    host="$(cmd.exe /c ver 2>/dev/null | tr -d '\r' | awk 'NF')"
+    [[ -n "$host" ]] && environment="$environment on $host"
+  fi
+else
+  environment="Native Linux"
+fi
+
+print_row "Environment" "$environment"
