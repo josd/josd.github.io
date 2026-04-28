@@ -1,0 +1,111 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+INSTALL_DIR="/usr/local"
+GO_ROOT="${INSTALL_DIR}/go"
+PROFILE_D="/etc/profile.d/go.sh"
+
+need_cmd() {
+  command -v "$1" >/dev/null 2>&1
+}
+
+if [[ "$(id -u)" -ne 0 ]]; then
+  echo "Please run as root, for example: sudo $0"
+  exit 1
+fi
+
+echo "Installing prerequisites..."
+apt-get update -y
+apt-get install -y curl ca-certificates tar gzip python3
+
+case "$(uname -m)" in
+  x86_64) GO_ARCH="amd64" ;;
+  aarch64|arm64) GO_ARCH="arm64" ;;
+  i386|i686) GO_ARCH="386" ;;
+  armv6l|armv7l) GO_ARCH="armv6l" ;;
+  ppc64le) GO_ARCH="ppc64le" ;;
+  s390x) GO_ARCH="s390x" ;;
+  riscv64) GO_ARCH="riscv64" ;;
+  *)
+    echo "Unsupported CPU architecture: $(uname -m)"
+    exit 1
+    ;;
+esac
+
+TMP_DIR="$(mktemp -d)"
+trap 'rm -rf "$TMP_DIR"' EXIT
+
+JSON_FILE="${TMP_DIR}/go-downloads.json"
+
+echo "Fetching latest Go release metadata..."
+curl -fsSL "https://go.dev/dl/?mode=json" -o "$JSON_FILE"
+
+read -r VERSION FILENAME SHA256 URL < <(
+  python3 - "$JSON_FILE" "$GO_ARCH" <<'PY'
+import json
+import sys
+
+json_file, arch = sys.argv[1], sys.argv[2]
+
+with open(json_file, "r", encoding="utf-8") as f:
+    releases = json.load(f)
+
+for release in releases:
+    version = release["version"]
+    for file in release["files"]:
+        if (
+            file.get("os") == "linux"
+            and file.get("arch") == arch
+            and file.get("kind") == "archive"
+            and file.get("filename", "").endswith(".tar.gz")
+        ):
+            filename = file["filename"]
+            sha256 = file["sha256"]
+            url = f"https://go.dev/dl/{filename}"
+            print(version, filename, sha256, url)
+            raise SystemExit(0)
+
+print(f"No Linux archive found for architecture: {arch}", file=sys.stderr)
+raise SystemExit(1)
+PY
+)
+
+ARCHIVE="${TMP_DIR}/${FILENAME}"
+
+CURRENT_VERSION=""
+if [[ -x "${GO_ROOT}/bin/go" ]]; then
+  CURRENT_VERSION="$("${GO_ROOT}/bin/go" version | awk '{print $3}')"
+fi
+
+if [[ "$CURRENT_VERSION" == "$VERSION" ]]; then
+  echo "Go ${VERSION} is already installed at ${GO_ROOT}."
+else
+  echo "Downloading ${VERSION} for linux/${GO_ARCH}..."
+  curl -fL --retry 3 --retry-delay 2 "$URL" -o "$ARCHIVE"
+
+  echo "Verifying SHA256 checksum..."
+  echo "${SHA256}  ${ARCHIVE}" | sha256sum -c -
+
+  echo "Removing old Go installation from ${GO_ROOT}..."
+  rm -rf "$GO_ROOT"
+
+  echo "Installing ${VERSION} to ${INSTALL_DIR}..."
+  tar -C "$INSTALL_DIR" -xzf "$ARCHIVE"
+fi
+
+echo "Configuring system PATH..."
+cat > "$PROFILE_D" <<'EOF'
+export PATH="/usr/local/go/bin:$PATH"
+EOF
+chmod 0644 "$PROFILE_D"
+
+# Make Go available for this script/session too.
+export PATH="/usr/local/go/bin:$PATH"
+
+echo
+echo "Installed:"
+go version
+
+echo
+echo "Done. Open a new terminal, or run:"
+echo "  source ${PROFILE_D}"
