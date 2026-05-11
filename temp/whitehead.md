@@ -34,9 +34,11 @@ His goal was to construct a cosmology where the mathematical equations of physic
 
 To heal this split, Whitehead argued that philosophy must abandon the concept of "substance"—the idea that the universe is made of static "things" that simply exist in space and time. Instead, he proposed that the fundamental building blocks of the universe are **events**, or what he called **"actual entities"** (and **"actual occasions"**).
 
-Here, Whitehead drew directly from the mathematical physics of his era. Einstein's famous mass-energy equivalence equation destroyed the notion of static matter: **E = mc^2**
+Here, Whitehead drew directly from the mathematical physics of his era. Einstein's famous mass-energy equivalence equation destroyed the notion of static matter:
 
-This equation demonstrates that mass ($m$) is not a permanent, inert "stuff," but rather a highly concentrated, localized form of active energy ($E$). What we perceive as a solid, unchanging rock is actually an incredibly rapid, recurring sequence of energetic activities. 
+<p align="center"><strong>E = mc<sup>2</sup></strong></p>
+
+This equation demonstrates that mass (<em>m</em>) is not a permanent, inert "stuff," but rather a highly concentrated, localized form of active energy (<em>E</em>). What we perceive as a solid, unchanging rock is actually an incredibly rapid, recurring sequence of energetic activities. 
 
 Consequently, Whitehead replaced the static "substance" with the dynamic **process vector**. In mathematics and physics, a vector represents a quantity that has both magnitude and direction—it points from somewhere to somewhere else. 
 
@@ -52,13 +54,13 @@ In classical geometry, we are taught that a "point" is a zero-dimensional locati
 
 To ground geometry in actual physical experience, Whitehead reversed the classical order. He began not with dimensionless points, but with **extended regions** (volumes of space-time) that we actually experience. He then used the mathematical tools of mereotopology (the study of relations between parts and wholes) to define points, lines, and surfaces as limits of abstractive sets of regions.
 
-Let us represent this mathematically. Consider a sequence of nested, overlapping regions or volumes $V_1, V_2, V_3, \dots, V_n$ such that each subsequent region is completely contained within the previous one:
+Let us represent this mathematically. Consider a sequence of nested, overlapping regions or volumes V<sub>1</sub>, V<sub>2</sub>, V<sub>3</sub>, …, V<sub>n</sub> such that each subsequent region is completely contained within the previous one:
 
-$$V_{n+1} \subset V_n$$
+<p align="center"><strong>V<sub>n+1</sub> ⊂ V<sub>n</sub></strong></p>
 
-Furthermore, let the volumes of these regions asymptotically approach zero as $n$ goes to infinity:
+Furthermore, let the volumes of these regions asymptotically approach zero as <em>n</em> goes to infinity:
 
-$$\lim_{n 	o \infty} 	ext{Vol}(V_n) = 0$$
+<p align="center"><strong>lim<sub>n → ∞</sub> Vol(V<sub>n</sub>) = 0</strong></p>
 
 ```
    +-----------------------+
@@ -89,7 +91,7 @@ Whitehead asserted that every actual entity "prehends" its environment. Prehensi
 3. **The subjective form:** *How* the subject grasps the datum (the affective tone, feeling, or vector of attraction/repulsion).
 
 This concept operates across the entire spectrum of nature:
-* **At the subatomic level:** An electron "prehends" an electromagnetic field. It registers the physical data of its environment and reacts accordingly. In quantum mechanics, a particle's state is defined by a wave function ($\psi$) which represents a field of probabilities. When a quantum event occurs (the "collapse" of the wave function), the particle "decides" its state based on its relationships with its surroundings. Whitehead’s actual entities are essentially these individual quantum transitions.
+* **At the subatomic level:** An electron "prehends" an electromagnetic field. It registers the physical data of its environment and reacts accordingly. In quantum mechanics, a particle's state is defined by a wave function (ψ) which represents a field of probabilities. When a quantum event occurs (the "collapse" of the wave function), the particle "decides" its state based on its relationships with its surroundings. Whitehead’s actual entities are essentially these individual quantum transitions.
 * **At the biological level:** A plant prehends sunlight, turning its leaves toward the source of energy.
 * **At the conscious level:** A human mind prehends visual data, memories, and emotions, organizing them into a unified moment of conscious experience.
 
@@ -116,6 +118,6 @@ In this light, God is not conceived as an anthropomorphic creator who sits outsi
 
 Alfred North Whitehead’s philosophy represents one of the most intellectually courageous syntheses in human history. By refusing to let go of either mathematical rigor or human experience, he built a philosophical system where science and consciousness are no longer enemies.
 
-Through the mathematics of **Extensive Abstraction**, he showed that space and time are systems of relationships between events. Through the physics of **$E=mc^2$**, he replaced static, dead matter with dynamic, energetic processes. And through the concept of **Prehension**, he extended the concept of "experience" all the way down to the subatomic scale, providing a elegant, panpsychist foundation that harmonizes beautifully with quantum mechanics.
+Through the mathematics of **Extensive Abstraction**, he showed that space and time are systems of relationships between events. Through the physics of **E = mc<sup>2</sup>**, he replaced static, dead matter with dynamic, energetic processes. And through the concept of **Prehension**, he extended the concept of "experience" all the way down to the subatomic scale, providing a elegant, panpsychist foundation that harmonizes beautifully with quantum mechanics.
 
 In Whitehead's universe, the cold, abstract formulas of mathematics do not empty the world of its beauty. Instead, they represent the elegant, geometric choreography of a living, breathing cosmic organism—an organism in which every single atom, molecule, and human mind is intimately, mathematically, and emotionally bound to the whole.
