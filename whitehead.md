@@ -1,6 +1,6 @@
 # Whitehead’s One World: Mathematics, Process, and the Shape of Reality
 
-Alfred North Whitehead occupies a strange place in modern thought. He was a major mathematician, a collaborator of Bertrand Russell on *Principia Mathematica*, a philosopher of science, and later one of the central figures of process philosophy.[^1] Yet his name is less familiar than many thinkers of narrower range, partly because he crosses boundaries that modern intellectual life often keeps separate: mathematics and metaphysics, physics and experience, science and religion, abstraction and concrete life.
+Alfred North Whitehead occupies a strange place in modern thought. He was a major mathematician, a collaborator of Bertrand Russell on *Principia Mathematica*, a philosopher of science, and later one of the central figures of process philosophy.<sup id="ref-1"><a href="#note-1">1</a></sup> Yet his name is less familiar than many thinkers of narrower range, partly because he crosses boundaries that modern intellectual life often keeps separate: mathematics and metaphysics, physics and experience, science and religion, abstraction and concrete life.
 
 His guiding intuition is simple, even if his system is difficult: reality is not first made of fixed things that occasionally change. Reality is made of processes, events, relations, and acts of becoming. What we call “things” are relatively stable patterns within a deeper movement.
 
@@ -10,13 +10,13 @@ Whitehead’s philosophical project was therefore an attempt to reconcile two wo
 
 ## 1. The Fallacy of Misplaced Concreteness
 
-Whitehead’s easiest and most important idea is the **fallacy of misplaced concreteness**. This is the error of mistaking an abstract model for concrete reality itself.[^2]
+Whitehead’s easiest and most important idea is the **fallacy of misplaced concreteness**. This is the error of mistaking an abstract model for concrete reality itself.<sup id="ref-2"><a href="#note-2">2</a></sup>
 
 Science works by abstraction. It leaves some things out in order to describe other things precisely. A map leaves out most of the landscape; that is what makes it useful. A formula leaves out most of experience; that is what makes it general. There is nothing wrong with abstraction. The problem begins when we forget that we are abstracting.
 
 Classical physics, for example, often models the world in terms of masses, positions, velocities, forces, and trajectories. These are powerful abstractions. But Whitehead thought modern philosophy had gone further and treated such abstractions as if they were the ultimate furniture of the universe. Nature then appeared as colorless, valueless matter in motion, while color, beauty, feeling, and value were pushed into the private mind.
 
-This produced what Whitehead called the **bifurcation of nature**: one world for science and another world for experience.[^3]
+This produced what Whitehead called the **bifurcation of nature**: one world for science and another world for experience.<sup id="ref-3"><a href="#note-3">3</a></sup>
 
 1. **The scientific world:** mass, velocity, shape, extension, measurable quantity.
 2. **The experienced world:** color, sound, beauty, emotion, value, meaning.
@@ -31,7 +31,7 @@ His aim was to construct a philosophy in which mathematical science remains vali
 
 Whitehead did not begin as a speculative metaphysician. He began as a mathematician. His early work in algebra, logic, and the foundations of mathematics trained him to think in terms of structures, relations, patterns, and formal systems.
 
-His collaboration with Bertrand Russell on *Principia Mathematica* tried to show how mathematics could be grounded in symbolic logic.[^4] The project was one of the great achievements of modern logic, but it also revealed the limits of formal precision. Mathematical symbolism is immensely powerful, but it does not replace the full reality of thought, meaning, intuition, and experience.
+His collaboration with Bertrand Russell on *Principia Mathematica* tried to show how mathematics could be grounded in symbolic logic.<sup id="ref-4"><a href="#note-4">4</a></sup> The project was one of the great achievements of modern logic, but it also revealed the limits of formal precision. Mathematical symbolism is immensely powerful, but it does not replace the full reality of thought, meaning, intuition, and experience.
 
 This lesson remained central for Whitehead. Mathematics reveals patterns. It teaches us how relations can be ordered and how structures can be made intelligible. But mathematics is also abstract. It becomes misleading when its clean symbolic forms are mistaken for the concrete fullness of reality.
 
@@ -49,7 +49,7 @@ Einstein’s mass-energy relation can serve as a useful symbol of the shift:
 
 The point is not that Whitehead’s philosophy follows directly from this equation. It does not. Rather, the equation helps illustrate a broader transformation in modern science: matter is no longer best imagined as dead, self-contained stuff. It is bound up with energy, transformation, field, relation, and process.
 
-Whitehead’s own metaphysical move was to replace static substances with **events**, or what he called **actual entities** and **actual occasions**.[^5] An actual occasion is not a thing in the usual sense. It is a moment of becoming. It arises from the past, gathers influences into itself, achieves a definite form, and then becomes part of the world inherited by future occasions.
+Whitehead’s own metaphysical move was to replace static substances with **events**, or what he called **actual entities** and **actual occasions**.<sup id="ref-5"><a href="#note-5">5</a></sup> An actual occasion is not a thing in the usual sense. It is a moment of becoming. It arises from the past, gathers influences into itself, achieves a definite form, and then becomes part of the world inherited by future occasions.
 
 A stone, a tree, a body, or a person is therefore not an illusion. But none of them is a static substance either. Each is a stable pattern within a wider stream of events.
 
@@ -59,7 +59,7 @@ Whitehead’s universe is not a warehouse of objects. It is a web of processes.
 
 ## 4. Extensive Abstraction: Points from Regions
 
-One of Whitehead’s most important technical contributions is his reversal of classical geometry.[^6]
+One of Whitehead’s most important technical contributions is his reversal of classical geometry.<sup id="ref-6"><a href="#note-6">6</a></sup>
 
 Classical geometry often begins with points. A point has no width, height, or depth. Lines, surfaces, and solids are then built up from points. Whitehead distrusted this starting point. No one ever encounters a dimensionless point in experience. What we encounter are extended regions: patches, volumes, fields, bodies, areas, and events.
 
@@ -93,7 +93,7 @@ This anticipates Whitehead’s later metaphysics. Reality is not built from disc
 
 ## 5. Prehension: How Events Inherit the World
 
-Whitehead’s most distinctive concept is **prehension**, from the Latin *prehendere*, “to grasp.”[^7]
+Whitehead’s most distinctive concept is **prehension**, from the Latin *prehendere*, “to grasp.”<sup id="ref-7"><a href="#note-7">7</a></sup>
 
 An actual occasion does not arise from nothing. It inherits a world. It “prehends” previous events: takes them up, feels their influence, selects from them, and integrates them into a new moment of reality.
 
@@ -117,7 +117,7 @@ If reality is always becoming, why does it not dissolve into chaos? Why are ther
 
 Whitehead answers with two closely related ideas: **creativity** and **eternal objects**.
 
-Creativity is his ultimate principle. It means that the world is never merely a repetition of what already exists. Each actual occasion inherits the past, but it also adds something to the world. Whitehead’s famous formula is:[^8]
+Creativity is his ultimate principle. It means that the world is never merely a repetition of what already exists. Each actual occasion inherits the past, but it also adds something to the world. Whitehead’s famous formula is:<sup id="ref-8"><a href="#note-8">8</a></sup>
 
 > The many become one, and are increased by one.
 
@@ -127,7 +127,7 @@ Eternal objects are possibilities of form. They are not concrete events, but way
 
 A red surface is an actual event. The redness it realizes is a possibility. A drawn circle is actual. Circularity is a form that can be realized in many actual things. Mathematics studies some of the most abstract and stable eternal objects: relations, structures, numbers, forms, and patterns.
 
-In Whitehead’s religious language, God is not an external ruler who controls the world by force.[^9] God is the ordering source of relevant possibilities, the lure toward richer forms of order, beauty, and intensity. Readers need not accept this theologically to see the philosophical point: reality includes not only what is actual, but also what is possible, valuable, and capable of becoming actual.
+In Whitehead’s religious language, God is not an external ruler who controls the world by force.<sup id="ref-9"><a href="#note-9">9</a></sup> God is the ordering source of relevant possibilities, the lure toward richer forms of order, beauty, and intensity. Readers need not accept this theologically to see the philosophical point: reality includes not only what is actual, but also what is possible, valuable, and capable of becoming actual.
 
 ---
 
@@ -153,23 +153,17 @@ Whitehead’s world is neither a machine made of lifeless particles nor a privat
 
 ## Notes
 
-[^1]: Ronald Desmet and Andrew David Irvine, “Alfred North Whitehead,” *Stanford Encyclopedia of Philosophy*. The SEP article describes Whitehead’s career as moving through mathematics and logic, philosophy of science, and metaphysics, and identifies him as a co-author of *Principia Mathematica* and a pioneer of process philosophy.
-
-[^2]: Alfred North Whitehead, *Science and the Modern World* (New York: Macmillan, 1925), especially the discussion of abstraction and the critique of treating abstractions as concrete realities.
-
-[^3]: Alfred North Whitehead, *The Concept of Nature* (Cambridge: Cambridge University Press, 1920), especially the critique of the bifurcation of nature into the world known by science and the world known in sensory experience.
-
-[^4]: Alfred North Whitehead and Bertrand Russell, *Principia Mathematica*, 3 vols. (Cambridge: Cambridge University Press, 1910–1913). See also Bernard Linsky and Andrew David Irvine, “Principia Mathematica,” *Stanford Encyclopedia of Philosophy*.
-
-[^5]: Alfred North Whitehead, *Process and Reality: An Essay in Cosmology* (1929), corrected ed., ed. David Ray Griffin and Donald W. Sherburne (New York: Free Press, 1978), especially Part I on actual entities, actual occasions, and the categoreal scheme.
-
-[^6]: Whitehead develops the method of extensive abstraction most directly in *An Enquiry Concerning the Principles of Natural Knowledge* (Cambridge: Cambridge University Press, 1919) and *The Concept of Nature*. For a concise overview of its later importance for formal spatial relations and mereotopology, see Randall E. Auxier and Gary L. Herstein, “Alfred North Whitehead,” *Internet Encyclopedia of Philosophy*.
-
-[^7]: Whitehead, *Process and Reality*, especially the analysis of prehensions, subjective forms, and the way an actual occasion inherits its world.
-
-[^8]: Whitehead, *Process and Reality*, 21: “The many become one, and are increased by one.”
-
-[^9]: Whitehead, *Process and Reality*, especially the discussion of God’s primordial nature and the ordering of eternal objects. See also *Science and the Modern World*, chapter XI, “God.”
+<ol>
+<li id="note-1">Ronald Desmet and Andrew David Irvine, “Alfred North Whitehead,” *Stanford Encyclopedia of Philosophy*. The SEP article describes Whitehead’s career as moving through mathematics and logic, philosophy of science, and metaphysics, and identifies him as a co-author of *Principia Mathematica* and a pioneer of process philosophy. <a href="#ref-1">↩</a></li>
+<li id="note-2">Alfred North Whitehead, *Science and the Modern World* (New York: Macmillan, 1925), especially the discussion of abstraction and the critique of treating abstractions as concrete realities. <a href="#ref-2">↩</a></li>
+<li id="note-3">Alfred North Whitehead, *The Concept of Nature* (Cambridge: Cambridge University Press, 1920), especially the critique of the bifurcation of nature into the world known by science and the world known in sensory experience. <a href="#ref-3">↩</a></li>
+<li id="note-4">Alfred North Whitehead and Bertrand Russell, *Principia Mathematica*, 3 vols. (Cambridge: Cambridge University Press, 1910–1913). See also Bernard Linsky and Andrew David Irvine, “Principia Mathematica,” *Stanford Encyclopedia of Philosophy*. <a href="#ref-4">↩</a></li>
+<li id="note-5">Alfred North Whitehead, *Process and Reality: An Essay in Cosmology* (1929), corrected ed., ed. David Ray Griffin and Donald W. Sherburne (New York: Free Press, 1978), especially Part I on actual entities, actual occasions, and the categoreal scheme. <a href="#ref-5">↩</a></li>
+<li id="note-6">Whitehead develops the method of extensive abstraction most directly in *An Enquiry Concerning the Principles of Natural Knowledge* (Cambridge: Cambridge University Press, 1919) and *The Concept of Nature*. For a concise overview of its later importance for formal spatial relations and mereotopology, see Randall E. Auxier and Gary L. Herstein, “Alfred North Whitehead,” *Internet Encyclopedia of Philosophy*. <a href="#ref-6">↩</a></li>
+<li id="note-7">Whitehead, *Process and Reality*, especially the analysis of prehensions, subjective forms, and the way an actual occasion inherits its world. <a href="#ref-7">↩</a></li>
+<li id="note-8">Whitehead, *Process and Reality*, 21: “The many become one, and are increased by one.” <a href="#ref-8">↩</a></li>
+<li id="note-9">Whitehead, *Process and Reality*, especially the discussion of God’s primordial nature and the ordering of eternal objects. See also *Science and the Modern World*, chapter XI, “God.” <a href="#ref-9">↩</a></li>
+</ol>
 
 ---
 
