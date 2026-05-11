@@ -6,6 +6,8 @@ His guiding intuition is simple, even if his system is difficult: reality is not
 
 Whitehead’s philosophical project was therefore an attempt to reconcile two worlds that modern thought had pulled apart: the mathematical world of science and the qualitative world of lived experience. He wanted a philosophy in which equations, bodies, colors, values, memories, and beauty could all belong to one coherent account of nature.
 
+A short and especially clear companion to this project is <em>The Function of Reason</em>, where Whitehead describes reason not as detached calculation, but as an activity that promotes the “art of life.”<sup id="ref-10"><a href="#note-10">10</a></sup> That phrase is useful for the whole essay: reason, mathematics, and abstraction matter because they help life intensify, organize, and renew itself.
+
 ---
 
 ## 1. The Fallacy of Misplaced Concreteness
@@ -121,7 +123,7 @@ Creativity is his ultimate principle. It means that the world is never merely a 
 
 > The many become one, and are increased by one.
 
-Many prior events are gathered into one new event. That event then becomes part of the many available to the future.
+Many prior events are gathered into one new event. That event then becomes part of the many available to the future. This is also why <em>The Function of Reason</em> fits naturally with Whitehead’s metaphysics: reason is not merely a tool for survival or calculation, but a way the living world introduces direction, novelty, and order into process.<sup id="ref-11"><a href="#note-11">11</a></sup>
 
 Eternal objects are possibilities of form. They are not concrete events, but ways in which concrete events can be shaped. A color, a tone, a mathematical relation, a geometrical form, a contrast, a rhythm, a value: all of these can be understood as eternal objects.
 
@@ -144,10 +146,11 @@ Whitehead’s world is neither a machine made of lifeless particles nor a privat
 ## Suggested Reading Path
 
 1. Begin with *Science and the Modern World* for Whitehead’s critique of scientific materialism.
-2. Read *The Concept of Nature* for his philosophy of nature and his rejection of the bifurcation of nature.
-3. Read a good secondary introduction to process philosophy before approaching *Process and Reality*.
-4. Approach *Process and Reality* last, as the technical center of the system rather than as a first introduction.
-5. To understand the mathematical background, read about *Principia Mathematica*, universal algebra, and Whitehead’s point-free geometry.
+2. Read *The Function of Reason* as a short bridge from that critique to Whitehead’s mature process philosophy.
+3. Read *The Concept of Nature* for his philosophy of nature and his rejection of the bifurcation of nature.
+4. Read a good secondary introduction to process philosophy before approaching *Process and Reality*.
+5. Approach *Process and Reality* last, as the technical center of the system rather than as a first introduction.
+6. To understand the mathematical background, read about *Principia Mathematica*, universal algebra, and Whitehead’s point-free geometry.
 
 ---
 
@@ -163,6 +166,8 @@ Whitehead’s world is neither a machine made of lifeless particles nor a privat
 <li id="note-7">Whitehead, <em>Process and Reality</em>, especially the analysis of prehensions, subjective forms, and the way an actual occasion inherits its world. <a href="#ref-7">↩</a></li>
 <li id="note-8">Whitehead, <em>Process and Reality</em>, 21: “The many become one, and are increased by one.” <a href="#ref-8">↩</a></li>
 <li id="note-9">Whitehead, <em>Process and Reality</em>, especially the discussion of God’s primordial nature and the ordering of eternal objects. See also <em>Science and the Modern World</em>, chapter XI, “God.” <a href="#ref-9">↩</a></li>
+<li id="note-10">Alfred North Whitehead, <em>The Function of Reason</em> (Princeton: Princeton University Press, 1929), chapter I. Whitehead’s opening definition is that the function of reason is to promote the art of life. <a href="#ref-10">↩</a></li>
+<li id="note-11">Whitehead, <em>The Function of Reason</em>. The book grew out of the Louis Clark Vanuxem Foundation lectures delivered at Princeton University in March 1929 and offers a compact statement of reason’s role in life, novelty, and civilization. <a href="#ref-11">↩</a></li>
 </ol>
 
 ---
@@ -175,6 +180,7 @@ Whitehead’s world is neither a machine made of lifeless particles nor a privat
 - Whitehead, Alfred North. *An Enquiry Concerning the Principles of Natural Knowledge*. Cambridge: Cambridge University Press, 1919.
 - Whitehead, Alfred North. *The Concept of Nature*. Cambridge: Cambridge University Press, 1920.
 - Whitehead, Alfred North. *Science and the Modern World*. New York: Macmillan, 1925.
+- Whitehead, Alfred North. *The Function of Reason*. Princeton: Princeton University Press, 1929.
 - Whitehead, Alfred North. *Process and Reality: An Essay in Cosmology*. 1929. Corrected edition, edited by David Ray Griffin and Donald W. Sherburne. New York: Free Press, 1978.
 - Whitehead, Alfred North, and Bertrand Russell. *Principia Mathematica*. 3 vols. Cambridge: Cambridge University Press, 1910–1913.
 
