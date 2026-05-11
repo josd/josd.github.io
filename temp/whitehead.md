@@ -34,9 +34,7 @@ His goal was to construct a cosmology where the mathematical equations of physic
 
 To heal this split, Whitehead argued that philosophy must abandon the concept of "substance"—the idea that the universe is made of static "things" that simply exist in space and time. Instead, he proposed that the fundamental building blocks of the universe are **events**, or what he called **"actual entities"** (and **"actual occasions"**).
 
-Here, Whitehead drew directly from the mathematical physics of his era. Einstein's famous mass-energy equivalence equation destroyed the notion of static matter:
-
-$$E = mc^2$$
+Here, Whitehead drew directly from the mathematical physics of his era. Einstein's famous mass-energy equivalence equation destroyed the notion of static matter: **E = mc^2**
 
 This equation demonstrates that mass ($m$) is not a permanent, inert "stuff," but rather a highly concentrated, localized form of active energy ($E$). What we perceive as a solid, unchanging rock is actually an incredibly rapid, recurring sequence of energetic activities. 
 
