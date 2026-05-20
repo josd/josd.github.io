@@ -1,19 +1,55 @@
 ---
 title: "A Canonical-Expansion Theorem for Basic N3 Entailment"
-description: "A theorem and proof for simple/basic entailment in Notation3, related to interpolation."
+description: "A publication-style candidate theorem and proof for simple/basic entailment in Notation3, related to interpolation."
 layout: default
 ---
 
-<!--
-This Markdown file is intended to render well both on GitHub and as a GitHub Pages/Jekyll page.
-If your GitHub Pages theme does not render TeX math automatically, add MathJax to the page
-or replace the display equations with preformatted blocks.
--->
+<style>
+  .n3-note {
+    border-left: 4px solid #999;
+    padding: 0.8rem 1rem;
+    margin: 1.2rem 0;
+    background: #f7f7f7;
+  }
+
+  .n3-theorem {
+    border: 1px solid #ddd;
+    border-radius: 0.5rem;
+    padding: 1rem 1.2rem;
+    margin: 1.5rem 0;
+    background: #fcfcfc;
+  }
+
+  .n3-equation {
+    display: block;
+    overflow-x: auto;
+    margin: 1rem 0;
+    padding: 0.85rem 1rem;
+    border-radius: 0.45rem;
+    background: #f6f8fa;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+    font-size: 0.96rem;
+    line-height: 1.6;
+    white-space: nowrap;
+  }
+
+  .n3-symbol {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+    white-space: nowrap;
+  }
+
+  .n3-small {
+    font-size: 0.95rem;
+  }
+</style>
 
 # A Canonical-Expansion Theorem for Basic N3 Entailment
 
-**Draft status.** Candidate text for a note.  
-**Scope.** Basic N3 entailment only; this does not cover the additional semantics of `log:` built-ins such as `log:implies`.
+<div class="n3-note">
+<strong>Draft status.</strong> Candidate text for a publication section.<br>
+<strong>Scope.</strong> Basic N3 entailment only. This does not cover the additional semantics of
+<code>log:</code> built-ins such as <code>log:implies</code>.
+</div>
 
 ## Abstract
 
@@ -21,17 +57,17 @@ We give a syntactic characterisation of basic entailment for finite, closed, nor
 
 ## Background and notation
 
-The N3 semantics defines an abstract graph as a triple
+The N3 semantics defines an abstract graph as a triple:
 
-\[
-G=(U,E,F),
-\]
+<div class="n3-equation">
+G = (U, E, F)
+</div>
 
 where:
 
-- \(U\) is the set of universally scoped variables;
-- \(E\) is the set of existentially scoped variables;
-- \(F\) is a finite set of N3 triples.
+- <span class="n3-symbol">U</span> is the set of universally scoped variables;
+- <span class="n3-symbol">E</span> is the set of existentially scoped variables;
+- <span class="n3-symbol">F</span> is a finite set of N3 triples.
 
 N3 terms include IRIs, literals, variables, lists, and graph terms. Ground graph terms are compared modulo the N3 graph-term isomorphism relation.
 
@@ -48,17 +84,16 @@ Throughout this section, entailment means **basic N3 entailment**.
 
 Let
 
-\[
-G=(U_G,E_G,F_G)
-\qquad\text{and}\qquad
-H=(U_H,E_H,F_H)
-\]
+<div class="n3-equation">
+G = (U<sub>G</sub>, E<sub>G</sub>, F<sub>G</sub>) &nbsp;&nbsp; and &nbsp;&nbsp;
+H = (U<sub>H</sub>, E<sub>H</sub>, F<sub>H</sub>)
+</div>
 
 be finite, closed, normalised abstract N3 graphs.
 
 We assume:
 
-1. variables of \(G\) and \(H\) have been renamed apart;
+1. variables of <span class="n3-symbol">G</span> and <span class="n3-symbol">H</span> have been renamed apart;
 2. free variables, if any occur in a concrete syntax presentation, have first been added to the appropriate universal-variable set;
 3. graph terms are considered modulo graph-term isomorphism;
 4. equality of triples containing graph terms is taken modulo that isomorphism.
@@ -69,9 +104,9 @@ These assumptions are standard hygiene conditions and do not affect entailment.
 
 Let
 
-\[
-\mathsf{GT}^{\ast}
-\]
+<div class="n3-equation">
+GT*
+</div>
 
 be the set of ground N3 terms over the language, extended with a countably infinite supply of fresh witness names.
 
@@ -81,123 +116,117 @@ These witness names play the same role as labelled nulls in canonical-model cons
 
 For a graph
 
-\[
-K=(U_K,E_K,F_K)
-\]
+<div class="n3-equation">
+K = (U<sub>K</sub>, E<sub>K</sub>, F<sub>K</sub>)
+</div>
 
 and a map
 
-\[
-\mu:U_K\cup E_K\to\mathsf{GT}^{\ast},
-\]
+<div class="n3-equation">
+μ : U<sub>K</sub> ∪ E<sub>K</sub> → GT*
+</div>
 
 write
 
-\[
-\mu[K]
-\]
+<div class="n3-equation">
+μ[K]
+</div>
 
-for the ground instance of \(K\) obtained by applying \(\mu\) to \(F_K\).
+for the ground instance of <span class="n3-symbol">K</span> obtained by applying <span class="n3-symbol">μ</span> to <span class="n3-symbol">F<sub>K</sub></span>.
 
 The application is total:
 
-- direct occurrences of variables in \(U_K\cup E_K\) are replaced by their \(\mu\)-images;
+- direct occurrences of variables in <span class="n3-symbol">U<sub>K</sub> ∪ E<sub>K</sub></span> are replaced by their <span class="n3-symbol">μ</span>-images;
 - lists are instantiated componentwise;
 - graph terms are instantiated recursively;
 - variables scoped inside nested graph terms are not replaced by an outer substitution.
 
-Equivalently, if \(\langle L\rangle\) is a graph term, then its instance is
+Equivalently, if <span class="n3-symbol">⟨L⟩</span> is a graph term, then its instance is:
 
-\[
-\langle \mu^t(L)\rangle,
-\]
+<div class="n3-equation">
+⟨ μ<sup>t</sup>(L) ⟩
+</div>
 
-where \(\mu^t\) denotes total application.
+where <span class="n3-symbol">μ<sup>t</sup></span> denotes total application.
 
 ## Canonical expansion
 
 For every assignment
 
-\[
-\sigma:U_G\to\mathsf{GT}^{\ast},
-\]
+<div class="n3-equation">
+σ : U<sub>G</sub> → GT*
+</div>
 
 choose fresh witness names
 
-\[
-w_{e,\sigma}
-\]
+<div class="n3-equation">
+w<sub>e,σ</sub>
+</div>
 
 for every
 
-\[
-e\in E_G.
-\]
+<div class="n3-equation">
+e ∈ E<sub>G</sub>.
+</div>
 
 Define
 
-\[
-\widehat{\sigma}
-=
-\sigma
-\cup
-\{\,e\mapsto w_{e,\sigma}\mid e\in E_G\,\}.
-\]
+<div class="n3-equation">
+σ̂ = σ ∪ { e ↦ w<sub>e,σ</sub> | e ∈ E<sub>G</sub> }.
+</div>
 
-The **canonical expansion** of \(G\), written \(\mathcal C(G)\), is
+The **canonical expansion** of <span class="n3-symbol">G</span>, written <span class="n3-symbol">C(G)</span>, is:
 
-\[
-\mathcal C(G)
-=
-\bigcup_{\sigma:U_G\to\mathsf{GT}^{\ast}}
-\widehat{\sigma}[F_G].
-\]
+<div class="n3-equation">
+C(G) = ⋃<sub>σ : U<sub>G</sub> → GT*</sub> σ̂[F<sub>G</sub>].
+</div>
 
-Membership in \(\mathcal C(G)\) is taken modulo graph-term isomorphism.
+Membership in <span class="n3-symbol">C(G)</span> is taken modulo graph-term isomorphism.
 
-Intuitively, \(\mathcal C(G)\) contains every ground universal instance of \(G\), with fresh witnesses for the existential variables of each such instance.
+Intuitively, <span class="n3-symbol">C(G)</span> contains every ground universal instance of <span class="n3-symbol">G</span>, with fresh witnesses for the existential variables of each such instance.
 
 ---
 
 ## Theorem
 
+<div class="n3-theorem">
+<strong>Canonical expansion characterisation of basic N3 entailment.</strong>
+
 Let
 
-\[
-G=(U_G,E_G,F_G)
-\qquad\text{and}\qquad
-H=(U_H,E_H,F_H)
-\]
+<div class="n3-equation">
+G = (U<sub>G</sub>, E<sub>G</sub>, F<sub>G</sub>) &nbsp;&nbsp; and &nbsp;&nbsp;
+H = (U<sub>H</sub>, E<sub>H</sub>, F<sub>H</sub>)
+</div>
 
 be finite, closed, normalised abstract N3 graphs.
 
 Then
 
-\[
-G\models H
-\]
+<div class="n3-equation">
+G ⊨ H
+</div>
 
 if and only if, for every assignment
 
-\[
-\alpha:U_H\to\mathsf{GT}^{\ast},
-\]
+<div class="n3-equation">
+α : U<sub>H</sub> → GT*
+</div>
 
 there exists an assignment
 
-\[
-\beta:E_H\to\mathsf{GT}^{\ast}
-\]
+<div class="n3-equation">
+β : E<sub>H</sub> → GT*
+</div>
 
 such that
 
-\[
-(\alpha\cup\beta)[F_H]\subseteq\mathcal C(G).
-\]
+<div class="n3-equation">
+(α ∪ β)[F<sub>H</sub>] ⊆ C(G).
+</div>
 
-In words:
-
-> \(G\) basic-entails \(H\) exactly when every universal instance of \(H\) has an existential instance contained in the canonical expansion of \(G\).
+In words: <strong><span class="n3-symbol">G</span> basic-entails <span class="n3-symbol">H</span> exactly when every universal instance of <span class="n3-symbol">H</span> has an existential instance contained in the canonical expansion of <span class="n3-symbol">G</span>.</strong>
+</div>
 
 ---
 
@@ -207,140 +236,139 @@ In words:
 
 Assume that for every assignment
 
-\[
-\alpha:U_H\to\mathsf{GT}^{\ast}
-\]
+<div class="n3-equation">
+α : U<sub>H</sub> → GT*
+</div>
 
 there exists
 
-\[
-\beta:E_H\to\mathsf{GT}^{\ast}
-\]
+<div class="n3-equation">
+β : E<sub>H</sub> → GT*
+</div>
 
 such that
 
-\[
-(\alpha\cup\beta)[F_H]\subseteq\mathcal C(G).
-\]
+<div class="n3-equation">
+(α ∪ β)[F<sub>H</sub>] ⊆ C(G).
+</div>
 
 We prove that
 
-\[
-G\models H.
-\]
+<div class="n3-equation">
+G ⊨ H.
+</div>
 
-Let \(I\) be an arbitrary basic interpretation such that
+Let <span class="n3-symbol">I</span> be an arbitrary basic interpretation such that
 
-\[
-I\models G.
-\]
+<div class="n3-equation">
+I ⊨ G.
+</div>
 
 We must show that
 
-\[
-I\models H.
-\]
+<div class="n3-equation">
+I ⊨ H.
+</div>
 
-Let \(A\) be an arbitrary assignment for the universal variables \(U_H\). For each \(u\in U_H\), write
+Let <span class="n3-symbol">A</span> be an arbitrary assignment for the universal variables <span class="n3-symbol">U<sub>H</sub></span>. For each <span class="n3-symbol">u ∈ U<sub>H</sub></span>, write
 
-\[
-A(u)=(A_1(u),A_2(u)),
-\]
+<div class="n3-equation">
+A(u) = (A<sub>1</sub>(u), A<sub>2</sub>(u)),
+</div>
 
-where \(A_1(u)\) is the denotation and \(A_2(u)\) is a ground term representation satisfying
+where <span class="n3-symbol">A<sub>1</sub>(u)</span> is the denotation and <span class="n3-symbol">A<sub>2</sub>(u)</span> is a ground term representation satisfying
 
-\[
-I(A_2(u))=A_1(u).
-\]
+<div class="n3-equation">
+I(A<sub>2</sub>(u)) = A<sub>1</sub>(u).
+</div>
 
 Define
 
-\[
-\alpha(u)=A_2(u).
-\]
+<div class="n3-equation">
+α(u) = A<sub>2</sub>(u).
+</div>
 
 By the syntactic assumption, there exists
 
-\[
-\beta:E_H\to\mathsf{GT}^{\ast}
-\]
+<div class="n3-equation">
+β : E<sub>H</sub> → GT*
+</div>
 
 such that
 
-\[
-(\alpha\cup\beta)[F_H]\subseteq\mathcal C(G).
-\]
+<div class="n3-equation">
+(α ∪ β)[F<sub>H</sub>] ⊆ C(G).
+</div>
 
-Only finitely many triples of \(\mathcal C(G)\) are used in this inclusion. Each such triple belongs to some canonical instance of \(G\), generated by some universal assignment
+Only finitely many triples of <span class="n3-symbol">C(G)</span> are used in this inclusion. Each such triple belongs to some canonical instance of <span class="n3-symbol">G</span>, generated by some universal assignment
 
-\[
-\sigma:U_G\to\mathsf{GT}^{\ast}.
-\]
+<div class="n3-equation">
+σ : U<sub>G</sub> → GT*.
+</div>
 
-For every such \(\sigma\), define an assignment \(A_\sigma\) for the universal variables of \(G\) in \(I\) by
+For every such <span class="n3-symbol">σ</span>, define an assignment <span class="n3-symbol">A<sub>σ</sub></span> for the universal variables of <span class="n3-symbol">G</span> in <span class="n3-symbol">I</span> by
 
-\[
-A_\sigma(u)=(I(\sigma(u)),\sigma(u)).
-\]
+<div class="n3-equation">
+A<sub>σ</sub>(u) = (I(σ(u)), σ(u)).
+</div>
 
 Since
 
-\[
-I\models G,
-\]
+<div class="n3-equation">
+I ⊨ G,
+</div>
 
-there exists an assignment \(B_\sigma\) for \(E_G\) such that
+there exists an assignment <span class="n3-symbol">B<sub>σ</sub></span> for <span class="n3-symbol">E<sub>G</sub></span> such that
 
-\[
-I[A_\sigma\bullet B_\sigma](F_G)=\mathrm{true}.
-\]
+<div class="n3-equation">
+I[A<sub>σ</sub> • B<sub>σ</sub>](F<sub>G</sub>) = true.
+</div>
 
 Now replace each canonical witness name
 
-\[
-w_{e,\sigma}
-\]
+<div class="n3-equation">
+w<sub>e,σ</sub>
+</div>
 
 occurring in the selected finite fragment by the corresponding ground term representation
 
-\[
-B_{\sigma,2}(e).
-\]
+<div class="n3-equation">
+B<sub>σ,2</sub>(e).
+</div>
 
-Call this replacement map \(\rho\), and extend \(\rho\) recursively to lists and graph terms. The replacement preserves sharing: the same witness name is always replaced by the same witness term.
+Call this replacement map <span class="n3-symbol">ρ</span>, and extend <span class="n3-symbol">ρ</span> recursively to lists and graph terms. The replacement preserves sharing: the same witness name is always replaced by the same witness term.
 
-Because each selected triple came from an instance of \(G\) that is true in \(I\), every triple in
+Because each selected triple came from an instance of <span class="n3-symbol">G</span> that is true in <span class="n3-symbol">I</span>, every triple in
 
-\[
-\rho((\alpha\cup\beta)[F_H])
-\]
+<div class="n3-equation">
+ρ((α ∪ β)[F<sub>H</sub>])
+</div>
 
-is true in \(I\).
+is true in <span class="n3-symbol">I</span>.
 
-Define an existential assignment \(B\) for \(E_H\) by
+Define an existential assignment <span class="n3-symbol">B</span> for <span class="n3-symbol">E<sub>H</sub></span> by
 
-\[
-B(e)=
-\bigl(I(\rho(\beta(e))),\rho(\beta(e))\bigr).
-\]
+<div class="n3-equation">
+B(e) = (I(ρ(β(e))), ρ(β(e))).
+</div>
 
 Then
 
-\[
-I[A\bullet B](F_H)=\mathrm{true}.
-\]
+<div class="n3-equation">
+I[A • B](F<sub>H</sub>) = true.
+</div>
 
-Since \(A\) was arbitrary, we have
+Since <span class="n3-symbol">A</span> was arbitrary, we have
 
-\[
-I\models H.
-\]
+<div class="n3-equation">
+I ⊨ H.
+</div>
 
-Since \(I\) was arbitrary among models of \(G\), it follows that
+Since <span class="n3-symbol">I</span> was arbitrary among models of <span class="n3-symbol">G</span>, it follows that
 
-\[
-G\models H.
-\]
+<div class="n3-equation">
+G ⊨ H.
+</div>
 
 This proves soundness.
 
@@ -352,145 +380,141 @@ Assume that the syntactic condition fails.
 
 Then there exists an assignment
 
-\[
-\alpha:U_H\to\mathsf{GT}^{\ast}
-\]
+<div class="n3-equation">
+α : U<sub>H</sub> → GT*
+</div>
 
 such that, for every assignment
 
-\[
-\beta:E_H\to\mathsf{GT}^{\ast},
-\]
+<div class="n3-equation">
+β : E<sub>H</sub> → GT*,
+</div>
 
 we have
 
-\[
-(\alpha\cup\beta)[F_H]\nsubseteq\mathcal C(G).
-\]
+<div class="n3-equation">
+(α ∪ β)[F<sub>H</sub>] ⊄ C(G).
+</div>
 
-We construct a basic interpretation \(I_G\) such that
+We construct a basic interpretation <span class="n3-symbol">I<sub>G</sub></span> such that
 
-\[
-I_G\models G
-\]
+<div class="n3-equation">
+I<sub>G</sub> ⊨ G
+</div>
 
 but
 
-\[
-I_G\not\models H.
-\]
+<div class="n3-equation">
+I<sub>G</sub> ⊭ H.
+</div>
 
-Let the domain of \(I_G\) be
+Let the domain of <span class="n3-symbol">I<sub>G</sub></span> be
 
-\[
-\Delta_{I_G}
-=
-\mathsf{GT}^{\ast}/\!\simeq,
-\]
+<div class="n3-equation">
+Δ<sub>I<sub>G</sub></sub> = GT* / ≃,
+</div>
 
 the set of ground N3 terms modulo graph-term isomorphism.
 
-For every IRI or literal \(a\), define
+For every IRI or literal <span class="n3-symbol">a</span>, define
 
-\[
-D_{I_G}(a)=[a].
-\]
+<div class="n3-equation">
+D<sub>I<sub>G</sub></sub>(a) = [a].
+</div>
 
-For every ground graph term \(\langle K\rangle\), define
+For every ground graph term <span class="n3-symbol">⟨K⟩</span>, define
 
-\[
-Q_{I_G}(\langle K\rangle)=[\langle K\rangle].
-\]
+<div class="n3-equation">
+Q<sub>I<sub>G</sub></sub>(⟨K⟩) = [⟨K⟩].
+</div>
 
 Thus graph terms are interpreted as representatives of their own isomorphism classes, and isomorphic graph terms receive the same value.
 
 Define the extension relation by
 
-\[
-EXT_{I_G}
-=
-\{\,([s],[p],[o])\mid (s,p,o)\in\mathcal C(G)\,\}.
-\]
+<div class="n3-equation">
+EXT<sub>I<sub>G</sub></sub> = { ([s], [p], [o]) | (s, p, o) ∈ C(G) }.
+</div>
 
 We first show that
 
-\[
-I_G\models G.
-\]
+<div class="n3-equation">
+I<sub>G</sub> ⊨ G.
+</div>
 
-Let \(A\) be any assignment for \(U_G\). Put
+Let <span class="n3-symbol">A</span> be any assignment for <span class="n3-symbol">U<sub>G</sub></span>. Put
 
-\[
-\sigma(u)=A_2(u).
-\]
+<div class="n3-equation">
+σ(u) = A<sub>2</sub>(u).
+</div>
 
-By construction of \(\mathcal C(G)\), the canonical instance of \(G\) corresponding to \(\sigma\) is contained in \(\mathcal C(G)\). For every existential variable \(e\in E_G\), choose the canonical witness
+By construction of <span class="n3-symbol">C(G)</span>, the canonical instance of <span class="n3-symbol">G</span> corresponding to <span class="n3-symbol">σ</span> is contained in <span class="n3-symbol">C(G)</span>. For every existential variable <span class="n3-symbol">e ∈ E<sub>G</sub></span>, choose the canonical witness
 
-\[
-w_{e,\sigma}.
-\]
+<div class="n3-equation">
+w<sub>e,σ</sub>.
+</div>
 
-This gives an existential assignment \(B\) such that every triple in
+This gives an existential assignment <span class="n3-symbol">B</span> such that every triple in
 
-\[
-(A\bullet B)[F_G]
-\]
+<div class="n3-equation">
+(A • B)[F<sub>G</sub>]
+</div>
 
-belongs to \(EXT_{I_G}\). Hence
+belongs to <span class="n3-symbol">EXT<sub>I<sub>G</sub></sub></span>. Hence
 
-\[
-I_G[A\bullet B](F_G)=\mathrm{true}.
-\]
+<div class="n3-equation">
+I<sub>G</sub>[A • B](F<sub>G</sub>) = true.
+</div>
 
-Since \(A\) was arbitrary,
+Since <span class="n3-symbol">A</span> was arbitrary,
 
-\[
-I_G\models G.
-\]
+<div class="n3-equation">
+I<sub>G</sub> ⊨ G.
+</div>
 
 We now show that
 
-\[
-I_G\not\models H.
-\]
+<div class="n3-equation">
+I<sub>G</sub> ⊭ H.
+</div>
 
-Use the assignment for \(U_H\) determined by the failing \(\alpha\):
+Use the assignment for <span class="n3-symbol">U<sub>H</sub></span> determined by the failing <span class="n3-symbol">α</span>:
 
-\[
-A(u)=([\alpha(u)],\alpha(u)).
-\]
+<div class="n3-equation">
+A(u) = ([α(u)], α(u)).
+</div>
 
 Suppose, for contradiction, that
 
-\[
-I_G\models H.
-\]
+<div class="n3-equation">
+I<sub>G</sub> ⊨ H.
+</div>
 
-Then there would exist an existential assignment \(B\) for \(E_H\). Define
+Then there would exist an existential assignment <span class="n3-symbol">B</span> for <span class="n3-symbol">E<sub>H</sub></span>. Define
 
-\[
-\beta(e)=B_2(e).
-\]
+<div class="n3-equation">
+β(e) = B<sub>2</sub>(e).
+</div>
 
-Since truth in \(I_G\) is exactly membership in \(\mathcal C(G)\), this would imply
+Since truth in <span class="n3-symbol">I<sub>G</sub></span> is exactly membership in <span class="n3-symbol">C(G)</span>, this would imply
 
-\[
-(\alpha\cup\beta)[F_H]\subseteq\mathcal C(G),
-\]
+<div class="n3-equation">
+(α ∪ β)[F<sub>H</sub>] ⊆ C(G),
+</div>
 
-contradicting the choice of \(\alpha\).
+contradicting the choice of <span class="n3-symbol">α</span>.
 
 Therefore
 
-\[
-I_G\not\models H.
-\]
+<div class="n3-equation">
+I<sub>G</sub> ⊭ H.
+</div>
 
-Thus there exists a model of \(G\) that is not a model of \(H\), so
+Thus there exists a model of <span class="n3-symbol">G</span> that is not a model of <span class="n3-symbol">H</span>, so
 
-\[
-G\not\models H.
-\]
+<div class="n3-equation">
+G ⊭ H.
+</div>
 
 This proves completeness.
 
@@ -498,7 +522,7 @@ This proves completeness.
 
 ## Relation with the RDF interpolation lemma
 
-The RDF interpolation lemma states that, for simple RDF entailment, a graph \(S\) entails a graph \(E\) exactly when some subgraph of \(S\) is an instance of \(E\).
+The RDF interpolation lemma states that, for simple RDF entailment, a graph <span class="n3-symbol">S</span> entails a graph <span class="n3-symbol">E</span> exactly when some subgraph of <span class="n3-symbol">S</span> is an instance of <span class="n3-symbol">E</span>.
 
 The theorem above is the corresponding statement for basic N3 entailment.
 
@@ -508,37 +532,31 @@ In the RDF fragment:
 - there are no N3 lists as first-class terms;
 - there are no universal variables;
 - existential variables correspond to RDF blank nodes;
-- the canonical expansion \(\mathcal C(G)\) is just \(G\), up to renaming of existential witnesses.
+- the canonical expansion <span class="n3-symbol">C(G)</span> is just <span class="n3-symbol">G</span>, up to renaming of existential witnesses.
 
 The condition
 
-\[
-\exists\beta:E_H\to\mathsf{GT}^{\ast}
-\quad
-\beta[F_H]\subseteq\mathcal C(G)
-\]
+<div class="n3-equation">
+there exists β : E<sub>H</sub> → GT* such that β[F<sub>H</sub>] ⊆ C(G)
+</div>
 
-then says precisely that an instance of \(H\) is contained in \(G\). Thus the N3 theorem conservatively generalises the RDF interpolation lemma.
+then says precisely that an instance of <span class="n3-symbol">H</span> is contained in <span class="n3-symbol">G</span>. Thus the N3 theorem conservatively generalises the RDF interpolation lemma.
 
 The essential extra feature in N3 is the presence of explicit universal variables. Because of them, a conclusion may be supported by several different universal instances of the premise.
 
 For example, the graph
 
-\[
-(\{x\},\emptyset,\{P(x),Q(x)\})
-\]
+<div class="n3-equation">
+({x}, ∅, {P(x), Q(x)})
+</div>
 
 entails
 
-\[
-(\{u,v\},\emptyset,\{P(u),Q(v)\}).
-\]
+<div class="n3-equation">
+({u, v}, ∅, {P(u), Q(v)}).
+</div>
 
-However, the two triples in the conclusion may come from two different instances of the premise. This is why a direct “subgraph of \(G\)” formulation is insufficient; the correct object is the canonical expansion
-
-\[
-\mathcal C(G).
-\]
+However, the two triples in the conclusion may come from two different instances of the premise. This is why a direct “subgraph of <span class="n3-symbol">G</span>” formulation is insufficient; the correct object is the canonical expansion <span class="n3-symbol">C(G)</span>.
 
 ---
 
@@ -546,7 +564,7 @@ However, the two triples in the conclusion may come from two different instances
 
 This theorem concerns **basic N3 entailment** only.
 
-It does not cover the additional semantics of predicates such as `log:implies`. The N3 draft treats log interpretation separately from basic interpretation, adding special semantic conditions for predicates in the `log:` namespace.
+It does not cover the additional semantics of predicates such as <code>log:implies</code>. The N3 draft treats log interpretation separately from basic interpretation, adding special semantic conditions for predicates in the <code>log:</code> namespace.
 
 Thus the theorem should be read as the N3 analogue of simple RDF entailment, not as a completeness theorem for full N3 reasoning with logical built-ins.
 
