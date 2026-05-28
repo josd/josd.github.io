@@ -5,8 +5,8 @@
 | `deep-taxonomy-100000.pl`  | `tpl`            |                9.277 |           182,692 |
 | `deep-taxonomy-100000.srl` | `eyesharl`       |                6.460 |         1,165,620 |
 | `deep-taxonomy-100000.pl`  | `swipl`          |                5.745 |           141,840 |
-| `deep-taxonomy-100000.n3`  | `eyeling`        |                4.905 |           837,928 |
-| `deep-taxonomy-100000.pl`  | `eyelog`         |                1.129 |           276,220 |
+| `deep-taxonomy-100000.n3`  | `eyeling`        |                3,299 |           700,740 |
+| `deep-taxonomy-100000.pl`  | `eyelog`         |                1,866 |           600,132 |
 |                            |                  |                      |                   |
 | `path-discovery.n3`        | `eyering`        |                9.378 |           342,916 |
 | `path-discovery.n3`        | `eyeling`        |                1.996 |           444,308 |
