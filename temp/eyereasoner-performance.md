@@ -9,9 +9,9 @@
 | `deep-taxonomy-100000.pl`  | `eyelog`         |                1,866 |           600,132 |
 |                            |                  |                      |                   |
 | `path-discovery.n3`        | `eyering`        |                9.378 |           342,916 |
-| `path-discovery.n3`        | `eyeling`        |                1.996 |           444,308 |
 | `path-discovery.srl`       | `eyesharl`       |                1.504 |           391,864 |
 | `path-discovery.pl`        | `eyelet-scryer`  |                1.213 |            99,868 |
+| `path-discovery.n3`        | `eyeling`        |                1.175 |           344,540 |
 | `path-discovery.pl`        | `eyelet-trealla` |                1.154 |            28,204 |
 | `path-discovery.pl`        | `eyelet-swipl`   |                0.605 |            27,612 |
 | `path-discovery.pl`        | `eyelog`         |                0.409 |           173,512 |
