@@ -1,51 +1,86 @@
-I would **not put literally all effort into one**, but I would make **Eyelog the main R&D line** and keep **Eyeling as an interop/conformance layer**.
+A more elaborated neutral version:
 
-My recommendation:
+---
 
-**80% Eyelog, 20% Eyeling.**
+**Recommended direction: make Eyelog the primary R&D focus, while keeping Eyeling as a strategic Semantic Web and N3 compatibility layer.**
 
-Eyelog should become the core symbolic reasoning kernel. Eyeling should remain the N3/RDF bridge, compatibility layer, and benchmark/reference system.
+A reasonable allocation would be approximately:
 
-The reason is strategic: the next opportunity is not “Semantic Web adoption” but **symbolic reasoning as a tool inside AI systems**. In that setting, the winning artifact is likely to be small, embeddable, explainable, callable by LLMs, easy to generate, easy to verify, and not culturally tied to RDF/N3 adoption. Eyelog fits that better.
+**80% Eyelog**
+**20% Eyeling**
 
-Eyelog is already framed as a compact Prolog-like definite-clause language over ordinary terms, lists, arithmetic, strings, formula data, and finite search, with goal-directed execution and least-Herbrand-model semantics for the pure Horn fragment. That is exactly the kind of clean symbolic substrate that can sit behind LLMs, agents, RAG systems, planners, verifiers, and scientific calculators. ([GitHub][1])
+This is not because Eyeling lacks value. Eyeling remains important, especially for N3, RDF, Semantic Web compatibility, quoted formulas, graph-based reasoning, provenance, and continuity with the EYE tradition. The EYE ecosystem is explicitly centered on Notation3 and Semantic Web reasoning, including forward and backward chaining over N3 rules. ([GitHub][1])
 
-Eyeling is technically valuable, but it is more bound to the N3/RDF world: facts are RDF-like triples, rules are N3 implications, and its strength is Notation3 reasoning with forward/backward chaining, formulas, built-ins, dereferencing, and web-like semantics. ([GitHub][2]) N3 itself is a superset of RDF, so Eyeling inherits both the strengths and the adoption friction of the Semantic Web stack. ([W3C GitHub][3])
+However, the strongest future opportunity appears to be broader than the Semantic Web. The main opportunity is **symbolic reasoning as a compact, trustworthy component inside modern AI systems**. In that setting, the reasoning engine should be easy to call, easy to inspect, easy to generate programs for, easy to embed, and easy to combine with subsymbolic systems such as LLMs.
 
-The Semantic Web story is nuanced: semantic technologies and knowledge graphs are still used in search, data integration, enterprise systems, and machine learning. ([arXiv][4]) But the public “Semantic Web as a new web of linked machine-readable data” did not really happen at web scale; even RDF/SPARQL advocates increasingly describe the success as enterprise knowledge graphs and RDF technologies rather than “the Semantic Web” vision itself. ([bobdc.com][5]) That makes Eyeling important, but not the best center of gravity.
+That favors **Eyelog**.
 
-For neuro-symbolic work, the direction of travel favors **modular symbolic engines** that complement neural models. The MRKL paper explicitly argues for systems with neural models plus external knowledge and discrete reasoning modules. ([arXiv][6]) A 2025 systematic review also reports rapid growth in neuro-symbolic AI since 2020, with major research effort in learning/inference, logic/reasoning, and knowledge representation. ([arXiv][7]) Eyelog is closer to that modular “reasoning module” shape.
+Eyelog is already described in the EyeReasoner ecosystem as a **Prolog-style rule engine with an RDF bridge**. ([GitHub][2]) That positioning is important. It means Eyelog can be treated as the more general symbolic kernel, while RDF/N3 can remain one interoperability path rather than the core constraint on every new research idea.
 
-So the bet I would make is:
+The key distinction is this:
 
-**Eyelog becomes the research platform. Eyeling becomes one important frontend/backend adapter.**
+**Eyeling is Semantic-Web-native.**
+**Eyelog is reasoning-kernel-native.**
 
-Concretely:
+Eyeling starts from N3/RDF concepts: triples, graphs, formulas, namespaces, Semantic Web syntax, and Web-style reasoning. That is powerful when the problem naturally lives in linked data, provenance, RDF vocabularies, or N3 rules.
 
-1. **Put new reasoning research in Eyelog**
-   Focus on proof explanation, proof certificates, memoization/tabling, bounded search, constraints, aggregation, negation disciplines, probabilistic annotations, LLM-generated rules, and verifiable agent workflows.
+Eyelog starts from ordinary symbolic logic-programming concepts: predicates, terms, facts, rules, queries, unification, recursion, lists, arithmetic, and finite search. That is often closer to how symbolic reasoning is needed inside AI systems, agent systems, validators, planners, scientific tools, medical-rule prototypes, legal-rule prototypes, and proof-producing assistants.
 
-2. **Make Eyelog AI-native**
-   Provide APIs where an LLM can generate facts/rules, run queries, inspect failures, get proof traces, and repair programs. The surface syntax `ancestor(pat, X)` or `status(case1, accepted)` is easier for models and humans than N3 triples in many applied settings.
+The Semantic Web should therefore be treated as **an important interoperability ecosystem**, but not as the main strategic bet. The original broad Semantic Web vision did not become the dominant public web architecture. RDF, SPARQL, ontologies, and knowledge graphs still have real value, especially in enterprise and research settings, but the wider AI opportunity is no longer dependent on convincing the world to adopt RDF/N3 as the main representation layer.
 
-3. **Keep Eyeling as N3/RDF compatibility**
-   Do not abandon it. It preserves your EYE/N3 heritage, reaches the Semantic Web community, and gives you conformance and provenance credibility. But it should increasingly compile to or interoperate with the Eyelog kernel where possible.
+For neuro-symbolic AI, the more promising architecture is modular: neural systems handle perception, language, retrieval, approximation, and pattern recognition; symbolic systems handle exact reasoning, constraints, validation, explanation, proofs, and controlled search. MRKL-style systems explicitly argue for combining large language models with external knowledge sources and discrete reasoning modules. ([arXiv][3]) A systematic review of neuro-symbolic AI also reports strong recent activity around learning, inference, logic, reasoning, and knowledge representation. ([arXiv][4])
 
-4. **Build translators both ways**
-   N3/RDF → Eyelog for reasoning. Eyelog → N3/RDF for publication, linked-data exchange, provenance, and compatibility.
+That makes Eyelog the better center of gravity for future work.
 
-5. **Treat Semantic Web as a data/interchange layer, not the main research thesis**
-   The thesis should be: “small symbolic reasoners as trustworthy tools for subsymbolic AI.” RDF/N3 is one supported serialization and ecosystem, not the core identity.
+A useful long-term architecture would be:
 
-My blunt answer: **bet the future on Eyelog**.
+**Eyelog as the core engine**
+The place for new reasoning algorithms, proof traces, search strategies, constraints, tabling, optimization, LLM tool integration, explainability, and neuro-symbolic experiments.
 
-But preserve Eyeling as the bridge to EYE, N3, RDF Surfaces, Semantic Web standards, and historical continuity. The mistake would be killing Eyeling; the bigger mistake would be making Eyeling the place where all new ideas must pass through N3/RDF syntax and culture.
+**Eyeling as the N3/RDF layer**
+The place for N3 syntax, Semantic Web compatibility, RDF import/export, quoted graph reasoning, provenance-oriented examples, standards-facing work, and compatibility with the existing EYE lineage.
 
-[1]: https://raw.githubusercontent.com/eyereasoner/eyelog/main/SPEC.md "raw.githubusercontent.com"
-[2]: https://raw.githubusercontent.com/eyereasoner/eyeling/main/README.md "raw.githubusercontent.com"
-[3]: https://w3c.github.io/N3/spec/?utm_source=chatgpt.com "Notation3 Language"
-[4]: https://arxiv.org/abs/2412.17159 "[2412.17159] Semantic Web: Past, Present, and Future (with Machine Learning on Knowledge Graphs and Language Models on Knowledge Graphs)"
-[5]: https://www.bobdc.com/blog/stopsemanticweb/ "Let's stop saying 'semantic web'"
-[6]: https://arxiv.org/abs/2205.00445 "[2205.00445] MRKL Systems: A modular, neuro-symbolic architecture that combines large language models, external knowledge sources and discrete reasoning"
-[7]: https://arxiv.org/abs/2501.05435 "[2501.05435] Neuro-Symbolic AI in 2024: A Systematic Review"
+This split would avoid two risks.
+
+The first risk is making all new research depend on RDF/N3. That may slow down adoption in AI settings where users want a small, direct, Prolog-like reasoning engine rather than a Semantic Web stack.
+
+The second risk is abandoning the Semantic Web heritage too aggressively. That would lose a valuable niche, existing expertise, interoperability, and the distinctive EYE/N3 identity.
+
+So the balanced position is:
+
+**Future research should primarily target Eyelog. Eyeling should be preserved and improved as a bridge, not used as the mandatory foundation for everything.**
+
+More concretely, future Eyelog work could focus on:
+
+1. **LLM-friendly symbolic reasoning**
+   Eyelog should be easy for an LLM to generate, run, debug, and explain. Predicate-style rules are usually easier to synthesize than RDF/N3 triples.
+
+2. **Proof traces and explanations**
+   Every answer should ideally be accompanied by a compact proof object, dependency graph, or justification trail.
+
+3. **Validation and guardrails**
+   Eyelog can serve as a deterministic checker for LLM outputs: policy checks, medical-rule checks, legal-rule checks, data-consistency checks, workflow checks, and mathematical sanity checks.
+
+4. **Neuro-symbolic tool use**
+   Eyelog can become a small reasoning tool that neural systems call whenever exact inference is needed.
+
+5. **RDF/N3 bridge support**
+   Eyeling should remain available for Semantic Web users, and translation between Eyelog and N3/RDF should become a major design goal.
+
+6. **Embeddability**
+   A small reasoning kernel should be easy to run in browsers, servers, agents, notebooks, pipelines, and local-first applications.
+
+7. **Research clarity**
+   Eyelog gives a cleaner space for studying reasoning itself without every experiment being shaped by RDF syntax and Semantic Web assumptions.
+
+The resulting positioning could be summarized as:
+
+> **Eyelog should become the main platform for symbolic and neuro-symbolic reasoning research. Eyeling should remain the N3/RDF compatibility and Semantic Web interoperability layer.**
+
+This keeps the best of both worlds: Eyelog provides the broader AI-facing research path, while Eyeling preserves the Semantic Web strength, EYE continuity, and standards-facing credibility.
+
+[1]: https://github.com/eyereasoner/eye?utm_source=chatgpt.com "eyereasoner/eye: Euler Yet another proof Engine"
+[2]: https://github.com/eyereasoner?utm_source=chatgpt.com "EYE N3 Reasoner"
+[3]: https://arxiv.org/abs/2205.00445?utm_source=chatgpt.com "MRKL Systems: A modular, neuro-symbolic architecture that combines large language models, external knowledge sources and discrete reasoning"
+[4]: https://arxiv.org/abs/2501.05435?utm_source=chatgpt.com "Neuro-Symbolic AI in 2024: A Systematic Review"
 
