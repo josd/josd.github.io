@@ -1,0 +1,291 @@
+@font-face {
+  font-family: "Instrument Serif";
+  src: url("https://fonts.gstatic.com/s/instrumentserif/v4/jizDREVItHgc8qDIbSTKq4XKVjU.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Instrument Serif";
+  src: url("https://fonts.gstatic.com/s/instrumentserif/v4/jizGREVItHgc8qDIbSTKq4XEQiCb.woff2") format("woff2");
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Inter";
+  src: url("https://fonts.gstatic.com/s/inter/v18/UcCO3FwrK3iLTeHuS_nVMrMxCp50ojIa1ZL7.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+}
+
+:root {
+  --background: oklch(0.985 0.004 90);
+  --foreground: oklch(0.18 0.01 80);
+  --ink: oklch(0.14 0.01 80);
+  --muted: oklch(0.48 0.012 80);
+  --muted-bg: oklch(0.95 0.006 90);
+  --rule: oklch(0.82 0.01 85);
+  --max: 64rem;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  margin: 0;
+  background: var(--background);
+  color: var(--foreground);
+  font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.topbar,
+.hero,
+.section,
+.rule,
+.footer {
+  width: min(var(--max), calc(100% - 3rem));
+  margin-inline: auto;
+}
+
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  padding-top: 2.5rem;
+}
+
+.brand {
+  font-family: "Instrument Serif", Georgia, serif;
+  font-size: 1.2rem;
+  font-style: italic;
+  color: var(--ink);
+}
+
+.nav {
+  display: flex;
+  gap: clamp(1rem, 4vw, 1.75rem);
+  color: var(--muted);
+  font-size: 0.72rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.nav a,
+.footer a {
+  transition: color 180ms ease;
+}
+
+.nav a:hover,
+.footer a:hover {
+  color: var(--ink);
+}
+
+.hero {
+  display: grid;
+  grid-template-columns: minmax(0, 7fr) minmax(16rem, 5fr);
+  gap: clamp(3rem, 7vw, 5rem);
+  align-items: start;
+  padding-block: clamp(5rem, 11vw, 8rem);
+}
+
+.eyebrow,
+.section-heading p,
+.footer,
+figcaption {
+  color: var(--muted);
+  font-size: 0.72rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+
+.hero h1 {
+  margin: 2rem 0 0;
+  color: var(--ink);
+  font-family: "Instrument Serif", Georgia, serif;
+  font-size: clamp(4rem, 11vw, 7rem);
+  font-weight: 400;
+  letter-spacing: -0.04em;
+  line-height: 0.95;
+}
+
+.hero h1 em {
+  font-style: italic;
+}
+
+.intro {
+  max-width: 29rem;
+  margin-top: 2.5rem;
+  color: var(--muted);
+  font-size: clamp(1rem, 2.2vw, 1.12rem);
+  line-height: 1.75;
+}
+
+.intro a,
+.bio-copy a {
+  color: var(--ink);
+  background-image: linear-gradient(currentColor, currentColor);
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  background-size: 100% 1px;
+}
+
+.portrait-wrap {
+  margin: 0;
+}
+
+.portrait {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  height: auto;
+  object-fit: cover;
+  filter: grayscale(1);
+}
+
+figcaption {
+  margin-top: 0.8rem;
+  letter-spacing: 0.18em;
+}
+
+.rule {
+  height: 1px;
+  background: var(--rule);
+}
+
+.section {
+  display: grid;
+  grid-template-columns: minmax(11rem, 4fr) minmax(0, 8fr);
+  gap: clamp(2.5rem, 6vw, 4rem);
+  padding-block: clamp(5rem, 10vw, 7rem);
+}
+
+.section-heading {
+  align-self: start;
+  position: sticky;
+  top: 2.5rem;
+}
+
+.section-heading h2 {
+  margin: 0.75rem 0 0;
+  color: var(--ink);
+  font-family: "Instrument Serif", Georgia, serif;
+  font-size: clamp(2.6rem, 6vw, 3.4rem);
+  font-weight: 400;
+  letter-spacing: -0.03em;
+  line-height: 1;
+}
+
+.bio-copy {
+  display: grid;
+  gap: 1.5rem;
+  color: var(--ink);
+  font-family: "Instrument Serif", Georgia, serif;
+  font-size: clamp(1.45rem, 3vw, 1.65rem);
+  line-height: 1.4;
+}
+
+.bio-copy p {
+  margin: 0;
+}
+
+.bio-copy a {
+  font-style: italic;
+  text-underline-offset: 0.35em;
+}
+
+.link-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-block: 1px solid var(--rule);
+}
+
+.link-list li + li {
+  border-top: 1px solid var(--rule);
+}
+
+.link-list a {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1.5rem;
+  padding: 1.15rem 0;
+  transition: background-color 180ms ease, padding-inline 180ms ease;
+}
+
+.link-list a:hover {
+  background: var(--muted-bg);
+  padding-inline: 0.6rem;
+}
+
+.link-list span {
+  color: var(--ink);
+  font-family: "Instrument Serif", Georgia, serif;
+  font-size: clamp(1.6rem, 4vw, 2rem);
+  letter-spacing: -0.02em;
+}
+
+.link-list small {
+  flex: none;
+  color: var(--muted);
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.footer {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  border-top: 1px solid var(--rule);
+  padding-block: 2rem 3rem;
+  letter-spacing: 0.18em;
+}
+
+@media (max-width: 760px) {
+  .topbar {
+    align-items: flex-start;
+  }
+
+  .nav {
+    flex-wrap: wrap;
+    justify-content: flex-end;
+  }
+
+  .hero,
+  .section {
+    grid-template-columns: 1fr;
+  }
+
+  .hero {
+    padding-block: 4rem 5rem;
+  }
+
+  .section-heading {
+    position: static;
+  }
+
+  .link-list a,
+  .footer {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}
