@@ -23,12 +23,18 @@
 }
 
 :root {
-  --background: oklch(0.985 0.004 90);
-  --foreground: oklch(0.18 0.01 80);
-  --ink: oklch(0.14 0.01 80);
-  --muted: oklch(0.48 0.012 80);
-  --muted-bg: oklch(0.95 0.006 90);
-  --rule: oklch(0.82 0.01 85);
+  --background: oklch(0.985 0.01 95);
+  --background-2: oklch(0.975 0.028 210);
+  --foreground: oklch(0.23 0.02 255);
+  --ink: oklch(0.18 0.04 255);
+  --muted: oklch(0.51 0.04 255);
+  --muted-bg: oklch(0.95 0.03 210);
+  --rule: oklch(0.84 0.03 235);
+  --accent: oklch(0.62 0.19 22);
+  --accent-2: oklch(0.67 0.15 200);
+  --accent-3: oklch(0.72 0.11 145);
+  --card: oklch(0.985 0.01 0 / 0.8);
+  --shadow: 0 16px 40px rgba(29, 50, 84, 0.12);
   --max: 64rem;
 }
 
@@ -44,7 +50,10 @@ html {
 
 body {
   margin: 0;
-  background: var(--background);
+  background:
+    radial-gradient(circle at top right, rgba(91, 180, 212, 0.12), transparent 32%),
+    radial-gradient(circle at top left, rgba(237, 125, 88, 0.10), transparent 26%),
+    linear-gradient(180deg, var(--background), var(--background-2));
   color: var(--foreground);
   font-family: Inter, ui-sans-serif, system-ui, sans-serif;
 }
@@ -75,7 +84,7 @@ a {
   font-family: "Instrument Serif", Georgia, serif;
   font-size: 1.2rem;
   font-style: italic;
-  color: var(--ink);
+  color: var(--accent);
 }
 
 .nav {
@@ -94,15 +103,19 @@ a {
 
 .nav a:hover,
 .footer a:hover {
-  color: var(--ink);
+  color: var(--accent);
 }
 
 .hero {
   display: grid;
-  grid-template-columns: minmax(0, 7fr) minmax(16rem, 5fr);
-  gap: clamp(3rem, 7vw, 5rem);
+  grid-template-columns: minmax(0, 7fr) minmax(14rem, 4fr);
+  gap: clamp(2.5rem, 6vw, 4.5rem);
   align-items: start;
-  padding-block: clamp(5rem, 11vw, 8rem);
+  padding-block: clamp(4.5rem, 10vw, 7rem);
+}
+
+.hero-copy {
+  max-width: 36rem;
 }
 
 .eyebrow,
@@ -115,23 +128,29 @@ figcaption {
   text-transform: uppercase;
 }
 
+.eyebrow,
+.section-heading p {
+  color: var(--accent-2);
+}
+
 .hero h1 {
-  margin: 2rem 0 0;
+  margin: 1.6rem 0 0;
   color: var(--ink);
   font-family: "Instrument Serif", Georgia, serif;
-  font-size: clamp(4rem, 11vw, 7rem);
+  font-size: clamp(3.1rem, 8vw, 5.3rem);
   font-weight: 400;
   letter-spacing: -0.04em;
-  line-height: 0.95;
+  line-height: 0.97;
 }
 
 .hero h1 em {
   font-style: italic;
+  color: var(--accent);
 }
 
 .intro {
-  max-width: 29rem;
-  margin-top: 2.5rem;
+  max-width: 31rem;
+  margin-top: 2.1rem;
   color: var(--muted);
   font-size: clamp(1rem, 2.2vw, 1.12rem);
   line-height: 1.75;
@@ -140,7 +159,7 @@ figcaption {
 .intro a,
 .bio-copy a {
   color: var(--ink);
-  background-image: linear-gradient(currentColor, currentColor);
+  background-image: linear-gradient(var(--accent-2), var(--accent-2));
   background-repeat: no-repeat;
   background-position: 0 100%;
   background-size: 100% 1px;
@@ -148,6 +167,13 @@ figcaption {
 
 .portrait-wrap {
   margin: 0;
+  justify-self: end;
+  width: min(100%, 19rem);
+  padding: 0.9rem;
+  border: 1px solid rgba(255, 255, 255, 0.65);
+  border-radius: 1.4rem;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.88), rgba(243, 248, 252, 0.8));
+  box-shadow: var(--shadow);
 }
 
 .portrait {
@@ -156,17 +182,19 @@ figcaption {
   aspect-ratio: 4 / 5;
   height: auto;
   object-fit: cover;
-  filter: grayscale(1);
+  border-radius: 0.95rem;
+  filter: saturate(1.05) contrast(1.02);
 }
 
 figcaption {
   margin-top: 0.8rem;
   letter-spacing: 0.18em;
+  color: var(--accent-2);
 }
 
 .rule {
   height: 1px;
-  background: var(--rule);
+  background: linear-gradient(90deg, transparent, var(--rule) 12%, var(--rule) 88%, transparent);
 }
 
 .section {
@@ -227,12 +255,16 @@ figcaption {
   justify-content: space-between;
   gap: 1.5rem;
   padding: 1.15rem 0;
-  transition: background-color 180ms ease, padding-inline 180ms ease;
+  transition: background-color 180ms ease, padding-inline 180ms ease, color 180ms ease;
 }
 
 .link-list a:hover {
-  background: var(--muted-bg);
+  background: rgba(110, 194, 219, 0.10);
   padding-inline: 0.6rem;
+}
+
+.link-list a:hover span {
+  color: var(--accent);
 }
 
 .link-list span {
@@ -240,11 +272,12 @@ figcaption {
   font-family: "Instrument Serif", Georgia, serif;
   font-size: clamp(1.6rem, 4vw, 2rem);
   letter-spacing: -0.02em;
+  transition: color 180ms ease;
 }
 
 .link-list small {
   flex: none;
-  color: var(--muted);
+  color: var(--accent-2);
   font-size: 0.72rem;
   font-weight: 500;
   letter-spacing: 0.18em;
@@ -277,6 +310,11 @@ figcaption {
 
   .hero {
     padding-block: 4rem 5rem;
+  }
+
+  .portrait-wrap {
+    justify-self: start;
+    width: min(100%, 16rem);
   }
 
   .section-heading {
