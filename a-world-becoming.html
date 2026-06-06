@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>A World Becoming</title>
+<meta content="A Whiteheadian map of reality for science, experience, and hope." name="description"/>
+<style>
+/* Embedded from the published Jos De Roo site stylesheet, plus article-specific additions. */
+@font-face { font-family: "Instrument Serif"; src: url("https://fonts.gstatic.com/s/instrumentserif/v4/jizDREVItHgc8qDIbSTKq4XKVjU.woff2") format("woff2"); font-style: normal; font-weight: 400; font-display: swap; } @font-face { font-family: "Instrument Serif"; src: url("https://fonts.gstatic.com/s/instrumentserif/v4/jizGREVItHgc8qDIbSTKq4XEQiCb.woff2") format("woff2"); font-style: italic; font-weight: 400; font-display: swap; } @font-face { font-family: "Inter"; src: url("https://fonts.gstatic.com/s/inter/v18/UcCO3FwrK3iLTeHuS_nVMrMxCp50ojIa1ZL7.woff2") format("woff2"); font-style: normal; font-weight: 100 900; font-display: swap; } :root { --background: oklch(0.984 0.016 92); --background-2: oklch(0.972 0.024 220); --foreground: oklch(0.24 0.028 255); --ink: oklch(0.19 0.05 255); --muted: oklch(0.5 0.04 250); --muted-bg: oklch(0.948 0.034 215); --rule: oklch(0.835 0.036 240); --accent: oklch(0.61 0.19 28); --accent-2: oklch(0.64 0.14 205); --accent-3: oklch(0.76 0.11 88); --shadow: 0 18px 42px rgba(27, 48, 84, 0.12); --max: 64rem; } * { box-sizing: border-box; } html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; } body { margin: 0; background: radial-gradient(circle at top right, rgba(81, 168, 205, 0.16), transparent 34%), radial-gradient(circle at 0% 0%, rgba(224, 111, 74, 0.12), transparent 24%), linear-gradient(180deg, var(--background), var(--background-2)); color: var(--foreground); font-family: Inter, ui-sans-serif, system-ui, sans-serif; } a { color: inherit; text-decoration: none; } .topbar, .hero, .section, .rule, .footer { width: min(var(--max), calc(100% - 3rem)); margin-inline: auto; } .topbar { display: flex; align-items: center; justify-content: space-between; gap: 2rem; padding-top: 2.25rem; } .brand { font-family: "Instrument Serif", Georgia, serif; font-size: 1.2rem; font-style: italic; color: var(--accent); } .nav { display: flex; gap: clamp(1rem, 4vw, 1.75rem); color: var(--muted); font-size: 0.72rem; letter-spacing: 0.18em; text-transform: uppercase; } .nav a, .footer a { transition: color 180ms ease; } .nav a:hover, .footer a:hover { color: var(--accent); } .hero { display: grid; grid-template-columns: minmax(0, 8fr) minmax(13rem, 4fr); gap: clamp(2.25rem, 5.5vw, 4rem); align-items: start; padding-block: clamp(4rem, 9vw, 6.25rem); } .hero-copy { max-width: 38rem; } .eyebrow, .section-heading p, .footer, figcaption { color: var(--muted); font-size: 0.72rem; letter-spacing: 0.22em; text-transform: uppercase; } .eyebrow, .section-heading p { color: var(--accent-2); } .hero h1 { margin: 1.25rem 0 0; color: var(--ink); font-family: "Instrument Serif", Georgia, serif; font-size: clamp(2rem, 4.4vw, 3rem); font-weight: 400; letter-spacing: -0.04em; line-height: 0.98; } .hero h1 em { font-style: italic; color: var(--accent); } .intro { max-width: 32rem; margin-top: 1.8rem; color: var(--muted); font-size: clamp(1rem, 2vw, 1.08rem); line-height: 1.75; } .intro a, .bio-copy a { color: var(--ink); background-image: linear-gradient(var(--accent-2), var(--accent-2)); background-repeat: no-repeat; background-position: 0 100%; background-size: 100% 1px; } .portrait-wrap { margin: 0; justify-self: end; width: min(100%, 15rem); padding: 0.8rem; border: 1px solid rgba(255, 255, 255, 0.72); border-radius: 1.35rem; background: linear-gradient(180deg, rgba(255, 255, 255, 0.9), rgba(243, 248, 252, 0.82)); box-shadow: var(--shadow); } .portrait { display: block; width: 100%; aspect-ratio: 4 / 5; height: auto; object-fit: cover; border-radius: 0.95rem; filter: saturate(1.08) contrast(1.03); } figcaption { margin-top: 0.75rem; letter-spacing: 0.18em; color: var(--accent-2); } .rule { height: 1px; background: linear-gradient(90deg, transparent, var(--rule) 10%, var(--rule) 90%, transparent); } .section { display: grid; grid-template-columns: minmax(11rem, 4fr) minmax(0, 8fr); gap: clamp(2.5rem, 6vw, 4rem); padding-block: clamp(4.5rem, 9vw, 6.25rem); } .section-heading { align-self: start; position: sticky; top: 2.25rem; } .section-heading h2 { margin: 0.7rem 0 0; color: var(--ink); font-family: "Instrument Serif", Georgia, serif; font-size: clamp(1.55rem, 3.2vw, 2rem); font-weight: 400; letter-spacing: -0.03em; line-height: 1; } .bio-copy { display: grid; gap: 1.35rem; color: var(--ink); font-family: "Instrument Serif", Georgia, serif; font-size: clamp(1.02rem, 1.6vw, 1.15rem); line-height: 1.42; } .bio-copy p { margin: 0; } .bio-copy a { font-style: italic; text-underline-offset: 0.35em; } .link-list { margin: 0; padding: 0; list-style: none; border-block: 1px solid var(--rule); } .link-list li + li { border-top: 1px solid var(--rule); } .link-list a { display: flex; align-items: baseline; justify-content: space-between; gap: 1.5rem; padding: 1rem 0; transition: background-color 180ms ease, padding-inline 180ms ease, color 180ms ease; } .link-list a:hover { background: color-mix(in oklab, var(--muted-bg) 84%, white); padding-inline: 0.7rem; } .link-list a:hover span { color: var(--accent); } .link-list span { color: var(--ink); font-family: "Instrument Serif", Georgia, serif; font-size: clamp(1.05rem, 2vw, 1.25rem); letter-spacing: -0.02em; transition: color 180ms ease; } .link-list small { flex: none; color: var(--accent-2); font-size: 0.72rem; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; } .footer { display: flex; justify-content: space-between; gap: 1rem; border-top: 1px solid var(--rule); padding-block: 1.8rem 2.75rem; letter-spacing: 0.18em; } @media (max-width: 760px) { .topbar { align-items: flex-start; } .nav { flex-wrap: wrap; justify-content: flex-end; } .hero, .section { grid-template-columns: 1fr; } .hero { padding-block: 3.5rem 4.5rem; } .portrait-wrap { justify-self: start; width: min(100%, 13.5rem); } .section-heading { position: static; } .link-list a, .footer { align-items: flex-start; flex-direction: column; } }
+
+:root { color-scheme: light; }
+body { min-height: 100vh; }
+.topbar { padding-bottom: 0.65rem; }
+.nav a[aria-current="page"] { color: var(--accent); }
+.hero.article-hero { padding-block: clamp(4.25rem, 8vw, 6.5rem) clamp(3.75rem, 7vw, 5.5rem); }
+.hero-copy { max-width: 42rem; }
+.hero h1 { font-size: clamp(2.65rem, 6.4vw, 5.75rem); max-width: 8.8em; }
+.hero h1 .accent { color: var(--accent); font-style: italic; }
+.intro { max-width: 41rem; }
+.intro p { margin: 0 0 1.1rem; }
+.intro p:first-child { color: var(--ink); font-family: "Instrument Serif", Georgia, serif; font-size: clamp(1.25rem, 2.4vw, 1.6rem); line-height: 1.35; }
+.essay-card { margin: 0; justify-self: end; align-self: stretch; width: min(100%, 17rem); padding: 1.25rem; border: 1px solid rgba(255, 255, 255, 0.72); border-radius: 1.35rem; background: linear-gradient(180deg, rgba(255, 255, 255, 0.9), rgba(243, 248, 252, 0.82)); box-shadow: var(--shadow); }
+.essay-card .mark { color: var(--accent); font-family: "Instrument Serif", Georgia, serif; font-size: 4rem; line-height: 0.7; }
+.essay-card p { margin: 1rem 0 0; color: var(--ink); font-family: "Instrument Serif", Georgia, serif; font-size: 1.25rem; line-height: 1.24; }
+.essay-card small { display: block; margin-top: 1.2rem; color: var(--accent-2); font-size: 0.72rem; letter-spacing: 0.18em; text-transform: uppercase; }
+.prose { min-width: 0; }
+.prose > * { min-width: 0; }
+.prose p { text-wrap: pretty; }
+.prose ul, .prose ol { margin: 0; padding-left: 1.2rem; }
+.prose li { padding-left: 0.2rem; }
+.prose li + li { margin-top: 0.45rem; }
+.prose strong { color: var(--ink); }
+.prose em { color: color-mix(in oklab, var(--ink) 86%, var(--accent)); }
+.prose table { width: 100%; border-collapse: collapse; overflow: hidden; border-radius: 1rem; background: rgba(255, 255, 255, 0.42); box-shadow: inset 0 0 0 1px var(--rule); font-family: Inter, ui-sans-serif, system-ui, sans-serif; font-size: 0.94rem; line-height: 1.55; }
+.prose thead { background: color-mix(in oklab, var(--muted-bg) 84%, white); }
+.prose th, .prose td { padding: 0.85rem 0.95rem; border-bottom: 1px solid var(--rule); text-align: left; vertical-align: top; }
+.prose tr:last-child td { border-bottom: 0; }
+.prose th { color: var(--accent-2); font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase; }
+.prose td:first-child { width: 34%; color: var(--ink); }
+.prose code { border: 1px solid color-mix(in oklab, var(--rule) 80%, white); border-radius: 0.35rem; background: color-mix(in oklab, var(--muted-bg) 76%, white); padding: 0.12em 0.35em; font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace; font-size: 0.88em; }
+.prose pre { margin: 0; overflow-x: auto; border: 1px solid var(--rule); border-radius: 1.05rem; background: color-mix(in oklab, var(--muted-bg) 83%, white); padding: 1rem 1.1rem; box-shadow: var(--shadow); }
+.prose pre code { display: block; border: 0; background: transparent; padding: 0; color: var(--ink); font-size: 0.83rem; line-height: 1.55; }
+.prose blockquote { margin: 0; border-left: 2px solid var(--accent); padding-left: 1rem; color: var(--muted); }
+.prose hr { width: 100%; height: 1px; border: 0; background: var(--rule); }
+.footer { margin-top: 1.5rem; }
+.skip-link { position: absolute; left: -999px; top: 1rem; padding: 0.7rem 0.9rem; background: var(--ink); color: white; border-radius: 0.5rem; z-index: 10; }
+.skip-link:focus { left: 1rem; }
+@media print {
+  body { background: white; }
+  .topbar, .essay-card, .footer { display: none; }
+  .hero, .section { width: auto; display: block; padding: 1.25rem 0; }
+  .section-heading { position: static; }
+}
+@media (max-width: 760px) {
+  .hero h1 { font-size: clamp(2.35rem, 14vw, 4.2rem); }
+  .essay-card { justify-self: start; width: min(100%, 18rem); }
+  .prose table { display: block; overflow-x: auto; }
+}
+
+  </style>
+</head>
+<body id="top">
+<a class="skip-link" href="#content">Skip to content</a>
+<header aria-label="Site header" class="topbar">
+<a class="brand" href="https://josd.github.io/" rel="author">jdr</a>
+<nav aria-label="Page sections" class="nav">
+<a href="#top">Top</a>
+<a href="#the-core-intuition">Core</a>
+<a href="#a-glossary-without-the-fog">Glossary</a>
+<a href="#sources-and-orientation">Sources</a>
+</nav>
+</header>
+<main id="content">
+<section aria-labelledby="page-title" class="hero article-hero">
+<div class="hero-copy">
+<p class="eyebrow">Whiteheadian map · Science · Experience · Hope</p>
+<h1 id="page-title">A World <span class="accent">Becoming</span></h1>
+<div class="intro">
+<p><em>A Whiteheadian map of reality for science, experience, and hope.</em></p>
+<p>The world is not first a collection of finished things. It is a becoming.</p>
+<p>We speak of stones, trees, stars, cells, persons, memories, cities, and machines as if they were self-contained objects. That language is useful. It lets us count, compare, measure, build, and reason. But it can also deceive us. It tempts us to think that reality is made of inert blocks, with motion, life, mind, beauty, and value added afterward.</p>
+<p>Whitehead asks us to reverse the picture. The basic fact is not a thing that later changes. The basic fact is an event of becoming: a momentary act in which the world already given is received, felt, selected, integrated, and answered. What endures is not a hard substance hiding behind change. What endures is a pattern of inheritance, a society of events that keeps a recognizable rhythm across time.</p>
+<p>A stone is a disciplined society of physical happenings. A tree is an historical adventure of cells, light, water, air, soil, and inherited form. A person is not a machine containing a ghost; a person is a living route of occasions in which the world remembers, suffers, imagines, judges, and responds.</p>
+<p>Reality is not dead matter with experience accidentally attached. Reality is experience in many grades of intensity, from dim physical feeling to conscious reflection.</p>
+</div>
+</div>
+<aside aria-label="Central idea" class="essay-card">
+<div aria-hidden="true" class="mark">“</div>
+<p>The many become one, and are increased by one.</p>
+<small>Process and Reality</small>
+</aside>
+</section>
+<div aria-hidden="true" class="rule"></div>
+<section aria-labelledby="heading-the-core-intuition" class="section" id="the-core-intuition">
+<div class="section-heading">
+<p>01 — Section</p>
+<h2 id="heading-the-core-intuition">The core intuition</h2>
+</div>
+<div class="bio-copy prose">
+<p>Whitehead’s philosophy is often difficult because it is not merely adding new terms to an old worldview. It is changing the grammar of reality.</p>
+<p>Instead of asking, “What are the ultimate things?” it asks, “How does anything become actual?”</p>
+<p>Instead of treating relations as secondary links between independent objects, it treats relatedness as internal to the birth of every actual fact.</p>
+<p>Instead of putting value in a private mental realm, it places valuation inside the process by which the world becomes definite.</p>
+<p>Instead of separating nature into two worlds — measurable nature and lived experience — it tries to think one world large enough for physics, biology, perception, memory, purpose, beauty, suffering, and hope.</p>
+</div>
+</section>
+<div aria-hidden="true" class="rule"></div>
+<section aria-labelledby="heading-the-movement-of-an-occasion" class="section" id="the-movement-of-an-occasion">
+<div class="section-heading">
+<p>02 — Section</p>
+<h2 id="heading-the-movement-of-an-occasion">The movement of an occasion</h2>
+</div>
+<div class="bio-copy prose">
+<p>Every actual moment begins with inheritance. It does not create itself from nothing. It receives a past: physical conditions, traces, habits, patterns, pressures, memories, possibilities already made relevant by the world it inherits.</p>
+<p>But reception is not repetition. Each moment must gather its many givens into one definite act. It must simplify, emphasize, exclude, harmonize, and contrast. It must become this rather than that. In Whitehead’s phrase: “The many become one, and are increased by one.”</p>
+<p>That is the pulse of reality:</p>
+<pre><code>past actual world
+        ↓
+prehension: feeling what is given
+        ↓
+conceptual valuation: entertaining what could be
+        ↓
+subjective aim: seeking a form of intensity, harmony, or contrast
+        ↓
+satisfaction: becoming one definite fact
+        ↓
+objective inheritance: becoming available to future occasions
+</code></pre>
+<p>The present is therefore not a razor-thin boundary between a fixed past and an empty future. It is an act of composition. The present gathers the many into one, and that one then joins the many from which the next world will be made.</p>
+</div>
+</section>
+<div aria-hidden="true" class="rule"></div>
+<section aria-labelledby="heading-a-glossary-without-the-fog" class="section" id="a-glossary-without-the-fog">
+<div class="section-heading">
+<p>03 — Section</p>
+<h2 id="heading-a-glossary-without-the-fog">A glossary without the fog</h2>
+</div>
+<div class="bio-copy prose">
+<table>
+<thead>
+<tr>
+<th>Whitehead’s word</th>
+<th>Plain sense</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Actual occasion</strong></td>
+<td>A basic event of becoming; a momentary act of actuality.</td>
+</tr>
+<tr>
+<td><strong>Actual entity</strong></td>
+<td>Another name for an actual occasion; the final real unit in the scheme.</td>
+</tr>
+<tr>
+<td><strong>Prehension</strong></td>
+<td>A concrete taking-account-of: feeling, inheriting, or excluding something.</td>
+</tr>
+<tr>
+<td><strong>Concrescence</strong></td>
+<td>The process by which many data become one actual fact.</td>
+</tr>
+<tr>
+<td><strong>Satisfaction</strong></td>
+<td>The completed definiteness of an occasion; its settled outcome.</td>
+</tr>
+<tr>
+<td><strong>Eternal object</strong></td>
+<td>A pure potential: a form, quality, pattern, contrast, number, color, tone, or possibility of definiteness.</td>
+</tr>
+<tr>
+<td><strong>Nexus</strong></td>
+<td>A connected togetherness of actual occasions.</td>
+</tr>
+<tr>
+<td><strong>Society</strong></td>
+<td>A nexus with inherited order, able to sustain a recognizable pattern through time.</td>
+</tr>
+<tr>
+<td><strong>Subjective aim</strong></td>
+<td>The inward lure by which an occasion seeks its own best achievable form.</td>
+</tr>
+<tr>
+<td><strong>Objective immortality</strong></td>
+<td>The way what has happened perishes as immediacy but remains as influence for what follows.</td>
+</tr>
+<tr>
+<td><strong>God</strong></td>
+<td>Not an external ruler interrupting events, but the primordial ordering of possibility and the consequent reception of the world’s actual history.</td>
+</tr>
+</tbody>
+</table>
+<p>These terms are not meant to decorate ordinary speech. They are meant to rescue ordinary experience from being explained away.</p>
+</div>
+</section>
+<div aria-hidden="true" class="rule"></div>
+<section aria-labelledby="heading-science-abstraction-and-the-danger-of-a-thin-world" class="section" id="science-abstraction-and-the-danger-of-a-thin-world">
+<div class="section-heading">
+<p>04 — Section</p>
+<h2 id="heading-science-abstraction-and-the-danger-of-a-thin-world">Science, abstraction, and the danger of a thin world</h2>
+</div>
+<div class="bio-copy prose">
+<p>Science works because the world has structure. It has repeatable patterns, mathematical relations, measurable contrasts, and stable societies of events. Without order, no experiment could be repeated. Without abstraction, no law could be stated.</p>
+<p>But abstraction is a selective instrument. A formula illuminates by leaving things out. A model succeeds by focusing attention. A measurement makes a difference comparable by narrowing the question.</p>
+<p>The danger begins when we mistake the abstraction for the concrete fact. Wavelengths are real, but a sunset is not exhausted by wavelengths. Neural chemistry is real, but sorrow is not exhausted by chemistry. Economic numbers are real, but a civilization is not exhausted by production, consumption, and growth.</p>
+<p>The concrete world is richer than any single mode of description. Science gives indispensable abstractions from the world. It does not replace the world.</p>
+</div>
+</section>
+<div aria-hidden="true" class="rule"></div>
+<section aria-labelledby="heading-experience-is-not-a-late-accident" class="section" id="experience-is-not-a-late-accident">
+<div class="section-heading">
+<p>05 — Section</p>
+<h2 id="heading-experience-is-not-a-late-accident">Experience is not a late accident</h2>
+</div>
+<div class="bio-copy prose">
+<p>Modern thought often begins with a lonely subject looking out at an external world. Whitehead begins elsewhere. Experience does not start as detached knowledge. It starts as causal inheritance, bodily feeling, vague orientation, appetite, aversion, rhythm, memory, and concern.</p>
+<p>Consciousness is a high, rare, and precious form of experience, but it is not the root of experience. Long before reflective thought, the world is already feeling its way forward. A cell responds. A body adjusts. A habit persists. A melody resolves. A community remembers. A wound shapes perception. A hope reorders action.</p>
+<p>Human thinking is not a detached light shining on a foreign universe. It is one of the ways the universe becomes lucid within itself.</p>
+</div>
+</section>
+<div aria-hidden="true" class="rule"></div>
+<section aria-labelledby="heading-possibility-is-real" class="section" id="possibility-is-real">
+<div class="section-heading">
+<p>06 — Section</p>
+<h2 id="heading-possibility-is-real">Possibility is real</h2>
+</div>
+<div class="bio-copy prose">
+<p>The world is not only what has already happened. It is also haunted and guided by what could become actual.</p>
+<p>A mathematical form, a shade of color, a just arrangement, a musical interval, a possible sentence, a gesture of forgiveness, a new scientific theory: these are not actual events by themselves. They are potentials for definiteness. They can enter the world when an actual occasion gives them concrete relevance.</p>
+<p>Without actuality, possibility is empty. Without possibility, actuality merely repeats. A living world requires both inheritance and novelty: the weight of the past and the lure of what may yet be formed.</p>
+</div>
+</section>
+<div aria-hidden="true" class="rule"></div>
+<section aria-labelledby="heading-value-belongs-to-reality" class="section" id="value-belongs-to-reality">
+<div class="section-heading">
+<p>07 — Section</p>
+<h2 id="heading-value-belongs-to-reality">Value belongs to reality</h2>
+</div>
+<div class="bio-copy prose">
+<p>Whitehead’s universe is aesthetic before it is merely mechanical. This does not mean that it is pretty or sentimental. It means that every act of becoming involves selection, emphasis, contrast, harmony, intensity, and loss.</p>
+<p>To become definite is to say yes to some possibilities and no to others. Every actual fact is a decision. Every decision simplifies the world and adds something to it. Every addition becomes part of the inheritance of the future.</p>
+<p>Truth matters because it deepens contact with reality. Beauty matters because it intensifies harmony and contrast. Goodness matters because it enlarges the possibilities of experience for others. Reason matters because it helps life find forms of order that are richer, freer, and less destructive.</p>
+<p>A civilization is not great because it accumulates power. It is great when it increases the depth, tenderness, intelligence, freedom, and beauty of experience.</p>
+</div>
+</section>
+<div aria-hidden="true" class="rule"></div>
+<section aria-labelledby="heading-god-and-the-world" class="section" id="god-and-the-world">
+<div class="section-heading">
+<p>08 — Section</p>
+<h2 id="heading-god-and-the-world">God and the world</h2>
+</div>
+<div class="bio-copy prose">
+<p>In this vision, God is not the supreme exception to the metaphysical order. God is part of the order’s deepest intelligibility.</p>
+<p>God is not a coercive engineer standing outside the cosmos. God does not replace creaturely becoming. God does not make freedom unreal. God is the primordial valuation of possibilities: the ordering by which each situation receives a relevant lure toward richer actuality.</p>
+<p>But God is also affected by the world. The world’s joys, failures, sufferings, beauties, and tragedies are not lost. They are received into a consequent life in which what perishes in time is preserved as meaning.</p>
+<p>Thus the relation between God and the world is mutual, not one-sided. The world receives possibility from God; God receives actuality from the world. Permanence and flux, order and novelty, vision and fact are not enemies. They require each other.</p>
+</div>
+</section>
+<div aria-hidden="true" class="rule"></div>
+<section aria-labelledby="heading-perishing-and-hope" class="section" id="perishing-and-hope">
+<div class="section-heading">
+<p>09 — Section</p>
+<h2 id="heading-perishing-and-hope">Perishing and hope</h2>
+</div>
+<div class="bio-copy prose">
+<p>Every occasion perishes. It cannot remain as immediate experience. The moment of becoming completes itself and passes away.</p>
+<p>But perishing is not simple disappearance. What has become actual is now stubbornly part of the world’s inheritance. It can be remembered, repeated, healed, intensified, transformed, or resisted. It becomes datum, condition, warning, resource, wound, promise.</p>
+<p>This is the seriousness of existence. Nothing is merely private. Nothing is wholly without consequence. Each act, however small, helps shape the world that later acts must inherit.</p>
+<p>Hope does not mean that everything will be safe. A world capable of novelty is a world capable of tragedy. Freedom makes beauty possible, but it also makes waste possible. The open future is not guaranteed.</p>
+<p>Hope means that the world is not closed. The past is powerful, but not absolute. Every moment receives what has been given and answers it. Every life can introduce a new contrast, a new tenderness, a new clarity, a new refusal, a new form of courage.</p>
+</div>
+</section>
+<div aria-hidden="true" class="rule"></div>
+<section aria-labelledby="heading-the-practical-metaphysics-of-becoming" class="section" id="the-practical-metaphysics-of-becoming">
+<div class="section-heading">
+<p>10 — Section</p>
+<h2 id="heading-the-practical-metaphysics-of-becoming">The practical metaphysics of becoming</h2>
+</div>
+<div class="bio-copy prose">
+<p>To live Whitehead’s insight is to practice attention.</p>
+<p>Look for events, not only objects. Look for relations, not only isolated units. Look for histories, not only present states. Look for potentials, not only facts. Look for value, not only mechanism. Look for the way your own response becomes part of the future’s material.</p>
+<p>A question, then, is never only: What is this thing?</p>
+<p>It is also:</p>
+<ul>
+<li>What past does it inherit?</li>
+<li>What relations compose it?</li>
+<li>What possibilities are active here?</li>
+<li>What is being excluded?</li>
+<li>What form of intensity is being sought?</li>
+<li>What will this become for others?</li>
+</ul>
+<p>The world is not a finished structure. It is a continuing act. We do not stand outside it and look in. We arise within it. We inherit it. We feel it. We shape it.</p>
+<p>To live is to take part in this becoming.</p>
+</div>
+</section>
+<div aria-hidden="true" class="rule"></div>
+<section aria-labelledby="heading-sources-and-orientation" class="section" id="sources-and-orientation">
+<div class="section-heading">
+<p>11 — Section</p>
+<h2 id="heading-sources-and-orientation">Sources and orientation</h2>
+</div>
+<div class="bio-copy prose">
+<p>This page is a free, plain-language meditation inspired by Alfred North Whitehead’s <em>Process and Reality: An Essay in Cosmology</em>, especially its accounts of actual occasions, prehension, concrescence, creativity, eternal objects, subjective aim, objective immortality, and God and the world.</p>
+<p>Primary source: Alfred North Whitehead, <em>Process and Reality</em>, corrected edition, edited by David Ray Griffin and Donald W. Sherburne.</p>
+</div>
+</section>
+</main>
+<footer class="footer">
+<span>© Jos De Roo</span>
+<a href="#top">Back to top ↑</a>
+</footer>
+</body>
+</html>
