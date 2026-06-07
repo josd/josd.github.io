@@ -19,6 +19,7 @@ sudo ln -sf ~/github.com/eyereasoner/eyesharl/eyesharl.js /usr/local/bin/eyeshar
 sudo ln -sf ~/github.com/eyereasoner/lingua/lingua /usr/local/bin
 sudo ln -sf ~/github.com/eyereasoner/lingua/mklingua /usr/local/bin
 sudo ln -sf ~/github.com/eyereasoner/rdfsurfaces-tests/script/rs2fol.sh /usr/local/bin/rs2fol
+sudo ln -sf ~/github.com/eyereasoner/see/bin/see.mjs /usr/local/bin/see
 sudo ln -sf ~/github.com/josd/josd.github.io/temp/cwm /usr/local/bin
 sudo ln -sf ~/github.com/josd/josd.github.io/temp/card /usr/local/bin
 sudo ln -sf ~/github.com/josd/josd.github.io/temp/f /usr/local/bin
