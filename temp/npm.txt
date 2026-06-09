@@ -1,10 +1,10 @@
 npm login
 npm publish
 
-After the first manual publish, go to npmjs.com → see-reasoner → Settings → Trusted publishing, and configure:
+After the first manual publish, go to npmjs.com → eyelang → Settings → Trusted publishing, and configure:
 
 Provider: GitHub Actions
 Organization/user: eyereasoner
-Repository: see
+Repository: eyelang
 Workflow filename: publish-npm.yml
 Allowed action: npm publish
