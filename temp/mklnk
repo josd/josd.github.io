@@ -14,7 +14,6 @@ sudo ln -sf ~/github.com/eyereasoner/eyelet/eyelet-scryer /usr/local/bin
 sudo ln -sf ~/github.com/eyereasoner/eyelet/eyelet-trealla /usr/local/bin
 sudo ln -sf ~/github.com/eyereasoner/eyelet/mkeyelet /usr/local/bin
 sudo ln -sf ~/github.com/eyereasoner/eyeling/bin/eyeling.cjs /usr/local/bin/eyeling
-sudo ln -sf ~/github.com/eyereasoner/eyelang/bin/eyelang.js /usr/local/bin/eyelang
 sudo ln -sf ~/github.com/eyereasoner/eyesharl/eyesharl.js /usr/local/bin/eyesharl
 sudo ln -sf ~/github.com/eyereasoner/lingua/lingua /usr/local/bin
 sudo ln -sf ~/github.com/eyereasoner/lingua/mklingua /usr/local/bin
@@ -54,6 +53,7 @@ sudo ln -sf ~/github.com/josd/josd.github.io/temp/n32s /usr/local/bin
 sudo ln -sf ~/github.com/josd/josd.github.io/temp/n3s2s /usr/local/bin
 sudo ln -sf ~/github.com/josd/josd.github.io/temp/nh /usr/local/bin
 sudo ln -sf ~/github.com/josd/josd.github.io/temp/o /usr/local/bin
+sudo ln -sf ~/github.com/josd/josd.github.io/temp/p /usr/local/bin
 sudo ln -sf ~/github.com/josd/josd.github.io/temp/pn /usr/local/bin
 sudo ln -sf ~/github.com/josd/josd.github.io/temp/rdfn3s2s /usr/local/bin
 sudo ln -sf ~/github.com/josd/josd.github.io/temp/rsa /usr/local/bin

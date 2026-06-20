@@ -1,0 +1,1 @@
+can you write a git commit -am ... command and a npm version patch -m ... command since you did it the last time
