@@ -5,331 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>A World Becoming</title>
   <meta name="description" content="A Whiteheadian map of reality for science, experience, and hope.">
-  <style>
-    :root {
-      --bg: #f2f7f3;
-      --ink: #14221b;
-      --muted: #51645a;
-      --line: #cddbd2;
-      --panel: #ffffffcc;
-      --accent: #3d7b63;
-      --accent-soft: #dceee7;
-      --table: #e8f4ef;
-      --table-line: #c1d9ce;
-    }
-
-    * {
-      box-sizing: border-box;
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
-
-    body {
-      margin: 0;
-      background:
-        radial-gradient(circle at top left, #e2f1e9 0, transparent 34rem),
-        var(--bg);
-      color: var(--ink);
-      font: 18px/1.65 Georgia, "Times New Roman", serif;
-    }
-
-    a {
-      color: #235f49;
-      text-decoration-thickness: 0.08em;
-      text-underline-offset: 0.16em;
-    }
-
-    a:hover {
-      color: #123f30;
-    }
-
-    .skip-link {
-      position: absolute;
-      left: 1rem;
-      top: 0.5rem;
-      transform: translateY(-150%);
-      padding: 0.5rem 0.75rem;
-      background: var(--ink);
-      color: white;
-      border-radius: 0.4rem;
-      z-index: 10;
-    }
-
-    .skip-link:focus {
-      transform: translateY(0);
-    }
-
-    header {
-      border-bottom: 1px solid var(--line);
-      background: #f8fbf8cc;
-      backdrop-filter: blur(10px);
-      position: sticky;
-      top: 0;
-      z-index: 5;
-    }
-
-    nav {
-      max-width: 68rem;
-      margin: 0 auto;
-      padding: 0.75rem 1.25rem;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 1rem;
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      font-size: 0.9rem;
-    }
-
-    nav .brand {
-      font-weight: 700;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      text-decoration: none;
-    }
-
-    nav .links {
-      display: flex;
-      gap: 0.9rem;
-      flex-wrap: wrap;
-      justify-content: flex-end;
-    }
-
-    nav .links a {
-      text-decoration: none;
-      color: var(--muted);
-    }
-
-    nav .links a:hover {
-      color: var(--ink);
-    }
-
-    main {
-      max-width: 68rem;
-      margin: 0 auto;
-      padding: 3.5rem 1.25rem 5rem;
-    }
-
-    .hero {
-      padding: 3rem 0 3.5rem;
-      border-bottom: 1px solid var(--line);
-    }
-
-    .kicker {
-      margin: 0 0 0.8rem;
-      color: var(--muted);
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      font-size: 0.82rem;
-    }
-
-    h1 {
-      margin: 0;
-      font-size: clamp(2.5rem, 7vw, 5rem);
-      line-height: 0.95;
-      letter-spacing: -0.045em;
-    }
-
-    .subtitle {
-      margin: 1.2rem 0 0;
-      max-width: 44rem;
-      color: var(--muted);
-      font-size: 1.25rem;
-    }
-
-    .lead {
-      margin-top: 2.5rem;
-      max-width: 50rem;
-      font-size: 1.28rem;
-    }
-
-    blockquote {
-      margin: 2rem 0 0;
-      padding: 1.4rem 1.6rem;
-      border-left: 0.35rem solid var(--accent);
-      background: var(--accent-soft);
-      font-size: 1.22rem;
-    }
-
-    blockquote p {
-      margin: 0;
-    }
-
-    blockquote cite {
-      display: block;
-      margin-top: 0.75rem;
-      color: var(--muted);
-      font-size: 0.92rem;
-      font-style: normal;
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-    }
-
-    section {
-      padding: 3.5rem 0;
-      border-bottom: 1px solid var(--line);
-    }
-
-    .section-label {
-      margin: 0 0 0.5rem;
-      color: var(--accent);
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      font-size: 0.8rem;
-      font-weight: 700;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-    }
-
-    h2 {
-      margin: 0 0 1.35rem;
-      font-size: clamp(1.75rem, 4vw, 2.75rem);
-      line-height: 1.08;
-      letter-spacing: -0.03em;
-    }
-
-    p {
-      max-width: 54rem;
-      margin: 1rem 0;
-    }
-
-    .pulse {
-      max-width: 34rem;
-      margin: 1.8rem 0;
-      padding: 1.25rem 1.5rem;
-      background: var(--panel);
-      border: 1px solid var(--line);
-      border-radius: 1rem;
-      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
-      font-size: 0.92rem;
-      line-height: 1.5;
-      white-space: pre-wrap;
-    }
-
-    .glossary {
-      max-width: 58rem;
-      display: grid;
-      grid-template-columns: minmax(10rem, 0.8fr) minmax(0, 2fr);
-      gap: 0;
-      border: 1px solid var(--line);
-      border-radius: 1rem;
-      overflow: hidden;
-      background: var(--panel);
-    }
-
-    .glossary dt,
-    .glossary dd {
-      margin: 0;
-      padding: 0.75rem 1rem;
-      border-bottom: 1px solid var(--line);
-    }
-
-    .glossary dt {
-      font-weight: 700;
-      background: #edf6f1;
-    }
-
-    .glossary dd {
-      border-left: 1px solid var(--line);
-    }
-
-    .glossary dt:last-of-type,
-    .glossary dd:last-of-type {
-      border-bottom: 0;
-    }
-
-    .scale-table {
-      max-width: 54rem;
-      margin: 1.8rem 0;
-      border-collapse: collapse;
-      background: var(--table);
-      border: 1px solid var(--table-line);
-      border-radius: 1rem;
-      overflow: hidden;
-      display: block;
-    }
-
-    .scale-table tbody {
-      display: table;
-      width: 100%;
-      border-collapse: collapse;
-    }
-
-    .scale-table th,
-    .scale-table td {
-      padding: 0.85rem 1rem;
-      border-bottom: 1px solid var(--table-line);
-      vertical-align: top;
-      text-align: left;
-    }
-
-    .scale-table tr:last-child th,
-    .scale-table tr:last-child td {
-      border-bottom: 0;
-    }
-
-    .scale-table th {
-      width: 15rem;
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      font-size: 0.95rem;
-      color: #294437;
-      background: #dceee7;
-    }
-
-    .scale-table td {
-      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
-      font-size: 0.95rem;
-    }
-
-    ul {
-      max-width: 44rem;
-    }
-
-    li + li {
-      margin-top: 0.45rem;
-    }
-
-    footer {
-      max-width: 68rem;
-      margin: 0 auto;
-      padding: 2rem 1.25rem 3rem;
-      color: var(--muted);
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      font-size: 0.9rem;
-    }
-
-    @media (max-width: 700px) {
-      body {
-        font-size: 17px;
-      }
-
-      nav {
-        align-items: flex-start;
-        flex-direction: column;
-      }
-
-      .glossary {
-        grid-template-columns: 1fr;
-      }
-
-      .glossary dd {
-        border-left: 0;
-      }
-
-      .scale-table,
-      .scale-table tbody,
-      .scale-table tr,
-      .scale-table th,
-      .scale-table td {
-        display: block;
-        width: 100%;
-      }
-
-      .scale-table th {
-        border-bottom: 0;
-      }
-    }
-  </style>
+  <link rel="stylesheet" href="style.css">
 </head>
 
 <body id="top">
@@ -412,40 +88,60 @@ objective inheritance: becoming available to future occasions</div>
         <p class="section-label">03 — Section</p>
         <h2>A glossary without the fog</h2>
 
-        <dl class="glossary">
-          <dt>Actual occasion</dt>
-          <dd>A basic event of becoming; a momentary act of actuality.</dd>
-
-          <dt>Actual entity</dt>
-          <dd>Another name for an actual occasion; the final real unit in the scheme.</dd>
-
-          <dt>Prehension</dt>
-          <dd>A concrete taking-account-of: feeling, inheriting, or excluding something.</dd>
-
-          <dt>Concrescence</dt>
-          <dd>The process by which many data become one actual fact.</dd>
-
-          <dt>Satisfaction</dt>
-          <dd>The completed definiteness of an occasion; its settled outcome.</dd>
-
-          <dt>Eternal object</dt>
-          <dd>A pure potential: a form, quality, pattern, contrast, number, color, tone, or possibility of definiteness.</dd>
-
-          <dt>Nexus</dt>
-          <dd>A connected togetherness of actual occasions.</dd>
-
-          <dt>Society</dt>
-          <dd>A nexus with inherited order, able to sustain a recognizable pattern through time.</dd>
-
-          <dt>Subjective aim</dt>
-          <dd>The inward lure by which an occasion seeks its own best achievable form.</dd>
-
-          <dt>Objective immortality</dt>
-          <dd>The way what has happened perishes as immediacy but remains as influence for what follows.</dd>
-
-          <dt>God</dt>
-          <dd>Not an external ruler interrupting events, but the primordial ordering of possibility and the consequent reception of the world’s actual history.</dd>
-        </dl>
+        <table class="glossary">
+          <thead>
+            <tr>
+              <th>Whitehead’s word</th>
+              <th>Plain sense</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Actual occasion</td>
+              <td>A basic event of becoming; a momentary act of actuality.</td>
+            </tr>
+            <tr>
+              <td>Actual entity</td>
+              <td>Another name for an actual occasion; the final real unit in the scheme.</td>
+            </tr>
+            <tr>
+              <td>Prehension</td>
+              <td>A concrete taking-account-of: feeling, inheriting, or excluding something.</td>
+            </tr>
+            <tr>
+              <td>Concrescence</td>
+              <td>The process by which many data become one actual fact.</td>
+            </tr>
+            <tr>
+              <td>Satisfaction</td>
+              <td>The completed definiteness of an occasion; its settled outcome.</td>
+            </tr>
+            <tr>
+              <td>Eternal object</td>
+              <td>A pure potential: a form, quality, pattern, contrast, number, color, tone, or possibility of definiteness.</td>
+            </tr>
+            <tr>
+              <td>Nexus</td>
+              <td>A connected togetherness of actual occasions.</td>
+            </tr>
+            <tr>
+              <td>Society</td>
+              <td>A nexus with inherited order, able to sustain a recognizable pattern through time.</td>
+            </tr>
+            <tr>
+              <td>Subjective aim</td>
+              <td>The inward lure by which an occasion seeks its own best achievable form.</td>
+            </tr>
+            <tr>
+              <td>Objective immortality</td>
+              <td>The way what has happened perishes as immediacy but remains as influence for what follows.</td>
+            </tr>
+            <tr>
+              <td>God</td>
+              <td>Not an external ruler interrupting events, but the primordial ordering of possibility and the consequent reception of the world’s actual history.</td>
+            </tr>
+          </tbody>
+        </table>
 
         <p>These terms are not meant to decorate ordinary speech. They are meant to rescue ordinary experience from being explained away.</p>
       </section>
@@ -464,18 +160,24 @@ objective inheritance: becoming available to future occasions</div>
 
         <p>One way to feel the strangeness of measurement is to place the smallest and largest scales we usually name on the same logarithmic ruler. The small end is the Planck length: about 1.616255 × 10<sup>−35</sup> m. The large end may be taken as the diameter of the observable universe: about 8.8 × 10<sup>26</sup> m.</p>
 
-        <table class="scale-table">
+        <table class="glossary">
+          <thead>
+            <tr>
+              <th>Scale</th>
+              <th>Approximate size</th>
+            </tr>
+          </thead>
           <tbody>
             <tr>
-              <th scope="row">Planck length</th>
+              <td>Planck length</td>
               <td>1.616255 × 10<sup>−35</sup> m</td>
             </tr>
             <tr>
-              <th scope="row">Observable universe</th>
+              <td>Observable universe</td>
               <td>8.8 × 10<sup>26</sup> m</td>
             </tr>
             <tr>
-              <th scope="row">Logarithmic midpoint</th>
+              <td>Logarithmic midpoint</td>
               <td>
                 √((1.616255 × 10<sup>−35</sup>) × (8.8 × 10<sup>26</sup>))<br>
                 ≈ 1.19 × 10<sup>−4</sup> m<br>
