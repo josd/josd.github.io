@@ -17,6 +17,18 @@ linux_name() {
     ' /etc/os-release 2>/dev/null
 }
 
+is_android_environment() {
+  [[ -n "${ANDROID_ROOT:-}" ]] && return 0
+  [[ -n "${TERMUX_VERSION:-}" ]] && return 0
+  [[ -n "${PROOT_TMP_DIR:-}" ]] && return 0
+  [[ -x /system/bin/getprop ]] && return 0
+  [[ -d /data/data/com.termux ]] && return 0
+
+  grep -qiE 'android|termux|proot' \
+    /proc/version /proc/1/cgroup /proc/self/mountinfo \
+    2>/dev/null
+}
+
 format_link_speed() {
   local speed="$1"
 
@@ -44,18 +56,17 @@ format_link_speed() {
 network_summary() {
   local interface=""
   local state=""
-  local connection_type=""
-  local carrier=""
+  local connection_type="Network"
   local speed=""
   local formatted_speed=""
   local path=""
   local name=""
 
-  # Prefer the interface used by the default IPv4 route.
+  # Default IPv4 route.
   if [[ -r /proc/net/route ]]; then
     interface="$(
       awk '
-        $1 != "Iface" &&
+        NR > 1 &&
         $1 != "lo" &&
         $2 == "00000000" {
           print $1
@@ -65,24 +76,38 @@ network_summary() {
     )"
   fi
 
-  # Fall back to the first active non-loopback interface.
-  if [[ -z "$interface" && -d /sys/class/net ]]; then
-    for path in /sys/class/net/*; do
-      [[ -e "$path" ]] || continue
-
-      name="${path##*/}"
-      [[ "$name" == "lo" ]] && continue
-
-      state="$(cat "$path/operstate" 2>/dev/null)"
-
-      if [[ "$state" == "up" || "$state" == "unknown" ]]; then
-        interface="$name"
-        break
-      fi
-    done
+  # Default IPv6 route.
+  if [[ -z "$interface" && -r /proc/net/ipv6_route ]]; then
+    interface="$(
+      awk '
+        $1 == "00000000000000000000000000000000" &&
+        $2 == "00" &&
+        $10 != "lo" {
+          print $10
+          exit
+        }
+      ' /proc/net/ipv6_route 2>/dev/null
+    )"
   fi
 
-  # Last fallback: any non-loopback interface.
+  # First non-loopback interface exposed through /proc.
+  if [[ -z "$interface" && -r /proc/net/dev ]]; then
+    interface="$(
+      awk -F: '
+        NR > 2 {
+          name = $1
+          gsub(/^[[:space:]]+|[[:space:]]+$/, "", name)
+
+          if (name != "" && name != "lo") {
+            print name
+            exit
+          }
+        }
+      ' /proc/net/dev 2>/dev/null
+    )"
+  fi
+
+  # First non-loopback interface exposed through sysfs.
   if [[ -z "$interface" && -d /sys/class/net ]]; then
     for path in /sys/class/net/*; do
       [[ -e "$path" ]] || continue
@@ -95,23 +120,32 @@ network_summary() {
     done
   fi
 
+  # Android/proot commonly hides host interface information.
   if [[ -z "$interface" ]]; then
-    printf "Disconnected"
+    if is_android_environment; then
+      printf "Host network (interface hidden)"
+    elif [[ -r /etc/resolv.conf ]] &&
+         grep -qE '^[[:space:]]*nameserver[[:space:]]+' \
+           /etc/resolv.conf 2>/dev/null; then
+      printf "Available (interface hidden)"
+    else
+      printf "Unavailable"
+    fi
+
     return
   fi
 
   state="$(
     cat "/sys/class/net/$interface/operstate" 2>/dev/null
   )"
-  state="${state:-unknown}"
 
-  # Some mobile and virtual interfaces report "unknown" while connected.
-  if [[ "$state" == "unknown" ]]; then
-    carrier="$(
+  if [[ -z "$state" ]]; then
+    state="available"
+  elif [[ "$state" == "unknown" &&
+          -r "/sys/class/net/$interface/carrier" ]]; then
+    case "$(
       cat "/sys/class/net/$interface/carrier" 2>/dev/null
-    )"
-
-    case "$carrier" in
+    )" in
       1) state="up" ;;
       0) state="down" ;;
     esac
@@ -124,7 +158,7 @@ network_summary() {
       wl*|wifi*)
         connection_type="Wi-Fi"
         ;;
-      rmnet*|wwan*|ccmni*|pdp*|mobile*)
+      rmnet*|rev_rmnet*|wwan*|ccmni*|pdp*|mobile*)
         connection_type="Mobile"
         ;;
       tun*|tap*|wg*|vpn*)
@@ -135,9 +169,6 @@ network_summary() {
         ;;
       eth*|en*)
         connection_type="Ethernet"
-        ;;
-      *)
-        connection_type="Network"
         ;;
     esac
   fi
@@ -150,10 +181,127 @@ network_summary() {
 
   if [[ -n "$formatted_speed" ]]; then
     printf "%s (%s, %s, %s)" \
-      "$interface" "$connection_type" "$state" "$formatted_speed"
+      "$interface" \
+      "$connection_type" \
+      "$state" \
+      "$formatted_speed"
   else
     printf "%s (%s, %s)" \
-      "$interface" "$connection_type" "$state"
+      "$interface" \
+      "$connection_type" \
+      "$state"
+  fi
+}
+
+gpu_summary() {
+  local gpu=""
+  local file=""
+  local driver=""
+  local property=""
+
+  # OpenGL renderer, when a graphical environment is available.
+  if command -v glxinfo >/dev/null 2>&1; then
+    gpu="$(
+      glxinfo -B 2>/dev/null |
+        awk -F': ' '
+          /OpenGL renderer string/ {
+            print $2
+            exit
+          }
+        '
+    )"
+  fi
+
+  # Vulkan device name.
+  if [[ -z "$gpu" ]] &&
+     command -v vulkaninfo >/dev/null 2>&1; then
+    gpu="$(
+      vulkaninfo --summary 2>/dev/null |
+        awk -F= '
+          /deviceName/ {
+            gsub(/^[[:space:]]+|[[:space:]]+$/, "", $2)
+            print $2
+            exit
+          }
+        '
+    )"
+  fi
+
+  # PCI graphics device.
+  if [[ -z "$gpu" ]] &&
+     command -v lspci >/dev/null 2>&1; then
+    gpu="$(
+      lspci 2>/dev/null |
+        awk -F': ' '
+          /VGA compatible controller|3D controller|Display controller/ {
+            print $2
+            exit
+          }
+        '
+    )"
+  fi
+
+  # Qualcomm/Adreno GPU information.
+  if [[ -z "$gpu" &&
+        -r /sys/class/kgsl/kgsl-3d0/gpu_model ]]; then
+    gpu="$(
+      cat /sys/class/kgsl/kgsl-3d0/gpu_model 2>/dev/null
+    )"
+  fi
+
+  if [[ -z "$gpu" &&
+        -r /sys/class/kgsl/kgsl-3d0/devfreq/name ]]; then
+    gpu="$(
+      cat /sys/class/kgsl/kgsl-3d0/devfreq/name 2>/dev/null
+    )"
+  fi
+
+  # DRM kernel driver.
+  if [[ -z "$gpu" && -d /sys/class/drm ]]; then
+    for file in /sys/class/drm/card*/device/uevent; do
+      [[ -r "$file" ]] || continue
+
+      driver="$(
+        awk -F= '
+          /^DRIVER=/ {
+            print $2
+            exit
+          }
+        ' "$file" 2>/dev/null
+      )"
+
+      if [[ -n "$driver" ]]; then
+        gpu="$driver graphics"
+        break
+      fi
+    done
+  fi
+
+  # Android graphics properties, when accessible.
+  if [[ -z "$gpu" ]]; then
+    for property in \
+      ro.hardware.vulkan \
+      ro.hardware.egl \
+      ro.opengles.version
+    do
+      if command -v getprop >/dev/null 2>&1; then
+        gpu="$(getprop "$property" 2>/dev/null)"
+      elif [[ -x /system/bin/getprop ]]; then
+        gpu="$(
+          /system/bin/getprop "$property" 2>/dev/null
+        )"
+      fi
+
+      [[ -n "$gpu" ]] && break
+    done
+  fi
+
+  if [[ -n "$gpu" ]]; then
+    printf "%s" "$gpu"
+  elif is_android_environment; then
+    printf "Host GPU (not exposed to Ubuntu)"
+  else
+    printf "Not detected"
   fi
 }
 
@@ -191,6 +339,8 @@ environment_summary() {
         environment="$environment on $host"
       fi
     fi
+  elif is_android_environment; then
+    environment="Linux userspace on Android"
   else
     environment="Native Linux"
   fi
@@ -200,10 +350,10 @@ environment_summary() {
 
 cpu="$(
   if command -v lscpu >/dev/null 2>&1; then
-    lscpu |
+    lscpu 2>/dev/null |
       awk -F: '
         /Model name/ {
-          gsub(/^[ \t]+/, "", $2)
+          gsub(/^[[:space:]]+/, "", $2)
           print $2
           exit
         }
@@ -211,7 +361,7 @@ cpu="$(
   else
     awk -F: '
       /model name|Hardware|Processor/ {
-        gsub(/^[ \t]+/, "", $2)
+        gsub(/^[[:space:]]+/, "", $2)
         print $2
         exit
       }
@@ -222,7 +372,7 @@ cpu="$(
 
 cpu_cores="$(
   if command -v nproc >/dev/null 2>&1; then
-    nproc
+    nproc 2>/dev/null
   else
     awk '
       /^processor/ {
@@ -299,21 +449,6 @@ filesystem="$(
 )"
 [[ -z "$filesystem" ]] && filesystem="Unavailable"
 
-gpu="$(
-  if command -v lspci >/dev/null 2>&1; then
-    lspci |
-      awk -F': ' '
-        /VGA compatible controller|3D controller|Display controller/ {
-          print $2
-          exit
-        }
-      '
-  else
-    printf "Unavailable (lspci not found)"
-  fi
-)"
-[[ -z "$gpu" ]] && gpu="Not detected"
-
 hostname_info="$(
   hostnamectl --static 2>/dev/null ||
     hostname 2>/dev/null
@@ -336,6 +471,7 @@ load_average="$(
 [[ -z "$load_average" ]] && load_average="Unavailable"
 
 network="$(network_summary)"
+gpu="$(gpu_summary)"
 linux="$(linux_name)"
 kernel_release="$(uname -r)"
 architecture="$(uname -m)"
