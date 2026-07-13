@@ -10,55 +10,110 @@ linux_name() {
     }' /etc/os-release
 }
 
+print_row() {
+  printf "%-${label_width}s %s\n" "$1:" "$2"
+}
+
 network_summary() {
   if ! command -v ip >/dev/null 2>&1; then
     printf "Unavailable (ip command not found)"
     return
   fi
 
-  local interface address gateway
+  local interface state connection_type speed
 
-  read -r interface gateway < <(
+  # Prefer the interface used for the default route.
+  interface="$(
     ip -4 route show default 2>/dev/null |
       awk 'NR == 1 {
         for (i = 1; i <= NF; i++) {
           if ($i == "dev") {
-            interface = $(i + 1)
-          } else if ($i == "via") {
-            gateway = $(i + 1)
+            print $(i + 1)
+            exit
           }
         }
-
-        print interface, gateway
       }'
-  )
+  )"
 
-  # Fall back to the first active interface with a global IPv4 address.
+  # Fall back to the first active non-loopback interface.
   if [[ -z "$interface" ]]; then
     interface="$(
-      ip -o -4 addr show scope global up 2>/dev/null |
-        awk 'NR == 1 {print $2}'
-    )"
-  fi
-
-  if [[ -n "$interface" ]]; then
-    address="$(
-      ip -o -4 addr show dev "$interface" scope global 2>/dev/null |
-        awk 'NR == 1 {print $4}'
+      ip -o link show up 2>/dev/null |
+        awk -F': ' '$2 != "lo" {
+          sub(/@.*/, "", $2)
+          print $2
+          exit
+        }'
     )"
   fi
 
   if [[ -z "$interface" ]]; then
     printf "Disconnected"
-  elif [[ -n "$gateway" ]]; then
-    printf "%s %s via %s" "$interface" "${address:-no IPv4}" "$gateway"
+    return
+  fi
+
+  state="$(
+    cat "/sys/class/net/$interface/operstate" 2>/dev/null
+  )"
+  state="${state:-unknown}"
+
+  if [[ -d "/sys/class/net/$interface/wireless" ]]; then
+    connection_type="Wi-Fi"
+  elif [[ "$interface" == wl* ]]; then
+    connection_type="Wi-Fi"
+  elif [[ "$interface" == eth* || "$interface" == en* ]]; then
+    connection_type="Ethernet"
   else
-    printf "%s %s" "$interface" "${address:-no IPv4}"
+    connection_type="Network"
+  fi
+
+  speed="$(
+    cat "/sys/class/net/$interface/speed" 2>/dev/null
+  )"
+
+  if [[ "$speed" =~ ^[0-9]+$ ]] && ((speed > 0)); then
+    printf "%s (%s, %s, %s Mb/s)" \
+      "$interface" "$connection_type" "$state" "$speed"
+  else
+    printf "%s (%s, %s)" \
+      "$interface" "$connection_type" "$state"
   fi
 }
 
-print_row() {
-  printf "%-${label_width}s %s\n" "$1:" "$2"
+environment_summary() {
+  local kernel_release environment host
+
+  kernel_release="$(uname -r)"
+
+  if grep -qiE 'microsoft|wsl' \
+    /proc/sys/kernel/osrelease 2>/dev/null; then
+
+    if [[ "$kernel_release" == *WSL2* ||
+          "$kernel_release" == *microsoft-standard* ]]; then
+      environment="WSL2"
+    else
+      environment="WSL1"
+    fi
+
+    if command -v cmd.exe >/dev/null 2>&1; then
+      host="$(
+        cmd.exe /c ver 2>/dev/null |
+          tr -d '\r' |
+          awk 'NF {
+            sub(/^[[:space:]]+/, "")
+            print
+            exit
+          }'
+      )"
+
+      [[ -n "$host" ]] &&
+        environment="$environment on $host"
+    fi
+  else
+    environment="Native Linux"
+  fi
+
+  printf "%s" "$environment"
 }
 
 cpu="$(
@@ -70,10 +125,32 @@ cpu="$(
     }'
 )"
 
+cpu_cores="$(
+  nproc 2>/dev/null ||
+    awk '/^processor/ {
+      count++
+    }
+    END {
+      print count
+    }' /proc/cpuinfo
+)"
+
 memory="$(
-  awk '/MemTotal/ {
-    printf "%.2f GB", $2 / 1024 / 1024
-  }' /proc/meminfo
+  free -h |
+    awk '/^Mem:/ {
+      printf "%s/%s used", $3, $2
+    }'
+)"
+
+swap="$(
+  free -h |
+    awk '/^Swap:/ {
+      if ($2 == "0B" || $2 == "0") {
+        print "Disabled"
+      } else {
+        printf "%s/%s used", $3, $2
+      }
+    }'
 )"
 
 filesystem="$(
@@ -92,39 +169,62 @@ filesystem="$(
       sub(/G$/, "GB", size)
       sub(/T$/, "TB", size)
 
-      printf "%s %s %s/%s %s", $1, $2, used, size, $5
+      printf "%s %s %s/%s %s",
+        $1, $2, used, size, $5
     }'
+)"
+
+gpu="$(
+  if command -v lspci >/dev/null 2>&1; then
+    lspci |
+      awk -F': ' '
+        /VGA compatible controller|3D controller|Display controller/ {
+          print $2
+          exit
+        }
+      '
+  else
+    printf "Unavailable (lspci not found)"
+  fi
+)"
+[[ -z "$gpu" ]] && gpu="Not detected"
+
+hostname_info="$(
+  hostnamectl --static 2>/dev/null ||
+    hostname
+)"
+
+uptime_info="$(
+  uptime -p 2>/dev/null |
+    sed 's/^up //'
+)"
+[[ -z "$uptime_info" ]] && uptime_info="Unavailable"
+
+load_average="$(
+  awk '{
+    printf "%s %s %s", $1, $2, $3
+  }' /proc/loadavg
 )"
 
 network="$(network_summary)"
 linux="$(linux_name)"
 kernel_release="$(uname -r)"
+architecture="$(uname -m)"
+shell_info="$(basename "${SHELL:-unknown}")"
+environment="$(environment_summary)"
 
-print_row "Processor" "$cpu"
-print_row "Memory" "$memory"
-print_row "Filesystem" "$filesystem"
-print_row "Network" "$network"
-print_row "Linux" "$linux"
-
-if grep -qiE 'microsoft|wsl' /proc/sys/kernel/osrelease 2>/dev/null; then
-  if [[ "$kernel_release" == *WSL2* ||
-        "$kernel_release" == *microsoft-standard* ]]; then
-    environment="WSL2"
-  else
-    environment="WSL1"
-  fi
-
-  if command -v cmd.exe >/dev/null 2>&1; then
-    host="$(
-      cmd.exe /c ver 2>/dev/null |
-        tr -d '\r' |
-        awk 'NF'
-    )"
-
-    [[ -n "$host" ]] && environment="$environment on $host"
-  fi
-else
-  environment="Native Linux"
-fi
-
-print_row "Environment" "$environment"
+print_row "Hostname"     "$hostname_info"
+print_row "Processor"    "$cpu"
+print_row "CPU cores"    "$cpu_cores"
+print_row "Memory"       "$memory"
+print_row "Swap"         "$swap"
+print_row "Filesystem"   "$filesystem"
+print_row "Network"      "$network"
+print_row "GPU"          "$gpu"
+print_row "Linux"        "$linux"
+print_row "Kernel"       "$kernel_release"
+print_row "Architecture" "$architecture"
+print_row "Shell"        "$shell_info"
+print_row "Uptime"       "$uptime_info"
+print_row "Load"         "$load_average"
+print_row "Environment"  "$environment"
