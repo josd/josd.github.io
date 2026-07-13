@@ -359,4 +359,3 @@ print_row "Shell"        "$shell_info"
 print_row "Uptime"       "$uptime_info"
 print_row "Load"         "$load_average"
 print_row "Environment"  "$environment"
-
