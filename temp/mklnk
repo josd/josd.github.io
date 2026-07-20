@@ -6,7 +6,6 @@ sudo ln -sf ~/github.com/KNowledgeOnWebScale/brow/brow /usr/local/bin
 sudo ln -sf ~/github.com/KNowledgeOnWebScale/retina/mkretina /usr/local/bin
 sudo ln -sf ~/github.com/KNowledgeOnWebScale/retina/retina /usr/local/bin
 sudo ln -sf ~/github.com/KNowledgeOnWebScale/retina/retinae /usr/local/bin
-sudo ln -sf ~/github.com/eyereasoner/deriva/bin/deriva.js /usr/local/bin/deriva
 sudo ln -sf ~/github.com/eyereasoner/eye/eyering /usr/local/bin
 sudo ln -sf ~/github.com/eyereasoner/eye/mkeye /usr/local/bin
 sudo ln -sf ~/github.com/eyereasoner/eye/proofcheck /usr/local/bin
@@ -16,6 +15,7 @@ sudo ln -sf ~/github.com/eyereasoner/eyelet/eyelet-trealla /usr/local/bin
 sudo ln -sf ~/github.com/eyereasoner/eyelet/mkeyelet /usr/local/bin
 sudo ln -sf ~/github.com/eyereasoner/eyeleng/eyeleng.js /usr/local/bin/eyeleng
 sudo ln -sf ~/github.com/eyereasoner/eyeling/bin/eyeling.cjs /usr/local/bin/eyeling
+sudo ln -sf ~/github.com/eyereasoner/eyepl/bin/eyepl.js /usr/local/bin/eyepl
 sudo ln -sf ~/github.com/eyereasoner/eyeron/target/release/eyeron /usr/local/bin
 sudo ln -sf ~/github.com/eyereasoner/lingua/lingua /usr/local/bin
 sudo ln -sf ~/github.com/eyereasoner/lingua/mklingua /usr/local/bin
