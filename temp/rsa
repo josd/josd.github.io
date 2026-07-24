@@ -10,7 +10,7 @@ do
 done
 popd > /dev/null
 
-pushd ~/codeberg.org > /dev/null
+pushd ~/git > /dev/null
 for dir in */*
 do
     pushd "${dir}" > /dev/null
