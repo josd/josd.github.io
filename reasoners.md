@@ -21,6 +21,7 @@
 | [NO3](https://github.com/KNowledgeOnWebScale/NO3) | TypeScript/JavaScript | N3 subset (forward rules) |
 | [Pyling](https://github.com/eyereasoner/pyling) | Python | N3 |
 | [retina](https://github.com/KNowledgeOnWebScale/retina) | Prolog (Scryer or Trealla) | RDF Surfaces |
+| [romeo](https://patrickhochstenbach.net/git/phochste/romeo) | Go | N3 | 
 | [RoXi](https://github.com/pbonte/roxi) | Rust/WebAssembly + JavaScript bindings | Datalog (N3 rule syntax) |
 | [rs2fol](https://github.com/RebekkaMa/rs2fol) | Kotlin/JVM + external FOL prover | RDF Surfaces; first-order logic (TPTP) |
 | [Tension](https://github.com/joachimvh/tension.js) | TypeScript/JavaScript | RDF Surfaces; selected N3 built-ins |
