@@ -1,7 +1,7 @@
 #!/bin/bash
 sudo ln -sf /opt/eye/bin/eye /usr/local/bin
-sudo ln -sf ~/codeberg.org/phochste/juliett/bin/juliett /usr/local/bin
 sudo ln -sf ~/eyesvn/2006/02swap/mksf /usr/local/bin
+sudo ln -sf ~/git/phochste/juliett/bin/juliett /usr/local/bin
 sudo ln -sf ~/github.com/KNowledgeOnWebScale/brow/brow /usr/local/bin
 sudo ln -sf ~/github.com/KNowledgeOnWebScale/retina/mkretina /usr/local/bin
 sudo ln -sf ~/github.com/KNowledgeOnWebScale/retina/retina /usr/local/bin
@@ -15,11 +15,11 @@ sudo ln -sf ~/github.com/eyereasoner/eyelet/eyelet-trealla /usr/local/bin
 sudo ln -sf ~/github.com/eyereasoner/eyelet/mkeyelet /usr/local/bin
 sudo ln -sf ~/github.com/eyereasoner/eyeleng/eyeleng.js /usr/local/bin/eyeleng
 sudo ln -sf ~/github.com/eyereasoner/eyeling/bin/eyeling.cjs /usr/local/bin/eyeling
-sudo ln -sf ~/github.com/eyereasoner/eyepl/bin/eyepl.js /usr/local/bin/eyepl
 sudo ln -sf ~/github.com/eyereasoner/eyeron/target/release/eyeron /usr/local/bin
 sudo ln -sf ~/github.com/eyereasoner/lingua/lingua /usr/local/bin
 sudo ln -sf ~/github.com/eyereasoner/lingua/mklingua /usr/local/bin
 sudo ln -sf ~/github.com/eyereasoner/rdfsurfaces-tests/script/rs2fol.sh /usr/local/bin/rs2fol
+sudo ln -sf ~/github.com/eyereasoner/webentail/bin/webentail.js /usr/local/bin/webentail
 sudo ln -sf ~/github.com/josd/josd.github.io/temp/cwm /usr/local/bin
 sudo ln -sf ~/github.com/josd/josd.github.io/temp/card /usr/local/bin
 sudo ln -sf ~/github.com/josd/josd.github.io/temp/f /usr/local/bin
