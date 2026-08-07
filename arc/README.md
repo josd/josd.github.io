@@ -4,140 +4,146 @@
 
 **ARC = Answer · Reason · Check**
 
-In the AI era, answers are becoming abundant. The scarcer human skill is knowing **what to ask**: framing a question that is precise enough to be useful, bounded enough to be answerable, and concrete enough to be checked.
-
-ARC is a pragmatic way to turn those questions into **trustworthy, executable answers**.
-
-Instead of asking an AI for an answer and then manually trying to verify it, ARC asks for a self-contained program that produces three things:
-
-1. **Answer** — the result to the question.
-2. **Reason** — a clear explanation of how the result follows from the data, rules, identities, or assumptions.
-3. **Check** — a separate verification that can independently confirm the result or fail when something is wrong.
-
-The goal is not to make AI sound more confident. The goal is to make its work **inspectable, repeatable, and checkable**.
+ARC turns a precise question into a portable, executable artifact that answers it, explains the derivation, and checks the result through a route capable of finding errors.
 
 > **Ask the right question. Get the answer. Understand the reason. Run the check.**
 
-## Why ARC now?
+## Why ARC?
 
-Generative AI is very good at producing plausible answers and synthesizing code. But in most real workflows, verification is still surprisingly manual: inspect the result, redo the calculation, search for another source, write a test, ask another model, or have an expert check the work.
+AI has made answers abundant. Trustworthy answers are still scarce.
 
-ARC makes verification part of the artifact from the beginning.
+A plausible response can be useful, but plausibility is not evidence. In most AI-assisted workflows, verification remains a manual afterthought: inspect the result, redo the calculation, search for another source, write a test, or ask an expert.
 
-A useful way to think about the shift is:
+ARC moves verification into the artifact itself:
 
 ```text
-Traditional AI workflow
-question → AI → answer → human manually checks
+Typical AI workflow
+question → AI → answer → manual verification
 
 ARC workflow
-question + data + logic → AI → executable artifact → Answer + Reason + Check
+question + data + logic → executable artifact → Answer + Reason + Check
 ```
 
-This changes the role of the person using AI. The highest-value work moves upstream: **choosing the right question, defining the relevant facts and constraints, and deciding what would count as a convincing check**.
+This moves the most valuable human work upstream: **frame the right question, identify the relevant facts and rules, and decide what would count as a convincing check**. AI can then do more of the mechanical work without asking us to accept an opaque result.
 
-The AI can do more of the mechanical work. Trust still has to be earned.
+ARC does not make an answer trustworthy by sounding confident. It makes the answer **inspectable, repeatable, and able to prove itself wrong**.
 
-## The question comes first
+## How an ARC works
 
-ARC starts with three inputs:
+Every ARC starts with three explicit inputs:
+
+- **Question** — what do we actually want to know or decide?
+- **Data** — which facts, measurements, observations, or inputs are relevant?
+- **Logic** — which equations, constraints, policies, algorithms, or definitions govern the result?
+
+From those inputs, an ARC produces three outputs:
+
+1. **Answer** — the direct result to the question.
+2. **Reason** — a clear account of how the result follows from the inputs and rules.
+3. **Check** — an independent verification that confirms the result or fails visibly.
 
 ```text
-Question + Data + Logic
+INPUT                         OUTPUT
+Question ─┐                   ┌─ Answer
+Data ─────┼─→ compute ────────┼─ Reason
+Logic ────┘                   └─ Check
 ```
 
-The **Question** defines what we actually want to know or decide.
+A good ARC question is more than a prompt; it is part of the specification. It should be precise enough to distinguish a correct answer, an incorrect answer, and a correct answer to the wrong question.
 
-The **Data** provides the relevant facts, measurements, observations, or inputs.
+The result is not trapped in a chat window. It is a self-contained program that can be run again, inspected, shared, tested, and incorporated into an automated workflow.
 
-The **Logic** provides the rules of the domain: equations, constraints, policies, algorithms, definitions, or other knowledge needed to derive the answer.
+## The Check is the trust contract
 
-From those inputs, an AI can synthesize a small, self-contained program that makes the path from question to result explicit.
+An explanation is not verification. A model can produce a convincing explanation for a wrong result, so the Check must be capable of **disagreeing** with the Answer.
 
-A good ARC question is not merely a prompt. It is part of the specification. It should be specific enough that we can tell the difference between a correct answer, an incorrect answer, and an answer to the wrong question.
+Where possible, it should take a genuinely different route from the primary computation:
 
-## What makes the Check different?
-
-The **Check** is the most important part of the trust contract.
-
-An explanation alone is not verification. A model can generate a convincing explanation for a wrong result. ARC therefore asks for a check that is capable of disagreeing with the answer.
-
-Where possible, the check should use a **different route** from the primary computation: a second formula, an invariant, a reverse calculation, an exhaustive test, a known identity, a boundary condition, an independent data source, or another domain-appropriate validation.
+- a second formula or algorithm;
+- an invariant or conservation law;
+- a reverse calculation;
+- exhaustive comparison over a bounded domain;
+- a known identity, boundary condition, or dimensional constraint;
+- an independent data source;
+- another domain-appropriate validation.
 
 > **A check that cannot fail is not much of a check.**
 
-This makes ARC practical. The verification is executable, so it can be rerun automatically whenever the data, logic, or question changes.
+Because the Check is executable, it can run automatically whenever the question, data, logic, or implementation changes. A passing check is visible evidence. A failing check is useful information, not something to hide.
 
-## Built for STEM
+## Small arcs compose into larger arcs
 
-ARC is especially well suited to **STEM** because STEM questions often have explicit structure and testable correctness conditions.
-
-Typical ARC checks include:
-
-- recomputing a mathematical result by a second method;
-- checking an algebraic identity or invariant;
-- testing conservation, dimensional, range, or boundary constraints;
-- validating an algorithm against known or exhaustive cases;
-- checking engineering outputs against system constraints;
-- tracing a rule-based decision back to its inputs and policy rules;
-- comparing a numerical result with an analytical or independently computed result.
-
-That makes ARC useful for mathematics, science, engineering, computer science, and other rule-driven technical domains where an answer should be more than plausible.
-
-## From raw data to useful insight
-
-ARC also fits naturally with Professor Ruben Verborgh's vision in [**Inside the Insight Economy**](https://ruben.verborgh.org/blog/2025/08/12/inside-the-insight-economy/).
-
-Verborgh argues for moving beyond indiscriminate raw-data exchange toward **purpose-specific insights**: derive what is useful for a particular recipient, context, and moment instead of moving or accumulating more raw data than necessary.
-
-That idea matters for ARC. A well-formed question expresses the purpose of a computation. Once the purpose is explicit, a system can focus on the data and logic needed for that question, derive an actionable answer, explain the derivation, and verify the result.
-
-Two examples make the micro-to-macro progression concrete:
-
-- [**Delfour**](https://josd.github.io/arc/delfour.html) is the micro-economic case: sensitive household information stays local while a narrowly scoped shopping insight is derived for one retailer context, with explicit policy and checks.
-- [**Flandor**](https://josd.github.io/arc/flandor.html) is the macro-economic case: exporters, labour-market actors, and grid operators keep detailed evidence local while a regional insight combines the pressures needed for a time-bounded stabilization decision. The board can act without receiving firm-level books, vacancy lists, or grid-control detail.
-
-Together they illustrate a key Insight Economy idea: **move the minimum useful insight, not the maximum available data**. ARC adds a pragmatic Answer · Reason · Check discipline around the resulting decision.
-
-ARC is not a replacement for the Insight Economy architecture. It is a complementary engineering pattern: **question-directed, explainable, verifiable computation** that can help turn data into trusted insight.
-
-## The ARC pattern
-
-For each case, ARC aims to produce a portable artifact with a simple contract:
+An ARC does not have to remain an isolated calculation. Its inputs and outputs form an explicit contract, so the checked Answer from one arc can become Data for another. Several focused arcs can compose into a larger arc with its own question, reasoning, and end-to-end check.
 
 ```text
-INPUT
-  question
-  data
-  logic / constraints
-
-COMPUTE
-  derive the result
-  record the reasoning
-  run an independent check
-
-OUTPUT
-  Answer
-  Reason
-  Check
+ARC A ──┐
+ARC B ──┼──→ larger ARC ──→ Answer + Reason + Check
+ARC C ──┘
 ```
 
-The result is not just a response in a chat window. It is something that can be executed again, inspected, shared, tested, and incorporated into an automated workflow.
+The larger ARC does not merely collect results. It checks whether those results compose into a correct answer to the larger question.
+
+| Quality | What composition provides |
+| --- | --- |
+| **Reliable** | Each arc checks its own result; the larger arc checks the composition end to end. Failures remain visible and traceable to bounded components. |
+| **Scalable** | Independent arcs can run separately or in parallel. Larger workflows grow by composition instead of becoming one monolithic program. |
+| **Performant** | Each arc uses only the data and logic its question requires. Unchanged results can be reused, and only affected arcs need to run again. |
+| **Evolvable** | An arc can be improved, replaced, or split behind the same contract. New arcs can be added without rewriting the whole system. |
+
+The discipline is recursive: at every level, make the question explicit, expose the reasoning, and include a check capable of catching a wrong result. **Small checked arcs become the building blocks of larger checked arcs.**
+
+## What ARC can—and cannot—guarantee
+
+ARC makes trust testable; it does not make computation infallible.
+
+- A check is only as strong as its independence and coverage. Two implementations can share the same mistaken assumption.
+- Correct computation cannot repair incorrect, incomplete, or stale data.
+- Explicit logic can still encode the wrong policy or model of the world.
+- Some questions involve uncertainty or judgment rather than a single provably correct answer. Their checks should validate evidence, constraints, calibration, or process instead.
+
+That is why ARC keeps the Question, Data, Logic, Reason, and Check visible together. It makes assumptions reviewable and failures diagnosable. Human judgment remains essential—especially in choosing the question and deciding what evidence is sufficient.
+
+## Where ARC works especially well
+
+ARC is a natural fit for STEM and other rule-driven domains with explicit structure and testable correctness conditions. Typical uses include:
+
+- recomputing a mathematical result by a second method;
+- checking algebraic identities, invariants, and error bounds;
+- validating conservation, dimensional, range, or boundary constraints;
+- testing an algorithm against known or exhaustive cases;
+- checking engineering outputs against system constraints;
+- tracing a rule-based decision back to its inputs and policy rules;
+- comparing numerical results with analytical or independently computed results.
+
+The pattern also applies beyond questions with one exact answer. A planning or policy ARC can show which evidence and constraints drove a decision, test whether required rules were respected, and fail visibly when its assumptions no longer hold.
 
 ## Design principles
 
-- **Question first** — make the actual information need explicit.
+- **Question first** — make the real information need explicit.
 - **Answer directly** — do not bury the result in generated prose.
 - **Explain the derivation** — expose the relevant rules, assumptions, and steps.
-- **Check independently** — validate through a path that can catch errors.
-- **Fail visibly** — assumptions and edge cases should not disappear silently.
-- **Prefer executable verification** — turn checking from a manual activity into a repeatable one.
-- **Keep artifacts self-contained** — make it possible to inspect and rerun the complete case.
+- **Check independently** — use a path that can catch errors in the primary computation.
+- **Fail visibly** — never let broken assumptions or edge cases disappear silently.
+- **Prefer executable verification** — make checking automatic and repeatable.
+- **Keep artifacts self-contained** — preserve the complete case for inspection and reruns.
 - **Use only what the question needs** — minimize irrelevant data and unnecessary inference.
+- **Compose through explicit contracts** — connect checked outputs to defined inputs so larger arcs remain inspectable.
 
-## Examples and test cases
+## Explore ARC
 
-Each link below opens a self-contained ARC page. The examples focus on STEM and technical reasoning, with the **Answer · Reason · Check** triad presented in place.
+Each example is a self-contained page with the **Answer · Reason · Check** triad presented in place.
+
+| Start here | What it demonstrates |
+| --- | --- |
+| [**Euler's Identity**](https://josd.github.io/arc/euler-identity.html) | A classic symbolic result with an independent numerical check. |
+| [**Pi**](https://josd.github.io/arc/pi.html) | High-precision computation with explicit error bounds. |
+| [**Bike Trip Planning**](https://josd.github.io/arc/bike-trip.html) | A practical decision derived from hazards, preferences, and declarative rules. |
+| [**Wind-Turbine Maintenance**](https://josd.github.io/arc/wind-turbines.html) | Engineering decisions checked against telemetry and policy constraints. |
+| [**Delfour**](https://josd.github.io/arc/delfour.html) | A purpose-specific insight derived without exposing sensitive source data. |
+| [**Flandor**](https://josd.github.io/arc/flandor.html) | Several local signals composed into a checked regional decision. |
+
+<details>
+<summary><strong>Browse the full example catalogue</strong></summary>
 
 ### Science
 
@@ -183,7 +189,7 @@ Each link below opens a self-contained ARC page. The examples focus on STEM and 
 - [**Fundamental Theorem of Arithmetic**](https://josd.github.io/arc/fundamental-theorem-arithmetic.html) — Explore unique prime factorization.
 - [**Gödel Numbering**](https://josd.github.io/arc/godel-numbering.html) — Demonstrate a classic Gödel numbering construction.
 - [**Group Theory**](https://josd.github.io/arc/group-theory.html) — Verify closure, identity, inverses, and associativity on examples.
-- [**Kaprekar's Constant**](https://josd.github.io/arc/kaprekar-constant.html) — Exhaustively test every 4-digit state in Kaprekar's routine.
+- [**Kaprekar's Constant**](https://josd.github.io/arc/kaprekar-constant.html) — Exhaustively test every four-digit state in Kaprekar's routine.
 - [**Matrix Basics**](https://josd.github.io/arc/matrix.html) — Add, multiply, and invert matrices with dimension and property checks.
 - [**Matrix Multiplication**](https://josd.github.io/arc/matrix-multiplication.html) — Demonstrate and check that matrix multiplication is not commutative in general.
 - [**Newton–Raphson**](https://josd.github.io/arc/newton-raphson.html) — Find roots numerically and check residual error.
@@ -194,13 +200,25 @@ Each link below opens a self-contained ARC page. The examples focus on STEM and 
 - [**Pythagorean Theorem**](https://josd.github.io/arc/pythagorean-theorem.html) — Compute triangle sides and confirm the result algebraically.
 - [**Roots of Unity**](https://josd.github.io/arc/roots-of-unity.html) — Place complex roots on the unit circle and check spacing, sums, and products.
 
+</details>
+
+## ARC and the Insight Economy
+
+ARC fits naturally with Professor Ruben Verborgh's vision in [**Inside the Insight Economy**](https://ruben.verborgh.org/blog/2025/08/12/inside-the-insight-economy/): derive a purpose-specific insight for a particular recipient, context, and moment instead of moving or accumulating more raw data than necessary.
+
+A well-formed question expresses that purpose. It lets a system focus on the data and logic the question actually needs, derive an actionable answer, explain the derivation, and verify the result.
+
+- [**Delfour**](https://josd.github.io/arc/delfour.html) shows the micro-economic case: sensitive household information stays local while a narrowly scoped shopping insight is derived for one retailer context, with explicit policy and checks.
+- [**Flandor**](https://josd.github.io/arc/flandor.html) shows the macro-economic case: exporters, labour-market actors, and grid operators keep detailed evidence local while a regional ARC composes their signals into a time-bounded stabilization decision.
+
+Together, they illustrate the principle: **move the minimum useful insight, not the maximum available data**.
+
+ARC does not replace the Insight Economy architecture. It complements it with a pragmatic discipline for **question-directed, explainable, verifiable computation**.
+
 ## What ARC is trying to make normal
 
 AI should not force us to choose between **speed** and **trust**.
 
-A useful AI system should be able to help us formulate and answer precise questions, show how it reached the result, and perform meaningful checks without requiring a human to rebuild the entire solution by hand.
+The practical ambition of ARC is simple: formulate a precise question, answer it directly, show how the result was derived, and perform a meaningful check without requiring a person to rebuild the entire solution by hand.
 
-That is the practical ambition of ARC:
-
-> **better questions → explicit reasoning → independently checked answers**
-
+> **Better questions → explicit reasoning → independently checked answers.**
