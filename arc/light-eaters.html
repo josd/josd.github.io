@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>The Light Eaters — Book Brief</title>
-  <meta name="description" content="A comprehensive, self-contained book brief for The Light Eaters by Zoë Schlanger, structured with the P3 pattern (Prompt → Program → Proof).">
+  <meta name="description" content="A comprehensive, self-contained book brief for The Light Eaters by Zoë Schlanger, structured with the ARC pattern (Answer → Reason → Check).">
   <meta name="author" content="Book: Zoë Schlanger" />
   <style>
     :root{
@@ -135,7 +135,7 @@
           </svg>
         </div>
         <div>
-          <div class="kicker">Book Brief · P3 (Prompt → Program → Proof)</div>
+          <div class="kicker">Book Brief · ARC (Answer → Reason → Check)</div>
           <h1>The Light Eaters</h1>
           <p class="subtitle">Zoë Schlanger · Harper (HarperCollins), 304 pp · First published May 7, 2024 (hardcover)</p>
           <div class="badges" role="list">
@@ -144,7 +144,7 @@
             <span class="badge" role="listitem">Popular Science</span>
           </div>
           <nav class="toc" aria-label="On this page">
-            <a href="#p3">P3 Summary</a>
+            <a href="#arc">ARC Summary</a>
             <a href="#answer">Answer (TL;DR)</a>
             <a href="#reasons">Reason Why (Evidence)</a>
             <a href="#check">Check</a>
@@ -161,9 +161,9 @@
 
     <main class="cards">
 
-      <!-- P3: Prompt, Data, Logic, Program -->
-      <section class="card" id="p3" aria-labelledby="p3h2">
-        <h2 id="p3h2">P3 Summary: Prompt → Program → Proof</h2>
+      <!-- ARC: Question, Data, Logic, Answer, Reason, Check -->
+      <section class="card" id="arc" aria-labelledby="arch2">
+        <h2 id="arch2">ARC Summary: Answer → Reason → Check</h2>
         <div>
           <h3>Prompt & Question</h3>
           <p class="spaced">
@@ -324,7 +324,7 @@ for (c of claims) assert(hasFootnoteLink(c));</code></pre>
     // --- Minimal “Check” harness for this page ---
     (function(){
       const checks = [];
-      const reqSections = ["p3","answer","reasons","check","ideas","themes","studies","glossary","meta","sources"];
+      const reqSections = ["arc","answer","reasons","check","ideas","themes","studies","glossary","meta","sources"];
       const claims = [...document.querySelectorAll('[data-claim]')];
 
       // 1) Sections exist

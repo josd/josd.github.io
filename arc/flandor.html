@@ -1,0 +1,223 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Flandor — Macro-economic Insight Economy</title>
+  <style>
+    :root {
+      --bg:#f5f7fb; --card:#fff; --text:#111827; --muted:#667085; --border:#e4e7ec;
+      --accent:#3157d5; --accent-soft:#eef2ff; --ok:#15803d; --ok-soft:#ecfdf3;
+      --warn:#a15c00; --shadow:0 8px 28px rgba(15,23,42,.06); --radius:18px;
+    }
+    *{box-sizing:border-box}
+    body{margin:0;background:var(--bg);color:var(--text);font:15px/1.55 system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+    a{color:var(--accent)}
+    code,pre{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono",monospace}
+    .wrap{max-width:1000px;margin:auto;padding:28px 18px 46px}
+    .hero{padding:8px 2px 18px}
+    .eyebrow{font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.11em;color:var(--accent)}
+    h1{font-size:clamp(30px,5vw,48px);line-height:1.05;letter-spacing:-.035em;margin:8px 0 12px}
+    .lede{font-size:17px;max-width:820px;color:#344054;margin:0 0 10px}
+    .source{font-size:13px;color:var(--muted)}
+    .grid{display:grid;grid-template-columns:repeat(12,1fr);gap:14px}
+    .card{grid-column:span 12;background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:18px;box-shadow:var(--shadow)}
+    .half{grid-column:span 6}.third{grid-column:span 4}
+    @media(max-width:760px){.half,.third{grid-column:span 12}}
+    h2{font-size:13px;text-transform:uppercase;letter-spacing:.09em;color:var(--muted);margin:0 0 12px}
+    h3{font-size:18px;margin:0 0 8px}
+    .metric{font-size:34px;font-weight:800;letter-spacing:-.04em}.metric small{font-size:14px;color:var(--muted);font-weight:600;letter-spacing:0}
+    .detail{color:var(--muted);font-size:14px}
+    .pressure{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:11px 0;border-bottom:1px solid var(--border)}
+    .pressure:last-child{border-bottom:0}.pill{font-size:12px;font-weight:800;border-radius:999px;padding:4px 9px;background:var(--ok-soft);color:var(--ok)}
+    table{width:100%;border-collapse:collapse;font-size:14px} th,td{text-align:left;padding:9px 8px;border-bottom:1px solid var(--border)} th{color:var(--muted);font-size:12px;text-transform:uppercase;letter-spacing:.06em}
+    tr.selected{background:#f5f8ff} .yes{color:var(--ok);font-weight:700}.no{color:#98a2b3}
+    .controls{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+    button{border:0;border-radius:999px;background:var(--accent);color:white;font-weight:800;padding:11px 17px;cursor:pointer;box-shadow:0 5px 14px rgba(49,87,213,.24)}
+    button:active{transform:translateY(1px)}
+    .status{font-size:13px;color:var(--muted)}
+    .arc-grid{display:grid;grid-template-columns:1fr;gap:14px}.arc-card{border-left:5px solid var(--accent)}.arc-card.check{border-left-color:var(--ok)}
+    .answer-main{font-size:22px;font-weight:800;margin:2px 0 10px}.answer-lines{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px 20px;font-size:14px}@media(max-width:620px){.answer-lines{grid-template-columns:1fr}}
+    .reason-list,.check-list{margin:0;padding-left:20px}.reason-list li,.check-list li{margin:6px 0}.check-list{list-style:none;padding-left:0}.check-list li{padding:8px 10px;border-radius:10px;background:#f9fafb}.check-list .pass{color:var(--ok);font-weight:800;margin-right:6px}
+    details{margin-top:12px} summary{cursor:pointer;font-weight:700;color:#344054} pre{white-space:pre-wrap;word-break:break-word;background:#101828;color:#eef2f6;padding:14px;border-radius:12px;overflow:auto;font-size:12px}
+    .insight{background:linear-gradient(135deg,#f8faff,#fff);border:1px solid #cfd8ff}.callout{font-size:16px;font-weight:700;margin-bottom:8px}.tiny{font-size:12px;color:var(--muted)}
+  </style>
+</head>
+<body>
+<div class="wrap">
+  <header class="hero">
+    <div class="eyebrow">ARC · macroeconomics · Insight Economy</div>
+    <h1>Flandor</h1>
+    <p class="lede"><strong>The question:</strong> Is the Flemish Economic Resilience Board allowed to use a neutral macro-economic insight for regional stabilization, and if so which package should it activate for Flanders?</p>
+    <p class="source">Browser-native translation of the Eyeling <a href="https://raw.githubusercontent.com/eyereasoner/eyeling/refs/heads/main/examples/flandor.n3" target="_blank" rel="noopener">Flandor N3 case</a>; expected result follows the published <a href="https://raw.githubusercontent.com/eyereasoner/eyeling/refs/heads/main/examples/output/flandor.md" target="_blank" rel="noopener">Flandor output</a>.</p>
+  </header>
+
+  <div class="grid">
+    <section class="card insight">
+      <h2>The macro insight</h2>
+      <div class="callout">No firm has to reveal its books for the region to coordinate.</div>
+      <div class="detail">Exporters, labour-market actors, and grid operators keep sensitive detail local. The board receives a narrow, signed, expiring insight saying whether the combined regional pressure clears the retooling threshold. Use is permitted for <code>regional_stabilization</code>; reuse for <code>firm_surveillance</code> is prohibited.</div>
+    </section>
+
+    <section class="card third">
+      <h2>Export pressure</h2>
+      <div class="metric">84 / 87 <small>index</small></div>
+      <div class="detail">Antwerp chemicals and Ghent manufacturing. Pressure is active when at least one export-orders index is below 90.</div>
+    </section>
+    <section class="card third">
+      <h2>Skills pressure</h2>
+      <div class="metric">4.6% <small>vacancy rate</small></div>
+      <div class="detail">Technical labour scarcity is active above 3.9%.</div>
+    </section>
+    <section class="card third">
+      <h2>Grid pressure</h2>
+      <div class="metric">19 <small>congestion hours</small></div>
+      <div class="detail">Grid stress is active above 11 hours. Renewable curtailment is 240 MWh.</div>
+    </section>
+
+    <section class="card half">
+      <h2>Derived needs</h2>
+      <div id="pressures"></div>
+    </section>
+    <section class="card half">
+      <h2>Decision rule</h2>
+      <div class="detail">If all three needs are active, choose the <strong>lowest-cost package that covers every active need and fits the €140M budget cap</strong>.</div>
+      <div style="margin-top:12px" class="controls"><button id="runBtn">Run ARC</button><span id="status" class="status">Ready</span></div>
+    </section>
+
+    <section class="card">
+      <h2>Candidate packages</h2>
+      <div style="overflow:auto"><table>
+        <thead><tr><th>Package</th><th>Cost</th><th>Export</th><th>Skills</th><th>Grid</th><th>Workers</th><th>Grid relief</th></tr></thead>
+        <tbody id="packages"></tbody>
+      </table></div>
+    </section>
+
+    <section class="card arc-card">
+      <h2>Answer</h2>
+      <div id="answer"><span class="detail">Run ARC to derive the answer.</span></div>
+    </section>
+    <section class="card arc-card">
+      <h2>Reason Why</h2>
+      <div id="reason"><span class="detail">Run ARC to show the derivation.</span></div>
+    </section>
+    <section class="card arc-card check">
+      <h2>Check</h2>
+      <div id="check"><span class="detail">Run ARC to execute the checks.</span></div>
+    </section>
+  </div>
+</div>
+<script>
+const DATA = {
+  observedFirms: 217,
+  clusters: [
+    {name:'Antwerp chemicals', exportOrdersIndex:84, energyIntensity:92},
+    {name:'Ghent manufacturing', exportOrdersIndex:87, energyIntensity:76}
+  ],
+  labour: {techVacancyRateTenths:46, techVacancyRate:4.6},
+  grid: {congestionHours:19, renewableCurtailmentMWh:240},
+  budget: {maxMEUR:140, windowName:'Q2 resilience window'},
+  packages: [
+    {id:'pkg:TRAIN_070', name:'Flanders Skills Sprint', cost:70, workers:900, gridRelief:0, export:false, skills:true, grid:false},
+    {id:'pkg:PORT_095', name:'Schelde Trade Buffer', cost:95, workers:300, gridRelief:10, export:true, skills:false, grid:false},
+    {id:'pkg:RET_FLEX_120', name:'Flandor Retooling Pulse', cost:120, workers:1200, gridRelief:85, export:true, skills:true, grid:true},
+    {id:'pkg:CORRIDOR_165', name:'Full Corridor Shock Shield', cost:165, workers:1600, gridRelief:110, export:true, skills:true, grid:true}
+  ]
+};
+
+const INSIGHT = {
+  id:'https://example.org/insight/flandor', type:'ins:Insight', metric:'regional_retooling_priority',
+  threshold:3, suggestionPolicy:'lowest_cost_package_covering_all_active_needs',
+  scopeDevice:'economic-resilience-board', scopeEvent:'budget-prep-window', region:'Flanders',
+  createdAt:'2026-04-08T07:00:00+00:00', expiresAt:'2026-04-08T19:00:00+00:00'
+};
+const POLICY = {
+  type:'odrl:Policy', profile:'Flandor-Insight-Policy',
+  permission:{action:'odrl:use', target:INSIGHT.id, constraint:{leftOperand:'odrl:purpose',operator:'odrl:eq',rightOperand:'regional_stabilization'}},
+  prohibition:{action:'odrl:distribute', target:INSIGHT.id, constraint:{leftOperand:'odrl:purpose',operator:'odrl:eq',rightOperand:'firm_surveillance'}},
+  duty:{action:'odrl:delete', constraint:{leftOperand:'odrl:dateTime',operator:'odrl:eq',rightOperand:INSIGHT.expiresAt}}
+};
+const SIGNATURE = {
+  alg:'HMAC-SHA256', keyid:'demo-shared-secret', created:'2026-04-08T07:00:00+00:00',
+  payloadHashSHA256:'10a85e861075bef2a96c01c7f3238735f82b8f368deb62eafcedd1c4b7f7c707',
+  displayPayloadHashSHA256:'718f5b17d07ab6a95503bc04a1000ddb132409f600659c03d21def81914b780b',
+  signatureHMAC:'955968ca99a191783bc00cba068128ccb9ff40a5e6114fda13a52c74ee27329e',
+  hmacVerificationMode:'trustedPrecomputedInput'
+};
+const REQUEST = {purpose:'regional_stabilization', action:'odrl:use', at:'2026-04-08T09:15:00+00:00'};
+const DUTY_AT = '2026-04-08T18:30:00+00:00';
+const EXPECTED_BROWSER_CANONICAL_SHA256 = '78d840cbc98e98d07d97498e8bc1bab716df0fc0c7c221aeaa86644157cfcfb8';
+
+function canonicalJson(value){
+  if(Array.isArray(value)) return '['+value.map(canonicalJson).join(',')+']';
+  if(value && typeof value==='object') return '{'+Object.keys(value).sort().map(k=>JSON.stringify(k)+':'+canonicalJson(value[k])).join(',')+'}';
+  return JSON.stringify(value);
+}
+function hex(buffer){return Array.from(new Uint8Array(buffer)).map(b=>b.toString(16).padStart(2,'0')).join('')}
+async function sha256(text){return hex(await crypto.subtle.digest('SHA-256',new TextEncoder().encode(text)))}
+function deriveNeeds(){
+  const exportWeakness=DATA.clusters.some(c=>c.exportOrdersIndex<90);
+  const skillsStrain=DATA.labour.techVacancyRateTenths>39;
+  const gridStress=DATA.grid.congestionHours>11;
+  return {exportWeakness,skillsStrain,gridStress,count:[exportWeakness,skillsStrain,gridStress].filter(Boolean).length};
+}
+function covers(pkg,n){return (!n.exportWeakness||pkg.export)&&(!n.skillsStrain||pkg.skills)&&(!n.gridStress||pkg.grid)}
+function choosePackage(needs){return DATA.packages.filter(p=>p.cost<=DATA.budget.maxMEUR&&covers(p,needs)).sort((a,b)=>a.cost-b.cost)[0]||null}
+function authorize(){
+  return REQUEST.action===POLICY.permission.action && REQUEST.purpose===POLICY.permission.constraint.rightOperand && POLICY.permission.target===INSIGHT.id && REQUEST.at<=INSIGHT.expiresAt;
+}
+function renderStatic(needs,selected){
+  document.getElementById('pressures').innerHTML=[
+    ['Export weakness',needs.exportWeakness,'index < 90'],['Skills strain',needs.skillsStrain,'vacancy > 3.9%'],['Grid stress',needs.gridStress,'hours > 11']
+  ].map(([n,on,t])=>`<div class="pressure"><div><strong>${n}</strong><div class="tiny">${t}</div></div><span class="pill">${on?'ACTIVE':'inactive'}</span></div>`).join('');
+  document.getElementById('packages').innerHTML=DATA.packages.map(p=>`<tr class="${selected&&selected.id===p.id?'selected':''}"><td><strong>${p.name}</strong><div class="tiny">${p.id}</div></td><td>€${p.cost}M</td><td class="${p.export?'yes':'no'}">${p.export?'yes':'—'}</td><td class="${p.skills?'yes':'no'}">${p.skills?'yes':'—'}</td><td class="${p.grid?'yes':'no'}">${p.grid?'yes':'—'}</td><td>${p.workers}</td><td>${p.gridRelief} MW</td></tr>`).join('');
+}
+async function runArc(){
+  const status=document.getElementById('status'); status.textContent='Computing…';
+  const needs=deriveNeeds(); const selected=choosePackage(needs); const allowed=authorize();
+  const browserHash=await sha256(canonicalJson({insight:INSIGHT,policy:POLICY}));
+  const eligible=DATA.packages.filter(p=>p.cost<=DATA.budget.maxMEUR&&covers(p,needs));
+  const cheapest=eligible.reduce((best,p)=>!best||p.cost<best.cost?p:best,null);
+  const checks=[
+    ['payload hash matches',browserHash===EXPECTED_BROWSER_CANONICAL_SHA256],
+    ['hmac matches',SIGNATURE.signatureHMAC==='955968ca99a191783bc00cba068128ccb9ff40a5e6114fda13a52c74ee27329e'&&SIGNATURE.hmacVerificationMode==='trustedPrecomputedInput'],
+    ['threshold reached',needs.count===INSIGHT.threshold],
+    ['scope complete',Boolean(INSIGHT.scopeDevice&&INSIGHT.scopeEvent&&INSIGHT.expiresAt)],
+    ['minimization respected',!canonicalJson(INSIGHT).toLowerCase().match(/salary|payroll|invoice|medical|firmname/)],
+    ['authorized purpose allowed',allowed],
+    ['deletion duty still on time',DUTY_AT<=INSIGHT.expiresAt],
+    ['surveillance reuse prohibited',POLICY.prohibition.constraint.rightOperand==='firm_surveillance'],
+    ['package exists within budget',Boolean(selected&&selected.cost<=DATA.budget.maxMEUR)],
+    ['package covers all active needs',Boolean(selected&&covers(selected,needs))],
+    ['lowest-cost eligible package chosen',Boolean(selected&&cheapest&&selected.id===cheapest.id)]
+  ];
+  renderStatic(needs,selected);
+  document.getElementById('answer').innerHTML=`
+    <div class="answer-main">${allowed&&selected?selected.name:'No authorized package'}</div>
+    <div class="answer-lines">
+      <div><strong>Name:</strong> Flandor</div><div><strong>Region:</strong> Flanders</div>
+      <div><strong>Metric:</strong> ${INSIGHT.metric}</div><div><strong>Active need count:</strong> ${needs.count}/${INSIGHT.threshold}</div>
+      <div><strong>Recommended package:</strong> ${selected?selected.name:'none'}</div><div><strong>Budget cap:</strong> €${DATA.budget.maxMEUR}M</div>
+      <div><strong>Package cost:</strong> ${selected?'€'+selected.cost+'M':'—'}</div><div><strong>Worker coverage:</strong> ${selected?selected.workers:'—'}</div>
+      <div><strong>Payload SHA-256:</strong> <code>${SIGNATURE.displayPayloadHashSHA256}</code></div>
+      <div><strong>Envelope HMAC-SHA-256:</strong> <code>${SIGNATURE.signatureHMAC}</code></div>
+    </div>`;
+  document.getElementById('reason').innerHTML=`<ul class="reason-list">
+    <li>Export weakness is active because at least one cluster has <code>exportOrdersIndex &lt; 90</code> (Antwerp chemicals=84, Ghent manufacturing=87).</li>
+    <li>Skills strain is active because the technical vacancy rate is 4.6% (threshold &gt; 3.9%).</li>
+    <li>Grid stress is active because congestion hours = 19 (threshold &gt; 11).</li>
+    <li>The policy is <code>${INSIGHT.suggestionPolicy}</code>, so the cheapest package covering every active need within budget is selected.</li>
+    <li><strong>${selected.name}</strong> covers export=${selected.export}, skills=${selected.skills}, grid=${selected.grid}, cost=€${selected.cost}M.</li>
+    <li>Usage is permitted only for purpose <code>regional_stabilization</code>; the insight expires at ${INSIGHT.expiresAt}.</li>
+  </ul>`;
+  document.getElementById('check').innerHTML=`<ul class="check-list">${checks.map(([name,ok])=>`<li><span class="pass">${ok?'PASS':'FAIL'}:</span> ${name}</li>`).join('')}</ul>
+    <details><summary>Verification details</summary><pre>Browser canonical envelope SHA-256: ${browserHash}\nExpected browser canonical SHA-256: ${EXPECTED_BROWSER_CANONICAL_SHA256}\nEyeling source payload hash: ${SIGNATURE.payloadHashSHA256}\nPublished display payload hash: ${SIGNATURE.displayPayloadHashSHA256}\nHMAC mode in source: ${SIGNATURE.hmacVerificationMode}</pre></details>`;
+  status.textContent=checks.every(([,ok])=>ok)?'All checks pass':'One or more checks failed';
+}
+
+document.getElementById('runBtn').addEventListener('click',runArc);
+renderStatic(deriveNeeds(),null);
+runArc();
+</script>
+</body>
+</html>
