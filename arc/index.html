@@ -1,0 +1,442 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>ARC — Verifiable answers from better questions</title>
+    <meta
+      name="description"
+      content="ARC turns a precise question into a portable, executable artifact that answers it, explains the derivation, and checks the result."
+    />
+    <meta property="og:title" content="ARC — Verifiable answers from better questions" />
+    <meta
+      property="og:description"
+      content="Ask the right question. Get the answer. Understand the reason. Run the check."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="https://josd.github.io/arc/arc.svg" />
+    <link rel="stylesheet" href="../style.css" />
+  </head>
+  <body id="top" class="arc-page">
+    <a class="skip-link" href="#content">Skip to content</a>
+
+    <header class="topbar" aria-label="Site header">
+      <a class="brand" href="../index.html" rel="author" aria-label="Jos De Roo home">jdr</a>
+      <nav class="nav" aria-label="Page sections">
+        <a href="#why">Why</a>
+        <a href="#how">How</a>
+        <a href="#principles">Principles</a>
+        <a href="#examples">Examples</a>
+      </nav>
+    </header>
+
+    <main id="content">
+      <section class="hero page-hero arc-hero" aria-labelledby="page-title">
+        <div class="hero-copy">
+          <p class="eyebrow">Answer · Reason · Check</p>
+          <h1 id="page-title">ARC — <em>Verifiable answers</em> from better questions</h1>
+          <div class="intro">
+            <p>
+              ARC turns a precise question into a portable, executable artifact that answers it,
+              explains the derivation, and checks the result through a route capable of finding errors.
+            </p>
+            <p><strong>Ask the right question. Get the answer. Understand the reason. Run the check.</strong></p>
+          </div>
+        </div>
+
+        <figure class="arc-banner">
+          <img
+            src="arc.svg"
+            alt="ARC: Answer, Reason, Check. Ask better questions. Get answers you can check."
+            width="1400"
+            height="320"
+          />
+        </figure>
+      </section>
+
+      <div class="rule" aria-hidden="true"></div>
+
+      <section id="why" class="section" aria-labelledby="heading-why">
+        <div class="section-heading">
+          <p>01 — Motivation</p>
+          <h2 id="heading-why">Why ARC?</h2>
+        </div>
+        <div class="bio-copy prose">
+          <p>AI has made answers abundant. Trustworthy answers are still scarce.</p>
+          <p>
+            A plausible response can be useful, but plausibility is not evidence. In most
+            AI-assisted workflows, verification remains a manual afterthought: inspect the result,
+            redo the calculation, search for another source, write a test, or ask an expert.
+          </p>
+          <p>ARC moves verification into the artifact itself:</p>
+          <pre><code>Typical AI workflow
+question → AI → answer → manual verification
+
+ARC workflow
+question + data + logic → executable artifact → Answer + Reason + Check</code></pre>
+          <p>
+            This moves the most valuable human work upstream: <strong>frame the right question,
+            identify the relevant facts and rules, and decide what would count as a convincing
+            check</strong>. AI can then do more of the mechanical work without asking us to accept an
+            opaque result.
+          </p>
+          <p>
+            ARC does not make an answer trustworthy by sounding confident. It makes the answer
+            <strong>inspectable, repeatable, and able to prove itself wrong</strong>.
+          </p>
+        </div>
+      </section>
+
+      <div class="rule" aria-hidden="true"></div>
+
+      <section id="how" class="section" aria-labelledby="heading-how">
+        <div class="section-heading">
+          <p>02 — Pattern</p>
+          <h2 id="heading-how">How an ARC works</h2>
+        </div>
+        <div class="bio-copy prose">
+          <p>Every ARC starts with three explicit inputs:</p>
+          <ul>
+            <li><strong>Question</strong> — what do we actually want to know or decide?</li>
+            <li><strong>Data</strong> — which facts, measurements, observations, or inputs are relevant?</li>
+            <li><strong>Logic</strong> — which equations, constraints, policies, algorithms, or definitions govern the result?</li>
+          </ul>
+          <p>From those inputs, an ARC produces three outputs:</p>
+          <ol>
+            <li><strong>Answer</strong> — the direct result to the question.</li>
+            <li><strong>Reason</strong> — a clear account of how the result follows from the inputs and rules.</li>
+            <li><strong>Check</strong> — an independent verification that confirms the result or fails visibly.</li>
+          </ol>
+          <pre><code>INPUT                         OUTPUT
+Question ─┐                   ┌─ Answer
+Data ─────┼─→ compute ────────┼─ Reason
+Logic ────┘                   └─ Check</code></pre>
+          <p>
+            A good ARC question is more than a prompt; it is part of the specification. It should
+            be precise enough to distinguish a correct answer, an incorrect answer, and a correct
+            answer to the wrong question.
+          </p>
+          <p>
+            The result is not trapped in a chat window. It is a self-contained program that can be
+            run again, inspected, shared, tested, and incorporated into an automated workflow.
+          </p>
+        </div>
+      </section>
+
+      <div class="rule" aria-hidden="true"></div>
+
+      <section id="check" class="section" aria-labelledby="heading-check">
+        <div class="section-heading">
+          <p>03 — Trust</p>
+          <h2 id="heading-check">The Check is the trust contract</h2>
+        </div>
+        <div class="bio-copy prose">
+          <p>
+            An explanation is not verification. A model can produce a convincing explanation for
+            a wrong result, so the Check must be capable of <strong>disagreeing</strong> with the Answer.
+          </p>
+          <p>Where possible, it should take a genuinely different route from the primary computation:</p>
+          <ul>
+            <li>a second formula or algorithm;</li>
+            <li>an invariant or conservation law;</li>
+            <li>a reverse calculation;</li>
+            <li>exhaustive comparison over a bounded domain;</li>
+            <li>a known identity, boundary condition, or dimensional constraint;</li>
+            <li>an independent data source;</li>
+            <li>another domain-appropriate validation.</li>
+          </ul>
+          <blockquote><p>A check that cannot fail is not much of a check.</p></blockquote>
+          <p>
+            Because the Check is executable, it can run automatically whenever the question, data,
+            logic, or implementation changes. A passing check is visible evidence. A failing check
+            is useful information, not something to hide.
+          </p>
+        </div>
+      </section>
+
+      <div class="rule" aria-hidden="true"></div>
+
+      <section id="composition" class="section" aria-labelledby="heading-composition">
+        <div class="section-heading">
+          <p>04 — Composition</p>
+          <h2 id="heading-composition">Small arcs compose into larger arcs</h2>
+        </div>
+        <div class="bio-copy prose">
+          <p>
+            An ARC does not have to remain an isolated calculation. Its inputs and outputs form an
+            explicit contract, so the checked Answer from one arc can become Data for another.
+            Several focused arcs can compose into a larger arc with its own question, reasoning,
+            and end-to-end check.
+          </p>
+          <pre><code>ARC A ──┐
+ARC B ──┼──→ larger ARC ──→ Answer + Reason + Check
+ARC C ──┘</code></pre>
+          <p>
+            The larger ARC does not merely collect results. It checks whether those results compose
+            into a correct answer to the larger question.
+          </p>
+          <div class="table-scroll" tabindex="0" role="region" aria-label="Benefits of ARC composition">
+            <table>
+              <thead>
+                <tr><th>Quality</th><th>What composition provides</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Reliable</strong></td>
+                  <td>Each arc checks its own result; the larger arc checks the composition end to end. Failures remain visible and traceable to bounded components.</td>
+                </tr>
+                <tr>
+                  <td><strong>Scalable</strong></td>
+                  <td>Independent arcs can run separately or in parallel. Larger workflows grow by composition instead of becoming one monolithic program.</td>
+                </tr>
+                <tr>
+                  <td><strong>Performant</strong></td>
+                  <td>Each arc uses only the data and logic its question requires. Unchanged results can be reused, and only affected arcs need to run again.</td>
+                </tr>
+                <tr>
+                  <td><strong>Evolvable</strong></td>
+                  <td>An arc can be improved, replaced, or split behind the same contract. New arcs can be added without rewriting the whole system.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <p>
+            The discipline is recursive: at every level, make the question explicit, expose the
+            reasoning, and include a check capable of catching a wrong result. <strong>Small checked
+            arcs become the building blocks of larger checked arcs.</strong>
+          </p>
+        </div>
+      </section>
+
+      <div class="rule" aria-hidden="true"></div>
+
+      <section id="limits" class="section" aria-labelledby="heading-limits">
+        <div class="section-heading">
+          <p>05 — Scope</p>
+          <h2 id="heading-limits">What ARC can—and cannot—guarantee</h2>
+        </div>
+        <div class="bio-copy prose">
+          <p>ARC makes trust testable; it does not make computation infallible.</p>
+          <ul>
+            <li>A check is only as strong as its independence and coverage. Two implementations can share the same mistaken assumption.</li>
+            <li>Correct computation cannot repair incorrect, incomplete, or stale data.</li>
+            <li>Explicit logic can still encode the wrong policy or model of the world.</li>
+            <li>Some questions involve uncertainty or judgment rather than a single provably correct answer. Their checks should validate evidence, constraints, calibration, or process instead.</li>
+          </ul>
+          <p>
+            That is why ARC keeps the Question, Data, Logic, Reason, and Check visible together. It
+            makes assumptions reviewable and failures diagnosable. Human judgment remains essential—especially
+            in choosing the question and deciding what evidence is sufficient.
+          </p>
+        </div>
+      </section>
+
+      <div class="rule" aria-hidden="true"></div>
+
+      <section id="applications" class="section" aria-labelledby="heading-applications">
+        <div class="section-heading">
+          <p>06 — Applications</p>
+          <h2 id="heading-applications">Where ARC works especially well</h2>
+        </div>
+        <div class="bio-copy prose">
+          <p>
+            ARC is a natural fit for STEM and other rule-driven domains with explicit structure and
+            testable correctness conditions. Typical uses include:
+          </p>
+          <ul>
+            <li>recomputing a mathematical result by a second method;</li>
+            <li>checking algebraic identities, invariants, and error bounds;</li>
+            <li>validating conservation, dimensional, range, or boundary constraints;</li>
+            <li>testing an algorithm against known or exhaustive cases;</li>
+            <li>checking engineering outputs against system constraints;</li>
+            <li>tracing a rule-based decision back to its inputs and policy rules;</li>
+            <li>comparing numerical results with analytical or independently computed results.</li>
+          </ul>
+          <p>
+            The pattern also applies beyond questions with one exact answer. A planning or policy
+            ARC can show which evidence and constraints drove a decision, test whether required
+            rules were respected, and fail visibly when its assumptions no longer hold.
+          </p>
+        </div>
+      </section>
+
+      <div class="rule" aria-hidden="true"></div>
+
+      <section id="principles" class="section" aria-labelledby="heading-principles">
+        <div class="section-heading">
+          <p>07 — Practice</p>
+          <h2 id="heading-principles">Design principles</h2>
+        </div>
+        <div class="bio-copy prose">
+          <ul class="principle-list">
+            <li><strong>Question first</strong> — make the real information need explicit.</li>
+            <li><strong>Answer directly</strong> — do not bury the result in generated prose.</li>
+            <li><strong>Explain the derivation</strong> — expose the relevant rules, assumptions, and steps.</li>
+            <li><strong>Check independently</strong> — use a path that can catch errors in the primary computation.</li>
+            <li><strong>Fail visibly</strong> — never let broken assumptions or edge cases disappear silently.</li>
+            <li><strong>Prefer executable verification</strong> — make checking automatic and repeatable.</li>
+            <li><strong>Keep artifacts self-contained</strong> — preserve the complete case for inspection and reruns.</li>
+            <li><strong>Use only what the question needs</strong> — minimize irrelevant data and unnecessary inference.</li>
+            <li><strong>Compose through explicit contracts</strong> — connect checked outputs to defined inputs so larger arcs remain inspectable.</li>
+          </ul>
+        </div>
+      </section>
+
+      <div class="rule" aria-hidden="true"></div>
+
+      <section id="examples" class="section" aria-labelledby="heading-examples">
+        <div class="section-heading">
+          <p>08 — Catalogue</p>
+          <h2 id="heading-examples">Explore ARC</h2>
+        </div>
+        <div class="bio-copy prose arc-examples">
+          <p>Each example is a self-contained page with the <strong>Answer · Reason · Check</strong> triad presented in place.</p>
+
+          <div class="table-scroll" tabindex="0" role="region" aria-label="Featured ARC examples">
+            <table>
+              <thead>
+                <tr><th>Start here</th><th>What it demonstrates</th></tr>
+              </thead>
+              <tbody>
+                <tr><td><a href="euler-identity.html"><strong>Euler's Identity</strong></a></td><td>A classic symbolic result with an independent numerical check.</td></tr>
+                <tr><td><a href="pi.html"><strong>Pi</strong></a></td><td>High-precision computation with explicit error bounds.</td></tr>
+                <tr><td><a href="bike-trip.html"><strong>Bike Trip Planning</strong></a></td><td>A practical decision derived from hazards, preferences, and declarative rules.</td></tr>
+                <tr><td><a href="wind-turbines.html"><strong>Wind-Turbine Maintenance</strong></a></td><td>Engineering decisions checked against telemetry and policy constraints.</td></tr>
+                <tr><td><a href="delfour.html"><strong>Delfour</strong></a></td><td>A purpose-specific insight derived without exposing sensitive source data.</td></tr>
+                <tr><td><a href="flandor.html"><strong>Flandor</strong></a></td><td>Several local signals composed into a checked regional decision.</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <details class="arc-catalogue">
+            <summary>Browse the full example catalogue</summary>
+
+            <div class="catalogue-group">
+              <h3>Science</h3>
+              <ul>
+                <li><a href="bmi.html"><strong>Body Mass Index</strong></a> — Compute BMI categories with explainable thresholds and sanity checks.</li>
+                <li><a href="grass-molecular.html"><strong>Grass Seed Germination</strong></a> — Model germination states and transitions with rule checks.</li>
+                <li><a href="lldm.html"><strong>Leg Length Discrepancy Measurement</strong></a> — Derive a measurement from four landmarks with explicit calculation steps.</li>
+              </ul>
+            </div>
+
+            <div class="catalogue-group">
+              <h3>Economics / Insight Economy</h3>
+              <ul>
+                <li><a href="delfour.html"><strong>Delfour — microeconomics</strong></a> — Turn sensitive local household data into a purpose-specific shopping insight without exposing the underlying condition.</li>
+                <li><a href="flandor.html"><strong>Flandor — macroeconomics</strong></a> — Combine privacy-preserving regional signals into a checked stabilization decision and select the lowest-cost eligible retooling package.</li>
+              </ul>
+            </div>
+
+            <div class="catalogue-group">
+              <h3>Technology</h3>
+              <ul>
+                <li><a href="auroracare.html"><strong>Auroracare</strong></a> — Purpose-based medical data exchange.</li>
+                <li><a href="clinical-care.html"><strong>Clinical Care Planning</strong></a> — Derive care plans from observations, guidelines, and policy constraints.</li>
+                <li><a href="gps-clinical-bench.html"><strong>GPS Clinical Bench</strong></a> — Benchmark rule-based clinical decisions with transparent audit trails.</li>
+                <li><a href="graph-french.html"><strong>Graph of French Cities</strong></a> — Compute shortest paths and verify graph connectivity.</li>
+                <li><a href="health-info.html"><strong>Health Information Processing</strong></a> — Transform clinical payloads with typed rules and validation.</li>
+                <li><a href="linked-lists.html"><strong>Linked Lists</strong></a> — Term-logic example checked using Resolution.</li>
+                <li><a href="rest-path.html"><strong>REST-Path</strong></a> — Explain link-following over REST resources and verify pre/post conditions.</li>
+                <li><a href="turing.html"><strong>Turing Machine</strong></a> — Run tapes with explicit transitions and verify halting and tape contents.</li>
+              </ul>
+            </div>
+
+            <div class="catalogue-group">
+              <h3>Engineering</h3>
+              <ul>
+                <li><a href="bike-trip.html"><strong>Bike Trip Planning</strong></a> — Route priorities from hazards, preferences, and declarative JSON rules.</li>
+                <li><a href="building-performance.html"><strong>Building Performance</strong></a> — Reason about energy and comfort metrics and verify rule-based outcomes.</li>
+                <li><a href="control-system.html"><strong>Control System</strong></a> — Model feedback loops and verify stability and response conditions.</li>
+                <li><a href="eco-route.html"><strong>Eco-Route</strong></a> — Select lower-emission routes from traffic, grade, and policy goals.</li>
+                <li><a href="gps-bike.html"><strong>GPS Bike</strong></a> — Plan a bicycle route from Gent to Maasmechelen.</li>
+                <li><a href="lee.html"><strong>Lee Algorithm</strong></a> — Find a maze route and trace the optimal wavefront path.</li>
+                <li><a href="wind-turbines.html"><strong>Wind-Turbine Maintenance</strong></a> — Plan maintenance from telemetry and policy rules with auditable outcomes.</li>
+              </ul>
+            </div>
+
+            <div class="catalogue-group">
+              <h3>Mathematics</h3>
+              <ul>
+                <li><a href="ackermann.html"><strong>Ackermann</strong></a> — Compute A<sub>2</sub> with exact hyper-operations and safe handling of huge values.</li>
+                <li><a href="binomial-theorem.html"><strong>Binomial Theorem</strong></a> — Verify the sum of all binomial coefficients.</li>
+                <li><a href="collatz.html"><strong>Collatz</strong></a> — Generate trajectories and check invariants for the Collatz map.</li>
+                <li><a href="complex.html"><strong>Complex Identities</strong></a> — Show symbolic steps for complex-number equalities with auditable reasoning.</li>
+                <li><a href="euclid-infinitude.html"><strong>Euclid's Infinitude of Primes</strong></a> — Explain Euclid's proof and run computational checks.</li>
+                <li><a href="euler-identity.html"><strong>Euler's Identity</strong></a> — Derive and numerically check a classic identity.</li>
+                <li><a href="fibonacci.html"><strong>Fibonacci</strong></a> — Compute large Fibonacci numbers with fast doubling and proof-style checks.</li>
+                <li><a href="fundamental-theorem-arithmetic.html"><strong>Fundamental Theorem of Arithmetic</strong></a> — Explore unique prime factorization.</li>
+                <li><a href="godel-numbering.html"><strong>Gödel Numbering</strong></a> — Demonstrate a classic Gödel numbering construction.</li>
+                <li><a href="group-theory.html"><strong>Group Theory</strong></a> — Verify closure, identity, inverses, and associativity on examples.</li>
+                <li><a href="kaprekar-constant.html"><strong>Kaprekar's Constant</strong></a> — Exhaustively test every four-digit state in Kaprekar's routine.</li>
+                <li><a href="matrix.html"><strong>Matrix Basics</strong></a> — Add, multiply, and invert matrices with dimension and property checks.</li>
+                <li><a href="matrix-multiplication.html"><strong>Matrix Multiplication</strong></a> — Demonstrate and check that matrix multiplication is not commutative in general.</li>
+                <li><a href="newton-raphson.html"><strong>Newton–Raphson</strong></a> — Find roots numerically and check residual error.</li>
+                <li><a href="peano-factorial.html"><strong>Peano Factorial</strong></a> — Show that 5! = 120 using Resolution.</li>
+                <li><a href="pi.html"><strong>Pi</strong></a> — Compute high-precision π with the Chudnovsky series and error-bound checks.</li>
+                <li><a href="polynomial.html"><strong>Polynomial Roots</strong></a> — Find roots simultaneously and verify convergence on representative cases.</li>
+                <li><a href="prime.html"><strong>Primes</strong></a> — Generate and test primes with explicit certificates or factor checks.</li>
+                <li><a href="pythagorean-theorem.html"><strong>Pythagorean Theorem</strong></a> — Compute triangle sides and confirm the result algebraically.</li>
+                <li><a href="roots-of-unity.html"><strong>Roots of Unity</strong></a> — Place complex roots on the unit circle and check spacing, sums, and products.</li>
+              </ul>
+            </div>
+          </details>
+        </div>
+      </section>
+
+      <div class="rule" aria-hidden="true"></div>
+
+      <section id="insight-economy" class="section" aria-labelledby="heading-insight-economy">
+        <div class="section-heading">
+          <p>09 — Context</p>
+          <h2 id="heading-insight-economy">ARC and the Insight Economy</h2>
+        </div>
+        <div class="bio-copy prose">
+          <p>
+            ARC fits naturally with Professor Ruben Verborgh's vision in
+            <a href="https://ruben.verborgh.org/blog/2025/08/12/inside-the-insight-economy/"><strong>Inside the Insight Economy</strong></a>:
+            derive a purpose-specific insight for a particular recipient, context, and moment
+            instead of moving or accumulating more raw data than necessary.
+          </p>
+          <p>
+            A well-formed question expresses that purpose. It lets a system focus on the data and
+            logic the question actually needs, derive an actionable answer, explain the derivation,
+            and verify the result.
+          </p>
+          <ul>
+            <li><a href="delfour.html"><strong>Delfour</strong></a> shows the micro-economic case: sensitive household information stays local while a narrowly scoped shopping insight is derived for one retailer context, with explicit policy and checks.</li>
+            <li><a href="flandor.html"><strong>Flandor</strong></a> shows the macro-economic case: exporters, labour-market actors, and grid operators keep detailed evidence local while a regional ARC composes their signals into a time-bounded stabilization decision.</li>
+          </ul>
+          <p>Together, they illustrate the principle: <strong>move the minimum useful insight, not the maximum available data</strong>.</p>
+          <p>
+            ARC does not replace the Insight Economy architecture. It complements it with a
+            pragmatic discipline for <strong>question-directed, explainable, verifiable computation</strong>.
+          </p>
+        </div>
+      </section>
+
+      <div class="rule" aria-hidden="true"></div>
+
+      <section id="ambition" class="section arc-closing" aria-labelledby="heading-ambition">
+        <div class="section-heading">
+          <p>10 — Ambition</p>
+          <h2 id="heading-ambition">What ARC is trying to make normal</h2>
+        </div>
+        <div class="bio-copy prose">
+          <p>AI should not force us to choose between <strong>speed</strong> and <strong>trust</strong>.</p>
+          <p>
+            The practical ambition of ARC is simple: formulate a precise question, answer it
+            directly, show how the result was derived, and perform a meaningful check without
+            requiring a person to rebuild the entire solution by hand.
+          </p>
+          <blockquote><p>Better questions → explicit reasoning → independently checked answers.</p></blockquote>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <span>© Jos De Roo</span>
+      <a href="#top">Back to top ↑</a>
+    </footer>
+  </body>
+</html>

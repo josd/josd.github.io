@@ -766,3 +766,167 @@ main {
   color: var(--accent);
   font-weight: 600;
 }
+
+/* ARC landing page */
+
+.arc-hero {
+  gap: clamp(2rem, 5vw, 3.5rem);
+}
+
+.arc-hero .hero-copy {
+  max-width: 48rem;
+}
+
+.arc-hero h1 {
+  max-width: 12em;
+}
+
+.arc-hero .intro strong {
+  color: var(--ink);
+  font-family: "Instrument Serif", Georgia, serif;
+  font-size: 1.06em;
+  font-weight: 400;
+}
+
+.arc-banner {
+  margin: 0;
+  width: 100%;
+  padding: clamp(0.3rem, 1vw, 0.55rem);
+  border: 1px solid rgba(255, 255, 255, 0.72);
+  border-radius: clamp(0.8rem, 2vw, 1.35rem);
+  background: rgba(255, 255, 255, 0.46);
+  box-shadow: var(--shadow);
+}
+
+.arc-banner img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: clamp(0.6rem, 1.5vw, 1rem);
+}
+
+.arc-page .prose a {
+  color: var(--ink);
+  background-image: linear-gradient(var(--accent-2), var(--accent-2));
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  background-size: 100% 1px;
+  font-style: italic;
+}
+
+.arc-page .prose blockquote {
+  margin: 0;
+  padding: 0.2rem 0 0.2rem 1rem;
+  border-left: 3px solid var(--accent);
+}
+
+.arc-page .prose blockquote p {
+  color: var(--ink);
+  font-size: clamp(1.05rem, 1.8vw, 1.25rem);
+  font-style: italic;
+}
+
+.arc-page .table-scroll {
+  max-width: 100%;
+  overflow-x: auto;
+  border-radius: 1rem;
+  outline-offset: 0.25rem;
+}
+
+.arc-page .table-scroll table {
+  min-width: 34rem;
+}
+
+.arc-page .principle-list {
+  display: grid;
+  gap: 0;
+  padding: 0;
+  list-style: none;
+  border-block: 1px solid var(--rule);
+}
+
+.arc-page .principle-list li {
+  padding: 0.7rem 0;
+}
+
+.arc-page .principle-list li + li {
+  margin-top: 0;
+  border-top: 1px solid var(--rule);
+}
+
+.arc-catalogue {
+  margin-top: 0.25rem;
+  overflow: hidden;
+  border: 1px solid var(--rule);
+  border-radius: 1rem;
+  background: rgba(255, 255, 255, 0.42);
+}
+
+.arc-catalogue summary {
+  cursor: pointer;
+  padding: 1rem;
+  color: var(--ink);
+  font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  transition: background-color 180ms ease, color 180ms ease;
+}
+
+.arc-catalogue summary:hover {
+  background: color-mix(in oklab, var(--muted-bg) 84%, white);
+  color: var(--accent);
+}
+
+.arc-catalogue[open] summary {
+  border-bottom: 1px solid var(--rule);
+}
+
+.catalogue-group {
+  padding: 1rem;
+}
+
+.catalogue-group + .catalogue-group {
+  border-top: 1px solid var(--rule);
+}
+
+.catalogue-group h3 {
+  margin: 0 0 0.8rem;
+  color: var(--accent-2);
+  font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.catalogue-group ul {
+  display: grid;
+  gap: 0.65rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.catalogue-group li {
+  padding: 0;
+}
+
+.catalogue-group li + li {
+  margin-top: 0;
+}
+
+.arc-closing {
+  padding-bottom: clamp(3rem, 7vw, 5rem);
+}
+
+@media (max-width: 760px) {
+  .arc-hero {
+    gap: 1.5rem;
+  }
+
+  .arc-page .table-scroll table {
+    min-width: 31rem;
+  }
+}
