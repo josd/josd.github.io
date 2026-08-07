@@ -141,7 +141,7 @@
           <button class="ghost" id="clearHarness">Clear results</button>
         </div>
       </div>
-      <p class="small muted">Each block recomputes <span class="mono">B(n)</span> two ways (<span class="mono">Σ C(n,k)</span> vs <span class="mono">2^n</span>) and asserts they agree. One case is intentionally invalid.</p>
+      <p class="small muted">Each block declares its expected outcome. Valid inputs recompute <span class="mono">B(n)</span> two ways (<span class="mono">Σ C(n,k)</span> vs <span class="mono">2^n</span>); the invalid-input case passes only when it is correctly rejected.</p>
       <div id="harnesses" class="stack"></div>
     </section>
 
@@ -271,7 +271,7 @@
     { n: 5, title: 'n = 5 ⇒ B(5)=32' },
     { n: 10, title: 'n = 10 ⇒ B(10)=1024' },
     { n: 20, title: 'n = 20 ⇒ B(20)=1,048,576' },
-    { n: -1, title: 'Invalid (should fail): n = -1', negative:true },
+    { n: -1, title: 'Invalid input n = −1 (expected rejection)', expect: 'reject' },
   ];
 
   const harnessDiv = document.getElementById('harnesses');
@@ -298,7 +298,12 @@
         ans.querySelector('.v').textContent = '—';
         sumK.querySelector('.v').textContent = '—';
         len.querySelector('.v').textContent = '—';
-        checks.replaceChildren(el('div', { class:'term' }, [ el('span', { class:'badge fail' }, ['FAIL']), document.createTextNode(' n must be a non‑negative integer.') ]));
+        const rejectedAsExpected = h.expect === 'reject';
+        checks.replaceChildren(el('div', { class:'row' }, [
+          el('span', { class:'badge ' + (rejectedAsExpected ? 'ok' : 'fail') }, [rejectedAsExpected ? 'PASS' : 'FAIL']),
+          el('span', { class:'mono' }, [rejectedAsExpected ? 'Invalid input correctly rejected' : 'Unexpected invalid input']),
+          document.createTextNode(' — n must be a non-negative integer.')
+        ]));
         return;
       }
       const row = binomRow(nBig);
@@ -319,9 +324,9 @@
       checks.replaceChildren(...list);
     };
 
-    if (h.negative){
-      const warn = el('div', { class:'small muted' }, ['This case is intentionally invalid and should report a failure.']);
-      card.append(head, kpis, reason, warn, checks, run);
+    if (h.expect === 'reject'){
+      const note = el('div', { class:'small muted' }, ['Expected outcome: reject the input without attempting the binomial computation.']);
+      card.append(head, kpis, reason, note, checks, run);
     } else {
       card.append(head, kpis, reason, checks, run);
     }
@@ -343,4 +348,3 @@
 </script>
 </body>
 </html>
-

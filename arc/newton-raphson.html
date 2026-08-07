@@ -305,8 +305,8 @@ const harnessList=[
   { title:'exp(x) − 3', f:'exp(x)-3', df:'exp(x)', x0:1, eps:1e-12, N:30, expect:Math.log(3) },
   { title:'Multiple root (linear conv): (x−1)^2', f:'(x-1)^2', df:'2*(x-1)', x0:2, eps:1e-12, N:40, expect:1 },
   { title:'Numeric derivative only: sin(x)→0', f:'sin(x)', df:'', x0:3.1, eps:1e-12, N:40, expect:Math.PI },
-  { title:'Derivative zero at start (should fail): cos x', f:'cos(x)', df:'-sin(x)', x0:0, eps:1e-12, N:5, negative:true },
-  { title:'Likely divergence: tan x near π/2', f:'tan(x)', df:'1+tan(x)^2', x0:1.5, eps:1e-12, N:10, negative:true },
+  { title:'Derivative zero at start: expected rejection', f:'cos(x)', df:'-sin(x)', x0:0, eps:1e-12, N:5, expectStatus:'derivative zero' },
+  { title:'tan x near π/2 converges to 0', f:'tan(x)', df:'1+tan(x)^2', x0:1.5, eps:1e-12, N:10, expect:0 },
   { title:'x^2 − 1 from left', f:'x^2-1', df:'2*x', x0:-2, eps:1e-12, N:30, expect:-1 }
 ];
 
@@ -319,7 +319,11 @@ function makeHarnessCard(h){
   const iters=el('div',{class:'card'}); iters.append(el('div',{class:'k'},['Iterations']), el('div',{class:'v mono'},['—']));
   const status=el('div',{class:'card'}); status.append(el('div',{class:'k'},['Status']), el('div',{class:'v mono'},['—']));
   kpis.append(root,resid,iters,status);
-  const reason=el('p',{class:'muted small'},['Newton update x→x−f/f′; simple roots ~quadratic; multiple roots ~linear; zero derivative or poor start may fail.']);
+  const reason=el('p',{class:'muted small'},[
+    h.expectStatus
+      ? `Expected outcome: stop safely with status “${h.expectStatus}”. A correctly detected nonconvergence is a passing harness result.`
+      : 'Newton update x→x−f/f′; simple roots are approximately quadratic, while multiple roots are approximately linear.'
+  ]);
   const checks=el('div',{class:'list'});
   const run=el('button',{class:'secondary'},['Run']);
   run.onclick=()=>{
@@ -330,12 +334,16 @@ function makeHarnessCard(h){
     resid.querySelector('.v').textContent = (typeof R.residual==='number'&&isFinite(R.residual))?R.residual.toExponential(6):String(R.residual);
     iters.querySelector('.v').textContent = String(R.used);
     status.querySelector('.v').textContent = R.status;
-    const list=[]; const conv=(R.status==='converged'); list.push(row(conv,'Convergence',`status=${R.status}`));
-    if(typeof h.expect==='number'){ const close=(typeof R.root==='number'&&isFinite(R.root)) && Math.abs(R.root-h.expect)<=Math.max(1e-10,h.eps*10); list.push(row(close,'Matches expected root',`x*≈${(typeof R.root==='number'&&isFinite(R.root))?R.root.toPrecision(12):R.root} vs ${h.expect.toPrecision? h.expect.toPrecision(12): String(h.expect)}`)); }
-    if(h.negative){ list.push(row(!conv,'Intended to not converge',`status=${R.status}`)); }
+    const list=[]; const conv=(R.status==='converged');
+    if(h.expectStatus){
+      list.push(row(!conv && R.status===h.expectStatus,'Expected nonconvergence detected',`status=${R.status}; expected=${h.expectStatus}`));
+    } else {
+      list.push(row(conv,'Convergence',`status=${R.status}`));
+      if(typeof h.expect==='number'){ const close=(typeof R.root==='number'&&isFinite(R.root)) && Math.abs(R.root-h.expect)<=Math.max(1e-10,h.eps*10); list.push(row(close,'Matches expected root',`x*≈${(typeof R.root==='number'&&isFinite(R.root))?R.root.toPrecision(12):R.root} vs ${h.expect.toPrecision? h.expect.toPrecision(12): String(h.expect)}`)); }
+    }
     checks.replaceChildren(...list);
   };
-  if(h.negative){ const warn=el('div',{class:'small muted'},['This case is intentionally difficult and may not converge.']); card.append(head,kpis,reason,warn,checks,run); } else { card.append(head,kpis,reason,checks,run); }
+  card.append(head,kpis,reason,checks,run);
   return card;
 }
 
@@ -358,4 +366,3 @@ window.addEventListener('error', (e)=>{ try{ document.getElementById('status').t
 </script>
 </body>
 </html>
-

@@ -219,7 +219,7 @@
     }
 
     function textToGrid(txt){
-      const lines = (txt||'').trim().split(/\\r?\\n/).filter(Boolean);
+      const lines = (txt||'').trim().split(/\r?\n/).filter(Boolean);
       if (lines.length===0) return false;
       const rr = lines.length, cc = Math.max(...lines.map(s=>s.length));
       R = rr; C = cc;
@@ -412,35 +412,28 @@ Nodes expanded: ${res.expansions}
         })();
         lines.push(`Path correctness (start→goal, monotone distances, optimal length): ${ok(distOk)}`);
       } else {
-        lines.push('No path found — skipping path checks.');
+        const noPathConfirmed = Boolean(start && goal) && !baselineReachable(grid, R, C, start, goal);
+        lines.push(`No-path result agrees with independent reachability check: ${ok(noPathConfirmed)}`);
       }
 
-      // 2) Random mazes quick sanity: generate 5 grids and ensure BFS agrees with itself on distance (trivial) and respects walls
-      let rndOK = true;
-      for (let t=0;t<5;t++){
-        const r=20, c=20, p=0.25;
-        const arr = Array(r*c).fill(0).map(()=>Math.random()<p?1:0);
-        const s=[0,0], g=[r-1,c-1];
-        arr[0]=0; arr[r*c-1]=0;
-        // single-run BFS
-        function bfs(arrR,arrC,a,sx,sy,gx,gy){
-          const inside=(rr,cc)=> rr>=0&&rr<arrR&&cc>=0&&cc<arrC;
-          const id=(rr,cc)=> rr*arrC+cc;
-          const dist=new Int32Array(arrR*arrC).fill(-1);
-          const q=[id(sx,sy)]; dist[q[0]]=0; let qi=0; let reached=false;
-          while(qi<q.length){ const cur=q[qi++]; const rr=Math.floor(cur/arrC), cc=cur%arrC;
-            if (rr===gx && cc===gy){ reached=true; break; }
-            for (const [dr,dc] of [[1,0],[-1,0],[0,1],[0,-1]]){
-              const nr=rr+dr, nc=cc+dc; if(!inside(nr,nc))continue; const ni=id(nr,nc);
-              if (a[ni]===1 || dist[ni]!==-1) continue; dist[ni]=dist[cur]+1; q.push(ni);
-            }
-          }
-          return {reached, dist};
-        }
-        const r1 = bfs(r,c,arr, s[0],s[1], g[0],g[1]);
-        if (!r1.reached && r1.dist[r*c-1]!==-1){ rndOK=false; break; }
+      // 2) Run the actual Lee implementation on deterministic fixtures with
+      // independently specified shortest distances, including an unreachable case.
+      const fixtures = [
+        { rows:3, cols:3, cells:Array(9).fill(0), start:[0,0], goal:[2,2], expected:4 },
+        { rows:3, cols:3, cells:[0,0,0, 1,1,1, 0,0,0], start:[0,0], goal:[2,2], expected:-1 },
+        { rows:1, cols:5, cells:Array(5).fill(0), start:[0,0], goal:[0,4], expected:4 },
+        { rows:3, cols:4, cells:[0,1,0,0, 0,1,0,1, 0,0,0,0], start:[0,0], goal:[0,3], expected:7 }
+      ];
+      const saved = { R, C, grid, start, goal };
+      let fixturesOK = true;
+      for (const fixture of fixtures){
+        R=fixture.rows; C=fixture.cols; grid=fixture.cells.slice(); start=fixture.start.slice(); goal=fixture.goal.slice();
+        const actual = lee();
+        const actualDistance = actual.found ? actual.dist : -1;
+        if (actualDistance !== fixture.expected){ fixturesOK=false; break; }
       }
-      lines.push(`Randomized quick checks (5 samples): ${ok(rndOK)}`);
+      R=saved.R; C=saved.C; grid=saved.grid; start=saved.start; goal=saved.goal;
+      lines.push(`Known shortest-path fixtures (4 cases): ${ok(fixturesOK)}`);
 
       const pre = document.createElement('pre');
       pre.className = 'mono';
@@ -451,7 +444,7 @@ Nodes expanded: ${res.expansions}
 
     // Demo grid
     const DEMO = [
-      'S....#.................',
+      'S......................',
       '#####.#.#############..',
       '.....#.#...........#..G',
       '.###.#.#.#######.#.#.##',

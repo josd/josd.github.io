@@ -262,9 +262,9 @@ function runAll(){
   // Case 1 recompute expected
   const AB_expected = [[makeF(0,1), makeF(24,1)], [makeF(0,1), makeF(15,1)]];
   chk.push(matEq(AB, AB_expected) ? "• Case 1 OK (product matches expected). ✓" : "• Case 1 mismatch. ✗");
-  // Case 2: multiply A by Ainv*A*Ainv? simpler: compute by mul and compare
-  const A2_expected = matMul(A,A);
-  chk.push(matEq(A2, A2_expected) ? "• Case 2 OK (square computed). ✓" : "• Case 2 mismatch. ✗");
+  // Case 2: compare against an independently specified expected matrix.
+  const A2_expected = [[makeF(-5,1), makeF(12,1)], [makeF(-8,1), makeF(3,1)]];
+  chk.push(matEq(A2, A2_expected) ? "• Case 2 OK (square matches expected entries). ✓" : "• Case 2 mismatch. ✗");
   // Case 3: A*Ainv==I and Ainv*A==I
   const I2 = eye(2);
   chk.push(matEq(matMul(A, Ainv), I2) && matEq(matMul(Ainv, A), I2) ? "• Case 3 OK (inverse check both sides). ✓" : "• Case 3 inverse failed. ✗");
@@ -279,7 +279,7 @@ function runAll(){
   const detFromCoeff = coeff[coeff.length-1];
   chk.push(detFromCoeff===prodEig ? "• Case 5: det equals product of eigenvalues. ✓" : "• Case 5: det/product mismatch. ✗");
   // Cayley–Hamilton: evaluate χ_A(A) == 0
-  const zeroCH = isZeroMatrix(polyEvalMat(M4, coeff));
+  const zeroCH = isZeroMatrix(polyEvalMat(M4i, coeff));
   chk.push(zeroCH ? "• Case 5: Cayley–Hamilton (χ_A(A)=0). ✓" : "• Case 5: Cayley–Hamilton failed. ✗");
 
   return {ans: ans.join("\n"), why: why.join("\n"), chk: chk.join("\n")};
