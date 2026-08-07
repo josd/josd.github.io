@@ -186,7 +186,7 @@ input.short{ width:110px; padding:6px 8px; }
           <button class="ghost" id="clearHarness">Clear results</button>
         </div>
       </div>
-      <p class="small muted">Each block checks that <span class="mono">|e^{iθ}+1| ≤ ε</span> for <span class="mono">θ = π + 2πk</span> and fails for a noncongruent angle.</p>
+      <p class="small muted">Each block declares its expected outcome. A <strong>PASS</strong> means the result matched that expectation—including when a noncongruent angle was correctly rejected. Integer periods are reduced symbolically before numerical evaluation.</p>
       <div id="harnesses" class="stack"></div>
     </section>
 
@@ -199,20 +199,12 @@ input.short{ width:110px; padding:6px 8px; }
 <script>
   // ---------- Math helpers ----------
   const TAU = Math.PI * 2;
-  const normAngle = (t) => { // wrap to [-π, π]
-    let x = ((t + Math.PI) % TAU + TAU) % TAU - Math.PI; // robust modulo
-    // handle −0
-    return x === 0 ? 0 : x;
-  };
   const cis = (t) => ({ re: Math.cos(t), im: Math.sin(t) });
-  const add = (a,b)=>({re:a.re+b.re, im:a.im+b.im});
-  const abs = (z)=> Math.hypot(z.re, z.im);
-  const mul = (a,b)=>({re:a.re*b.re - a.im*b.im, im:a.re*b.im + a.im*b.re});
-  const powComplex = (z, n)=>{ let r={re:1,im:0}; for(let i=0;i<n;i++) r=mul(r,z); return r; };
+  const abs = (z) => Math.hypot(z.re, z.im);
+  const distance = (a, b) => Math.hypot(a.re - b.re, a.im - b.im);
 
-  // power series for cos/sin with N terms and range reduction
+  // Independent power-series route. Callers supply an already small angle.
   function cosSeries(x, N){
-    x = normAngle(x);
     let term = 1, sum = 1; // k=0
     for (let k=1; k<N; k++){
       term *= -x*x / ((2*k-1)*(2*k));
@@ -221,7 +213,6 @@ input.short{ width:110px; padding:6px 8px; }
     return sum;
   }
   function sinSeries(x, N){
-    x = normAngle(x);
     let term = x, sum = x; // k=0
     for (let k=1; k<N; k++){
       term *= -x*x / ((2*k)*(2*k+1));
@@ -230,52 +221,62 @@ input.short{ width:110px; padding:6px 8px; }
     return sum;
   }
 
-  function evaluate(){
-    const k = Number(document.getElementById('kInput').value || 0);
-    const eps = Number(document.getElementById('epsInput').value || 1e-12);
-    const N = Math.max(1, Number(document.getElementById('NInput').value || 40));
-
-    const theta = Math.PI + TAU * k;
-    const z = cis(theta);
-    const sRe = cosSeries(theta, N), sIm = sinSeries(theta, N);
-    const zSeries = { re: sRe, im: sIm };
-
-    const ans = { re: z.re + 1, im: z.im };
-    const ansSeries = { re: zSeries.re + 1, im: zSeries.im };
-
-    document.getElementById('answer').textContent = `|e^{iπ+2πi·${k}} + 1| ≈ ${abs(ans).toExponential(3)}`;
-    document.getElementById('theta').textContent = `θ = π + 2π·${k} ≈ ${(theta).toPrecision(6)}`;
-    document.getElementById('cis').textContent = `cos θ + i sin θ ≈ ${z.re.toPrecision(12)} + ${z.im.toPrecision(12)} i`;
-    document.getElementById('seriesVal').textContent = `series_N=${N} ⇒ ${zSeries.re.toPrecision(12)} + ${zSeries.im.toPrecision(12)} i`;
-
-    renderChecks(k, eps, N, theta, z, zSeries, ans, ansSeries);
+  function calculate(theta, N){
+    const direct = cis(theta);
+    const series = { re: cosSeries(theta, N), im: sinSeries(theta, N) };
+    return {
+      direct,
+      series,
+      directResidual: Math.hypot(direct.re + 1, direct.im),
+      seriesResidual: Math.hypot(series.re + 1, series.im),
+      agreement: distance(direct, series)
+    };
   }
 
-  function renderChecks(k, eps, N, theta, z, zSeries, ans, ansSeries){
+  function evaluate(){
+    const k = Number(document.getElementById('kInput').value);
+    const eps = Number(document.getElementById('epsInput').value);
+    const N = Number(document.getElementById('NInput').value);
+    const inputError = validateInputs(k, eps, N);
+
+    if (inputError){
+      document.getElementById('answer').textContent = 'Invalid input';
+      document.getElementById('theta').textContent = '—';
+      document.getElementById('cis').textContent = '—';
+      document.getElementById('seriesVal').textContent = '—';
+      document.getElementById('checks').replaceChildren(row(false, 'Input validation', inputError));
+      return;
+    }
+
+    // For integer k, π + 2πk is congruent to π. Reduce from the structured
+    // input instead of asking floating-point trig functions to reduce a huge angle.
+    const thetaDisplay = Math.PI + TAU * k;
+    const thetaReduced = Math.PI;
+    const result = calculate(thetaReduced, N);
+
+    document.getElementById('answer').textContent = `|e^{i(π + 2π·${k})} + 1| ≈ ${result.directResidual.toExponential(3)}`;
+    document.getElementById('theta').textContent = `θ ≈ ${thetaDisplay.toPrecision(8)}; reduced θ = π`;
+    document.getElementById('cis').textContent = `cos π + i sin π ≈ ${result.direct.re.toPrecision(12)} + ${result.direct.im.toPrecision(12)} i`;
+    document.getElementById('seriesVal').textContent = `series_N=${N} ⇒ ${result.series.re.toPrecision(12)} + ${result.series.im.toPrecision(12)} i`;
+
+    renderChecks(eps, N, result);
+  }
+
+  function validateInputs(k, eps, N){
+    if (!Number.isSafeInteger(k)) return 'k must be a safe integer.';
+    if (!Number.isFinite(eps) || eps <= 0) return 'ε must be a positive finite number.';
+    if (!Number.isInteger(N) || N < 1 || N > 1000) return 'N must be an integer from 1 through 1000.';
+    return '';
+  }
+
+  function renderChecks(eps, N, result){
     const checks = document.getElementById('checks');
-    const list = [];
-
-    const eq = abs(ans) <= eps;
-    list.push(row(eq, `Equality |e^{iθ}+1| ≤ ε`, `|⋅| ≈ ${abs(ans).toExponential(6)} ≤ ${eps}`));
-
-    const reOk = Math.abs(z.re + 1) <= eps;
-    list.push(row(reOk, `Real part ≈ −1`, `Re ≈ ${(z.re).toPrecision(12)}, |Re+1| ≈ ${Math.abs(z.re+1).toExponential(6)}`));
-
-    const imOk = Math.abs(z.im) <= eps;
-    list.push(row(imOk, `Imag part ≈ 0`, `Im ≈ ${(z.im).toPrecision(12)}`));
-
-    const seriesOk = abs(ansSeries) <= Math.max(eps, 1e-15);
-    list.push(row(seriesOk, `Series (N=${N})`, `|series+1| ≈ ${abs(ansSeries).toExponential(6)}`));
-
-    const squareOk = abs(add(mul(z,z), {re:-1,im:0})) <= eps * 10; // |(e^{iπ})^2 - 1| small
-    list.push(row(squareOk, `Square check`, `|(e^{iθ})^2 − 1| ≈ ${abs(add(mul(z,z), {re:-1,im:0})).toExponential(6)}`));
-
-    const periodicOk = abs(cis(theta + TAU)).toExponential ? abs(add(cis(theta + TAU), {re:1,im:0})) <= eps : true;
-    list.push(row(periodicOk, `Periodicity`, `θ → θ+2π ⇒ |e^{i(θ+2π)}+1| ≈ ${abs(add(cis(theta+TAU), {re:1,im:0})).toExponential(6)}`));
-
-    list.push(el('div', { class:'row' }, [ el('span', { class:'badge ok' }, ['FACT']), el('span', { class:'small muted' }, ['Euler’s formula: e^{ix}=cos x+i sin x; at x=π we get −1.']) ]));
-
-    checks.replaceChildren(...list);
+    checks.replaceChildren(
+      row(result.directResidual <= eps, 'Direct numerical result', `|e^{iπ}+1| ≈ ${result.directResidual.toExponential(6)} ≤ ${eps}`),
+      row(result.seriesResidual <= eps, `Independent power series (N=${N})`, `|series+1| ≈ ${result.seriesResidual.toExponential(6)} ≤ ${eps}`),
+      row(result.agreement <= eps, 'Method agreement', `|direct−series| ≈ ${result.agreement.toExponential(6)} ≤ ${eps}`),
+      el('div', { class:'row' }, [ el('span', { class:'badge ok' }, ['FACT']), el('span', { class:'small muted' }, ['The exact result follows from Euler’s formula; numerical checks are finite-precision sanity checks.']) ])
+    );
   }
 
   const row = (ok, label, msg) => el('div', { class:'row' }, [ el('span', { class:'badge ' + (ok ? 'ok' : 'fail') }, [ ok ? 'PASS' : 'FAIL' ]), el('span', { class:'mono' }, [label]), document.createTextNode(' — '), el('span', { class:'mono' }, [msg]) ]);
@@ -302,17 +303,17 @@ input.short{ width:110px; padding:6px 8px; }
     document.getElementById('checks').replaceChildren();
   };
 
-  // ---------- Preloaded harnesses (≥ 9 including one invalid) ----------
+  // ---------- Preloaded harnesses ----------
   const harnessList = [
-    { k: 0, title: 'θ = π (k=0) ⇒ pass' },
-    { k: 1, title: 'θ = π + 2π (k=1) ⇒ pass' },
-    { k: -1, title: 'θ = π − 2π (k=−1) ⇒ pass' },
-    { k: 6, title: 'θ = π + 12π (k=6) ⇒ pass' },
-    { k: 123, title: 'θ = π + 2π·123 ⇒ pass' },
-    { k: 10**6, title: 'θ = π + 2π·10^6 ⇒ pass (reduced)' },
-    { k: 0, off: Math.PI/2, title: 'Invalid (should fail): θ = π/2' , negative: true},
-    { k: 0, off: Math.PI/3, title: 'Invalid (should fail): θ = π/3' , negative: true},
-    { k: 0, off: 355/113 - Math.PI, title: 'θ ≈ 355/113 (π approx) ⇒ nearly pass' },
+    { k: 0, expect: 'identity', title: 'θ = π (k=0)' },
+    { k: 1, expect: 'identity', title: 'θ = π + 2π (k=1)' },
+    { k: -1, expect: 'identity', title: 'θ = π − 2π (k=−1)' },
+    { k: 6, expect: 'identity', title: 'θ = π + 12π (k=6)' },
+    { k: 123, expect: 'identity', title: 'θ = π + 2π·123' },
+    { k: 10**6, expect: 'identity', title: 'θ = π + 2π·10⁶ (symbolically reduced)' },
+    { theta: Math.PI/2, expect: 'reject', title: 'Noncongruent angle θ = π/2' },
+    { theta: Math.PI/3, expect: 'reject', title: 'Noncongruent angle θ = π/3' },
+    { theta: 355/113, expect: 'approximation', title: 'Rational approximation θ = 355/113' },
   ];
 
   const harnessDiv = document.getElementById('harnesses');
@@ -321,55 +322,82 @@ input.short{ width:110px; padding:6px 8px; }
     const card = el('section', { class:'card stack' });
     const head = el('div', { class:'h-title' }, [ el('div', {}, [ el('strong',{},[h.title]) ]), el('div', { class:'small muted' }, ['Check (harness)']) ]);
     const kpis = el('div', { class:'kpi' });
-    const ans = el('div', { class:'card' }); ans.append(el('div', { class:'k' }, ['Answer']), el('div', { class:'v mono' }, ['—']));
-    const thetaCard = el('div', { class:'card' }); thetaCard.append(el('div', { class:'k' }, ['Angle θ']), el('div', { class:'v mono' }, ['—']));
-    const method = el('div', { class:'card' }); method.append(el('div', { class:'k' }, ['Method']), el('div', { class:'v mono' }, ['cos/sin + series']));
+    const ans = el('div', { class:'card result-card' }); ans.append(el('div', { class:'k' }, ['Answer']), el('div', { class:'v mono' }, ['—']));
+    const thetaCard = el('div', { class:'card result-card' }); thetaCard.append(el('div', { class:'k' }, ['Angle θ']), el('div', { class:'v mono' }, ['—']));
+    const method = el('div', { class:'card' }); method.append(el('div', { class:'k' }, ['Expected']), el('div', { class:'v mono' }, [expectedLabel(h.expect)]));
     kpis.append(ans, thetaCard, method);
 
-    const reason = el('p', { class:'muted small' }, [ 'We check |e^{iθ}+1| ≤ ε with ε=1e−12, also confirm real/imag parts and series agreement.' ]);
+    const reason = el('p', { class:'muted small' }, [ expectedReason(h) ]);
     const checks = el('div', { class:'list' });
     const run = el('button', { class:'secondary' }, ['Run']);
 
     run.onclick = () => {
       const eps = 1e-12; const N = 40;
-      const theta = (h.off !== undefined) ? h.off : (Math.PI + TAU * h.k);
-      const z = cis(theta);
-      const sRe = cosSeries(theta, N), sIm = sinSeries(theta, N);
-      const zSeries = { re: sRe, im: sIm };
-      const ansZ = { re: z.re + 1, im: z.im };
-      const ansSeriesZ = { re: zSeries.re + 1, im: zSeries.im };
+      const isPeriodicCase = Object.hasOwn(h, 'k');
+      const thetaDisplay = isPeriodicCase ? Math.PI + TAU * h.k : h.theta;
+      const thetaEval = isPeriodicCase ? Math.PI : h.theta;
+      const result = calculate(thetaEval, N);
 
-      ans.querySelector('.v').textContent = `|e^{iθ}+1| ≈ ${abs(ansZ).toExponential(6)}`;
-      thetaCard.querySelector('.v').textContent = `θ ≈ ${theta.toPrecision(8)}`;
+      ans.querySelector('.v').textContent = `|e^{iθ}+1| ≈ ${result.directResidual.toExponential(6)}`;
+      thetaCard.querySelector('.v').textContent = isPeriodicCase
+        ? `θ ≈ ${thetaDisplay.toPrecision(8)}; reduced to π`
+        : `θ ≈ ${thetaDisplay.toPrecision(10)}`;
 
-      const list = [];
-      const eq = abs(ansZ) <= eps;
-      list.push(row(eq, 'Equality |e^{iθ}+1| ≤ ε', `|⋅| ≈ ${abs(ansZ).toExponential(6)} ≤ ${eps}`));
-      const reOk = Math.abs(z.re + 1) <= eps; list.push(row(reOk, 'Real ≈ −1', `|Re+1| ≈ ${Math.abs(z.re+1).toExponential(6)}`));
-      const imOk = Math.abs(z.im) <= eps; list.push(row(imOk, 'Imag ≈ 0', `|Im| ≈ ${Math.abs(z.im).toExponential(6)}`));
-      const seriesOk = abs(ansSeriesZ) <= Math.max(eps, 1e-15); list.push(row(seriesOk, `Series (N=${N})`, `|series+1| ≈ ${abs(ansSeriesZ).toExponential(6)}`));
-      const squareOk = abs(add(mul(z,z), {re:-1,im:0})) <= eps * 10; list.push(row(squareOk, 'Square check', `|(e^{iθ})^2 − 1| ≈ ${abs(add(mul(z,z), {re:-1,im:0})).toExponential(6)}`));
-      const periodicOk = abs(add(cis(theta+TAU), {re:1,im:0})) <= eps; list.push(row(periodicOk, 'Periodicity', `θ→θ+2π check`));
-
-      checks.replaceChildren(...list);
+      checks.replaceChildren(...caseRows(h, result, eps, N));
     };
 
-    if (h.negative){
-      const warn = el('div', { class:'small muted' }, ['This case is intentionally invalid and should report a failure.']);
-      card.append(head, kpis, reason, warn, checks, run);
-    } else {
-      card.append(head, kpis, reason, checks, run);
-    }
+    card.append(head, kpis, reason, checks, run);
     return card;
+  }
+
+  function expectedLabel(expect){
+    if (expect === 'identity') return 'identity accepted';
+    if (expect === 'reject') return 'nonidentity rejected';
+    return 'approximation quantified';
+  }
+
+  function expectedReason(h){
+    if (h.expect === 'identity') return 'Because k is an integer, θ reduces exactly to π modulo 2π. Direct trig and an independent power series should both satisfy the identity within ε=1e−12.';
+    if (h.expect === 'reject') return 'This angle is not congruent to π modulo 2π. The harness passes when both numerical routes reject the identity and agree on the nonzero residual.';
+    return '355/113 is close to π but not equal to it. The harness passes when it rejects exact equality and measures the small residual predicted by the angular error.';
+  }
+
+  function caseRows(h, result, eps, N){
+    const seriesAgreement = result.agreement <= eps;
+
+    if (h.expect === 'identity'){
+      return [
+        row(result.directResidual <= eps, 'Expected identity accepted', `direct residual ≈ ${result.directResidual.toExponential(6)} ≤ ${eps}`),
+        row(result.seriesResidual <= eps, `Independent power series (N=${N})`, `series residual ≈ ${result.seriesResidual.toExponential(6)} ≤ ${eps}`),
+        row(seriesAgreement, 'Method agreement', `|direct−series| ≈ ${result.agreement.toExponential(6)} ≤ ${eps}`)
+      ];
+    }
+
+    if (h.expect === 'reject'){
+      return [
+        row(result.directResidual > eps, 'Expected nonidentity rejected', `direct residual ≈ ${result.directResidual.toExponential(6)} > ${eps}`),
+        row(result.seriesResidual > eps, `Independent series also rejects (N=${N})`, `series residual ≈ ${result.seriesResidual.toExponential(6)} > ${eps}`),
+        row(seriesAgreement, 'Method agreement', `|direct−series| ≈ ${result.agreement.toExponential(6)} ≤ ${eps}`)
+      ];
+    }
+
+    const angularError = Math.abs(h.theta - Math.PI);
+    const expectedResidual = 2 * Math.sin(angularError / 2);
+    const directError = Math.abs(result.directResidual - expectedResidual);
+    const seriesError = Math.abs(result.seriesResidual - expectedResidual);
+    return [
+      row(result.directResidual > eps, 'Approximation correctly rejected as exact', `residual ≈ ${result.directResidual.toExponential(6)} > ${eps}`),
+      row(directError <= eps, 'Predicted approximation error', `observed ${result.directResidual.toExponential(6)}; predicted ${expectedResidual.toExponential(6)}`),
+      row(seriesError <= eps && seriesAgreement, `Independent power series (N=${N})`, `series residual ≈ ${result.seriesResidual.toExponential(6)}; agreement ≈ ${result.agreement.toExponential(6)}`)
+    ];
   }
 
   harnessList.forEach(h => harnessDiv.appendChild(makeHarnessCard(h)));
   document.getElementById('runAll').onclick = () => { [...harnessDiv.querySelectorAll('button.secondary')].forEach(b => b.click()); };
-  document.getElementById('clearHarness').onclick = () => { harnessDiv.querySelectorAll('.list').forEach(div => div.replaceChildren()); harnessDiv.querySelectorAll('.v').forEach(div => div.textContent = '—'); };
+  document.getElementById('clearHarness').onclick = () => { harnessDiv.querySelectorAll('.list').forEach(div => div.replaceChildren()); harnessDiv.querySelectorAll('.result-card .v').forEach(div => div.textContent = '—'); };
 
   // auto-evaluate initial sample
   evaluate();
 </script>
 </body>
 </html>
-
