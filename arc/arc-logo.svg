@@ -21,9 +21,9 @@
     </radialGradient>
     <radialGradient id="orb" cx="0" cy="0" r="1" gradientTransform="translate(-10 -14) rotate(45) scale(70)" gradientUnits="objectBoundingBox">
       <stop stop-color="#FFFFFF"/>
-      <stop offset=".12" stop-color="#B7FFF2"/>
-      <stop offset=".45" stop-color="#31CDB2"/>
-      <stop offset="1" stop-color="#148F8A"/>
+      <stop offset=".12" stop-color="#FFF9B0"/>
+      <stop offset=".45" stop-color="#FFE34D"/>
+      <stop offset="1" stop-color="#D9AD00"/>
     </radialGradient>
     <linearGradient id="arc-text" x1="590" y1="393" x2="1335" y2="590" gradientUnits="userSpaceOnUse">
       <stop stop-color="#00DFFF"/>
