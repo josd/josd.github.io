@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1536 1024" role="img" aria-labelledby="title desc">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="80 245 1320 530" role="img" aria-labelledby="title desc">
   <title id="title">ARC — Answer, Reason, Check</title>
   <desc id="desc">A luminous cyan and gold ARC logo with an eye-shaped reasoning emblem and three connected proof nodes.</desc>
 
@@ -80,13 +80,6 @@
       <text x="590" y="590" font-family="DejaVu Sans, Arial, sans-serif" font-size="320" font-weight="400" letter-spacing="-12">ARC</text>
     </clipPath>
   </defs>
-
-  <!-- The atmospheric field intentionally echoes the reference's studio-lit charcoal canvas. -->
-  <rect width="1536" height="1024" fill="url(#background)"/>
-  <rect width="1536" height="1024" fill="url(#cyan-bloom)"/>
-  <rect width="1536" height="1024" fill="url(#gold-bloom)"/>
-  <rect width="1536" height="1024" fill="url(#scanlines)"/>
-  <rect width="1536" height="1024" fill="url(#vignette)"/>
 
   <!-- ARC emblem: eye-shaped arcs embracing a conversational reasoning core. -->
   <g stroke-linejoin="round" stroke-linecap="round">
