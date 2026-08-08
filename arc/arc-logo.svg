@@ -20,10 +20,9 @@
       <stop offset="1" stop-color="#172D29"/>
     </radialGradient>
     <radialGradient id="orb" cx="0" cy="0" r="1" gradientTransform="translate(-10 -14) rotate(45) scale(70)" gradientUnits="objectBoundingBox">
-      <stop stop-color="#FFFFFF"/>
-      <stop offset=".12" stop-color="#FFF9B0"/>
-      <stop offset=".45" stop-color="#FFE34D"/>
-      <stop offset="1" stop-color="#D9AD00"/>
+      <stop stop-color="#FFF58A"/>
+      <stop offset=".5" stop-color="#FFE33F"/>
+      <stop offset="1" stop-color="#C99B00"/>
     </radialGradient>
     <linearGradient id="arc-text" x1="590" y1="393" x2="1335" y2="590" gradientUnits="userSpaceOnUse">
       <stop stop-color="#00DFFF"/>
@@ -79,9 +78,9 @@
 
   <!-- A single reasoning path resolves into a checked result. -->
   <path d="M396 511h103" fill="none" stroke="url(#spectrum)" stroke-width="8" stroke-linecap="round" filter="url(#small-glow)"/>
-  <circle cx="518" cy="511" r="39" fill="url(#orb)" stroke="#F6FFB5" stroke-width="5" filter="url(#medium-glow)"/>
-  <path d="M503 496c8-10 21-13 32-8" fill="none" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round" opacity=".86"/>
-  <path d="m503 511 10 10 22-27" fill="none" stroke="#FFFADF" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" filter="url(#small-glow)"/>
+  <circle cx="518" cy="511" r="34" fill="url(#orb)" stroke="#FFF06A" stroke-width="4" filter="url(#small-glow)"/>
+  <path d="M505 495c7-6 17-8 25-5" fill="none" stroke="#FFFBD2" stroke-width="2.5" stroke-linecap="round" opacity=".6"/>
+  <path d="m503 511 10 10 22-27" fill="none" stroke="#173A32" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
 
   <!-- Wordmark, with a cool-to-warm split and subtle bevel. -->
   <text x="590" y="598" fill="#071311" opacity=".86" font-family="DejaVu Sans, Arial, sans-serif" font-size="320" font-weight="400" letter-spacing="-12">ARC</text>
