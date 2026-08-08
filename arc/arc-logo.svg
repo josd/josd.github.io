@@ -71,7 +71,7 @@
 
   <!-- Three steps: Answer, Reason, Check. -->
   <g filter="url(#small-glow)">
-    <circle cx="255" cy="511" r="13" fill="#E9FFFF" stroke="#FFFFFF" stroke-width="3"/>
+    <circle cx="255" cy="511" r="13" fill="#35D5E6" stroke="#FFFFFF" stroke-width="3"/>
     <circle cx="296" cy="511" r="13" fill="#BFEA6B" stroke="#FFFFFF" stroke-width="3"/>
     <circle cx="337" cy="511" r="13" fill="#FFE94D" stroke="#FFFFFF" stroke-width="3"/>
   </g>
