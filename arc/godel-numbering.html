@@ -6,14 +6,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <style>
     :root{
-      --bg:#f7f8fb;
-      --card:#ffffff;
-      --ink:#0f172a;
-      --muted:#475569;
-      --ok:#067647;
-      --bad:#b42318;
-      --accent:#2563eb;
-      --ring:#dbeafe;
+      --bg:#F3F8F7;
+      --card:#FFFDF8;
+      --ink:#102A3A;
+      --muted:#537487;
+      --ok:#147A49;
+      --bad:#B12B32;
+      --accent:#008EAA;
+      --ring:#DDF7FB;
       --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
       --sans: system-ui, -apple-system, Segoe UI, Roboto, Inter, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji","Segoe UI Emoji";
       --radius: 14px;
@@ -36,14 +36,14 @@
     section.card{
       background:var(--card); border-radius:var(--radius); box-shadow:var(--shadow);
       padding:18px 18px; display:flex; flex-direction:column; gap:12px;
-      border:1px solid #eef2ff;
+      border:1px solid #DDF7FB;
     }
     h2{margin:0; font-size:20px}
     h3{margin:0 0 6px 0; font-size:16px; color:var(--muted)}
     code,kbd{font-family:var(--mono)}
     .pill{
       display:inline-flex; align-items:center; gap:8px;
-      background:#eef2ff; color:#1e40af; border:1px solid #dbeafe;
+      background:#DDF7FB; color:#008EAA; border:1px solid #DDF7FB;
       padding:6px 10px; border-radius:999px; font-size:12px; font-weight:600;
     }
     .grid{ display:grid; gap:10px; }
@@ -51,19 +51,19 @@
     .muted{color:var(--muted)}
     .mono{font-family:var(--mono)}
     textarea, input[type="text"]{
-      width:100%; border:1px solid #e2e8f0; border-radius:12px; padding:10px 12px;
-      background:#fff; font: 14px var(--mono);
+      width:100%; border:1px solid #D9E2DE; border-radius:12px; padding:10px 12px;
+      background:#FFFDF8; font: 14px var(--mono);
       outline:none;
     }
-    textarea:focus, input:focus{border-color:#bfdbfe; box-shadow:0 0 0 6px var(--ring)}
+    textarea:focus, input:focus{border-color:#78AFC0; box-shadow:0 0 0 6px var(--ring)}
     button{
-      appearance:none; border:1px solid #c7d2fe; background:#eef2ff; color:#1e3a8a;
+      appearance:none; border:1px solid #DDF7FB; background:#DDF7FB; color:#1e3a8a;
       border-radius:12px; padding:10px 14px; font-weight:700; cursor:pointer;
     }
-    button:hover{background:#e0e7ff}
+    button:hover{background:#DDF7FB}
     .answer{
-      background:#f8fafc; color:#0f172a; padding:12px; border-radius:12px;
-      border:1px solid #e2e8f0; font:14px var(--mono);
+      background:#F3F8F7; color:#102A3A; padding:12px; border-radius:12px;
+      border:1px solid #D9E2DE; font:14px var(--mono);
       overflow-y:hidden; overflow-x:hidden;
       white-space:pre-wrap; word-break:break-word; overflow-wrap:anywhere;
     }
@@ -71,29 +71,206 @@
       display:grid; grid-template-columns: 1fr; gap:8px; align-items:start;
     }
     .tbl{border-collapse: collapse; width:100%;}
-    .tbl th, .tbl td{border:1px solid #e2e8f0; padding:6px 8px; font-size:13px; vertical-align:top;
+    .tbl th, .tbl td{border:1px solid #D9E2DE; padding:6px 8px; font-size:13px; vertical-align:top;
       word-break: break-word; overflow-wrap: anywhere; } /* wrap long integers */
     .tbl th{background:#f1f5f9; text-align:left}
-    .badge{font:12px var(--mono); padding:2px 6px; border-radius:6px; border:1px solid #e2e8f0; background:#fff}
+    .badge{font:12px var(--mono); padding:2px 6px; border-radius:6px; border:1px solid #D9E2DE; background:#FFFDF8}
     .check{
-      display:flex; flex-direction:column; gap:8px; border-left:4px solid #e2e8f0; padding-left:12px;
+      display:flex; flex-direction:column; gap:8px; border-left:4px solid #D9E2DE; padding-left:12px;
     }
     .pass{color:var(--ok)}
     .fail{color:var(--bad)}
     .small{font-size:12px}
     .row{display:flex; gap:10px; flex-wrap:wrap; align-items:center}
-    .caps{letter-spacing:.4px; text-transform:uppercase; font-weight:800; font-size:12px; color:#334155}
+    .caps{letter-spacing:.4px; text-transform:uppercase; font-weight:800; font-size:12px; color:#537487}
     .copy{
-      border:1px dashed #94a3b8; background:#f8fafc; color:#334155
+      border:1px dashed #94a3b8; background:#F3F8F7; color:#537487
     }
     .callout{
-      padding:10px 12px; background:#f8fafc; border:1px solid #e2e8f0; border-radius:12px;
+      padding:10px 12px; background:#F3F8F7; border:1px solid #D9E2DE; border-radius:12px;
     }
     .steps{ counter-reset: step; display:flex; flex-direction:column; gap:10px; }
     .steps p::before{
       counter-increment: step; content: counter(step) ". "; font-weight:700; margin-right:6px;
     }
-  </style>
+
+    /* ARC example theme: shared visual language, kept inline for portability. */
+    :root {
+      color-scheme: light;
+      --arc-bg: #F4F3EA;
+      --arc-surface: #FFFDF8;
+      --arc-soft: #F3F8F7;
+      --arc-ink: #102A3A;
+      --arc-muted: #537487;
+      --arc-line: #D9E2DE;
+      --arc-cyan: #008EAA;
+      --arc-cyan-dark: #0B4F6C;
+      --arc-cyan-soft: #DDF7FB;
+      --arc-gold: #C8A100;
+      --arc-gold-soft: #FFF4BF;
+      --arc-good: #147A49;
+      --arc-good-soft: #ECF9F1;
+      --arc-warn: #966E00;
+      --arc-warn-soft: #FFF8D9;
+      --arc-bad: #B12B32;
+      --arc-bad-soft: #FFF0F0;
+      --arc-shadow: 0 12px 30px rgba(23, 50, 77, 0.08);
+
+      --bg: var(--arc-bg);
+      --paper: var(--arc-bg);
+      --card: var(--arc-surface);
+      --card-bg: var(--arc-surface);
+      --panel: var(--arc-surface);
+      --fg: var(--arc-ink);
+      --ink: var(--arc-ink);
+      --text: var(--arc-ink);
+      --text-main: var(--arc-ink);
+      --sub: var(--arc-muted);
+      --muted: var(--arc-muted);
+      --text-muted: var(--arc-muted);
+      --border: var(--arc-line);
+      --line: var(--arc-line);
+      --soft: var(--arc-line);
+      --accent: var(--arc-cyan-dark);
+      --accent-soft: var(--arc-cyan-soft);
+      --accent2: var(--arc-gold);
+      --accent3: var(--arc-good);
+      --cyan: var(--arc-cyan);
+      --blue: var(--arc-cyan);
+      --indigo: var(--arc-cyan-dark);
+      --chip: var(--arc-cyan-soft);
+      --ring: var(--arc-cyan-soft);
+      --good: var(--arc-good);
+      --ok: var(--arc-good);
+      --ok-soft: var(--arc-good-soft);
+      --danger: var(--arc-bad);
+      --danger-soft: var(--arc-bad-soft);
+      --bad: var(--arc-bad);
+      --fail: var(--arc-bad);
+      --warn: var(--arc-warn);
+      --amber: var(--arc-gold);
+      --gold: var(--arc-gold);
+      --gold-soft: var(--arc-gold-soft);
+      --code: var(--arc-ink);
+      --shadow: var(--arc-shadow);
+      --shadow-sm: var(--arc-shadow);
+    }
+
+    html { color-scheme: light; }
+    body {
+      background:
+        radial-gradient(circle at 100% 0%, rgba(0, 142, 170, 0.10), transparent 28rem),
+        radial-gradient(circle at 0% 0%, rgba(200, 161, 0, 0.08), transparent 24rem),
+        var(--arc-bg) !important;
+      color: var(--arc-ink) !important;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif !important;
+      line-height: 1.55;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+
+    body h1 {
+      color: var(--arc-ink);
+      font-family: Georgia, "Times New Roman", serif;
+      font-weight: 500;
+      letter-spacing: -0.025em;
+      line-height: 1.08;
+    }
+
+    body h2,
+    body h3 { color: var(--arc-ink); }
+    body a { color: var(--arc-cyan-dark); }
+    body :focus-visible { outline: 3px solid rgba(0, 142, 170, 0.28); outline-offset: 2px; }
+
+    body input,
+    body select,
+    body textarea {
+      border-color: var(--arc-line) !important;
+      border-radius: 0.65rem !important;
+      background: var(--arc-surface) !important;
+      color: var(--arc-ink) !important;
+    }
+
+    body button,
+    body .btn {
+      border-color: var(--arc-line);
+      border-radius: 999px !important;
+      box-shadow: none;
+      transition: border-color 160ms ease, color 160ms ease, transform 160ms ease;
+    }
+
+    body button:hover,
+    body .btn:hover {
+      border-color: var(--arc-cyan) !important;
+      transform: translateY(-1px);
+    }
+
+    body pre,
+    body .codebox {
+      border-color: var(--arc-line) !important;
+      border-radius: 0.75rem !important;
+      background: var(--arc-soft) !important;
+      color: var(--arc-ink) !important;
+    }
+
+    body div.card,
+    body section.card,
+    body article.card,
+    body div.panel,
+    body section.panel,
+    body article.panel,
+    body .arc-card,
+    body details {
+      border-color: var(--arc-line) !important;
+      background: var(--arc-surface) !important;
+      box-shadow: var(--arc-shadow);
+    }
+
+    body .head,
+    body .card-head,
+    body .ac-head,
+    body summary {
+      border-color: var(--arc-line) !important;
+      background: var(--arc-soft);
+    }
+
+    body table { border-color: var(--arc-line); }
+    body th { color: var(--arc-muted); }
+    body th,
+    body td { border-color: var(--arc-line) !important; }
+    body tbody tr:hover { background: rgba(221, 247, 251, 0.55); }
+
+    body .pill,
+    body .badge,
+    body .chip {
+      border-color: var(--arc-line) !important;
+      background: var(--arc-cyan-soft);
+      color: var(--arc-cyan-dark);
+    }
+
+    body .arc-card,
+    body .arcbox,
+    body .harness,
+    body .check,
+    body .lesson {
+      border-left-width: 4px !important;
+      border-left-style: solid !important;
+    }
+    body .arc-card.answer, body .arcbox.answer { border-left-color: var(--arc-cyan) !important; }
+    body .arc-card.reason, body .arcbox.reason { border-left-color: var(--arc-good) !important; }
+    body .arc-card.check, body .arcbox.check, body .harness, body .check, body .lesson { border-left-color: var(--arc-gold) !important; }
+    body .pass,
+    body .ok,
+    body .good { color: var(--arc-good); }
+    body .fail,
+    body .bad,
+    body .error { color: var(--arc-bad); }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      body *, body *::before, body *::after { transition: none !important; }
+    }
+</style>
 </head>
 <body>
   <div class="wrap">
@@ -122,7 +299,7 @@
       <h2>Prompt &amp; Question</h2>
       <div class="muted">Teach the program a Gödel encoding scheme and answer:</div>
       <div class="kv">
-        <div><strong>Question.</strong> Compute the Gödel number ⟦ϕ⟧ for a given formula ϕ under the specified coding; also provide a “Reason Why” and run multiple “Check (harness)” tests.</div>
+        <div><strong>Question.</strong> Compute the Gödel number ⟦ϕ⟧ for a given formula ϕ under the specified coding; also provide a “Reason” and run multiple “Check” tests.</div>
         <div><strong>Inputs.</strong> Data (alphabet & codes), Logic (encoding rules), and the formula ϕ.</div>
       </div>
     </section>
@@ -178,9 +355,9 @@
       <div class="answer" id="answer">Result will appear here…</div>
     </section>
 
-    <!-- REASON WHY -->
+    <!-- REASON -->
     <section class="card">
-      <h2>Reason Why (mathematical English)</h2>
+      <h2>Reason (mathematical English)</h2>
       <p>
         Let ϕ have token sequence σ₁…σₙ. Define ⟦ϕ⟧ := ∏<sub>i=1..n</sub> pᵢ<sup>E(σᵢ)</sup>, where E(σ)=c(σ)+1 and c(·) is injective.
         By the Fundamental Theorem of Arithmetic, every natural number has a unique prime factorization. Hence the exponent vector
@@ -215,40 +392,40 @@
 
     <!-- CHECKS -->
     <section class="card">
-      <h2>Check (harness) 1</h2>
+      <h2>Check 1</h2>
       <div class="check" id="check1"></div>
     </section>
     <section class="card">
-      <h2>Check (harness) 2</h2>
+      <h2>Check 2</h2>
       <div class="check" id="check2"></div>
     </section>
     <section class="card">
-      <h2>Check (harness) 3</h2>
+      <h2>Check 3</h2>
       <div class="check" id="check3"></div>
     </section>
     <section class="card">
-      <h2>Check (harness) 4</h2>
+      <h2>Check 4</h2>
       <div class="check" id="check4"></div>
     </section>
     <section class="card">
-      <h2>Check (harness) 5</h2>
+      <h2>Check 5</h2>
       <div class="check" id="check5"></div>
     </section>
     <section class="card">
-      <h2>Check (harness) 6</h2>
+      <h2>Check 6</h2>
       <div class="check" id="check6"></div>
     </section>
     <section class="card">
-      <h2>Check (harness) 7</h2>
+      <h2>Check 7</h2>
       <div class="check" id="check7"></div>
     </section>
     <section class="card">
-      <h2>Check (harness) 8</h2>
+      <h2>Check 8</h2>
       <div class="check" id="check8"></div>
     </section>
 
     <footer class="muted small" style="text-align:center; padding:10px 0 20px 0">
-      ARC pattern: Answer • Reason Why • Check. Gödel numbering demo. Vertical layout, light answer box, long-number wrapping.
+      ARC pattern: Answer • Reason • Check. Gödel numbering demo. Vertical layout, light answer box, long-number wrapping.
     </footer>
   </div>
 

@@ -6,8 +6,8 @@
   <title>Sum of All Binomial Coefficients</title>
   <style>
     :root{
-      --bg:#f7f9fc; --card:#ffffff; --text:#0f172a; --muted:#475569; --accent:#2563eb;
-      --good:#16a34a; --bad:#dc2626; --border:#e2e8f0; --chip:#eef2ff; --code:#111827;
+      --bg:#F3F8F7; --card:#FFFDF8; --text:#102A3A; --muted:#537487; --accent:#008EAA;
+      --good:#147A49; --bad:#B12B32; --border:#D9E2DE; --chip:#DDF7FB; --code:#102A3A;
     }
     html, body { background: var(--bg); color: var(--text); font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji"; }
     * { box-sizing: border-box; }
@@ -17,11 +17,11 @@
     .subtitle{ color: var(--muted); }
     .card{ background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 16px; box-shadow: 0 6px 20px rgba(2,6,23,0.05); }
     .stack{ display: flex; flex-direction: column; gap: 16px; }
-    .pill{ display:inline-flex; align-items:center; gap:8px; padding:4px 10px; background:var(--chip); color:#1e3a8a; border-radius:999px; font-size:12px; font-weight:600; border:1px solid #c7d2fe; }
+    .pill{ display:inline-flex; align-items:center; gap:8px; padding:4px 10px; background:var(--chip); color:#1e3a8a; border-radius:999px; font-size:12px; font-weight:600; border:1px solid #DDF7FB; }
     .row{ display:flex; gap:12px; align-items:center; }
-    input[type="number"]{ width: 160px; padding: 10px 12px; border-radius: 10px; border: 1px solid var(--border); background: #fbfdff; }
+    input[type="number"]{ width: 160px; padding: 10px 12px; border-radius: 10px; border: 1px solid var(--border); background: #F3F8F7; }
     button{ appearance:none; border:none; background:var(--accent); color:white; padding:10px 14px; border-radius: 12px; font-weight:700; cursor:pointer; box-shadow: 0 4px 14px rgba(37,99,235,.25); }
-    button.secondary{ background:#0ea5e9; }
+    button.secondary{ background:#008EAA; }
     button.ghost{ background:transparent; color:var(--accent); border:1px solid var(--accent); }
     button:disabled{ opacity:.6; cursor:not-allowed; }
     .grid{ display:grid; grid-template-columns: 1fr; gap: 16px; }
@@ -32,13 +32,13 @@
     .k{ font-weight:700; }
     .v{ font-variant-numeric: tabular-nums; }
     .list{ display:flex; flex-direction: column; gap: 12px; }
-    .term{ padding:10px; background:#f8fafc; border:1px dashed var(--border); border-radius:12px; }
-    details{ border:1px solid var(--border); border-radius: 12px; padding: 10px 12px; background:#fafcff; }
-    details summary{ cursor: pointer; font-weight:700; color:#0b3eaa; }
-    .badge{ padding:2px 8px; border-radius:999px; font-weight:700; font-size:12px; border:1px solid #cbd5e1; background:#f1f5f9; color:#0f172a; }
-    .ok{ background:#dcfce7; color:#166534; border:1px solid #86efac; }
-    .fail{ background:#fee2e2; color:#991b1b; border:1px solid #fecaca; }
-    .harness{ border-left: 6px solid #c7d2fe; }
+    .term{ padding:10px; background:#F3F8F7; border:1px dashed var(--border); border-radius:12px; }
+    details{ border:1px solid var(--border); border-radius: 12px; padding: 10px 12px; background:#F3F8F7; }
+    details summary{ cursor: pointer; font-weight:700; color:#008EAA; }
+    .badge{ padding:2px 8px; border-radius:999px; font-weight:700; font-size:12px; border:1px solid #D9E2DE; background:#f1f5f9; color:#102A3A; }
+    .ok{ background:#ECF9F1; color:#166534; border:1px solid #ECF9F1; }
+    .fail{ background:#FFF0F0; color:#B12B32; border:1px solid #FFF0F0; }
+    .harness{ border-left:4px solid #DDF7FB; }
     .h-title{ display:flex; align-items:center; justify-content:space-between; gap:8px; }
     .small{ font-size: 12px; }
     code{ background:#f1f5f9; padding:2px 6px; border-radius:6px; }
@@ -48,6 +48,183 @@
   .chips .badge{ word-break: break-all; overflow-wrap: anywhere; white-space: normal; }
 .kpi .card .v{ word-break: break-word; overflow-wrap: anywhere; }
 .row{ min-width: 0; }
+
+    /* ARC example theme: shared visual language, kept inline for portability. */
+    :root {
+      color-scheme: light;
+      --arc-bg: #F4F3EA;
+      --arc-surface: #FFFDF8;
+      --arc-soft: #F3F8F7;
+      --arc-ink: #102A3A;
+      --arc-muted: #537487;
+      --arc-line: #D9E2DE;
+      --arc-cyan: #008EAA;
+      --arc-cyan-dark: #0B4F6C;
+      --arc-cyan-soft: #DDF7FB;
+      --arc-gold: #C8A100;
+      --arc-gold-soft: #FFF4BF;
+      --arc-good: #147A49;
+      --arc-good-soft: #ECF9F1;
+      --arc-warn: #966E00;
+      --arc-warn-soft: #FFF8D9;
+      --arc-bad: #B12B32;
+      --arc-bad-soft: #FFF0F0;
+      --arc-shadow: 0 12px 30px rgba(23, 50, 77, 0.08);
+
+      --bg: var(--arc-bg);
+      --paper: var(--arc-bg);
+      --card: var(--arc-surface);
+      --card-bg: var(--arc-surface);
+      --panel: var(--arc-surface);
+      --fg: var(--arc-ink);
+      --ink: var(--arc-ink);
+      --text: var(--arc-ink);
+      --text-main: var(--arc-ink);
+      --sub: var(--arc-muted);
+      --muted: var(--arc-muted);
+      --text-muted: var(--arc-muted);
+      --border: var(--arc-line);
+      --line: var(--arc-line);
+      --soft: var(--arc-line);
+      --accent: var(--arc-cyan-dark);
+      --accent-soft: var(--arc-cyan-soft);
+      --accent2: var(--arc-gold);
+      --accent3: var(--arc-good);
+      --cyan: var(--arc-cyan);
+      --blue: var(--arc-cyan);
+      --indigo: var(--arc-cyan-dark);
+      --chip: var(--arc-cyan-soft);
+      --ring: var(--arc-cyan-soft);
+      --good: var(--arc-good);
+      --ok: var(--arc-good);
+      --ok-soft: var(--arc-good-soft);
+      --danger: var(--arc-bad);
+      --danger-soft: var(--arc-bad-soft);
+      --bad: var(--arc-bad);
+      --fail: var(--arc-bad);
+      --warn: var(--arc-warn);
+      --amber: var(--arc-gold);
+      --gold: var(--arc-gold);
+      --gold-soft: var(--arc-gold-soft);
+      --code: var(--arc-ink);
+      --shadow: var(--arc-shadow);
+      --shadow-sm: var(--arc-shadow);
+    }
+
+    html { color-scheme: light; }
+    body {
+      background:
+        radial-gradient(circle at 100% 0%, rgba(0, 142, 170, 0.10), transparent 28rem),
+        radial-gradient(circle at 0% 0%, rgba(200, 161, 0, 0.08), transparent 24rem),
+        var(--arc-bg) !important;
+      color: var(--arc-ink) !important;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif !important;
+      line-height: 1.55;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+
+    body h1 {
+      color: var(--arc-ink);
+      font-family: Georgia, "Times New Roman", serif;
+      font-weight: 500;
+      letter-spacing: -0.025em;
+      line-height: 1.08;
+    }
+
+    body h2,
+    body h3 { color: var(--arc-ink); }
+    body a { color: var(--arc-cyan-dark); }
+    body :focus-visible { outline: 3px solid rgba(0, 142, 170, 0.28); outline-offset: 2px; }
+
+    body input,
+    body select,
+    body textarea {
+      border-color: var(--arc-line) !important;
+      border-radius: 0.65rem !important;
+      background: var(--arc-surface) !important;
+      color: var(--arc-ink) !important;
+    }
+
+    body button,
+    body .btn {
+      border-color: var(--arc-line);
+      border-radius: 999px !important;
+      box-shadow: none;
+      transition: border-color 160ms ease, color 160ms ease, transform 160ms ease;
+    }
+
+    body button:hover,
+    body .btn:hover {
+      border-color: var(--arc-cyan) !important;
+      transform: translateY(-1px);
+    }
+
+    body pre,
+    body .codebox {
+      border-color: var(--arc-line) !important;
+      border-radius: 0.75rem !important;
+      background: var(--arc-soft) !important;
+      color: var(--arc-ink) !important;
+    }
+
+    body div.card,
+    body section.card,
+    body article.card,
+    body div.panel,
+    body section.panel,
+    body article.panel,
+    body .arc-card,
+    body details {
+      border-color: var(--arc-line) !important;
+      background: var(--arc-surface) !important;
+      box-shadow: var(--arc-shadow);
+    }
+
+    body .head,
+    body .card-head,
+    body .ac-head,
+    body summary {
+      border-color: var(--arc-line) !important;
+      background: var(--arc-soft);
+    }
+
+    body table { border-color: var(--arc-line); }
+    body th { color: var(--arc-muted); }
+    body th,
+    body td { border-color: var(--arc-line) !important; }
+    body tbody tr:hover { background: rgba(221, 247, 251, 0.55); }
+
+    body .pill,
+    body .badge,
+    body .chip {
+      border-color: var(--arc-line) !important;
+      background: var(--arc-cyan-soft);
+      color: var(--arc-cyan-dark);
+    }
+
+    body .arc-card,
+    body .arcbox,
+    body .harness,
+    body .check,
+    body .lesson {
+      border-left-width: 4px !important;
+      border-left-style: solid !important;
+    }
+    body .arc-card.answer, body .arcbox.answer { border-left-color: var(--arc-cyan) !important; }
+    body .arc-card.reason, body .arcbox.reason { border-left-color: var(--arc-good) !important; }
+    body .arc-card.check, body .arcbox.check, body .harness, body .check, body .lesson { border-left-color: var(--arc-gold) !important; }
+    body .pass,
+    body .ok,
+    body .good { color: var(--arc-good); }
+    body .fail,
+    body .bad,
+    body .error { color: var(--arc-bad); }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      body *, body *::before, body *::after { transition: none !important; }
+    }
 </style>
 </head>
 <body>
@@ -102,17 +279,17 @@
         </div>
       </section>
 
-      <!-- Reason Why (mathematical English) -->
+      <!-- Reason (mathematical English) -->
       <section class="stack">
-        <h3 style="margin:0">Reason Why</h3>
+        <h3 style="margin:0">Reason</h3>
         <div class="list">
           <div class="term">
-            <strong>Algebraic.</strong> The binomial theorem states 
-            <span class="mono">(x + y)^n = Σₖ C(n,k) x^{n−k} y^k</span>. Substituting <span class="mono">x = y = 1</span> gives 
+            <strong>Algebraic.</strong> The binomial theorem states
+            <span class="mono">(x + y)^n = Σₖ C(n,k) x^{n−k} y^k</span>. Substituting <span class="mono">x = y = 1</span> gives
             <span class="mono">2^n = Σₖ C(n,k)</span>. Hence <span class="mono">B(n) = 2^n</span>.
           </div>
           <div class="term">
-            <strong>Combinatorial.</strong> Each term <span class="mono">C(n,k)</span> counts the <span class="mono">k</span>‑element subsets of an <span class="mono">n</span>‑set. Summing over all <span class="mono">k</span> counts every subset exactly once, so the total is the number of all subsets, namely 
+            <strong>Combinatorial.</strong> Each term <span class="mono">C(n,k)</span> counts the <span class="mono">k</span>‑element subsets of an <span class="mono">n</span>‑set. Summing over all <span class="mono">k</span> counts every subset exactly once, so the total is the number of all subsets, namely
             <span class="mono">2^n</span>.
           </div>
           <div class="term">
@@ -125,9 +302,9 @@
         </details>
       </section>
 
-      <!-- Check (harness) for the user's n -->
+      <!-- Check for the user's n -->
       <section class="stack">
-        <h3 style="margin:0">Check (harness)</h3>
+        <h3 style="margin:0">Check</h3>
         <div id="checks" class="list"></div>
       </section>
     </section>
@@ -135,7 +312,7 @@
     <!-- PRELOADED HARNESS CASES (≥ 6) -->
     <section class="card stack harness" id="preloaded">
       <div class="h-title">
-        <h2 style="margin:0">Preloaded Checks (harness)</h2>
+        <h2 style="margin:0">Preloaded Checks</h2>
         <div class="row">
           <button id="runAll">Run all</button>
           <button class="ghost" id="clearHarness">Clear results</button>
@@ -146,7 +323,7 @@
     </section>
 
     <footer>
-      <div>Built as a self‑checking artifact: program → <em>Answer</em>, <em>Reason Why</em>, <em>Check</em>.</div>
+      <div>Built as a self‑checking artifact: program → <em>Answer</em>, <em>Reason</em>, <em>Check</em>.</div>
       <div class="small">This page performs only on‑device computation.</div>
     </footer>
   </div>
@@ -278,7 +455,7 @@
 
   function makeHarnessCard(h){
     const card = el('section', { class:'card stack' });
-    const head = el('div', { class:'h-title' }, [ el('div', {}, [ el('strong',{},[h.title]) ]), el('div', { class:'small muted' }, ['Check (harness)']) ]);
+    const head = el('div', { class:'h-title' }, [ el('div', {}, [ el('strong',{},[h.title]) ]), el('div', { class:'small muted' }, ['Check']) ]);
     const kpis = el('div', { class:'kpi' });
     const ans = el('div', { class:'card' }); ans.append(el('div', { class:'k' }, ['Answer']), el('div', { class:'v mono' }, ['—']));
     const closed = el('div', { class:'card' }); closed.append(el('div', { class:'k' }, ['Closed form']), el('div', { class:'v mono' }, ['B(n)=2^n']));

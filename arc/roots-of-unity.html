@@ -6,9 +6,9 @@
 <title>Roots of Unity</title>
 <style>
   :root{
-    --bg:#f6f8fb; --ink:#0f172a; --sub:#334155; --line:#d5dbe7;
-    --circle:#eaf3ff; --edge:#4f79c8; --pt:#0ea5e9; --axis:#94a3b8;
-    --ok:#059669; --bad:#dc2626;
+    --bg:#F3F8F7; --ink:#102A3A; --sub:#537487; --line:#D9E2DE;
+    --circle:#DDF7FB; --edge:#008EAA; --pt:#008EAA; --axis:#94a3b8;
+    --ok:#147A49; --bad:#B12B32;
   }
   html,body{margin:0;background:var(--bg);color:var(--ink);
             font-family:system-ui, Segoe UI, Roboto, Helvetica, Arial, sans-serif}
@@ -17,7 +17,7 @@
   h2{margin:18px 0 10px;font-size:17px}
   p,li,small{line-height:1.45}
   main{display:block;padding:18px 20px 40px}
-  .card{background:#fff;border:1px solid var(--line);border-radius:12px;
+  .card{background:#FFFDF8;border:1px solid var(--line);border-radius:12px;
         box-shadow:0 1px 0 rgba(15,23,42,.04);margin:0 0 18px}
   .card header{padding:12px 14px;border-bottom:1px solid var(--line);
                border-radius:12px 12px 0 0}
@@ -26,6 +26,183 @@
   .mono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
   .ok{color:var(--ok)} .bad{color:var(--bad)}
   svg{max-width:50%;height:auto;display:block;margin:0 auto;shape-rendering:geometricPrecision;}
+
+    /* ARC example theme: shared visual language, kept inline for portability. */
+    :root {
+      color-scheme: light;
+      --arc-bg: #F4F3EA;
+      --arc-surface: #FFFDF8;
+      --arc-soft: #F3F8F7;
+      --arc-ink: #102A3A;
+      --arc-muted: #537487;
+      --arc-line: #D9E2DE;
+      --arc-cyan: #008EAA;
+      --arc-cyan-dark: #0B4F6C;
+      --arc-cyan-soft: #DDF7FB;
+      --arc-gold: #C8A100;
+      --arc-gold-soft: #FFF4BF;
+      --arc-good: #147A49;
+      --arc-good-soft: #ECF9F1;
+      --arc-warn: #966E00;
+      --arc-warn-soft: #FFF8D9;
+      --arc-bad: #B12B32;
+      --arc-bad-soft: #FFF0F0;
+      --arc-shadow: 0 12px 30px rgba(23, 50, 77, 0.08);
+
+      --bg: var(--arc-bg);
+      --paper: var(--arc-bg);
+      --card: var(--arc-surface);
+      --card-bg: var(--arc-surface);
+      --panel: var(--arc-surface);
+      --fg: var(--arc-ink);
+      --ink: var(--arc-ink);
+      --text: var(--arc-ink);
+      --text-main: var(--arc-ink);
+      --sub: var(--arc-muted);
+      --muted: var(--arc-muted);
+      --text-muted: var(--arc-muted);
+      --border: var(--arc-line);
+      --line: var(--arc-line);
+      --soft: var(--arc-line);
+      --accent: var(--arc-cyan-dark);
+      --accent-soft: var(--arc-cyan-soft);
+      --accent2: var(--arc-gold);
+      --accent3: var(--arc-good);
+      --cyan: var(--arc-cyan);
+      --blue: var(--arc-cyan);
+      --indigo: var(--arc-cyan-dark);
+      --chip: var(--arc-cyan-soft);
+      --ring: var(--arc-cyan-soft);
+      --good: var(--arc-good);
+      --ok: var(--arc-good);
+      --ok-soft: var(--arc-good-soft);
+      --danger: var(--arc-bad);
+      --danger-soft: var(--arc-bad-soft);
+      --bad: var(--arc-bad);
+      --fail: var(--arc-bad);
+      --warn: var(--arc-warn);
+      --amber: var(--arc-gold);
+      --gold: var(--arc-gold);
+      --gold-soft: var(--arc-gold-soft);
+      --code: var(--arc-ink);
+      --shadow: var(--arc-shadow);
+      --shadow-sm: var(--arc-shadow);
+    }
+
+    html { color-scheme: light; }
+    body {
+      background:
+        radial-gradient(circle at 100% 0%, rgba(0, 142, 170, 0.10), transparent 28rem),
+        radial-gradient(circle at 0% 0%, rgba(200, 161, 0, 0.08), transparent 24rem),
+        var(--arc-bg) !important;
+      color: var(--arc-ink) !important;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif !important;
+      line-height: 1.55;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+
+    body h1 {
+      color: var(--arc-ink);
+      font-family: Georgia, "Times New Roman", serif;
+      font-weight: 500;
+      letter-spacing: -0.025em;
+      line-height: 1.08;
+    }
+
+    body h2,
+    body h3 { color: var(--arc-ink); }
+    body a { color: var(--arc-cyan-dark); }
+    body :focus-visible { outline: 3px solid rgba(0, 142, 170, 0.28); outline-offset: 2px; }
+
+    body input,
+    body select,
+    body textarea {
+      border-color: var(--arc-line) !important;
+      border-radius: 0.65rem !important;
+      background: var(--arc-surface) !important;
+      color: var(--arc-ink) !important;
+    }
+
+    body button,
+    body .btn {
+      border-color: var(--arc-line);
+      border-radius: 999px !important;
+      box-shadow: none;
+      transition: border-color 160ms ease, color 160ms ease, transform 160ms ease;
+    }
+
+    body button:hover,
+    body .btn:hover {
+      border-color: var(--arc-cyan) !important;
+      transform: translateY(-1px);
+    }
+
+    body pre,
+    body .codebox {
+      border-color: var(--arc-line) !important;
+      border-radius: 0.75rem !important;
+      background: var(--arc-soft) !important;
+      color: var(--arc-ink) !important;
+    }
+
+    body div.card,
+    body section.card,
+    body article.card,
+    body div.panel,
+    body section.panel,
+    body article.panel,
+    body .arc-card,
+    body details {
+      border-color: var(--arc-line) !important;
+      background: var(--arc-surface) !important;
+      box-shadow: var(--arc-shadow);
+    }
+
+    body .head,
+    body .card-head,
+    body .ac-head,
+    body summary {
+      border-color: var(--arc-line) !important;
+      background: var(--arc-soft);
+    }
+
+    body table { border-color: var(--arc-line); }
+    body th { color: var(--arc-muted); }
+    body th,
+    body td { border-color: var(--arc-line) !important; }
+    body tbody tr:hover { background: rgba(221, 247, 251, 0.55); }
+
+    body .pill,
+    body .badge,
+    body .chip {
+      border-color: var(--arc-line) !important;
+      background: var(--arc-cyan-soft);
+      color: var(--arc-cyan-dark);
+    }
+
+    body .arc-card,
+    body .arcbox,
+    body .harness,
+    body .check,
+    body .lesson {
+      border-left-width: 4px !important;
+      border-left-style: solid !important;
+    }
+    body .arc-card.answer, body .arcbox.answer { border-left-color: var(--arc-cyan) !important; }
+    body .arc-card.reason, body .arcbox.reason { border-left-color: var(--arc-good) !important; }
+    body .arc-card.check, body .arcbox.check, body .harness, body .check, body .lesson { border-left-color: var(--arc-gold) !important; }
+    body .pass,
+    body .ok,
+    body .good { color: var(--arc-good); }
+    body .fail,
+    body .bad,
+    body .error { color: var(--arc-bad); }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      body *, body *::before, body *::after { transition: none !important; }
+    }
 </style>
 </head>
 <body>
@@ -118,7 +295,7 @@
   // background ring and frame ticks
   const ring=document.createElementNS('http://www.w3.org/2000/svg','circle');
   ring.setAttribute('cx',cx); ring.setAttribute('cy',cy); ring.setAttribute('r',R);
-  ring.setAttribute('fill','var(--circle)'); ring.setAttribute('stroke','#c7d2e5'); ring.setAttribute('stroke-width','1.2');
+  ring.setAttribute('fill','var(--circle)'); ring.setAttribute('stroke','#D9E2DE'); ring.setAttribute('stroke-width','1.2');
   gGrid.appendChild(ring);
 
   // axes

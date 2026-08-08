@@ -6,13 +6,13 @@
   <title>Kaprekar’s Constant (4‑digit)</title>
   <style>
     :root {
-      --bg: #f6f8fb;
-      --card: #ffffff;
-      --text: #1f2937;
-      --muted: #6b7280;
-      --accent: #0ea5e9;
+      --bg: #F3F8F7;
+      --card: #FFFDF8;
+      --text: #102A3A;
+      --muted: #537487;
+      --accent: #008EAA;
       --ring: rgba(14,165,233,.25);
-      --border: #e5e7eb;
+      --border: #D9E2DE;
     }
     * { box-sizing: border-box; }
     html, body { height: 100%; }
@@ -21,7 +21,7 @@
       font: 16px/1.6 ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell,
             Noto Sans, 'Helvetica Neue', Arial, 'Apple Color Emoji', 'Segoe UI Emoji';
       color: var(--text);
-      background: radial-gradient(1400px 700px at 20% -10%, #ffffff 0, #f5fbff 40%, var(--bg) 100%);
+      background: radial-gradient(1400px 700px at 20% -10%, #FFFDF8 0, #f5fbff 40%, var(--bg) 100%);
     }
     .container { max-width: 980px; margin: 24px auto 80px; padding: 0 16px; }
     header { margin: 8px 0 22px; }
@@ -31,7 +31,7 @@
     /* Vertical cards */
     .card { background: var(--card); border: 1px solid var(--border); border-radius: 18px; padding: 20px clamp(16px, 2.0vw, 26px); margin: 14px 0; box-shadow: 0 10px 24px rgba(2, 8, 23, 0.04), 0 2px 6px rgba(2, 8, 23, 0.03); }
     .card h2 { display: flex; align-items: center; gap: 10px; font-size: clamp(18px, 2.6vw, 22px); margin: 0 0 10px; }
-    .k-pill { display: inline-flex; align-items: center; gap: 8px; padding: 6px 10px; border-radius: 999px; background: #eaf6fe; color: #0369a1; border: 1px solid #d7eefc; font-size: 12px; text-transform: uppercase; letter-spacing: .06em; font-weight: 650; }
+    .k-pill { display: inline-flex; align-items: center; gap: 8px; padding: 6px 10px; border-radius: 999px; background: #DDF7FB; color: #008EAA; border: 1px solid #DDF7FB; font-size: 12px; text-transform: uppercase; letter-spacing: .06em; font-weight: 650; }
     .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; margin-top: 10px; }
     .stat { background: #fcfdff; border: 1px solid var(--border); border-radius: 14px; padding: 10px 14px; }
     .stat .label { color: var(--muted); font-size: 12px; text-transform: uppercase; letter-spacing: .06em; }
@@ -39,15 +39,15 @@
 
     .muted { color: var(--muted); }
     .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; }
-    .codebox { background:#0b1220; color:#d7e2ff; border-radius: 14px; padding: 14px 16px; overflow:auto; border:1px solid #1e2a44; }
-    .proofbox { background:#fbfdff; border:1px dashed var(--border); border-radius:12px; padding:12px 14px; }
+    .codebox { background:#102A3A; color:#d7e2ff; border-radius: 14px; padding: 14px 16px; overflow:auto; border:1px solid #1e2a44; }
+    .proofbox { background:#F3F8F7; border:1px dashed var(--border); border-radius:12px; padding:12px 14px; }
 
     table { width: 100%; border-collapse: collapse; }
     th, td { padding: 8px 10px; text-align: left; border-bottom: 1px dashed var(--border); }
     th { font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: .06em; }
-    tbody tr:hover { background: #fafcff; }
+    tbody tr:hover { background: #F3F8F7; }
 
-    details { border: 1px dashed var(--border); border-radius: 12px; padding: 10px 12px; background: #fbfdff; }
+    details { border: 1px dashed var(--border); border-radius: 12px; padding: 10px 12px; background: #F3F8F7; }
     details + details { margin-top: 10px; }
     summary { cursor: pointer; font-weight: 600; }
 
@@ -57,12 +57,189 @@
     .small { font-size: 13px; }
     .accent { color: var(--accent); font-weight: 700; }
     .sep { height: 8px; }
-    .kbd { font-weight: 650; border:1px solid var(--border); background:#fff; padding: 2px 6px; border-radius: 6px; box-shadow: inset 0 -1px 0 rgba(0,0,0,0.05); }
+    .kbd { font-weight: 650; border:1px solid var(--border); background:#FFFDF8; padding: 2px 6px; border-radius: 6px; box-shadow: inset 0 -1px 0 rgba(0,0,0,0.05); }
 
     .badge{display:inline-flex;align-items:center;gap:6px;padding:2px 8px;border-radius:999px;border:1px solid var(--border);font-size:12px;font-weight:700}
-    .badge.pass{background:#ecfdf5;border-color:#bbf7d0;color:#065f46}
-    .badge.fail{background:#fef2f2;border-color:#fecaca;color:#7f1d1d}
-  </style>
+    .badge.pass{background:#ECF9F1;border-color:#ECF9F1;color:#147A49}
+    .badge.fail{background:#FFF0F0;border-color:#FFF0F0;color:#B12B32}
+
+    /* ARC example theme: shared visual language, kept inline for portability. */
+    :root {
+      color-scheme: light;
+      --arc-bg: #F4F3EA;
+      --arc-surface: #FFFDF8;
+      --arc-soft: #F3F8F7;
+      --arc-ink: #102A3A;
+      --arc-muted: #537487;
+      --arc-line: #D9E2DE;
+      --arc-cyan: #008EAA;
+      --arc-cyan-dark: #0B4F6C;
+      --arc-cyan-soft: #DDF7FB;
+      --arc-gold: #C8A100;
+      --arc-gold-soft: #FFF4BF;
+      --arc-good: #147A49;
+      --arc-good-soft: #ECF9F1;
+      --arc-warn: #966E00;
+      --arc-warn-soft: #FFF8D9;
+      --arc-bad: #B12B32;
+      --arc-bad-soft: #FFF0F0;
+      --arc-shadow: 0 12px 30px rgba(23, 50, 77, 0.08);
+
+      --bg: var(--arc-bg);
+      --paper: var(--arc-bg);
+      --card: var(--arc-surface);
+      --card-bg: var(--arc-surface);
+      --panel: var(--arc-surface);
+      --fg: var(--arc-ink);
+      --ink: var(--arc-ink);
+      --text: var(--arc-ink);
+      --text-main: var(--arc-ink);
+      --sub: var(--arc-muted);
+      --muted: var(--arc-muted);
+      --text-muted: var(--arc-muted);
+      --border: var(--arc-line);
+      --line: var(--arc-line);
+      --soft: var(--arc-line);
+      --accent: var(--arc-cyan-dark);
+      --accent-soft: var(--arc-cyan-soft);
+      --accent2: var(--arc-gold);
+      --accent3: var(--arc-good);
+      --cyan: var(--arc-cyan);
+      --blue: var(--arc-cyan);
+      --indigo: var(--arc-cyan-dark);
+      --chip: var(--arc-cyan-soft);
+      --ring: var(--arc-cyan-soft);
+      --good: var(--arc-good);
+      --ok: var(--arc-good);
+      --ok-soft: var(--arc-good-soft);
+      --danger: var(--arc-bad);
+      --danger-soft: var(--arc-bad-soft);
+      --bad: var(--arc-bad);
+      --fail: var(--arc-bad);
+      --warn: var(--arc-warn);
+      --amber: var(--arc-gold);
+      --gold: var(--arc-gold);
+      --gold-soft: var(--arc-gold-soft);
+      --code: var(--arc-ink);
+      --shadow: var(--arc-shadow);
+      --shadow-sm: var(--arc-shadow);
+    }
+
+    html { color-scheme: light; }
+    body {
+      background:
+        radial-gradient(circle at 100% 0%, rgba(0, 142, 170, 0.10), transparent 28rem),
+        radial-gradient(circle at 0% 0%, rgba(200, 161, 0, 0.08), transparent 24rem),
+        var(--arc-bg) !important;
+      color: var(--arc-ink) !important;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif !important;
+      line-height: 1.55;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+
+    body h1 {
+      color: var(--arc-ink);
+      font-family: Georgia, "Times New Roman", serif;
+      font-weight: 500;
+      letter-spacing: -0.025em;
+      line-height: 1.08;
+    }
+
+    body h2,
+    body h3 { color: var(--arc-ink); }
+    body a { color: var(--arc-cyan-dark); }
+    body :focus-visible { outline: 3px solid rgba(0, 142, 170, 0.28); outline-offset: 2px; }
+
+    body input,
+    body select,
+    body textarea {
+      border-color: var(--arc-line) !important;
+      border-radius: 0.65rem !important;
+      background: var(--arc-surface) !important;
+      color: var(--arc-ink) !important;
+    }
+
+    body button,
+    body .btn {
+      border-color: var(--arc-line);
+      border-radius: 999px !important;
+      box-shadow: none;
+      transition: border-color 160ms ease, color 160ms ease, transform 160ms ease;
+    }
+
+    body button:hover,
+    body .btn:hover {
+      border-color: var(--arc-cyan) !important;
+      transform: translateY(-1px);
+    }
+
+    body pre,
+    body .codebox {
+      border-color: var(--arc-line) !important;
+      border-radius: 0.75rem !important;
+      background: var(--arc-soft) !important;
+      color: var(--arc-ink) !important;
+    }
+
+    body div.card,
+    body section.card,
+    body article.card,
+    body div.panel,
+    body section.panel,
+    body article.panel,
+    body .arc-card,
+    body details {
+      border-color: var(--arc-line) !important;
+      background: var(--arc-surface) !important;
+      box-shadow: var(--arc-shadow);
+    }
+
+    body .head,
+    body .card-head,
+    body .ac-head,
+    body summary {
+      border-color: var(--arc-line) !important;
+      background: var(--arc-soft);
+    }
+
+    body table { border-color: var(--arc-line); }
+    body th { color: var(--arc-muted); }
+    body th,
+    body td { border-color: var(--arc-line) !important; }
+    body tbody tr:hover { background: rgba(221, 247, 251, 0.55); }
+
+    body .pill,
+    body .badge,
+    body .chip {
+      border-color: var(--arc-line) !important;
+      background: var(--arc-cyan-soft);
+      color: var(--arc-cyan-dark);
+    }
+
+    body .arc-card,
+    body .arcbox,
+    body .harness,
+    body .check,
+    body .lesson {
+      border-left-width: 4px !important;
+      border-left-style: solid !important;
+    }
+    body .arc-card.answer, body .arcbox.answer { border-left-color: var(--arc-cyan) !important; }
+    body .arc-card.reason, body .arcbox.reason { border-left-color: var(--arc-good) !important; }
+    body .arc-card.check, body .arcbox.check, body .harness, body .check, body .lesson { border-left-color: var(--arc-gold) !important; }
+    body .pass,
+    body .ok,
+    body .good { color: var(--arc-good); }
+    body .fail,
+    body .bad,
+    body .error { color: var(--arc-bad); }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      body *, body *::before, body *::after { transition: none !important; }
+    }
+</style>
 </head>
 <body>
   <div class="container">
@@ -84,9 +261,9 @@
       <div class="footer-note">Iterations count how many routine steps are needed until the state first equals <span class="mono">6174</span>; starting at <span class="mono">6174</span> counts as <span class="mono">0</span>.</div>
     </section>
 
-    <!-- 2/ Reason why -->
+    <!-- 2/ Reason -->
     <section class="card" aria-labelledby="reason-title">
-      <h2 id="reason-title"><span class="k-pill">2/ Reason why</span> Mathematical explanation</h2>
+      <h2 id="reason-title"><span class="k-pill">2/ Reason</span> Mathematical explanation</h2>
       <div class="proofbox small">
         <p><strong>Definition.</strong> Let <em>K</em> act on 4‑digit strings (leading zeros kept) as follows: write the digits in descending and ascending order to form two 4‑digit numbers, then subtract and pad with leading zeros to 4 digits. We denote the result by <em>K</em>(<em>x</em>).</p>
         <p><strong>Fixed points and traps.</strong> (i) <span class="mono">6174</span> is a fixed point: <em>K</em>(6174) = 6174. (ii) For every rep‑digit <span class="mono">aaaa</span>, the ascending and descending sorts coincide, so <em>K</em>(<span class="mono">aaaa</span>) = <span class="mono">0000</span> and then <em>K</em>(<span class="mono">0000</span>) = <span class="mono">0000</span>. Thus the only non‑converging starts are the ten rep‑digits, which fall into the absorbing state <span class="mono">0000</span>.</p>
@@ -97,7 +274,7 @@
 
     <!-- 3/ Checks (five, uncollapsed) -->
     <section class="card" aria-labelledby="check-title">
-      <h2 id="check-title"><span class="k-pill">3/ Checks (harness)</span> Exhaustive sweep 0000–9999</h2>
+      <h2 id="check-title"><span class="k-pill">3/ Checks</span> Exhaustive sweep 0000–9999</h2>
 
       <details open id="check1">
         <summary>Check 1 — Universe accounting <span class="badge" id="chk1badge">—</span></summary>

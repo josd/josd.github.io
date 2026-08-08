@@ -6,13 +6,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <style>
     :root{
-      --bg:#f7f8fb;
-      --card:#ffffff;
-      --ink:#0f172a;
-      --muted:#4b5563;
-      --accent:#2563eb;
-      --ok:#059669;
-      --bad:#b91c1c;
+      --bg:#F3F8F7;
+      --card:#FFFDF8;
+      --ink:#102A3A;
+      --muted:#537487;
+      --accent:#008EAA;
+      --ok:#147A49;
+      --bad:#B12B32;
       --radius:16px;
       --shadow:0 10px 22px rgba(2,6,23,.06), 0 2px 6px rgba(2,6,23,.06);
       --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono","Courier New", monospace;
@@ -24,19 +24,19 @@
     header{display:flex;flex-direction:column;gap:10px;margin-bottom:22px}
     h1{font-size:clamp(24px,3vw,34px);line-height:1.2;margin:0}
     .sub{color:var(--muted)}
-    .pill{display:inline-flex;align-items:center;gap:8px;background:#eef2ff;color:#3730a3;border-radius:999px;padding:8px 12px;font-weight:600;font-size:14px;width:max-content}
+    .pill{display:inline-flex;align-items:center;gap:8px;background:#DDF7FB;color:#3730a3;border-radius:999px;padding:8px 12px;font-weight:600;font-size:14px;width:max-content}
     .grid{display:flex;flex-direction:column;gap:16px}
     .card{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);padding:18px;border:1px solid #eef2f7}
-    .kicker{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:#6b7280}
+    .kicker{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:#537487}
     .muted{color:var(--muted)}
     .answer{font-size:18px;font-weight:800}
     .ok{color:var(--ok)}
     .fail{color:var(--bad);font-weight:800}
-    .result{margin-top:10px;padding:10px 12px;border-radius:10px;background:#fafbff;border:1px dashed #d7dbe5}
+    .result{margin-top:10px;padding:10px 12px;border-radius:10px;background:#F3F8F7;border:1px dashed #D9E2DE}
     code, pre{font-family:var(--mono)}
     pre{
-      background:#fafbff;
-      color:#0f172a;
+      background:#F3F8F7;
+      color:#102A3A;
       padding:14px;
       border-radius:12px;
       white-space: pre-wrap;
@@ -48,11 +48,188 @@
     }
     .small{font-size:13px}
     textarea.input{
-      width:100%;min-height:92px;padding:10px 12px;border-radius:10px;border:1px solid #d9e1f1;background:#fdfefe;font-family:var(--mono)
+      width:100%;min-height:92px;padding:10px 12px;border-radius:10px;border:1px solid #D9E2DE;background:#fdfefe;font-family:var(--mono)
     }
-    .badge{display:inline-block;font-size:12px;padding:2px 8px;border-radius:999px;background:#ecfeff;color:#155e75;border:1px solid #a5f3fc}
-    .mat{display:inline-block;padding:6px 10px;border:1px solid #e5eaf3;border-radius:10px;background:#fff;box-shadow:var(--shadow);font-family:var(--mono)}
-  </style>
+    .badge{display:inline-block;font-size:12px;padding:2px 8px;border-radius:999px;background:#DDF7FB;color:#008EAA;border:1px solid #78AFC0}
+    .mat{display:inline-block;padding:6px 10px;border:1px solid #D9E2DE;border-radius:10px;background:#FFFDF8;box-shadow:var(--shadow);font-family:var(--mono)}
+
+    /* ARC example theme: shared visual language, kept inline for portability. */
+    :root {
+      color-scheme: light;
+      --arc-bg: #F4F3EA;
+      --arc-surface: #FFFDF8;
+      --arc-soft: #F3F8F7;
+      --arc-ink: #102A3A;
+      --arc-muted: #537487;
+      --arc-line: #D9E2DE;
+      --arc-cyan: #008EAA;
+      --arc-cyan-dark: #0B4F6C;
+      --arc-cyan-soft: #DDF7FB;
+      --arc-gold: #C8A100;
+      --arc-gold-soft: #FFF4BF;
+      --arc-good: #147A49;
+      --arc-good-soft: #ECF9F1;
+      --arc-warn: #966E00;
+      --arc-warn-soft: #FFF8D9;
+      --arc-bad: #B12B32;
+      --arc-bad-soft: #FFF0F0;
+      --arc-shadow: 0 12px 30px rgba(23, 50, 77, 0.08);
+
+      --bg: var(--arc-bg);
+      --paper: var(--arc-bg);
+      --card: var(--arc-surface);
+      --card-bg: var(--arc-surface);
+      --panel: var(--arc-surface);
+      --fg: var(--arc-ink);
+      --ink: var(--arc-ink);
+      --text: var(--arc-ink);
+      --text-main: var(--arc-ink);
+      --sub: var(--arc-muted);
+      --muted: var(--arc-muted);
+      --text-muted: var(--arc-muted);
+      --border: var(--arc-line);
+      --line: var(--arc-line);
+      --soft: var(--arc-line);
+      --accent: var(--arc-cyan-dark);
+      --accent-soft: var(--arc-cyan-soft);
+      --accent2: var(--arc-gold);
+      --accent3: var(--arc-good);
+      --cyan: var(--arc-cyan);
+      --blue: var(--arc-cyan);
+      --indigo: var(--arc-cyan-dark);
+      --chip: var(--arc-cyan-soft);
+      --ring: var(--arc-cyan-soft);
+      --good: var(--arc-good);
+      --ok: var(--arc-good);
+      --ok-soft: var(--arc-good-soft);
+      --danger: var(--arc-bad);
+      --danger-soft: var(--arc-bad-soft);
+      --bad: var(--arc-bad);
+      --fail: var(--arc-bad);
+      --warn: var(--arc-warn);
+      --amber: var(--arc-gold);
+      --gold: var(--arc-gold);
+      --gold-soft: var(--arc-gold-soft);
+      --code: var(--arc-ink);
+      --shadow: var(--arc-shadow);
+      --shadow-sm: var(--arc-shadow);
+    }
+
+    html { color-scheme: light; }
+    body {
+      background:
+        radial-gradient(circle at 100% 0%, rgba(0, 142, 170, 0.10), transparent 28rem),
+        radial-gradient(circle at 0% 0%, rgba(200, 161, 0, 0.08), transparent 24rem),
+        var(--arc-bg) !important;
+      color: var(--arc-ink) !important;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif !important;
+      line-height: 1.55;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+
+    body h1 {
+      color: var(--arc-ink);
+      font-family: Georgia, "Times New Roman", serif;
+      font-weight: 500;
+      letter-spacing: -0.025em;
+      line-height: 1.08;
+    }
+
+    body h2,
+    body h3 { color: var(--arc-ink); }
+    body a { color: var(--arc-cyan-dark); }
+    body :focus-visible { outline: 3px solid rgba(0, 142, 170, 0.28); outline-offset: 2px; }
+
+    body input,
+    body select,
+    body textarea {
+      border-color: var(--arc-line) !important;
+      border-radius: 0.65rem !important;
+      background: var(--arc-surface) !important;
+      color: var(--arc-ink) !important;
+    }
+
+    body button,
+    body .btn {
+      border-color: var(--arc-line);
+      border-radius: 999px !important;
+      box-shadow: none;
+      transition: border-color 160ms ease, color 160ms ease, transform 160ms ease;
+    }
+
+    body button:hover,
+    body .btn:hover {
+      border-color: var(--arc-cyan) !important;
+      transform: translateY(-1px);
+    }
+
+    body pre,
+    body .codebox {
+      border-color: var(--arc-line) !important;
+      border-radius: 0.75rem !important;
+      background: var(--arc-soft) !important;
+      color: var(--arc-ink) !important;
+    }
+
+    body div.card,
+    body section.card,
+    body article.card,
+    body div.panel,
+    body section.panel,
+    body article.panel,
+    body .arc-card,
+    body details {
+      border-color: var(--arc-line) !important;
+      background: var(--arc-surface) !important;
+      box-shadow: var(--arc-shadow);
+    }
+
+    body .head,
+    body .card-head,
+    body .ac-head,
+    body summary {
+      border-color: var(--arc-line) !important;
+      background: var(--arc-soft);
+    }
+
+    body table { border-color: var(--arc-line); }
+    body th { color: var(--arc-muted); }
+    body th,
+    body td { border-color: var(--arc-line) !important; }
+    body tbody tr:hover { background: rgba(221, 247, 251, 0.55); }
+
+    body .pill,
+    body .badge,
+    body .chip {
+      border-color: var(--arc-line) !important;
+      background: var(--arc-cyan-soft);
+      color: var(--arc-cyan-dark);
+    }
+
+    body .arc-card,
+    body .arcbox,
+    body .harness,
+    body .check,
+    body .lesson {
+      border-left-width: 4px !important;
+      border-left-style: solid !important;
+    }
+    body .arc-card.answer, body .arcbox.answer { border-left-color: var(--arc-cyan) !important; }
+    body .arc-card.reason, body .arcbox.reason { border-left-color: var(--arc-good) !important; }
+    body .arc-card.check, body .arcbox.check, body .harness, body .check, body .lesson { border-left-color: var(--arc-gold) !important; }
+    body .pass,
+    body .ok,
+    body .good { color: var(--arc-good); }
+    body .fail,
+    body .bad,
+    body .error { color: var(--arc-bad); }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      body *, body *::before, body *::after { transition: none !important; }
+    }
+</style>
 </head>
 <body>
   <div class="wrap">
@@ -82,9 +259,9 @@
           <span class="mat">BA = [[1,2],[3,7]]</span>, so AB ≠ BA.</p>
       </article>
 
-      <!-- Reason Why -->
+      <!-- Reason -->
       <article class="card">
-        <div class="kicker">Reason Why</div>
+        <div class="kicker">Reason</div>
         <h2>Mathematical English justification</h2>
         <ol>
           <li>Take A = [[1, 2], [0, 1]] and B = [[1, 0], [3, 1]].</li>
@@ -106,42 +283,42 @@
 
       <!-- Checks -->
       <article class="card" id="h1">
-        <div class="kicker">Check (harness) #1</div>
+        <div class="kicker">Check #1</div>
         <h3>Counterexample computation</h3>
         <p class="small muted">Compute AB and BA for the fixed A,B above.</p>
         <div class="result" id="r1"></div>
       </article>
 
       <article class="card" id="h2">
-        <div class="kicker">Check (harness) #2</div>
+        <div class="kicker">Check #2</div>
         <h3>Random 2×2 integer matrices</h3>
         <p class="small muted">Sample 300 random pairs with entries in −3..3 (not all zero). Report how many satisfy AB = BA.</p>
         <div class="result" id="r2"></div>
       </article>
 
       <article class="card" id="h3">
-        <div class="kicker">Check (harness) #3</div>
+        <div class="kicker">Check #3</div>
         <h3>Exhaustive tiny space</h3>
         <p class="small muted">Enumerate all 2×2 matrices with entries in {0,1} (except both zero simultaneously for all entries) and count commuting pairs.</p>
         <div class="result" id="r3"></div>
       </article>
 
       <article class="card" id="h4">
-        <div class="kicker">Check (harness) #4</div>
+        <div class="kicker">Check #4</div>
         <h3>Special cases that do commute</h3>
         <p class="small muted">Identity I, zero 0, and scalars λI commute with everything; diagonal matrices commute with each other.</p>
         <div class="result" id="r4"></div>
       </article>
 
       <article class="card" id="h5">
-        <div class="kicker">Check (harness) #5</div>
+        <div class="kicker">Check #5</div>
         <h3>Commutator</h3>
         <p class="small muted">Compute [A,B]=AB-BA for the counterexample; nonzero commutator certifies non-commutativity.</p>
         <div class="result" id="r5"></div>
       </article>
 
       <article class="card" id="h6">
-        <div class="kicker">Check (harness) #6</div>
+        <div class="kicker">Check #6</div>
         <h3>Your matrices (CSV)</h3>
         <p class="small muted">Paste A and B as four comma-separated rows each. Example:<br>
         <code>A: 1,2; 0,1</code><br><code>B: 1,0; 3,1</code></p>
@@ -151,7 +328,7 @@ B: 1,0; 3,1"></textarea>
       </article>
 
       <article class="card" id="h7">
-        <div class="kicker">Check (harness) #7</div>
+        <div class="kicker">Check #7</div>
         <h3>Geometric intuition via shears</h3>
         <p class="small muted">Apply the two shears to a sample of points in both orders. The sets differ, showing the compositions differ.</p>
         <div class="result" id="r7"></div>

@@ -6,8 +6,8 @@
   <title>Graph reachability (French cities)</title>
   <style>
     :root{
-      --bg:#ffffff; --ink:#111827; --muted:#6b7280; --panel:#f8fafc; --border:#e5e7eb; --accent:#0ea5e9;
-      --good:#16a34a; --cyan:#06b6d4; --indigo:#6366f1; --warn:#dc2626;
+      --bg:#FFFDF8; --ink:#102A3A; --muted:#537487; --panel:#F3F8F7; --border:#D9E2DE; --accent:#008EAA;
+      --good:#147A49; --cyan:#008EAA; --indigo:#6366f1; --warn:#B12B32;
       --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
       --ui: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji";
     }
@@ -16,27 +16,204 @@
     .wrap{max-width:980px; margin:28px auto; padding:0 14px;}
     header{display:flex; align-items:center; justify-content:space-between; margin-bottom:14px}
     h1{font-size:20px; margin:0; letter-spacing:.2px}
-    .pill{display:inline-flex; align-items:center; gap:8px; padding:6px 10px; border:1px solid var(--border); border-radius:999px; color:var(--muted); background:#fff}
+    .pill{display:inline-flex; align-items:center; gap:8px; padding:6px 10px; border:1px solid var(--border); border-radius:999px; color:var(--muted); background:#FFFDF8}
     .card{width:100%; background:var(--panel); border:1px solid var(--border); border-radius:14px; overflow:hidden; margin-bottom:14px}
     .head{display:flex; align-items:center; justify-content:space-between; padding:10px 12px; border-bottom:1px solid var(--border)}
     .head h2{font-size:13px; text-transform:uppercase; letter-spacing:.08em; color:var(--muted); margin:0}
     .body{padding:12px}
-    pre{white-space:pre-wrap; background:#fff; border:1px solid var(--border); border-radius:10px; padding:12px; overflow:auto; font-family:var(--mono); font-size:13px; margin:0}
-    button{all:unset; background:#fff; border:1px solid var(--border); padding:9px 13px; border-radius:10px; cursor:pointer}
-    button:hover{border-color:#cbd5e1}
+    pre{white-space:pre-wrap; background:#FFFDF8; border:1px solid var(--border); border-radius:10px; padding:12px; overflow:auto; font-family:var(--mono); font-size:13px; margin:0}
+    button{all:unset; background:#FFFDF8; border:1px solid var(--border); padding:9px 13px; border-radius:10px; cursor:pointer}
+    button:hover{border-color:#D9E2DE}
     .warn{color:var(--warn)}
     .accent{color:var(--accent)}
     .btns{display:flex; gap:8px; flex-wrap:wrap}
-    .kv{font-family:var(--mono); background:#fff; border:1px solid var(--border); border-radius:10px; padding:10px; font-size:13px}
+    .kv{font-family:var(--mono); background:#FFFDF8; border:1px solid var(--border); border-radius:10px; padding:10px; font-size:13px}
     .muted{color:var(--muted)}
 
-    /* ARC boxes with thick colored left borders */
-    .arcbox{background:#fff; border:1px solid var(--border); border-radius:12px; padding:10px; margin:10px 0}
-    .arcbox.answer{border-left:10px solid var(--good)}
-    .arcbox.reason{border-left:10px solid var(--cyan)}
-    .arcbox.check{border-left:10px solid var(--indigo)}
+    /* ARC boxes with consistent colored left borders */
+    .arcbox{background:#FFFDF8; border:1px solid var(--border); border-radius:12px; padding:10px; margin:10px 0}
+    .arcbox.answer{border-left:4px solid var(--good)}
+    .arcbox.reason{border-left:4px solid var(--cyan)}
+    .arcbox.check{border-left:4px solid var(--indigo)}
     .arclabel{font-size:11px; text-transform:uppercase; letter-spacing:.08em; color:var(--muted); margin-bottom:6px}
-  </style>
+
+    /* ARC example theme: shared visual language, kept inline for portability. */
+    :root {
+      color-scheme: light;
+      --arc-bg: #F4F3EA;
+      --arc-surface: #FFFDF8;
+      --arc-soft: #F3F8F7;
+      --arc-ink: #102A3A;
+      --arc-muted: #537487;
+      --arc-line: #D9E2DE;
+      --arc-cyan: #008EAA;
+      --arc-cyan-dark: #0B4F6C;
+      --arc-cyan-soft: #DDF7FB;
+      --arc-gold: #C8A100;
+      --arc-gold-soft: #FFF4BF;
+      --arc-good: #147A49;
+      --arc-good-soft: #ECF9F1;
+      --arc-warn: #966E00;
+      --arc-warn-soft: #FFF8D9;
+      --arc-bad: #B12B32;
+      --arc-bad-soft: #FFF0F0;
+      --arc-shadow: 0 12px 30px rgba(23, 50, 77, 0.08);
+
+      --bg: var(--arc-bg);
+      --paper: var(--arc-bg);
+      --card: var(--arc-surface);
+      --card-bg: var(--arc-surface);
+      --panel: var(--arc-surface);
+      --fg: var(--arc-ink);
+      --ink: var(--arc-ink);
+      --text: var(--arc-ink);
+      --text-main: var(--arc-ink);
+      --sub: var(--arc-muted);
+      --muted: var(--arc-muted);
+      --text-muted: var(--arc-muted);
+      --border: var(--arc-line);
+      --line: var(--arc-line);
+      --soft: var(--arc-line);
+      --accent: var(--arc-cyan-dark);
+      --accent-soft: var(--arc-cyan-soft);
+      --accent2: var(--arc-gold);
+      --accent3: var(--arc-good);
+      --cyan: var(--arc-cyan);
+      --blue: var(--arc-cyan);
+      --indigo: var(--arc-cyan-dark);
+      --chip: var(--arc-cyan-soft);
+      --ring: var(--arc-cyan-soft);
+      --good: var(--arc-good);
+      --ok: var(--arc-good);
+      --ok-soft: var(--arc-good-soft);
+      --danger: var(--arc-bad);
+      --danger-soft: var(--arc-bad-soft);
+      --bad: var(--arc-bad);
+      --fail: var(--arc-bad);
+      --warn: var(--arc-warn);
+      --amber: var(--arc-gold);
+      --gold: var(--arc-gold);
+      --gold-soft: var(--arc-gold-soft);
+      --code: var(--arc-ink);
+      --shadow: var(--arc-shadow);
+      --shadow-sm: var(--arc-shadow);
+    }
+
+    html { color-scheme: light; }
+    body {
+      background:
+        radial-gradient(circle at 100% 0%, rgba(0, 142, 170, 0.10), transparent 28rem),
+        radial-gradient(circle at 0% 0%, rgba(200, 161, 0, 0.08), transparent 24rem),
+        var(--arc-bg) !important;
+      color: var(--arc-ink) !important;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif !important;
+      line-height: 1.55;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+
+    body h1 {
+      color: var(--arc-ink);
+      font-family: Georgia, "Times New Roman", serif;
+      font-weight: 500;
+      letter-spacing: -0.025em;
+      line-height: 1.08;
+    }
+
+    body h2,
+    body h3 { color: var(--arc-ink); }
+    body a { color: var(--arc-cyan-dark); }
+    body :focus-visible { outline: 3px solid rgba(0, 142, 170, 0.28); outline-offset: 2px; }
+
+    body input,
+    body select,
+    body textarea {
+      border-color: var(--arc-line) !important;
+      border-radius: 0.65rem !important;
+      background: var(--arc-surface) !important;
+      color: var(--arc-ink) !important;
+    }
+
+    body button,
+    body .btn {
+      border-color: var(--arc-line);
+      border-radius: 999px !important;
+      box-shadow: none;
+      transition: border-color 160ms ease, color 160ms ease, transform 160ms ease;
+    }
+
+    body button:hover,
+    body .btn:hover {
+      border-color: var(--arc-cyan) !important;
+      transform: translateY(-1px);
+    }
+
+    body pre,
+    body .codebox {
+      border-color: var(--arc-line) !important;
+      border-radius: 0.75rem !important;
+      background: var(--arc-soft) !important;
+      color: var(--arc-ink) !important;
+    }
+
+    body div.card,
+    body section.card,
+    body article.card,
+    body div.panel,
+    body section.panel,
+    body article.panel,
+    body .arc-card,
+    body details {
+      border-color: var(--arc-line) !important;
+      background: var(--arc-surface) !important;
+      box-shadow: var(--arc-shadow);
+    }
+
+    body .head,
+    body .card-head,
+    body .ac-head,
+    body summary {
+      border-color: var(--arc-line) !important;
+      background: var(--arc-soft);
+    }
+
+    body table { border-color: var(--arc-line); }
+    body th { color: var(--arc-muted); }
+    body th,
+    body td { border-color: var(--arc-line) !important; }
+    body tbody tr:hover { background: rgba(221, 247, 251, 0.55); }
+
+    body .pill,
+    body .badge,
+    body .chip {
+      border-color: var(--arc-line) !important;
+      background: var(--arc-cyan-soft);
+      color: var(--arc-cyan-dark);
+    }
+
+    body .arc-card,
+    body .arcbox,
+    body .harness,
+    body .check,
+    body .lesson {
+      border-left-width: 4px !important;
+      border-left-style: solid !important;
+    }
+    body .arc-card.answer, body .arcbox.answer { border-left-color: var(--arc-cyan) !important; }
+    body .arc-card.reason, body .arcbox.reason { border-left-color: var(--arc-good) !important; }
+    body .arc-card.check, body .arcbox.check, body .harness, body .check, body .lesson { border-left-color: var(--arc-gold) !important; }
+    body .pass,
+    body .ok,
+    body .good { color: var(--arc-good); }
+    body .fail,
+    body .bad,
+    body .error { color: var(--arc-bad); }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      body *, body *::before, body *::after { transition: none !important; }
+    }
+</style>
 </head>
 <body>
   <div class="wrap">
@@ -88,11 +265,11 @@ C2: path(U,V) :- oneway(U,Z), path(Z,V).</pre>
           <pre id="ans">(no run yet)</pre>
         </div>
         <div class="arcbox reason">
-          <div class="arclabel">Reason why</div>
+          <div class="arclabel">Reason</div>
           <pre id="why">(no run yet)</pre>
         </div>
         <div class="arcbox check">
-          <div class="arclabel">Check (harness)</div>
+          <div class="arclabel">Check</div>
           <pre id="chk">(no run yet)</pre>
         </div>
       </div>
@@ -211,7 +388,7 @@ Rules : C1, C2 (see above)`);
   setText('ans', A);
 
   // Reason
-  let R = "\nReason why\n==========\n";
+  let R = "\nReason\n==========\n";
   R += "We use two Horn clauses:\n";
   R += " C1 path(U,V) :- oneway(U,V).\n";
   R += " C2 path(U,V) :- oneway(U,Z), path(Z,V).\n";
@@ -231,7 +408,7 @@ Rules : C1, C2 (see above)`);
   setText('why', R);
 
   // Check
-  let C = "\nCheck (harness)\n===============\n";
+  let C = "\nCheck\n===============\n";
   // A) independent forward search from each node
   function reaches_goal_forward(u){
     if(u === GOAL) return false; // by convention exclude the goal as X

@@ -5,20 +5,197 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Fundamental Theorem of Arithmetic</title>
   <style>
-    :root{ --bg:#f7f9fc; --card:#ffffff; --text:#0f172a; --muted:#475569; --border:#e2e8f0; }
+    :root{ --bg:#F3F8F7; --card:#FFFDF8; --text:#102A3A; --muted:#537487; --border:#D9E2DE; }
     html, body { background: var(--bg); color: var(--text); font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial; }
     .container{ max-width: 960px; margin: 24px auto; padding: 0 16px; }
     .card{ background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 16px; box-shadow: 0 6px 20px rgba(2,6,23,0.05); }
     .stack{ display: flex; flex-direction: column; gap: 16px; }
     .row{ display:flex; align-items:center; gap:12px; }
     .mono{ font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Courier New", monospace; word-break: break-word; overflow-wrap: anywhere; }
-    .badge{ padding:2px 8px; border:1px solid #cbd5e1; border-radius:999px; font-weight:700; font-size:12px; background:#f1f5f9; color:#0f172a; }
-    .ok{ background:#dcfce7; border:1px solid #86efac; }
-    .fail{ background:#fee2e2; border:1px solid #fecaca; }
+    .badge{ padding:2px 8px; border:1px solid #D9E2DE; border-radius:999px; font-weight:700; font-size:12px; background:#f1f5f9; color:#102A3A; }
+    .ok{ background:#ECF9F1; border:1px solid #ECF9F1; }
+    .fail{ background:#FFF0F0; border:1px solid #FFF0F0; }
     .kpi{ display:flex; gap:16px; flex-wrap:wrap; }
     .kpi .card{ padding:12px 14px; }
-    input.short{ width:180px; padding:6px 8px; border:1px solid var(--border); border-radius:10px; background:#fbfdff; }
-  </style>
+    input.short{ width:180px; padding:6px 8px; border:1px solid var(--border); border-radius:10px; background:#F3F8F7; }
+
+    /* ARC example theme: shared visual language, kept inline for portability. */
+    :root {
+      color-scheme: light;
+      --arc-bg: #F4F3EA;
+      --arc-surface: #FFFDF8;
+      --arc-soft: #F3F8F7;
+      --arc-ink: #102A3A;
+      --arc-muted: #537487;
+      --arc-line: #D9E2DE;
+      --arc-cyan: #008EAA;
+      --arc-cyan-dark: #0B4F6C;
+      --arc-cyan-soft: #DDF7FB;
+      --arc-gold: #C8A100;
+      --arc-gold-soft: #FFF4BF;
+      --arc-good: #147A49;
+      --arc-good-soft: #ECF9F1;
+      --arc-warn: #966E00;
+      --arc-warn-soft: #FFF8D9;
+      --arc-bad: #B12B32;
+      --arc-bad-soft: #FFF0F0;
+      --arc-shadow: 0 12px 30px rgba(23, 50, 77, 0.08);
+
+      --bg: var(--arc-bg);
+      --paper: var(--arc-bg);
+      --card: var(--arc-surface);
+      --card-bg: var(--arc-surface);
+      --panel: var(--arc-surface);
+      --fg: var(--arc-ink);
+      --ink: var(--arc-ink);
+      --text: var(--arc-ink);
+      --text-main: var(--arc-ink);
+      --sub: var(--arc-muted);
+      --muted: var(--arc-muted);
+      --text-muted: var(--arc-muted);
+      --border: var(--arc-line);
+      --line: var(--arc-line);
+      --soft: var(--arc-line);
+      --accent: var(--arc-cyan-dark);
+      --accent-soft: var(--arc-cyan-soft);
+      --accent2: var(--arc-gold);
+      --accent3: var(--arc-good);
+      --cyan: var(--arc-cyan);
+      --blue: var(--arc-cyan);
+      --indigo: var(--arc-cyan-dark);
+      --chip: var(--arc-cyan-soft);
+      --ring: var(--arc-cyan-soft);
+      --good: var(--arc-good);
+      --ok: var(--arc-good);
+      --ok-soft: var(--arc-good-soft);
+      --danger: var(--arc-bad);
+      --danger-soft: var(--arc-bad-soft);
+      --bad: var(--arc-bad);
+      --fail: var(--arc-bad);
+      --warn: var(--arc-warn);
+      --amber: var(--arc-gold);
+      --gold: var(--arc-gold);
+      --gold-soft: var(--arc-gold-soft);
+      --code: var(--arc-ink);
+      --shadow: var(--arc-shadow);
+      --shadow-sm: var(--arc-shadow);
+    }
+
+    html { color-scheme: light; }
+    body {
+      background:
+        radial-gradient(circle at 100% 0%, rgba(0, 142, 170, 0.10), transparent 28rem),
+        radial-gradient(circle at 0% 0%, rgba(200, 161, 0, 0.08), transparent 24rem),
+        var(--arc-bg) !important;
+      color: var(--arc-ink) !important;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif !important;
+      line-height: 1.55;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+
+    body h1 {
+      color: var(--arc-ink);
+      font-family: Georgia, "Times New Roman", serif;
+      font-weight: 500;
+      letter-spacing: -0.025em;
+      line-height: 1.08;
+    }
+
+    body h2,
+    body h3 { color: var(--arc-ink); }
+    body a { color: var(--arc-cyan-dark); }
+    body :focus-visible { outline: 3px solid rgba(0, 142, 170, 0.28); outline-offset: 2px; }
+
+    body input,
+    body select,
+    body textarea {
+      border-color: var(--arc-line) !important;
+      border-radius: 0.65rem !important;
+      background: var(--arc-surface) !important;
+      color: var(--arc-ink) !important;
+    }
+
+    body button,
+    body .btn {
+      border-color: var(--arc-line);
+      border-radius: 999px !important;
+      box-shadow: none;
+      transition: border-color 160ms ease, color 160ms ease, transform 160ms ease;
+    }
+
+    body button:hover,
+    body .btn:hover {
+      border-color: var(--arc-cyan) !important;
+      transform: translateY(-1px);
+    }
+
+    body pre,
+    body .codebox {
+      border-color: var(--arc-line) !important;
+      border-radius: 0.75rem !important;
+      background: var(--arc-soft) !important;
+      color: var(--arc-ink) !important;
+    }
+
+    body div.card,
+    body section.card,
+    body article.card,
+    body div.panel,
+    body section.panel,
+    body article.panel,
+    body .arc-card,
+    body details {
+      border-color: var(--arc-line) !important;
+      background: var(--arc-surface) !important;
+      box-shadow: var(--arc-shadow);
+    }
+
+    body .head,
+    body .card-head,
+    body .ac-head,
+    body summary {
+      border-color: var(--arc-line) !important;
+      background: var(--arc-soft);
+    }
+
+    body table { border-color: var(--arc-line); }
+    body th { color: var(--arc-muted); }
+    body th,
+    body td { border-color: var(--arc-line) !important; }
+    body tbody tr:hover { background: rgba(221, 247, 251, 0.55); }
+
+    body .pill,
+    body .badge,
+    body .chip {
+      border-color: var(--arc-line) !important;
+      background: var(--arc-cyan-soft);
+      color: var(--arc-cyan-dark);
+    }
+
+    body .arc-card,
+    body .arcbox,
+    body .harness,
+    body .check,
+    body .lesson {
+      border-left-width: 4px !important;
+      border-left-style: solid !important;
+    }
+    body .arc-card.answer, body .arcbox.answer { border-left-color: var(--arc-cyan) !important; }
+    body .arc-card.reason, body .arcbox.reason { border-left-color: var(--arc-good) !important; }
+    body .arc-card.check, body .arcbox.check, body .harness, body .check, body .lesson { border-left-color: var(--arc-gold) !important; }
+    body .pass,
+    body .ok,
+    body .good { color: var(--arc-good); }
+    body .fail,
+    body .bad,
+    body .error { color: var(--arc-bad); }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      body *, body *::before, body *::after { transition: none !important; }
+    }
+</style>
 </head>
 <body>
   <div class="container stack">
@@ -26,7 +203,7 @@
       <h1 style="margin:0">Fundamental Theorem of Arithmetic</h1>
       <div class="badge">Every integer <span class="mono">n≥2</span> factors as a product of primes, uniquely up to order.</div>
       <div class="row"><label class="mono" for="nInput">n (integer ≥ 2)</label><input class="short" id="nInput" type="number" min="2" step="1" value="67564329" /><button id="factorBtn">Factor</button><button id="clearBtn">Clear</button></div>
-      <div class="mono" id="status" style="color:#475569"></div>
+      <div class="mono" id="status" style="color:#537487"></div>
     </header>
 
     <!-- 1) ANSWER -->
@@ -41,15 +218,15 @@
       </div>
     </section>
 
-    <!-- 2) REASON WHY -->
+    <!-- 2) REASON -->
     <section class="card stack" id="reason">
-      <h2 style="margin:0">Reason Why</h2>
+      <h2 style="margin:0">Reason</h2>
       <div class="mono">(Existence) If <span class="mono">n≥2</span> is composite, write <span class="mono">n=ab</span> with <span class="mono">a,b≥2</span>; repeat until primes — the process terminates. (Uniqueness) If <span class="mono">n=p_1⋯p_r=q_1⋯q_s</span> with primes, then by Euclid’s lemma a prime dividing a product divides one factor; match equal primes and cancel, showing the multisets are equal. Hence factorization is unique up to order.</div>
     </section>
 
-    <!-- 3) CHECK (HARNESS) -->
+    <!-- 3) CHECK -->
     <section class="card stack" id="check">
-      <h2 style="margin:0">Check (harness)</h2>
+      <h2 style="margin:0">Check</h2>
       <div id="checks" class="stack"></div>
       <div class="row"><button id="runAll">Run all</button><button id="clearChecks">Clear results</button></div>
     </section>

@@ -1,27 +1,8 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="80 245 1320 530" role="img" aria-labelledby="title desc">
   <title id="title">ARC — Answer, Reason, Check</title>
-  <desc id="desc">A luminous cyan and gold ARC logo with an eye-shaped reasoning emblem and three connected proof nodes.</desc>
+  <desc id="desc">A luminous cyan and gold ARC logo with an abstract eye-shaped reasoning emblem resolving into a verified answer.</desc>
 
   <defs>
-    <linearGradient id="background" x1="0" y1="0" x2="0" y2="1024" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#57595B"/>
-      <stop offset=".46" stop-color="#222A27"/>
-      <stop offset="1" stop-color="#56585A"/>
-    </linearGradient>
-    <radialGradient id="vignette" cx="0" cy="0" r="1" gradientTransform="translate(768 500) scale(820 560)" gradientUnits="userSpaceOnUse">
-      <stop offset=".25" stop-color="#06110F" stop-opacity="0"/>
-      <stop offset="1" stop-color="#101415" stop-opacity=".48"/>
-    </radialGradient>
-    <radialGradient id="cyan-bloom" cx="0" cy="0" r="1" gradientTransform="translate(343 513) scale(340 270)" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#00E7FF" stop-opacity=".72"/>
-      <stop offset=".33" stop-color="#03D9F7" stop-opacity=".25"/>
-      <stop offset="1" stop-color="#00C8F4" stop-opacity="0"/>
-    </radialGradient>
-    <radialGradient id="gold-bloom" cx="0" cy="0" r="1" gradientTransform="translate(960 505) scale(560 285)" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#FFE600" stop-opacity=".58"/>
-      <stop offset=".38" stop-color="#FFD900" stop-opacity=".19"/>
-      <stop offset="1" stop-color="#FFD600" stop-opacity="0"/>
-    </radialGradient>
     <linearGradient id="spectrum" x1="164" y1="395" x2="565" y2="622" gradientUnits="userSpaceOnUse">
       <stop stop-color="#00E8FF"/>
       <stop offset=".45" stop-color="#27DBDE"/>
@@ -61,13 +42,6 @@
       <stop offset=".52" stop-color="#FFE500" stop-opacity=".8"/>
       <stop offset="1" stop-color="#FFE500" stop-opacity="0"/>
     </linearGradient>
-    <pattern id="scanlines" width="18" height="18" patternUnits="userSpaceOnUse">
-      <path d="M0 18V0" stroke="#FFFFFF" stroke-opacity=".024"/>
-    </pattern>
-    <filter id="large-glow" x="-80%" y="-80%" width="260%" height="260%" color-interpolation-filters="sRGB">
-      <feGaussianBlur stdDeviation="21" result="blur"/>
-      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
-    </filter>
     <filter id="medium-glow" x="-60%" y="-60%" width="220%" height="220%" color-interpolation-filters="sRGB">
       <feGaussianBlur stdDeviation="8" result="blur"/>
       <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
@@ -81,14 +55,12 @@
     </clipPath>
   </defs>
 
-  <!-- ARC emblem: eye-shaped arcs embracing a conversational reasoning core. -->
+  <!-- Abstract emblem: an eye-shaped arc, a reasoning core, and one verified result. -->
   <g stroke-linejoin="round" stroke-linecap="round">
     <path d="M157 517C204 427 286 371 380 371c48 0 93 15 133 42-68-16-145 12-202 104 58 92 134 120 202 104-40 27-85 42-133 42-94 0-176-56-223-146Z"
           fill="url(#eye-fill)" stroke="#00E8FF" stroke-width="10" filter="url(#medium-glow)"/>
     <path d="M193 517c47-73 112-118 187-118 42 0 82 14 119 39-50-12-107 12-150 79 43 67 100 91 150 79-37 25-77 39-119 39-75 0-140-45-187-118Z"
           fill="none" stroke="url(#spectrum)" stroke-width="7"/>
-    <path d="M158 516c46-86 127-140 222-140 42 0 84 11 120 32" fill="none" stroke="#D7FFFF" stroke-width="3" opacity=".92"/>
-    <path d="M194 520c46 69 109 110 186 110 43 0 82-13 119-37" fill="none" stroke="#FFF26B" stroke-width="3" opacity=".64"/>
   </g>
 
   <!-- Central speech/logic core. -->
@@ -105,27 +77,11 @@
     <circle cx="337" cy="511" r="13" fill="#FFE94D" stroke="#FFFFFF" stroke-width="3"/>
   </g>
 
-  <!-- Connected verification network. -->
-  <g fill="none" stroke="url(#spectrum)" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" filter="url(#small-glow)">
-    <path d="M367 439 444 364"/>
-    <path d="M395 511h104"/>
-    <path d="M367 583 444 659"/>
-    <path d="M391 427h92l35 38" opacity=".72"/>
-    <path d="M391 595h92l35-38" opacity=".72"/>
-  </g>
-  <g stroke="#F6FFB5" stroke-width="5" filter="url(#medium-glow)">
-    <circle cx="456" cy="351" r="36" fill="url(#orb)"/>
-    <circle cx="518" cy="511" r="39" fill="url(#orb)"/>
-    <circle cx="456" cy="673" r="36" fill="url(#orb)"/>
-  </g>
-  <g fill="none" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round" opacity=".86">
-    <path d="M442 338c7-10 20-14 31-9"/>
-    <path d="M503 496c8-10 21-13 32-8"/>
-    <path d="M442 660c7-10 20-14 31-9"/>
-  </g>
+  <!-- A single reasoning path resolves into a checked result. -->
+  <path d="M396 511h103" fill="none" stroke="url(#spectrum)" stroke-width="8" stroke-linecap="round" filter="url(#small-glow)"/>
+  <circle cx="518" cy="511" r="39" fill="url(#orb)" stroke="#F6FFB5" stroke-width="5" filter="url(#medium-glow)"/>
+  <path d="M503 496c8-10 21-13 32-8" fill="none" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round" opacity=".86"/>
   <path d="m503 511 10 10 22-27" fill="none" stroke="#FFFADF" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" filter="url(#small-glow)"/>
-  <path d="m511 427 19-22 18 22-18 22Z" fill="#FFE600" stroke="#FFFBD2" stroke-width="3" transform="rotate(45 530 427)" filter="url(#small-glow)"/>
-  <circle cx="496" cy="604" r="6" fill="#EFFFF4" filter="url(#small-glow)"/>
 
   <!-- Wordmark, with a cool-to-warm split and subtle bevel. -->
   <text x="590" y="598" fill="#071311" opacity=".86" font-family="DejaVu Sans, Arial, sans-serif" font-size="320" font-weight="400" letter-spacing="-12">ARC</text>

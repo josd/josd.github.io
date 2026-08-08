@@ -8,14 +8,14 @@
     <style>
       :root {
         --bg: #f5f5f7;
-        --card-bg: #ffffff;
-        --accent: #2563eb;
+        --card-bg: #FFFDF8;
+        --accent: #008EAA;
         --accent-soft: rgba(37, 99, 235, 0.1);
-        --danger: #dc2626;
+        --danger: #B12B32;
         --danger-soft: rgba(220, 38, 38, 0.08);
-        --ok: #15803d;
-        --text-main: #111827;
-        --text-muted: #6b7280;
+        --ok: #147A49;
+        --text-main: #102A3A;
+        --text-muted: #537487;
         --radius-xl: 18px;
         --shadow-sm: 0 4px 12px rgba(15, 23, 42, 0.06);
       }
@@ -69,15 +69,15 @@
         letter-spacing: 0.08em;
         padding: 0.2rem 0.7rem;
         border-radius: 999px;
-        background: #e5e7eb;
-        color: #374151;
+        background: #D9E2DE;
+        color: #537487;
       }
 
       .status-dot {
         width: 0.55rem;
         height: 0.55rem;
         border-radius: 999px;
-        background: #9ca3af;
+        background: #537487;
       }
 
       .status-pill.ready .status-dot {
@@ -132,7 +132,7 @@
         letter-spacing: 0.06em;
         padding: 0.15rem 0.5rem;
         border-radius: 999px;
-        background: #eef2ff;
+        background: #DDF7FB;
         color: #3730a3;
         white-space: nowrap;
       }
@@ -155,7 +155,7 @@
         padding: 0.2rem 0.55rem;
         border-radius: 999px;
         background: #f3f4f6;
-        color: #374151;
+        color: #537487;
       }
 
       button.run-btn {
@@ -168,7 +168,7 @@
         font-size: 0.95rem;
         font-weight: 600;
         background: var(--accent);
-        color: #fff;
+        color: #FFFDF8;
         box-shadow: 0 4px 10px rgba(37, 99, 235, 0.35);
         display: flex;
         align-items: center;
@@ -220,7 +220,7 @@
 
       .answer-permit {
         background: var(--accent-soft);
-        color: #1d4ed8;
+        color: #008EAA;
       }
 
       .answer-deny {
@@ -236,7 +236,7 @@
 
       details {
         border-radius: 14px;
-        background: #f9fafb;
+        background: #F3F8F7;
         padding: 0.55rem 0.75rem;
       }
 
@@ -262,7 +262,7 @@
       .check-row {
         font-size: 0.8rem;
         padding: 0.12rem 0;
-        border-bottom: 1px solid #e5e7eb;
+        border-bottom: 1px solid #D9E2DE;
       }
 
       .check-row:last-child {
@@ -285,7 +285,7 @@
       code {
         font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
         font-size: 0.85em;
-        background: #e5e7eb;
+        background: #D9E2DE;
         padding: 0.08rem 0.25rem;
         border-radius: 0.25rem;
       }
@@ -295,7 +295,184 @@
           font-size: 1.6rem;
         }
       }
-    </style>
+
+    /* ARC example theme: shared visual language, kept inline for portability. */
+    :root {
+      color-scheme: light;
+      --arc-bg: #F4F3EA;
+      --arc-surface: #FFFDF8;
+      --arc-soft: #F3F8F7;
+      --arc-ink: #102A3A;
+      --arc-muted: #537487;
+      --arc-line: #D9E2DE;
+      --arc-cyan: #008EAA;
+      --arc-cyan-dark: #0B4F6C;
+      --arc-cyan-soft: #DDF7FB;
+      --arc-gold: #C8A100;
+      --arc-gold-soft: #FFF4BF;
+      --arc-good: #147A49;
+      --arc-good-soft: #ECF9F1;
+      --arc-warn: #966E00;
+      --arc-warn-soft: #FFF8D9;
+      --arc-bad: #B12B32;
+      --arc-bad-soft: #FFF0F0;
+      --arc-shadow: 0 12px 30px rgba(23, 50, 77, 0.08);
+
+      --bg: var(--arc-bg);
+      --paper: var(--arc-bg);
+      --card: var(--arc-surface);
+      --card-bg: var(--arc-surface);
+      --panel: var(--arc-surface);
+      --fg: var(--arc-ink);
+      --ink: var(--arc-ink);
+      --text: var(--arc-ink);
+      --text-main: var(--arc-ink);
+      --sub: var(--arc-muted);
+      --muted: var(--arc-muted);
+      --text-muted: var(--arc-muted);
+      --border: var(--arc-line);
+      --line: var(--arc-line);
+      --soft: var(--arc-line);
+      --accent: var(--arc-cyan-dark);
+      --accent-soft: var(--arc-cyan-soft);
+      --accent2: var(--arc-gold);
+      --accent3: var(--arc-good);
+      --cyan: var(--arc-cyan);
+      --blue: var(--arc-cyan);
+      --indigo: var(--arc-cyan-dark);
+      --chip: var(--arc-cyan-soft);
+      --ring: var(--arc-cyan-soft);
+      --good: var(--arc-good);
+      --ok: var(--arc-good);
+      --ok-soft: var(--arc-good-soft);
+      --danger: var(--arc-bad);
+      --danger-soft: var(--arc-bad-soft);
+      --bad: var(--arc-bad);
+      --fail: var(--arc-bad);
+      --warn: var(--arc-warn);
+      --amber: var(--arc-gold);
+      --gold: var(--arc-gold);
+      --gold-soft: var(--arc-gold-soft);
+      --code: var(--arc-ink);
+      --shadow: var(--arc-shadow);
+      --shadow-sm: var(--arc-shadow);
+    }
+
+    html { color-scheme: light; }
+    body {
+      background:
+        radial-gradient(circle at 100% 0%, rgba(0, 142, 170, 0.10), transparent 28rem),
+        radial-gradient(circle at 0% 0%, rgba(200, 161, 0, 0.08), transparent 24rem),
+        var(--arc-bg) !important;
+      color: var(--arc-ink) !important;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif !important;
+      line-height: 1.55;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+
+    body h1 {
+      color: var(--arc-ink);
+      font-family: Georgia, "Times New Roman", serif;
+      font-weight: 500;
+      letter-spacing: -0.025em;
+      line-height: 1.08;
+    }
+
+    body h2,
+    body h3 { color: var(--arc-ink); }
+    body a { color: var(--arc-cyan-dark); }
+    body :focus-visible { outline: 3px solid rgba(0, 142, 170, 0.28); outline-offset: 2px; }
+
+    body input,
+    body select,
+    body textarea {
+      border-color: var(--arc-line) !important;
+      border-radius: 0.65rem !important;
+      background: var(--arc-surface) !important;
+      color: var(--arc-ink) !important;
+    }
+
+    body button,
+    body .btn {
+      border-color: var(--arc-line);
+      border-radius: 999px !important;
+      box-shadow: none;
+      transition: border-color 160ms ease, color 160ms ease, transform 160ms ease;
+    }
+
+    body button:hover,
+    body .btn:hover {
+      border-color: var(--arc-cyan) !important;
+      transform: translateY(-1px);
+    }
+
+    body pre,
+    body .codebox {
+      border-color: var(--arc-line) !important;
+      border-radius: 0.75rem !important;
+      background: var(--arc-soft) !important;
+      color: var(--arc-ink) !important;
+    }
+
+    body div.card,
+    body section.card,
+    body article.card,
+    body div.panel,
+    body section.panel,
+    body article.panel,
+    body .arc-card,
+    body details {
+      border-color: var(--arc-line) !important;
+      background: var(--arc-surface) !important;
+      box-shadow: var(--arc-shadow);
+    }
+
+    body .head,
+    body .card-head,
+    body .ac-head,
+    body summary {
+      border-color: var(--arc-line) !important;
+      background: var(--arc-soft);
+    }
+
+    body table { border-color: var(--arc-line); }
+    body th { color: var(--arc-muted); }
+    body th,
+    body td { border-color: var(--arc-line) !important; }
+    body tbody tr:hover { background: rgba(221, 247, 251, 0.55); }
+
+    body .pill,
+    body .badge,
+    body .chip {
+      border-color: var(--arc-line) !important;
+      background: var(--arc-cyan-soft);
+      color: var(--arc-cyan-dark);
+    }
+
+    body .arc-card,
+    body .arcbox,
+    body .harness,
+    body .check,
+    body .lesson {
+      border-left-width: 4px !important;
+      border-left-style: solid !important;
+    }
+    body .arc-card.answer, body .arcbox.answer { border-left-color: var(--arc-cyan) !important; }
+    body .arc-card.reason, body .arcbox.reason { border-left-color: var(--arc-good) !important; }
+    body .arc-card.check, body .arcbox.check, body .harness, body .check, body .lesson { border-left-color: var(--arc-gold) !important; }
+    body .pass,
+    body .ok,
+    body .good { color: var(--arc-good); }
+    body .fail,
+    body .bad,
+    body .error { color: var(--arc-bad); }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      body *, body *::before, body *::after { transition: none !important; }
+    }
+</style>
   </head>
   <body>
     <main class="app">
@@ -304,7 +481,7 @@
         <p>
           Fully client-side demo with the AuroraCare case logic translated into embedded JavaScript. Pick a scenario and
           see
-          <strong>Answer</strong>, <strong>Reason why</strong>, and <strong>C1–C10 checks</strong>.
+          <strong>Answer</strong>, <strong>Reason</strong>, and <strong>C1–C10 checks</strong>.
         </p>
         <div id="logic-status" class="status-pill">
           <span class="status-dot"></span>
@@ -756,7 +933,7 @@
         finalize(req, answer, reasonWhy, trace, obligations) {
           return {
             Answer: answer,
-            'Reason why': reasonWhy,
+            'Reason': reasonWhy,
             Check: this.checks(req, answer, trace, obligations),
           };
         }
@@ -1092,7 +1269,7 @@
       // ----- UI helpers -----
       function setStatus(kind, text) {
         statusEl.classList.remove('ready', 'error');
-        statusDotEl.style.background = '#9ca3af';
+        statusDotEl.style.background = '#537487';
         if (kind === 'ready') {
           statusEl.classList.add('ready');
           statusDotEl.style.background = 'var(--accent)';
@@ -1197,7 +1374,7 @@
 
       function renderResult(id, data) {
         const answer = data['Answer'] || 'UNKNOWN';
-        const reason = data['Reason why'] || data['Reason'] || 'No explanation returned.';
+        const reason = data['Reason'] || data['Reason'] || 'No explanation returned.';
         const checks = data['Check'] || {};
         const permit = String(answer).toUpperCase() === 'PERMIT';
 

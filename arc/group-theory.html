@@ -6,12 +6,12 @@
   <title>Group Theory</title>
   <style>
     :root{
-      --bg:#ffffff;
-      --ink:#111827;
-      --muted:#6b7280;
-      --panel:#f8fafc;
-      --border:#e5e7eb;
-      --accent:#0ea5e9;
+      --bg:#FFFDF8;
+      --ink:#102A3A;
+      --muted:#537487;
+      --panel:#F3F8F7;
+      --border:#D9E2DE;
+      --accent:#008EAA;
       --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
       --ui: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji";
     }
@@ -20,30 +20,207 @@
     .wrap{max-width:980px; margin:36px auto; padding:0 16px;}
     header{display:flex; align-items:center; justify-content:space-between; margin-bottom:16px}
     h1{font-size:22px; margin:0; letter-spacing:.2px}
-    .pill{display:inline-flex; align-items:center; gap:8px; padding:6px 10px; border:1px solid var(--border); border-radius:999px; color:var(--muted); background:#fff}
+    .pill{display:inline-flex; align-items:center; gap:8px; padding:6px 10px; border:1px solid var(--border); border-radius:999px; color:var(--muted); background:#FFFDF8}
     .row{display:flex; flex-direction:column; gap:16px}
     .card{flex:1 1 auto; background:var(--panel); border:1px solid var(--border); border-radius:14px; overflow:hidden}
     .head{display:flex; align-items:center; justify-content:space-between; padding:10px 12px; border-bottom:1px solid var(--border)}
     .head h2{font-size:13px; text-transform:uppercase; letter-spacing:.08em; color:var(--muted); margin:0}
     .body{padding:12px}
-    pre{white-space:pre-wrap; background:#fff; border:1px solid var(--border); border-radius:10px; padding:12px; overflow:auto; font-family:var(--mono); font-size:13px}
+    pre{white-space:pre-wrap; background:#FFFDF8; border:1px solid var(--border); border-radius:10px; padding:12px; overflow:auto; font-family:var(--mono); font-size:13px}
     .bar{display:flex; gap:8px; margin-top:10px; flex-wrap:wrap}
-    button{all:unset; background:#fff; border:1px solid var(--border); padding:8px 12px; border-radius:10px; cursor:pointer}
-    button:hover{border-color:#cbd5e1}
+    button{all:unset; background:#FFFDF8; border:1px solid var(--border); padding:8px 12px; border-radius:10px; cursor:pointer}
+    button:hover{border-color:#D9E2DE}
     .small{color:var(--muted); text-decoration:none}
     .accent{color:var(--accent)}
-  
+
     /* ARC v2 (Cards) */
     .arc-grid{display:flex; flex-direction:column; gap:12px}
-    .arc-card{background:#fff; border:1px solid var(--border); border-radius:14px; overflow:hidden}
+    .arc-card{background:#FFFDF8; border:1px solid var(--border); border-radius:14px; overflow:hidden}
     .arc-card .ac-head{display:flex; align-items:center; gap:8px; padding:10px 12px; border-bottom:1px solid var(--border); font-size:12px; letter-spacing:.08em; text-transform:uppercase; color:var(--muted)}
     .arc-card .ac-body{padding:12px}
-    .arc-card pre{margin:0; white-space:pre-wrap; background:#fff; border:1px solid #eef2f7; border-radius:10px; padding:10px; font-family:var(--mono); font-size:13px}
-    .arc-card.answer{border-left:4px solid #10b981}
-    .arc-card.reason{border-left:4px solid #3b82f6}
-    .arc-card.check{border-left:4px solid #f59e0b}
+    .arc-card pre{margin:0; white-space:pre-wrap; background:#FFFDF8; border:1px solid #eef2f7; border-radius:10px; padding:10px; font-family:var(--mono); font-size:13px}
+    .arc-card.answer{border-left:4px solid #147A49}
+    .arc-card.reason{border-left:4px solid #008EAA}
+    .arc-card.check{border-left:4px solid #966E00}
     .toolbar{display:flex; gap:8px; align-items:center}
-    </style>
+
+    /* ARC example theme: shared visual language, kept inline for portability. */
+    :root {
+      color-scheme: light;
+      --arc-bg: #F4F3EA;
+      --arc-surface: #FFFDF8;
+      --arc-soft: #F3F8F7;
+      --arc-ink: #102A3A;
+      --arc-muted: #537487;
+      --arc-line: #D9E2DE;
+      --arc-cyan: #008EAA;
+      --arc-cyan-dark: #0B4F6C;
+      --arc-cyan-soft: #DDF7FB;
+      --arc-gold: #C8A100;
+      --arc-gold-soft: #FFF4BF;
+      --arc-good: #147A49;
+      --arc-good-soft: #ECF9F1;
+      --arc-warn: #966E00;
+      --arc-warn-soft: #FFF8D9;
+      --arc-bad: #B12B32;
+      --arc-bad-soft: #FFF0F0;
+      --arc-shadow: 0 12px 30px rgba(23, 50, 77, 0.08);
+
+      --bg: var(--arc-bg);
+      --paper: var(--arc-bg);
+      --card: var(--arc-surface);
+      --card-bg: var(--arc-surface);
+      --panel: var(--arc-surface);
+      --fg: var(--arc-ink);
+      --ink: var(--arc-ink);
+      --text: var(--arc-ink);
+      --text-main: var(--arc-ink);
+      --sub: var(--arc-muted);
+      --muted: var(--arc-muted);
+      --text-muted: var(--arc-muted);
+      --border: var(--arc-line);
+      --line: var(--arc-line);
+      --soft: var(--arc-line);
+      --accent: var(--arc-cyan-dark);
+      --accent-soft: var(--arc-cyan-soft);
+      --accent2: var(--arc-gold);
+      --accent3: var(--arc-good);
+      --cyan: var(--arc-cyan);
+      --blue: var(--arc-cyan);
+      --indigo: var(--arc-cyan-dark);
+      --chip: var(--arc-cyan-soft);
+      --ring: var(--arc-cyan-soft);
+      --good: var(--arc-good);
+      --ok: var(--arc-good);
+      --ok-soft: var(--arc-good-soft);
+      --danger: var(--arc-bad);
+      --danger-soft: var(--arc-bad-soft);
+      --bad: var(--arc-bad);
+      --fail: var(--arc-bad);
+      --warn: var(--arc-warn);
+      --amber: var(--arc-gold);
+      --gold: var(--arc-gold);
+      --gold-soft: var(--arc-gold-soft);
+      --code: var(--arc-ink);
+      --shadow: var(--arc-shadow);
+      --shadow-sm: var(--arc-shadow);
+    }
+
+    html { color-scheme: light; }
+    body {
+      background:
+        radial-gradient(circle at 100% 0%, rgba(0, 142, 170, 0.10), transparent 28rem),
+        radial-gradient(circle at 0% 0%, rgba(200, 161, 0, 0.08), transparent 24rem),
+        var(--arc-bg) !important;
+      color: var(--arc-ink) !important;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif !important;
+      line-height: 1.55;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+
+    body h1 {
+      color: var(--arc-ink);
+      font-family: Georgia, "Times New Roman", serif;
+      font-weight: 500;
+      letter-spacing: -0.025em;
+      line-height: 1.08;
+    }
+
+    body h2,
+    body h3 { color: var(--arc-ink); }
+    body a { color: var(--arc-cyan-dark); }
+    body :focus-visible { outline: 3px solid rgba(0, 142, 170, 0.28); outline-offset: 2px; }
+
+    body input,
+    body select,
+    body textarea {
+      border-color: var(--arc-line) !important;
+      border-radius: 0.65rem !important;
+      background: var(--arc-surface) !important;
+      color: var(--arc-ink) !important;
+    }
+
+    body button,
+    body .btn {
+      border-color: var(--arc-line);
+      border-radius: 999px !important;
+      box-shadow: none;
+      transition: border-color 160ms ease, color 160ms ease, transform 160ms ease;
+    }
+
+    body button:hover,
+    body .btn:hover {
+      border-color: var(--arc-cyan) !important;
+      transform: translateY(-1px);
+    }
+
+    body pre,
+    body .codebox {
+      border-color: var(--arc-line) !important;
+      border-radius: 0.75rem !important;
+      background: var(--arc-soft) !important;
+      color: var(--arc-ink) !important;
+    }
+
+    body div.card,
+    body section.card,
+    body article.card,
+    body div.panel,
+    body section.panel,
+    body article.panel,
+    body .arc-card,
+    body details {
+      border-color: var(--arc-line) !important;
+      background: var(--arc-surface) !important;
+      box-shadow: var(--arc-shadow);
+    }
+
+    body .head,
+    body .card-head,
+    body .ac-head,
+    body summary {
+      border-color: var(--arc-line) !important;
+      background: var(--arc-soft);
+    }
+
+    body table { border-color: var(--arc-line); }
+    body th { color: var(--arc-muted); }
+    body th,
+    body td { border-color: var(--arc-line) !important; }
+    body tbody tr:hover { background: rgba(221, 247, 251, 0.55); }
+
+    body .pill,
+    body .badge,
+    body .chip {
+      border-color: var(--arc-line) !important;
+      background: var(--arc-cyan-soft);
+      color: var(--arc-cyan-dark);
+    }
+
+    body .arc-card,
+    body .arcbox,
+    body .harness,
+    body .check,
+    body .lesson {
+      border-left-width: 4px !important;
+      border-left-style: solid !important;
+    }
+    body .arc-card.answer, body .arcbox.answer { border-left-color: var(--arc-cyan) !important; }
+    body .arc-card.reason, body .arcbox.reason { border-left-color: var(--arc-good) !important; }
+    body .arc-card.check, body .arcbox.check, body .harness, body .check, body .lesson { border-left-color: var(--arc-gold) !important; }
+    body .pass,
+    body .ok,
+    body .good { color: var(--arc-good); }
+    body .fail,
+    body .bad,
+    body .error { color: var(--arc-bad); }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      body *, body *::before, body *::after { transition: none !important; }
+    }
+</style>
 </head>
 <body>
   <div class="wrap">
@@ -60,7 +237,7 @@
         prints results and a verification harness entirely on this page—no network, no libraries.</p>
         <p><strong>How to use it:</strong> Press <em>Run</em> to generate the analysis and optionally
         export the ARC report. The output is organized as <em>Answer</em> (results),
-        <em>Reason why</em> (explanations), and <em>Check</em> (axioms/homomorphisms and sanity tests).</p>
+        <em>Reason</em> (explanations), and <em>Check</em> (axioms/homomorphisms and sanity tests).</p>
         <p class="small">This page is for reproducibility and documentation; it is not a substitute for a group theory text.</p>
       </div>
     </div>
@@ -93,11 +270,11 @@
       <div class="ac-body"><pre id="arc_ans">(no run yet)</pre></div>
     </div>
     <div class="arc-card reason">
-      <div class="ac-head">Reason why</div>
+      <div class="ac-head">Reason</div>
       <div class="ac-body"><pre id="arc_reason">(no run yet)</pre></div>
     </div>
     <div class="arc-card check">
-      <div class="ac-head">Check (harness)</div>
+      <div class="ac-head">Check</div>
       <div class="ac-body"><pre id="arc_check">(no run yet)</pre></div>
     </div>
   </div>
@@ -340,7 +517,7 @@ function run(){
   if(noncomm_pair_S4){ const [a,b]=noncomm_pair_S4; A.push(`Non-abelian witness for S4: a*b ≠ b*a for a=${JSON.stringify(a)}, b=${JSON.stringify(b)}`); }
   if(noncomm_pair_GL){ const [a,b]=noncomm_pair_GL; A.push(`Non-abelian witness for GL(2,5): a*b ≠ b*a for a=${JSON.stringify(a)}, b=${JSON.stringify(b)}`); }
 
-  // Reason why
+  // Reason
   R.push("We model groups directly: a finite set, an operation, identity, and inverses.");
   R.push("Each concrete group implements these and we verify the axioms by computation.");
   R.push("Homomorphisms preserve structure (φ(a*b)=φ(a)·φ(b)); we check this for:");
@@ -349,7 +526,7 @@ function run(){
   R.push("Cauchy’s theorem predicts elements with prime orders dividing |G|; we find examples.");
   R.push("Lagrange’s theorem predicts order(g) | |G|; we confirm this holds for all g in each group.");
 
-  // Check (harness)
+  // Check
   C.push("Axiom checks (associativity exhaustive for small groups; sampled for GL(2,5)):");
   const res_Z12 = check_group_axioms(Z12, {exhaustive_assoc:true});
   C.push(` ${Z12.name()}: ${JSON.stringify(res_Z12)}`);
@@ -380,7 +557,7 @@ function run(){
   document.getElementById("arc_check").textContent = C.join("\n");
 
   // Keep a combined plain-text for copy/export
-  const combined = ["Answer","------", ...A, "", "Reason why","----------", ...R, "", "Check (harness)","---------------", ...C].join("\n");
+  const combined = ["Answer","------", ...A, "", "Reason","----------", ...R, "", "Check","---------------", ...C].join("\n");
   document.getElementById("arc").textContent = combined;
 }
 

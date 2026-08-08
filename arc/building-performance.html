@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <title>Building Performance</title>
   <style>
-    :root { --bg:#f7f9fc; --card:#ffffff; --muted:#5b6b87; --text:#0f172a; --accent:#0ea5e9; --ok:#16a34a; --bad:#dc2626; --border:#e5e7eb; }
+    :root { --bg:#F3F8F7; --card:#FFFDF8; --muted:#537487; --text:#102A3A; --accent:#008EAA; --ok:#147A49; --bad:#B12B32; --border:#D9E2DE; }
     html,body{height:100%;background:var(--bg);color:var(--text);font:15px/1.5 system-ui,-apple-system,Segoe UI,Roboto,Inter,Helvetica,Arial,sans-serif}
     h1{font-weight:700;letter-spacing:.2px;margin:18px 0 6px}
     h2{font-size:13px;color:var(--muted);margin:0 0 8px;letter-spacing:.2px;text-transform:uppercase}
@@ -13,16 +13,193 @@
     .stack{display:grid;grid-template-columns:1fr;gap:14px}
     .card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:14px;box-shadow:0 6px 20px rgba(0,0,0,.04)}
     .row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
-    button{border:0;background:linear-gradient(180deg,#7dd3fc,#38bdf8);color:#052436;padding:10px 14px;border-radius:12px;font-weight:700;cursor:pointer;box-shadow:0 3px 12px rgba(56,189,248,.35)}
-    button.secondary{background:#f3f4f6;color:#111827;border:1px solid var(--border);box-shadow:none}
-    .output{min-height:0;white-space:pre-wrap;background:#fbfdff;border:1px solid var(--border);border-radius:10px;padding:10px;overflow:auto}
+    button{border:0;background:linear-gradient(180deg,#78AFC0,#008EAA);color:#052436;padding:10px 14px;border-radius:12px;font-weight:700;cursor:pointer;box-shadow:0 3px 12px rgba(56,189,248,.35)}
+    button.secondary{background:#f3f4f6;color:#102A3A;border:1px solid var(--border);box-shadow:none}
+    .output{min-height:0;white-space:pre-wrap;background:#F3F8F7;border:1px solid var(--border);border-radius:10px;padding:10px;overflow:auto}
     .output.tall{min-height:160px}
     .muted{color:var(--muted)}
     .tiny{font-size:12px}
-    .diag{font-size:12px;color:#6b7280}
+    .diag{font-size:12px;color:#537487}
     textarea,pre,code,input,button{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,"Courier New",monospace}
-    textarea{width:100%;min-height:0;height:auto;overflow:hidden;resize:none;border-radius:10px;padding:10px;border:1px solid var(--border);background:#fbfdff;color:var(--text);box-sizing:border-box;white-space:pre-wrap}
-  </style>
+    textarea{width:100%;min-height:0;height:auto;overflow:hidden;resize:none;border-radius:10px;padding:10px;border:1px solid var(--border);background:#F3F8F7;color:var(--text);box-sizing:border-box;white-space:pre-wrap}
+
+    /* ARC example theme: shared visual language, kept inline for portability. */
+    :root {
+      color-scheme: light;
+      --arc-bg: #F4F3EA;
+      --arc-surface: #FFFDF8;
+      --arc-soft: #F3F8F7;
+      --arc-ink: #102A3A;
+      --arc-muted: #537487;
+      --arc-line: #D9E2DE;
+      --arc-cyan: #008EAA;
+      --arc-cyan-dark: #0B4F6C;
+      --arc-cyan-soft: #DDF7FB;
+      --arc-gold: #C8A100;
+      --arc-gold-soft: #FFF4BF;
+      --arc-good: #147A49;
+      --arc-good-soft: #ECF9F1;
+      --arc-warn: #966E00;
+      --arc-warn-soft: #FFF8D9;
+      --arc-bad: #B12B32;
+      --arc-bad-soft: #FFF0F0;
+      --arc-shadow: 0 12px 30px rgba(23, 50, 77, 0.08);
+
+      --bg: var(--arc-bg);
+      --paper: var(--arc-bg);
+      --card: var(--arc-surface);
+      --card-bg: var(--arc-surface);
+      --panel: var(--arc-surface);
+      --fg: var(--arc-ink);
+      --ink: var(--arc-ink);
+      --text: var(--arc-ink);
+      --text-main: var(--arc-ink);
+      --sub: var(--arc-muted);
+      --muted: var(--arc-muted);
+      --text-muted: var(--arc-muted);
+      --border: var(--arc-line);
+      --line: var(--arc-line);
+      --soft: var(--arc-line);
+      --accent: var(--arc-cyan-dark);
+      --accent-soft: var(--arc-cyan-soft);
+      --accent2: var(--arc-gold);
+      --accent3: var(--arc-good);
+      --cyan: var(--arc-cyan);
+      --blue: var(--arc-cyan);
+      --indigo: var(--arc-cyan-dark);
+      --chip: var(--arc-cyan-soft);
+      --ring: var(--arc-cyan-soft);
+      --good: var(--arc-good);
+      --ok: var(--arc-good);
+      --ok-soft: var(--arc-good-soft);
+      --danger: var(--arc-bad);
+      --danger-soft: var(--arc-bad-soft);
+      --bad: var(--arc-bad);
+      --fail: var(--arc-bad);
+      --warn: var(--arc-warn);
+      --amber: var(--arc-gold);
+      --gold: var(--arc-gold);
+      --gold-soft: var(--arc-gold-soft);
+      --code: var(--arc-ink);
+      --shadow: var(--arc-shadow);
+      --shadow-sm: var(--arc-shadow);
+    }
+
+    html { color-scheme: light; }
+    body {
+      background:
+        radial-gradient(circle at 100% 0%, rgba(0, 142, 170, 0.10), transparent 28rem),
+        radial-gradient(circle at 0% 0%, rgba(200, 161, 0, 0.08), transparent 24rem),
+        var(--arc-bg) !important;
+      color: var(--arc-ink) !important;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif !important;
+      line-height: 1.55;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+
+    body h1 {
+      color: var(--arc-ink);
+      font-family: Georgia, "Times New Roman", serif;
+      font-weight: 500;
+      letter-spacing: -0.025em;
+      line-height: 1.08;
+    }
+
+    body h2,
+    body h3 { color: var(--arc-ink); }
+    body a { color: var(--arc-cyan-dark); }
+    body :focus-visible { outline: 3px solid rgba(0, 142, 170, 0.28); outline-offset: 2px; }
+
+    body input,
+    body select,
+    body textarea {
+      border-color: var(--arc-line) !important;
+      border-radius: 0.65rem !important;
+      background: var(--arc-surface) !important;
+      color: var(--arc-ink) !important;
+    }
+
+    body button,
+    body .btn {
+      border-color: var(--arc-line);
+      border-radius: 999px !important;
+      box-shadow: none;
+      transition: border-color 160ms ease, color 160ms ease, transform 160ms ease;
+    }
+
+    body button:hover,
+    body .btn:hover {
+      border-color: var(--arc-cyan) !important;
+      transform: translateY(-1px);
+    }
+
+    body pre,
+    body .codebox {
+      border-color: var(--arc-line) !important;
+      border-radius: 0.75rem !important;
+      background: var(--arc-soft) !important;
+      color: var(--arc-ink) !important;
+    }
+
+    body div.card,
+    body section.card,
+    body article.card,
+    body div.panel,
+    body section.panel,
+    body article.panel,
+    body .arc-card,
+    body details {
+      border-color: var(--arc-line) !important;
+      background: var(--arc-surface) !important;
+      box-shadow: var(--arc-shadow);
+    }
+
+    body .head,
+    body .card-head,
+    body .ac-head,
+    body summary {
+      border-color: var(--arc-line) !important;
+      background: var(--arc-soft);
+    }
+
+    body table { border-color: var(--arc-line); }
+    body th { color: var(--arc-muted); }
+    body th,
+    body td { border-color: var(--arc-line) !important; }
+    body tbody tr:hover { background: rgba(221, 247, 251, 0.55); }
+
+    body .pill,
+    body .badge,
+    body .chip {
+      border-color: var(--arc-line) !important;
+      background: var(--arc-cyan-soft);
+      color: var(--arc-cyan-dark);
+    }
+
+    body .arc-card,
+    body .arcbox,
+    body .harness,
+    body .check,
+    body .lesson {
+      border-left-width: 4px !important;
+      border-left-style: solid !important;
+    }
+    body .arc-card.answer, body .arcbox.answer { border-left-color: var(--arc-cyan) !important; }
+    body .arc-card.reason, body .arcbox.reason { border-left-color: var(--arc-good) !important; }
+    body .arc-card.check, body .arcbox.check, body .harness, body .check, body .lesson { border-left-color: var(--arc-gold) !important; }
+    body .pass,
+    body .ok,
+    body .good { color: var(--arc-good); }
+    body .fail,
+    body .bad,
+    body .error { color: var(--arc-bad); }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      body *, body *::before, body *::after { transition: none !important; }
+    }
+</style>
 </head>
 <body>
 <div class="wrap">
@@ -39,7 +216,7 @@
         <li><strong>Data</strong> — buildings, zones, envelope/equipment, observations, tags.</li>
         <li><strong>Policies</strong> — declarative JSON rules (<code>if</code> atoms, optional <code>"not": true</code> ⇒ <code>then</code> atoms).</li>
         <li><strong>Answer</strong> — newly derived facts (keeps strongest priority per building).</li>
-        <li><strong>Reason Why</strong> — mathematical-English derivation snippets.</li>
+        <li><strong>Reason</strong> — mathematical-English derivation snippets.</li>
         <li><strong>Check</strong> — ≥10 JSON assertions over the full fact set.</li>
         <li><strong>Building Performance Summary</strong> — per-building best priority & tasks.</li>
       </ul>
@@ -259,7 +436,7 @@
     </div>
 
     <div class="card">
-      <h2>Reason Why (mathematical English)</h2>
+      <h2>Reason (mathematical English)</h2>
       <div id="reason" class="output tall">(click “Run ARC”)</div>
     </div>
 

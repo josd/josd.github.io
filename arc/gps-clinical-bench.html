@@ -5,34 +5,211 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>GPS Clinical Bench</title>
   <style>
-    :root{--bg:#f7fafc;--panel:#ffffff;--muted:#475569;--text:#0b1220;--accent:#2563eb;--good:#16a34a;--bad:#dc2626;--warn:#d97706;--chip:#eef2f7}
+    :root{--bg:#F3F8F7;--panel:#FFFDF8;--muted:#537487;--text:#102A3A;--accent:#008EAA;--good:#147A49;--bad:#B12B32;--warn:#966E00;--chip:#eef2f7}
     *{box-sizing:border-box} body{margin:0;font:16px/1.5 system-ui,Segoe UI,Roboto,Inter,Helvetica,Arial,sans-serif;background:var(--bg);color:var(--text)}
-    header{padding:24px 20px;border-bottom:1px solid #e5e7eb;background:linear-gradient(180deg,rgba(37,99,235,.08),transparent)}
+    header{padding:24px 20px;border-bottom:1px solid #D9E2DE;background:linear-gradient(180deg,rgba(37,99,235,.08),transparent)}
     h1{margin:0;font-size:24px;letter-spacing:.2px}
     main{display:grid;grid-template-columns:1fr;gap:22px;padding:20px;align-items:start}
-    section{background:var(--panel);border:1px solid #e5e7eb;border-radius:16px;padding:16px;box-shadow:0 10px 30px rgba(0,0,0,.06)}
+    section{background:var(--panel);border:1px solid #D9E2DE;border-radius:16px;padding:16px;box-shadow:0 10px 30px rgba(0,0,0,.06)}
     h2{margin:0 0 10px 0;font-size:18px}
     .row{display:flex;gap:10px;flex-wrap:wrap}
     .grid{display:grid;gap:10px}
-    .pill{display:inline-flex;align-items:center;gap:8px;padding:8px 10px;border-radius:999px;background:#ffffff;border:1px solid #e5e7eb}
+    .pill{display:inline-flex;align-items:center;gap:8px;padding:8px 10px;border-radius:999px;background:#FFFDF8;border:1px solid #D9E2DE}
     .small{font-size:13px;color:var(--muted)}
     .mono{font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;}
     .ok{color:var(--good)} .no{color:var(--bad)} .warn{color:var(--warn)}
     .kvs{display:grid;grid-template-columns:160px 1fr;gap:6px 10px}
-    .log{max-height:260px;overflow:auto;background:#ffffff;border:1px solid #e5e7eb;border-radius:12px;padding:10px}
+    .log{max-height:260px;overflow:auto;background:#FFFDF8;border:1px solid #D9E2DE;border-radius:12px;padding:10px}
     .timeline{display:flex;flex-direction:column;gap:10px}
-    .card{background:#ffffff;border:1px solid #e5e7eb;border-radius:12px;padding:12px}
+    .card{background:#FFFDF8;border:1px solid #D9E2DE;border-radius:12px;padding:12px}
     .muted{color:var(--muted)}
     .split{display:grid;grid-template-columns:1fr auto;gap:10px;align-items:center}
     .btnrow{display:flex;gap:10px;flex-wrap:wrap}
-    button{cursor:pointer;background:var(--accent);color:#fff;border:none;padding:10px 14px;border-radius:12px;font-weight:600}
-    button.ghost{background:#f8fafc;color:var(--text);border:1px solid #dbe2ea}
+    button{cursor:pointer;background:var(--accent);color:#FFFDF8;border:none;padding:10px 14px;border-radius:12px;font-weight:600}
+    button.ghost{background:#F3F8F7;color:var(--text);border:1px solid #D9E2DE}
     pre.wrap{white-space:pre-wrap; overflow-wrap:anywhere; word-break:break-word; overflow-x:hidden; overflow-y:auto}
     /* New: nicer lists for Reason/Checks */
     .list{margin:.25rem 0 .75rem 1.1rem; padding:0}
     .list li{margin:.1rem 0}
     .list.compact li{margin:0}
-  </style>
+
+    /* ARC example theme: shared visual language, kept inline for portability. */
+    :root {
+      color-scheme: light;
+      --arc-bg: #F4F3EA;
+      --arc-surface: #FFFDF8;
+      --arc-soft: #F3F8F7;
+      --arc-ink: #102A3A;
+      --arc-muted: #537487;
+      --arc-line: #D9E2DE;
+      --arc-cyan: #008EAA;
+      --arc-cyan-dark: #0B4F6C;
+      --arc-cyan-soft: #DDF7FB;
+      --arc-gold: #C8A100;
+      --arc-gold-soft: #FFF4BF;
+      --arc-good: #147A49;
+      --arc-good-soft: #ECF9F1;
+      --arc-warn: #966E00;
+      --arc-warn-soft: #FFF8D9;
+      --arc-bad: #B12B32;
+      --arc-bad-soft: #FFF0F0;
+      --arc-shadow: 0 12px 30px rgba(23, 50, 77, 0.08);
+
+      --bg: var(--arc-bg);
+      --paper: var(--arc-bg);
+      --card: var(--arc-surface);
+      --card-bg: var(--arc-surface);
+      --panel: var(--arc-surface);
+      --fg: var(--arc-ink);
+      --ink: var(--arc-ink);
+      --text: var(--arc-ink);
+      --text-main: var(--arc-ink);
+      --sub: var(--arc-muted);
+      --muted: var(--arc-muted);
+      --text-muted: var(--arc-muted);
+      --border: var(--arc-line);
+      --line: var(--arc-line);
+      --soft: var(--arc-line);
+      --accent: var(--arc-cyan-dark);
+      --accent-soft: var(--arc-cyan-soft);
+      --accent2: var(--arc-gold);
+      --accent3: var(--arc-good);
+      --cyan: var(--arc-cyan);
+      --blue: var(--arc-cyan);
+      --indigo: var(--arc-cyan-dark);
+      --chip: var(--arc-cyan-soft);
+      --ring: var(--arc-cyan-soft);
+      --good: var(--arc-good);
+      --ok: var(--arc-good);
+      --ok-soft: var(--arc-good-soft);
+      --danger: var(--arc-bad);
+      --danger-soft: var(--arc-bad-soft);
+      --bad: var(--arc-bad);
+      --fail: var(--arc-bad);
+      --warn: var(--arc-warn);
+      --amber: var(--arc-gold);
+      --gold: var(--arc-gold);
+      --gold-soft: var(--arc-gold-soft);
+      --code: var(--arc-ink);
+      --shadow: var(--arc-shadow);
+      --shadow-sm: var(--arc-shadow);
+    }
+
+    html { color-scheme: light; }
+    body {
+      background:
+        radial-gradient(circle at 100% 0%, rgba(0, 142, 170, 0.10), transparent 28rem),
+        radial-gradient(circle at 0% 0%, rgba(200, 161, 0, 0.08), transparent 24rem),
+        var(--arc-bg) !important;
+      color: var(--arc-ink) !important;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif !important;
+      line-height: 1.55;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+
+    body h1 {
+      color: var(--arc-ink);
+      font-family: Georgia, "Times New Roman", serif;
+      font-weight: 500;
+      letter-spacing: -0.025em;
+      line-height: 1.08;
+    }
+
+    body h2,
+    body h3 { color: var(--arc-ink); }
+    body a { color: var(--arc-cyan-dark); }
+    body :focus-visible { outline: 3px solid rgba(0, 142, 170, 0.28); outline-offset: 2px; }
+
+    body input,
+    body select,
+    body textarea {
+      border-color: var(--arc-line) !important;
+      border-radius: 0.65rem !important;
+      background: var(--arc-surface) !important;
+      color: var(--arc-ink) !important;
+    }
+
+    body button,
+    body .btn {
+      border-color: var(--arc-line);
+      border-radius: 999px !important;
+      box-shadow: none;
+      transition: border-color 160ms ease, color 160ms ease, transform 160ms ease;
+    }
+
+    body button:hover,
+    body .btn:hover {
+      border-color: var(--arc-cyan) !important;
+      transform: translateY(-1px);
+    }
+
+    body pre,
+    body .codebox {
+      border-color: var(--arc-line) !important;
+      border-radius: 0.75rem !important;
+      background: var(--arc-soft) !important;
+      color: var(--arc-ink) !important;
+    }
+
+    body div.card,
+    body section.card,
+    body article.card,
+    body div.panel,
+    body section.panel,
+    body article.panel,
+    body .arc-card,
+    body details {
+      border-color: var(--arc-line) !important;
+      background: var(--arc-surface) !important;
+      box-shadow: var(--arc-shadow);
+    }
+
+    body .head,
+    body .card-head,
+    body .ac-head,
+    body summary {
+      border-color: var(--arc-line) !important;
+      background: var(--arc-soft);
+    }
+
+    body table { border-color: var(--arc-line); }
+    body th { color: var(--arc-muted); }
+    body th,
+    body td { border-color: var(--arc-line) !important; }
+    body tbody tr:hover { background: rgba(221, 247, 251, 0.55); }
+
+    body .pill,
+    body .badge,
+    body .chip {
+      border-color: var(--arc-line) !important;
+      background: var(--arc-cyan-soft);
+      color: var(--arc-cyan-dark);
+    }
+
+    body .arc-card,
+    body .arcbox,
+    body .harness,
+    body .check,
+    body .lesson {
+      border-left-width: 4px !important;
+      border-left-style: solid !important;
+    }
+    body .arc-card.answer, body .arcbox.answer { border-left-color: var(--arc-cyan) !important; }
+    body .arc-card.reason, body .arcbox.reason { border-left-color: var(--arc-good) !important; }
+    body .arc-card.check, body .arcbox.check, body .harness, body .check, body .lesson { border-left-color: var(--arc-gold) !important; }
+    body .pass,
+    body .ok,
+    body .good { color: var(--arc-good); }
+    body .fail,
+    body .bad,
+    body .error { color: var(--arc-bad); }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      body *, body *::before, body *::after { transition: none !important; }
+    }
+</style>
 </head>
 <body>
 <header>
@@ -55,9 +232,9 @@
     <div class="kvs">
       <div class="muted">Answer</div>
       <div id="ans">—</div>
-      <div class="muted">Reason why</div>
+      <div class="muted">Reason</div>
       <div id="why" class="wrap">Data & policies loaded. Click <em>Evaluate</em>.</div>
-      <div class="muted">Check (harness)</div>
+      <div class="muted">Check</div>
       <div id="check" class="wrap">—</div>
     </div>
   </section>
@@ -289,7 +466,7 @@ function runOnce(){
     }
     whyBox.innerHTML = limitsHTML + applicableHTML + explHTML;
 
-    // Checks (harness) — pretty bullet list
+    // Checks — pretty bullet list
     var checksBox = document.getElementById('check');
     var checksItems = [];
     if(oneStepGoals.length===1){
