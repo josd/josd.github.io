@@ -171,6 +171,21 @@ Logic ────┘                   └─ Check</code></pre>
           <pre><code>ARC A ──┐
 ARC B ──┼──→ larger ARC ──→ Answer + Reason + Check
 ARC C ──┘</code></pre>
+          <h3>A concrete example: one checked lunch order</h3>
+          <p>
+            One child ARC calculates how many slices the guests need, another establishes the
+            capacity of a pizza, and a third calculates the gluten-free demand. Their checked
+            answers become inputs to a parent ARC that produces the smallest valid order and then
+            verifies it against the original guest list.
+          </p>
+          <pre><code>Demand ARC ─────── 36 slices ──┐
+Package ARC ── 8 slices/pizza ─┼─→ Order ARC ─→ 5 pizzas: 1 GF + 4 regular
+Dietary ARC ───── 4 GF slices ─┘                  Checks: contracts, capacity, diet, minimality</code></pre>
+          <p>
+            <a href="composition.html"><strong>Run the interactive composition example →</strong></a>
+            Change its inputs, then inject a stale child result to see both the local and
+            end-to-end checks fail visibly.
+          </p>
           <p>
             The larger ARC does not merely collect results. It checks whether those results compose
             into a correct answer to the larger question.

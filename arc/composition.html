@@ -1,0 +1,395 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="An interactive example of small checked ARCs composing into one larger checked ARC." />
+    <title>ARC Composition — A checked lunch order</title>
+    <style>
+      :root {
+        color-scheme: light;
+        --ink: #13201c;
+        --muted: #5d6b66;
+        --line: #d9e2de;
+        --paper: #f5f8f6;
+        --card: #ffffff;
+        --cyan: #087f8c;
+        --cyan-soft: #e9f8f9;
+        --gold: #966e00;
+        --gold-soft: #fff8d9;
+        --good: #147a49;
+        --good-soft: #ecf9f1;
+        --bad: #b12b32;
+        --bad-soft: #fff0f0;
+        --shadow: 0 14px 38px rgba(20, 49, 40, 0.08);
+        --sans: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      }
+
+      * { box-sizing: border-box; }
+
+      body {
+        margin: 0;
+        background:
+          radial-gradient(circle at 15% 8%, rgba(0, 218, 238, 0.11), transparent 28rem),
+          radial-gradient(circle at 88% 15%, rgba(255, 218, 0, 0.12), transparent 30rem),
+          var(--paper);
+        color: var(--ink);
+        font: 15px/1.55 var(--sans);
+      }
+
+      button, input { font: inherit; }
+
+      .wrap {
+        width: min(1120px, calc(100% - 2rem));
+        margin: 0 auto;
+        padding: 2.2rem 0 4rem;
+      }
+
+      .topline {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+        margin-bottom: 2.5rem;
+      }
+
+      .back { color: var(--cyan); text-decoration: none; }
+      .back:hover { text-decoration: underline; }
+
+      .pill {
+        padding: 0.35rem 0.7rem;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.72);
+        color: var(--muted);
+        font-size: 0.8rem;
+      }
+
+      .intro { max-width: 770px; margin-bottom: 2rem; }
+      .eyebrow { margin: 0 0 0.45rem; color: var(--cyan); font-weight: 750; letter-spacing: 0.12em; text-transform: uppercase; }
+      h1 { margin: 0; font-size: clamp(2.2rem, 7vw, 4.7rem); line-height: 0.98; letter-spacing: -0.05em; }
+      .lede { margin: 1rem 0 0; color: var(--muted); font-size: clamp(1rem, 2vw, 1.18rem); }
+
+      .controls {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 0.75rem;
+        padding: 1rem;
+        border: 1px solid var(--line);
+        border-radius: 1rem;
+        background: rgba(255, 255, 255, 0.72);
+        box-shadow: var(--shadow);
+      }
+
+      label { display: grid; gap: 0.35rem; color: var(--muted); font-size: 0.78rem; font-weight: 700; }
+      input {
+        width: 100%;
+        padding: 0.65rem 0.7rem;
+        border: 1px solid var(--line);
+        border-radius: 0.65rem;
+        background: var(--card);
+        color: var(--ink);
+      }
+
+      .actions { display: flex; flex-wrap: wrap; gap: 0.65rem; margin: 0.85rem 0 2.25rem; }
+      button {
+        cursor: pointer;
+        padding: 0.62rem 0.9rem;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        background: var(--card);
+        color: var(--ink);
+      }
+      button:hover { border-color: var(--cyan); }
+      button.primary { border-color: var(--cyan); background: var(--cyan); color: white; }
+      button.danger { border-color: #edb8bb; color: var(--bad); }
+      button[aria-pressed="true"] { background: var(--bad-soft); box-shadow: inset 0 0 0 1px var(--bad); }
+
+      .flow-label {
+        display: flex;
+        align-items: center;
+        gap: 0.8rem;
+        margin: 0 0 0.8rem;
+        color: var(--muted);
+        font-size: 0.78rem;
+        font-weight: 800;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+      }
+      .flow-label::after { content: ""; flex: 1; border-top: 1px solid var(--line); }
+
+      .children { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem; }
+      .arc-card {
+        position: relative;
+        overflow: hidden;
+        border: 1px solid var(--line);
+        border-radius: 1rem;
+        background: var(--card);
+        box-shadow: var(--shadow);
+      }
+      .arc-card::before { content: ""; position: absolute; inset: 0 auto 0 0; width: 4px; background: var(--cyan); }
+      .arc-card.parent::before { background: linear-gradient(var(--cyan), #c9b100); }
+      .card-head { display: flex; justify-content: space-between; gap: 0.75rem; padding: 0.8rem 1rem; border-bottom: 1px solid var(--line); background: #fbfdfc; }
+      .card-kicker { color: var(--cyan); font-size: 0.72rem; font-weight: 850; letter-spacing: 0.09em; text-transform: uppercase; }
+      .status { align-self: flex-start; padding: 0.22rem 0.48rem; border-radius: 999px; font: 750 0.7rem/1 var(--sans); }
+      .status.pass { background: var(--good-soft); color: var(--good); }
+      .status.fail { background: var(--bad-soft); color: var(--bad); }
+      .card-body { padding: 1rem; }
+      .question { min-height: 2.7em; margin: 0 0 0.8rem; font-weight: 700; }
+      .answer { margin: 0 0 1rem; color: var(--cyan); font-size: clamp(1.55rem, 4vw, 2.15rem); font-weight: 800; letter-spacing: -0.04em; }
+      dl { display: grid; grid-template-columns: auto 1fr; gap: 0.45rem 0.65rem; margin: 0; font-size: 0.82rem; }
+      dt { color: var(--muted); font-weight: 750; }
+      dd { margin: 0; }
+      code { font-family: var(--mono); font-size: 0.78rem; }
+
+      .join {
+        display: grid;
+        place-items: center;
+        height: 5.2rem;
+        color: var(--cyan);
+      }
+      .join svg { width: min(630px, 82%); height: 100%; overflow: visible; }
+
+      .parent { max-width: 760px; margin: 0 auto; border-color: #cbd9d4; }
+      .parent .card-head { background: linear-gradient(90deg, var(--cyan-soft), var(--gold-soft)); }
+      .parent .answer { color: var(--ink); }
+      .checks { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.55rem; margin-top: 1rem; }
+      .check-item { padding: 0.65rem; border-radius: 0.7rem; background: var(--good-soft); color: var(--good); font-size: 0.78rem; font-weight: 700; }
+      .check-item.fail { background: var(--bad-soft); color: var(--bad); }
+
+      .lesson {
+        max-width: 760px;
+        margin: 1.25rem auto 0;
+        padding: 1rem 1.1rem;
+        border-left: 4px solid var(--gold);
+        background: var(--gold-soft);
+        color: #5e4b0c;
+      }
+      .lesson strong { color: var(--ink); }
+
+      @media (max-width: 760px) {
+        .controls { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+        .children { grid-template-columns: 1fr; }
+        .question { min-height: 0; }
+        .join { height: 3.5rem; }
+        .join svg { width: 80px; }
+        .join .side-line { display: none; }
+        .checks { grid-template-columns: 1fr; }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="wrap">
+      <div class="topline">
+        <a class="back" href="index.html#composition">← ARC composition</a>
+        <span class="pill">Self-contained · No dependencies</span>
+      </div>
+
+      <header class="intro">
+        <p class="eyebrow">Worked composition</p>
+        <h1>A checked lunch order</h1>
+        <p class="lede">
+          Three small ARCs answer bounded questions. Their checked outputs become data for a larger
+          ARC that decides what to order—and checks the whole composition against the original need.
+        </p>
+      </header>
+
+      <section aria-labelledby="inputs-title">
+        <h2 id="inputs-title" class="flow-label">Inputs</h2>
+        <div class="controls">
+          <label>Guests <input id="guests" type="number" min="1" max="200" value="18" /></label>
+          <label>Slices per guest <input id="perGuest" type="number" min="1" max="12" value="2" /></label>
+          <label>Slices per pizza <input id="perPizza" type="number" min="1" max="32" value="8" /></label>
+          <label>Gluten-free guests <input id="gfGuests" type="number" min="0" max="200" value="2" /></label>
+        </div>
+        <div class="actions">
+          <button class="primary" id="run" type="button">Recompose</button>
+          <button class="danger" id="stale" type="button" aria-pressed="false">Inject stale child result</button>
+          <button id="reset" type="button">Reset example</button>
+        </div>
+      </section>
+
+      <section aria-labelledby="children-title">
+        <h2 id="children-title" class="flow-label">Three focused child ARCs</h2>
+        <div class="children">
+          <article class="arc-card">
+            <div class="card-head"><span class="card-kicker">ARC A · Demand</span><span id="demandStatus" class="status pass">Check passes</span></div>
+            <div class="card-body">
+              <p class="question">How many slices do all guests need?</p>
+              <p id="demandAnswer" class="answer">36 slices</p>
+              <dl>
+                <dt>Reason</dt><dd id="demandReason"><code>18 × 2 = 36</code></dd>
+                <dt>Check</dt><dd id="demandCheck">The attendee allocation also totals 36.</dd>
+                <dt>Output</dt><dd><strong>slice demand → parent data</strong></dd>
+              </dl>
+            </div>
+          </article>
+
+          <article class="arc-card">
+            <div class="card-head"><span class="card-kicker">ARC B · Package</span><span id="packageStatus" class="status pass">Check passes</span></div>
+            <div class="card-body">
+              <p class="question">How many slices does one pizza provide?</p>
+              <p id="packageAnswer" class="answer">8 slices</p>
+              <dl>
+                <dt>Reason</dt><dd>The selected menu item is cut into equal slices.</dd>
+                <dt>Check</dt><dd id="packageCheck">Capacity is a positive whole number.</dd>
+                <dt>Output</dt><dd><strong>pizza capacity → parent data</strong></dd>
+              </dl>
+            </div>
+          </article>
+
+          <article class="arc-card">
+            <div class="card-head"><span class="card-kicker">ARC C · Dietary</span><span id="gfStatus" class="status pass">Check passes</span></div>
+            <div class="card-body">
+              <p class="question">How many slices must be gluten-free?</p>
+              <p id="gfAnswer" class="answer">4 GF slices</p>
+              <dl>
+                <dt>Reason</dt><dd id="gfReason"><code>2 × 2 = 4</code></dd>
+                <dt>Check</dt><dd id="gfCheck">GF guests are a subset of all guests.</dd>
+                <dt>Output</dt><dd><strong>GF demand → parent data</strong></dd>
+              </dl>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <div class="join" aria-hidden="true">
+        <svg viewBox="0 0 630 90" fill="none">
+          <path class="side-line" d="M15 5v18c0 16 13 29 29 29h271" stroke="currentColor" stroke-width="2" />
+          <path d="M315 5v70" stroke="currentColor" stroke-width="2" />
+          <path class="side-line" d="M615 5v18c0 16-13 29-29 29H315" stroke="currentColor" stroke-width="2" />
+          <path d="m306 67 9 10 9-10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+      </div>
+
+      <section aria-labelledby="parent-title">
+        <h2 id="parent-title" class="flow-label">Larger composed ARC</h2>
+        <article class="arc-card parent" aria-live="polite">
+          <div class="card-head"><span class="card-kicker">Parent ARC · Order</span><span id="parentStatus" class="status pass">4/4 checks pass</span></div>
+          <div class="card-body">
+            <p class="question">What is the smallest lunch order that covers everyone?</p>
+            <p id="parentAnswer" class="answer">Order 5 pizzas: 1 gluten-free + 4 regular.</p>
+            <dl>
+              <dt>Reason</dt><dd id="parentReason">The three checked child answers determine demand, package capacity, and dietary allocation.</dd>
+              <dt>Checks</dt><dd>The parent runs four separate checks against both the child contracts and the original inputs.</dd>
+            </dl>
+            <div class="checks">
+              <div id="childContractCheck" class="check-item">3/3 child contracts valid</div>
+              <div id="capacityCheck" class="check-item">40 slices ≥ 36 needed</div>
+              <div id="gfCapacityCheck" class="check-item">8 GF slices ≥ 4 needed</div>
+              <div id="minimalCheck" class="check-item">4 pizzas would be too few</div>
+            </div>
+          </div>
+        </article>
+        <p id="lesson" class="lesson">
+          <strong>Why this is composition:</strong> each child owns one question and check; the parent
+          consumes only their explicit outputs, then verifies the combined result end to end.
+        </p>
+      </section>
+    </main>
+
+    <script>
+      const ids = ["guests", "perGuest", "perPizza", "gfGuests"];
+      let staleDemand = false;
+
+      const byId = (id) => document.getElementById(id);
+      const value = (id) => Math.max(0, Math.trunc(Number(byId(id).value) || 0));
+      const setStatus = (id, pass, passText = "Check passes", failText = "Check fails") => {
+        const element = byId(id);
+        element.className = `status ${pass ? "pass" : "fail"}`;
+        element.textContent = pass ? passText : failText;
+      };
+      const setCheck = (id, pass, text) => {
+        const element = byId(id);
+        element.className = `check-item${pass ? "" : " fail"}`;
+        element.textContent = text;
+      };
+
+      function compose() {
+        const guests = Math.max(1, value("guests"));
+        const perGuest = Math.max(1, value("perGuest"));
+        const perPizza = Math.max(1, value("perPizza"));
+        const gfGuests = value("gfGuests");
+        const actualDemand = guests * perGuest;
+        const demandOutput = staleDemand ? Math.max(0, actualDemand - perPizza) : actualDemand;
+        const gfDemand = gfGuests * perGuest;
+
+        const demandPass = demandOutput === actualDemand;
+        const packagePass = Number.isInteger(perPizza) && perPizza > 0;
+        const gfPass = gfGuests <= guests;
+
+        byId("demandAnswer").textContent = `${demandOutput} slices${staleDemand ? " (stale)" : ""}`;
+        byId("demandReason").innerHTML = staleDemand
+          ? `<code>cached value = ${demandOutput}</code>`
+          : `<code>${guests} × ${perGuest} = ${actualDemand}</code>`;
+        byId("demandCheck").textContent = demandPass
+          ? `The attendee allocation independently totals ${actualDemand}.`
+          : `Current attendees require ${actualDemand}, not ${demandOutput}.`;
+        setStatus("demandStatus", demandPass);
+
+        byId("packageAnswer").textContent = `${perPizza} slices`;
+        byId("packageCheck").textContent = packagePass
+          ? "Capacity is a positive whole number."
+          : "Pizza capacity must be a positive whole number.";
+        setStatus("packageStatus", packagePass);
+
+        byId("gfAnswer").textContent = `${gfDemand} GF slices`;
+        byId("gfReason").innerHTML = `<code>${gfGuests} × ${perGuest} = ${gfDemand}</code>`;
+        byId("gfCheck").textContent = gfPass
+          ? `${gfGuests} GF guest${gfGuests === 1 ? " is" : "s are"} within the ${guests}-guest list.`
+          : `${gfGuests} GF guests cannot be a subset of only ${guests} guests.`;
+        setStatus("gfStatus", gfPass);
+
+        const gfPizzas = Math.ceil(gfDemand / perPizza);
+        const totalPizzas = Math.max(Math.ceil(demandOutput / perPizza), gfPizzas);
+        const regularPizzas = Math.max(0, totalPizzas - gfPizzas);
+        const totalCapacity = totalPizzas * perPizza;
+        const gfCapacity = gfPizzas * perPizza;
+        const actualMinimum = Math.ceil(actualDemand / perPizza);
+
+        const capacityPass = totalCapacity >= actualDemand;
+        const gfCapacityPass = gfCapacity >= gfDemand;
+        const minimalPass = totalPizzas === Math.max(actualMinimum, gfPizzas);
+        const childContractsPass = demandPass && packagePass && gfPass;
+        const parentPass = childContractsPass && capacityPass && gfCapacityPass && minimalPass;
+        const passingChecks = [childContractsPass, capacityPass, gfCapacityPass, minimalPass].filter(Boolean).length;
+
+        byId("parentAnswer").textContent = parentPass
+          ? `Order ${totalPizzas} pizza${totalPizzas === 1 ? "" : "s"}: ${gfPizzas} gluten-free + ${regularPizzas} regular.`
+          : "Composition rejected—do not place this order.";
+        byId("parentReason").textContent = parentPass
+          ? `${demandOutput} slices ÷ ${perPizza} per pizza requires ${totalPizzas}; ${gfDemand} GF slices require ${gfPizzas} GF pizza${gfPizzas === 1 ? "" : "s"}.`
+          : "At least one child contract or end-to-end constraint is broken, so the parent refuses the composed result.";
+        setStatus("parentStatus", parentPass, "4/4 checks pass", `${passingChecks}/4 checks pass`);
+
+        setCheck("childContractCheck", childContractsPass, `${[demandPass, packagePass, gfPass].filter(Boolean).length}/3 child contracts valid`);
+        setCheck("capacityCheck", capacityPass, `${totalCapacity} slices ${capacityPass ? "≥" : "<"} ${actualDemand} actually needed`);
+        setCheck("gfCapacityCheck", gfCapacityPass, `${gfCapacity} GF slices ${gfCapacityPass ? "≥" : "<"} ${gfDemand} needed`);
+        setCheck("minimalCheck", minimalPass, minimalPass ? `${Math.max(0, totalPizzas - 1)} pizzas would be too few` : `${totalPizzas} is not the true minimum of ${Math.max(actualMinimum, gfPizzas)}`);
+
+        byId("lesson").innerHTML = parentPass
+          ? "<strong>Why this is composition:</strong> each child owns one question and check; the parent consumes only their explicit outputs, then verifies the combined result end to end."
+          : `<strong>Failure stayed bounded and visible:</strong> ARC A supplied ${demandOutput} stale slices, its own check found ${actualDemand}, and the parent independently found that ${totalCapacity} slices cannot satisfy the current guests.`;
+      }
+
+      byId("run").addEventListener("click", compose);
+      byId("stale").addEventListener("click", () => {
+        staleDemand = !staleDemand;
+        byId("stale").setAttribute("aria-pressed", String(staleDemand));
+        byId("stale").textContent = staleDemand ? "Remove stale child result" : "Inject stale child result";
+        compose();
+      });
+      byId("reset").addEventListener("click", () => {
+        const defaults = { guests: 18, perGuest: 2, perPizza: 8, gfGuests: 2 };
+        ids.forEach((id) => { byId(id).value = defaults[id]; });
+        staleDemand = false;
+        byId("stale").setAttribute("aria-pressed", "false");
+        byId("stale").textContent = "Inject stale child result";
+        compose();
+      });
+      ids.forEach((id) => byId(id).addEventListener("input", compose));
+      compose();
+    </script>
+  </body>
+</html>
