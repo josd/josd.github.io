@@ -91,8 +91,9 @@
   </g>
   <path d="M602 603h730" stroke="url(#baseline)" stroke-width="3" filter="url(#small-glow)"/>
 
-  <g font-family="DejaVu Sans, Arial, sans-serif">
-    <text x="607" y="647" fill="#F5F8E9" font-size="24" font-weight="600" letter-spacing="8.5">ANSWER  ·  REASON  ·  CHECK</text>
-    <text x="609" y="684" fill="#C3D0C9" font-size="18" font-weight="400" letter-spacing="2.1">TRUSTED ANSWERS THROUGH EXPLAINABLE REASONING</text>
+  <g fill="#F5F8E9" font-family="DejaVu Sans, Arial, sans-serif" font-size="24" font-weight="600" letter-spacing="5" text-anchor="middle">
+    <text x="699" y="665">ANSWER</text>
+    <text x="904" y="665">REASON</text>
+    <text x="1112" y="665">CHECK</text>
   </g>
 </svg>
