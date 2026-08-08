@@ -788,14 +788,56 @@ main {
   font-weight: 400;
 }
 
+.arc-hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+  margin-top: 1.35rem;
+}
+
+.arc-action {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2.45rem;
+  padding: 0.55rem 0.9rem;
+  border: 1px solid var(--rule);
+  border-radius: 999px;
+  color: var(--ink);
+  font-size: 0.78rem;
+  font-weight: 600;
+  transition: border-color 180ms ease, color 180ms ease, transform 180ms ease;
+}
+
+.arc-action:hover {
+  border-color: var(--accent-2);
+  color: var(--accent-2);
+  transform: translateY(-1px);
+}
+
+.arc-action-primary {
+  border-color: var(--ink);
+  background: var(--ink);
+  color: white;
+}
+
+.arc-action-primary:hover {
+  border-color: var(--accent-2);
+  background: var(--accent-2);
+  color: white;
+}
+
 .arc-banner {
   margin: 0;
   width: 100%;
   padding: clamp(0.3rem, 1vw, 0.55rem);
-  border: 1px solid rgba(255, 255, 255, 0.72);
+  border: 1px solid rgba(116, 160, 149, 0.28);
   border-radius: clamp(0.8rem, 2vw, 1.35rem);
-  background: rgba(255, 255, 255, 0.46);
-  box-shadow: var(--shadow);
+  background:
+    radial-gradient(circle at 26% 50%, rgba(0, 223, 242, 0.12), transparent 34%),
+    radial-gradient(circle at 76% 48%, rgba(255, 225, 0, 0.1), transparent 40%),
+    linear-gradient(135deg, #152421, #29302d 56%, #202724);
+  box-shadow: 0 18px 42px rgba(20, 42, 36, 0.16);
 }
 
 .arc-banner img {
