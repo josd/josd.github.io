@@ -2,6 +2,8 @@
 sudo ln -sf /opt/eye/bin/eye /usr/local/bin
 sudo ln -sf ~/eyesvn/2006/02swap/mksf /usr/local/bin
 sudo ln -sf ~/git/phochste/juliett/bin/juliett /usr/local/bin
+sudo ln -sf ~/git/phochste/romeo/bin/romeo /usr/local/bin
+sudo ln -sf ~/git/phochste/tybalt/src/cli.js /usr/local/bin/tybalt
 sudo ln -sf ~/github.com/KNowledgeOnWebScale/brow/brow /usr/local/bin
 sudo ln -sf ~/github.com/KNowledgeOnWebScale/retina/mkretina /usr/local/bin
 sudo ln -sf ~/github.com/KNowledgeOnWebScale/retina/retina /usr/local/bin
@@ -59,6 +61,7 @@ sudo ln -sf ~/github.com/josd/josd.github.io/temp/p /usr/local/bin
 sudo ln -sf ~/github.com/josd/josd.github.io/temp/pn /usr/local/bin
 sudo ln -sf ~/github.com/josd/josd.github.io/temp/rdfn3s2s /usr/local/bin
 sudo ln -sf ~/github.com/josd/josd.github.io/temp/release /usr/local/bin
+sudo ln -sf ~/github.com/josd/josd.github.io/temp/release-rs /usr/local/bin
 sudo ln -sf ~/github.com/josd/josd.github.io/temp/rsa /usr/local/bin
 sudo ln -sf ~/github.com/josd/josd.github.io/temp/rsu /usr/local/bin
 sudo ln -sf ~/github.com/josd/josd.github.io/temp/si /usr/local/bin
