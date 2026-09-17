@@ -1,0 +1,2 @@
+#!/bin/bash
+tpl -g "use_module(library(quads)), run_quads_halt" "$@"

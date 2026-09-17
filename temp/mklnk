@@ -17,6 +17,7 @@ sudo ln -sf ~/github.com/eyereasoner/eyelet/eyelet-trealla /usr/local/bin
 sudo ln -sf ~/github.com/eyereasoner/eyelet/mkeyelet /usr/local/bin
 sudo ln -sf ~/github.com/eyereasoner/eyeleng/eyeleng.js /usr/local/bin/eyeleng
 sudo ln -sf ~/github.com/eyereasoner/eyeling/bin/eyeling.cjs /usr/local/bin/eyeling
+sudo ln -sf ~/github.com/eyereasoner/eyeprolog/bin/eyelit.js /usr/local/bin/eyelit
 sudo ln -sf ~/github.com/eyereasoner/eyeprolog/bin/eyeprolog.js /usr/local/bin/eyeprolog
 sudo ln -sf ~/github.com/eyereasoner/eyeron/target/release/eyeron /usr/local/bin
 sudo ln -sf ~/github.com/eyereasoner/lingua/lingua /usr/local/bin
@@ -66,6 +67,7 @@ sudo ln -sf ~/github.com/josd/josd.github.io/temp/si /usr/local/bin
 sudo ln -sf ~/github.com/josd/josd.github.io/temp/swipljs /usr/local/bin
 sudo ln -sf ~/github.com/josd/josd.github.io/temp/taupl /usr/local/bin
 sudo ln -sf ~/github.com/josd/josd.github.io/temp/tension /usr/local/bin
+sudo ln -sf ~/github.com/josd/josd.github.io/temp/tplq /usr/local/bin
 sudo ln -sf ~/github.com/josd/josd.github.io/temp/u /usr/local/bin
 sudo ln -sf ~/github.com/josd/josd.github.io/temp/update-go /usr/local/bin
 sudo ln -sf ~/github.com/mthom/scryer-prolog/target/release/scryer-prolog /usr/local/bin
