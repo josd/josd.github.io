@@ -11,7 +11,7 @@ sudo ln -sf ~/github.com/KNowledgeOnWebScale/retina/retinae /usr/local/bin
 sudo ln -sf ~/github.com/eyereasoner/eye/eyering /usr/local/bin
 sudo ln -sf ~/github.com/eyereasoner/eye/mkeye /usr/local/bin
 sudo ln -sf ~/github.com/eyereasoner/eye/proofcheck /usr/local/bin
-sudo ln -sf ~/github.com/eyereasoner/eyelang/bin/eyelang.js /usr/local/bin/eyelang
+sudo ln -sf ~/github.com/eyereasoner/eyel/bin/eyel.js /usr/local/bin/eyel
 sudo ln -sf ~/github.com/eyereasoner/eyelet/eyelet-swipl /usr/local/bin
 sudo ln -sf ~/github.com/eyereasoner/eyelet/eyelet-scryer /usr/local/bin
 sudo ln -sf ~/github.com/eyereasoner/eyelet/eyelet-trealla /usr/local/bin
