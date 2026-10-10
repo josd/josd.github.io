@@ -586,7 +586,7 @@ rm -rf ~/.local/share/jupyter/runtime/*
 pip install --upgrade ipykernel
 ----
 pip install -U --no-cache-dir peye
-python -m unittest discover -s tests --durations 10
+
 
 # unicode ⇑ € © ∀ ∃ ⊥
 # https://en.wikipedia.org/wiki/Emoji#In_Unicode ✍️ 👍 😊 😉 😎 😂 😆 😇 😛 😱 🤷 🙏 🚴 🙈 🙉 🙊
