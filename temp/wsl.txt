@@ -27,6 +27,21 @@ sudo crontab -e
 netsh wlan show profiles
 netsh wlan show profile name="deroo" key=clear
 
-PS C:\Users\josde> cat .wslconfig
+wsl --update
+
+$languages = Get-WinUserLanguageList
+$belgian = $languages | Where-Object LanguageTag -eq 'nl-BE'
+
+if ($belgian.InputMethodTips -notcontains '0813:0000080C') {
+    $belgian.InputMethodTips.Add('0813:0000080C')
+}
+
+Set-WinUserLanguageList $languages -Force
+Set-WinDefaultInputMethodOverride -InputTip '0813:0000080C'
+
+notepad .wslconfig"
 [wsl2]
 memory=6GB
+
+[wsl2]
+dnsTunneling=true
