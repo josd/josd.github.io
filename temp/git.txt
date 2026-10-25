@@ -136,6 +136,14 @@ git reset --hard origin/main
 
 curl -H "Accept: application/vnd.github.v3+json" https://api.github.com/repos/josd/treadle/stargazers
 
+cd ../eyelight
+git add -A
+git commit -m "Initial eyelight engine with C1–C9 proof reports"
+gh repo create eyereasoner/eyelight \
+  --public \
+  --description "A small relational reasoner with checkable proofs" \
+  --source=. --remote=origin --push
+
 
 GH_BROWSER=/bin/echo BROWSER=/bin/echo gh auth login --web
 https://github.com/login/device
