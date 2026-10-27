@@ -1,5 +1,5 @@
 #!/bin/bash
-pushd ~/github.com/mthom/scryer-prolog > /dev/null
+pushd ~/codeberg.org/mthom/scryer-prolog > /dev/null
 git pull
 cargo build --release
 #cargo test --release
