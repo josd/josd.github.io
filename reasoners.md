@@ -13,6 +13,7 @@
 | [eyeon](https://github.com/eyereasoner/eyeon) | JavaScript | Prolog subset; checkable proofs |
 | [EyeProlog](https://github.com/eyereasoner/eyeprolog) | JavaScript | ISO Prolog; RDF 1.2 interchange |
 | [Eyeron](https://github.com/eyereasoner/eyeron) | Rust/WebAssembly | N3 |
+| [Eyes](https://github.com/eyereasoner/eyes) | Rust/WebAssembly | Eye; independently checkable proofs |
 | [FuXi](https://github.com/chimezie/FuXi-reincarnate) | Python | N3 Horn rules; RIF Core/PRD; OWL-DLP |
 | [jen3](https://github.com/william-vw/jen3) | Java | N3 |
 | [juliett](https://patrickhochstenbach.net/git/phochste/juliett) | Go/WebAssembly + Z3 | N3; RDF Surfaces; FOL/SMT backends |
