@@ -11,6 +11,7 @@
 | [Eyeleng](https://github.com/eyereasoner/eyeleng) | JavaScript | SPARQL 1.2 RL (SRL) |
 | [Eyeling](https://github.com/eyereasoner/eyeling) | JavaScript | N3 |
 | [eyeon](https://github.com/eyereasoner/eyeon) | JavaScript | Prolog subset; checkable proofs |
+| [eyepl](https://github.com/eyereasoner/eyepl) | Rust/WebAssembly | Prolog subset with tabling; checkable proofs |
 | [EyeProlog](https://github.com/eyereasoner/eyeprolog) | JavaScript | ISO Prolog; RDF 1.2 interchange |
 | [Eyeron](https://github.com/eyereasoner/eyeron) | Rust/WebAssembly | N3 |
 | [Eyes](https://github.com/eyereasoner/eyes) | Rust/WebAssembly | Eye; independently checkable proofs |
@@ -30,4 +31,3 @@
 | [rs2fol](https://github.com/RebekkaMa/rs2fol) | Kotlin/JVM + external FOL prover | RDF Surfaces; first-order logic (TPTP) |
 | [Tension](https://github.com/jvherweg/tension.js) | TypeScript/JavaScript | RDF Surfaces; selected N3 built-ins |
 | [VLog](https://github.com/karmaresearch/vlog) | C++ | Datalog; Horn existential rules |
-| [wheye](https://github.com/eyereasoner/wheye) | Rust/WebAssembly | Prolog subset with tabling; checkable proofs |
