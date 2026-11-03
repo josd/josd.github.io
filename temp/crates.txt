@@ -1,0 +1,15 @@
+Your workflow already supports trusted publishing. It has id-token: write permission and an authentication step using rust-lang/crates-io-auth-action@v1, which runs only when no token secret is set. So you need one setting on crates.io, then delete the secret. Exact menu names may differ slightly from what I describe.
+
+1. Register the workflow on crates.io
+
+1. Sign in at https://crates.io and open https://crates.io/crates/eyepl/settings. You need to be an owner of the crate, which you are because your token published it.
+2. Under Trusted Publishing, add a new configuration for GitHub and fill in:
+
+| Field             | Value                                                                    |
+|-------------------|--------------------------------------------------------------------------|
+| Repository owner  | eyereasoner                                                              |
+| Repository name   | eyepl                                                                    |
+| Workflow filename | publish-crates.yml (the file name only, not the .github/workflows/ path) |
+| Environment       | leave empty, because the workflow doesn't use a GitHub environment       |
+
+3. Save it.
