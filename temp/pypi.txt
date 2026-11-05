@@ -1,0 +1,11 @@
+1. Register a pending trusted publisher. On pypi.org, go to Your account → Publishing → Add a new pending publisher and enter:
+   - PyPI project name: eyekind
+   - Owner: eyereasoner
+   - Repository name: eyekind
+   - Workflow name: publish-pypi.yml
+   - Environment name: pypi
+2. Check the GitHub environment. Make sure the repository still has its pypi environment (Settings → Environments). Renaming a repository normally keeps it.
+3. Release. The first tag push publishes and creates eyekind on PyPI, for example ./release minor "Rename peye to eyekind" for 0.5.0.
+4. Retire peye. Its trusted publisher points at the old repository name, so it won't publish again from this repository.
+   - In peye's settings on PyPI, update its description to point to eyekind and use Archive project. Existing installs keep working, and users see it's unmaintained.
+   - Optionally, first publish one last peye release that just depends on eyekind and says so. This needs a separate small package.
