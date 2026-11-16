@@ -1,5 +1,6 @@
 #!/bin/bash
 sudo ln -sf /opt/eye/bin/eye /usr/local/bin
+sudo ln -sf ~/codeberg.org/mthom/scryer-prolog/target/release/scryer-prolog /usr/local/bin
 sudo ln -sf ~/eyesvn/2006/02swap/mksf /usr/local/bin
 sudo ln -sf ~/git/phochste/juliett/bin/juliett /usr/local/bin
 sudo ln -sf ~/git/phochste/romeo/bin/romeo /usr/local/bin
@@ -75,7 +76,6 @@ sudo ln -sf ~/github.com/josd/josd.github.io/temp/tension /usr/local/bin
 sudo ln -sf ~/github.com/josd/josd.github.io/temp/tplq /usr/local/bin
 sudo ln -sf ~/github.com/josd/josd.github.io/temp/u /usr/local/bin
 sudo ln -sf ~/github.com/josd/josd.github.io/temp/update-go /usr/local/bin
-sudo ln -sf ~/codeberg.org/mthom/scryer-prolog/target/release/scryer-prolog /usr/local/bin
 sudo ln -sf ~/github.com/trealla-prolog/trealla/tpl /usr/local/bin
 sudo ln -sf ~/temp/apache-jena-5.3.0/bin/arq /usr/local/bin
 sudo ln -sf ~/temp/apache-jena-5.3.0/bin/riot /usr/local/bin
